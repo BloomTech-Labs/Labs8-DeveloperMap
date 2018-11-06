@@ -1,8 +1,8 @@
 const express = require('express');
 const server = express();
-const firebaseRouters = require('./routers/firebaseRouters.js');
+const usersRouters = require('./users/usersRouters.js');
 
 server.use(express.json());
-server.use('/api/database', firebaseRouters);
+server.use('/api/database', usersRouters);
 
 module.exports = server;
