@@ -79,10 +79,35 @@ router.put('/employer/:uid', (req, res) => {
     });
 });
 
-// router.post('/', (req, res) => {
-//   const {email, phoneNumber, location, employer, uid}
-//   rootRef.child('users/')
+//add Link
+
+// router.put('/links/:uid', (req,res) => {
+//   const {uid} = req.params;
+//   const keys = Object.keys(req.body) ;
+
+//   const updateObject = {
+//     [`users/${uid}/employer`]: employer,
+//   };
+//   rootRef
+//     .update(updateObject)
+//     .then(() => {
+//       res.json('employer status updated');
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
 // })
+
+//Delete Users
+router.delete('/:uid', (req, res) => {
+  const { uid } = req.params;
+  rootRef
+    .child('users/' + uid)
+    .remove()
+    .then(() => {
+      res.json('user deleted');
+    });
+});
 
 router.get('/', (req, res) => {});
 
