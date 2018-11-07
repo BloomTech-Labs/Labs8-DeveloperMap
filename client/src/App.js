@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import './App.css';
+import LandingPage from './components/LandingPage/LandingPage.js';
 import EmployerBilling from './components/Employer/BillingModal/EmployerBilling';
 import EmployerSettings from './components/Employer/SettingEmployerModal/EmployerSettings';
 import EmployerProfile from './components/EmployerProfile/EmployerProfile';
