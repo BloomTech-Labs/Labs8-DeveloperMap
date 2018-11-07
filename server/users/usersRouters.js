@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   rootRef
-    .child('users')
+    .child('seekers')
     .once('value')
     .then(snapshot => {
       res.json(snapshot);
@@ -48,6 +48,29 @@ router.put('/userInfo/:name/:uid', (req, res) => {
   } else {
     res.json({ err: 'Must send location, email, employer' });
   }
+});
+
+router.put('/jobs/:uid/:jb', (req, res) => {
+  const { uid, jb } = req.params;
+  const newData = req.body;
+  let updateObject = {};
+  updateObject[`companyPostings/${uid}/${jb}`] = newData;
+
+  rootRef
+    .child(`favoriteLookup/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      const lookups = Object.keys(snapshot.val());
+      lookups.forEach(lookup => {
+        updateObject[`favoritePostings/${lookup}/${jb}`] = newData;
+      });
+    })
+    .then(() => {
+      rootRef.update(updateObject).then(() => {
+        console.log(updateObject);
+        res.json(rootRef);
+      });
+    });
 });
 
 //add Links
