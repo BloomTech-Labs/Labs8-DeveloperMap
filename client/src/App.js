@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import LandingPage from './components/LandingPage/LandingPage.js';
-import EmployerBilling from './components/Employer/BillingModal/EmployerBilling';
-import EmployerSettings from './components/Employer/SettingEmployerModal/EmployerSettings';
-import EmployerProfile from './components/EmployerProfile/EmployerProfile';
-import SeekerFavorites from './components/Seeker/SeekerFavorites';
-import SeekerSettings from './components/Seeker/SeekerSettings';
-import SeekerProfile from './components/SeekerProfile/SeekerProfile';
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
+import { 
+  EmployerProfile,
+  EmployerBilling,
+  EmployerSettings,
+  LandingPage,
+  SeekerFavorites,
+  SeekerSettings,
+  SeekerProfile,
+  SignIn,
+  SignUp
+} from './reducer';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Developer Map</h1>
+        
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
