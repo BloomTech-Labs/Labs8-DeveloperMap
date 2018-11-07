@@ -50,6 +50,8 @@ router.put('/userInfo/:name/:uid', (req, res) => {
   }
 });
 
+//Change data for all posts under a company's uid
+
 router.put('/jobs/:uid/:jb', (req, res) => {
   const { uid, jb } = req.params;
   const newData = req.body;
