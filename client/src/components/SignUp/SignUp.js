@@ -1,4 +1,5 @@
 import React from 'react';
+import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
 
 class SignUp extends React.Component {
   state = {
