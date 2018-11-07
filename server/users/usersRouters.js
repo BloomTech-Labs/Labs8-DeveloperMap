@@ -58,7 +58,7 @@ router.put('/jobs/:uid/:jb', (req, res) => {
 
   //Checks object format
   if (!companyName || !date || !location || !jobLink || !jobTitle) {
-    res.json({
+    res.status(400).json({
       err:
         'Missing keys. Must have the following keys: companyName, date, location, jobLink, and jobTitle',
     });
