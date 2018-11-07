@@ -1,5 +1,11 @@
 import React from 'react';
 import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
+import {
+  Label,
+  Input,
+  SignModalMain,
+  RegisterButton,
+} from '../../styles/SignIn_UpStyle';
 
 class SignIn extends React.Component {
   //Basic state
@@ -12,35 +18,44 @@ class SignIn extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  clickRegister = () => {
+    this.props.history.push('/Signup');
+  };
+
   render() {
     console.log('%cstate', 'color: blue', this.state);
     return (
       <ModalContainer>
-        <ModalMain>
+        <SignModalMain>
           <h2>Sign In</h2>
           <form>
-            <label htmlFor="email">
-              <input
+            <Label htmlFor="email">
+              Email
+              <Input
                 name="email"
                 type="text"
                 value={this.state.email}
                 onChange={this.changeHandler}
               />
-            </label>
-            <label htmlFor="password">
-              <input
+            </Label>
+            <Label htmlFor="password">
+              Password
+              <Input
                 name="password"
                 type="text"
                 value={this.state.password}
                 onChange={this.changeHandler}
               />
-            </label>
+            </Label>
             <button>Sign In</button>
             <p>
-              New here? <a href="/Signup">Register here</a>
+              New here?{' '}
+              <RegisterButton onClick={this.clickRegister}>
+                Register here
+              </RegisterButton>
             </p>
           </form>
-        </ModalMain>
+        </SignModalMain>
       </ModalContainer>
     );
   }

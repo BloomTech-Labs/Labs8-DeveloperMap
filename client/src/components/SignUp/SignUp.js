@@ -1,5 +1,6 @@
 import React from 'react';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
+import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
+import { Label, Input, SignModalMain } from '../../styles/SignIn_UpStyle';
 
 class SignUp extends React.Component {
   state = {
@@ -17,48 +18,48 @@ class SignUp extends React.Component {
     console.log('%cstate', 'color: blue', this.state);
     return (
       <ModalContainer>
-        <ModalMain>
+        <SignModalMain>
           <h2>Sign Up</h2>
           <form>
-            <label htmlFor="name">
+            <Label htmlFor="name">
               Full Name
-              <input
+              <Input
                 name="name"
                 type="text"
                 value={this.state.name}
                 onChange={this.changeHandler}
               />
-            </label>
-            <label htmlFor="email">
+            </Label>
+            <Label htmlFor="email">
               Email
-              <input
+              <Input
                 name="email"
                 type="text"
                 value={this.state.email}
                 onChange={this.changeHandler}
               />
-            </label>
-            <label htmlFor="password">
+            </Label>
+            <Label htmlFor="password">
               Password
-              <input
+              <Input
                 name="password"
                 type="text"
                 value={this.state.password}
                 onChange={this.changeHandler}
               />
-            </label>
-            <label htmlFor="rePassword">
+            </Label>
+            <Label htmlFor="rePassword">
               Re-Enter Password
-              <input
+              <Input
                 name="rePassword"
                 type="text"
                 value={this.state.password}
                 onChange={this.changeHandler}
               />
-            </label>
+            </Label>
             <button>Sign Up</button>
           </form>
-        </ModalMain>
+        </SignModalMain>
       </ModalContainer>
     );
   }
