@@ -3,6 +3,8 @@ const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
 
+//const updateData
+
 router.get('/', (req, res) => {
   rootRef
     .child('users')
@@ -25,78 +27,49 @@ router.get('/:uid', (req, res) => {
     });
 });
 
-//Change Email
+//Change UserInfo Status
 
-router.put('/email/:uid', (req, res) => {
+router.put('/userInfo/:name/:uid', (req, res) => {
+  const { uid, name } = req.params;
+  console.log(name);
+  if (name === 'location' || name === 'employer' || name === 'email') {
+    const newDate = req.body;
+    const updateObject = {
+      [`users/${uid}/${name}`]: newDate[name],
+    };
+    rootRef
+      .update(updateObject)
+      .then(() => {
+        res.json(`${name} status updated`);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  } else {
+    res.json({ err: 'Must send location, email, employer' });
+  }
+});
+
+//add Links
+
+router.put('/links/:uid', (req, res) => {
   const { uid } = req.params;
-  const { email } = req.body;
-  const updateObject = {
-    [`users/${uid}/email`]: email,
-  };
+  const links = req.body;
+  const linkKeys = Object.keys(req.body);
+  let updateObject = {};
+  linkKeys.forEach(linkKey => {
+    updateObject[`users/${uid}/${linkKey}`] = links[linkKey];
+  });
+
   rootRef
     .update(updateObject)
     .then(() => {
-      res.json('email updated');
+      res.json('links added status updated');
     })
     .catch(err => {
       res.json(err);
     });
 });
-
-//Change Location
-
-router.put('/location/:uid', (req, res) => {
-  const { uid } = req.params;
-  const { location } = req.body;
-  const updateObject = {
-    [`users/${uid}/location`]: location,
-  };
-  rootRef
-    .update(updateObject)
-    .then(() => {
-      res.json('location updated');
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
-
-//Change Employer Status
-
-router.put('/employer/:uid', (req, res) => {
-  const { uid } = req.params;
-  const { employer } = req.body;
-  const updateObject = {
-    [`users/${uid}/employer`]: employer,
-  };
-  rootRef
-    .update(updateObject)
-    .then(() => {
-      res.json('employer status updated');
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
-
-//add Link
-
-// router.put('/links/:uid', (req,res) => {
-//   const {uid} = req.params;
-//   const keys = Object.keys(req.body) ;
-
-//   const updateObject = {
-//     [`users/${uid}/employer`]: employer,
-//   };
-//   rootRef
-//     .update(updateObject)
-//     .then(() => {
-//       res.json('employer status updated');
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// })
 
 //Delete Users
 router.delete('/:uid', (req, res) => {
