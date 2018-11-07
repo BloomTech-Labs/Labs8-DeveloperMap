@@ -20,7 +20,7 @@ class SignUp extends React.Component {
       <ModalContainer>
         <SignModalMain>
           <h2>Sign Up</h2>
-          <form>
+          <form onSubmit={e => this.props.signUpNewUserWithEmailAndPassword(e, this.state.name, this.state.email, this.state.password, this.state.rePassword)}>
             <Label htmlFor="name">
               Full Name
               <Input
@@ -53,7 +53,7 @@ class SignUp extends React.Component {
               <Input
                 name="rePassword"
                 type="text"
-                value={this.state.password}
+                value={this.state.rePassword}
                 onChange={this.changeHandler}
               />
             </Label>
