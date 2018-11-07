@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import { 
+import {
   EmployerProfile,
   EmployerBilling,
   EmployerSettings,
@@ -10,15 +10,14 @@ import {
   SeekerSettings,
   SeekerProfile,
   SignIn,
-  SignUp
+  SignUp,
 } from './reducer';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        
-        <Route path="/" component={LandingPage} />
+        <Route exact path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
         <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
