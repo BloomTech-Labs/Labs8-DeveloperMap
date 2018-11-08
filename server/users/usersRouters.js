@@ -3,8 +3,8 @@ const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
 
-//Dynamic Gets
-
+//------------------------------------------------------------------------------------GETS
+//Dynamic Get
 router.get('/:parentKey', (req, res) => {
   const { parentKey } = req.params;
   rootRef
@@ -24,6 +24,7 @@ router.get('/:parentKey', (req, res) => {
     });
 });
 
+//Dynamic Get by ID
 router.get('/:parentKey/:uid', (req, res) => {
   const { parentKey, uid } = req.params;
   rootRef
@@ -43,6 +44,59 @@ router.get('/:parentKey/:uid', (req, res) => {
         .status(500)
         .json({ err: 'Not allowed to read parentKey:' + '/' + uid });
     });
+});
+//----------------------------------------------------------------------------------------------------POSTS
+//Add User to Database
+router.post('/addUser/:parentKey', (req, res) => {
+  const { parentKey } = req.params;
+  if (parentKey === 'companies') {
+    const {
+      uid,
+      companyName,
+      companyWebsite,
+      email,
+      location,
+      phoneNumber,
+    } = req.body;
+    const newData = {
+      companyName,
+      companyWebsite,
+      email,
+      location,
+      phoneNumber,
+    };
+    rootRef
+      .child(`${parentKey}/${uid}`)
+      .set(newData)
+      .then(() => {
+        res.json(`${companyName} has been added to database`);
+      });
+  }
+  if (parentKey === 'seekers') {
+    const { uid, email, firstName, lastName, jobTitle, location } = req.body;
+    const newData = {
+      email,
+      firstName,
+      lastName,
+      jobTitle,
+      location,
+      github: '',
+      linkedIn: '',
+      phoneNumber: '',
+      porfolio: '',
+      twitter: '',
+    };
+    rootRef
+      .child(`${parentKey}/${uid}`)
+      .set(newData)
+      .then(() => {
+        res.json(`${firstName} has been added to the database`);
+      });
+  } else {
+    res
+      .status(500)
+      .json({ err: `${parentKey} must be either 'seekers' or 'companies'` });
+  }
 });
 
 // router.get('/', (req, res) => {
