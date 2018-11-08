@@ -1,6 +1,9 @@
 ## BackEnd Documentation
 
-- A server that will deliver users from this [url]()
+- A server that will deliver users for seekers and companies:
+
+  - [Companies](https://intense-stream-29923.herokuapp.com/api/database/companies)
+  - [Seekers](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 - Basic format of the users:
 
@@ -14,7 +17,9 @@ companies: {
     phoneNumber: '555-555-5555';
   }
 }
+```
 
+```js
 seekers: {
   id: {
     bio: 'lorem15';
@@ -32,7 +37,7 @@ seekers: {
 }
 ```
 
-# Authentication is found in the client inside App.js
+# Authentication is found inside the client in the file App.js
 
 ## To Sign Up Users
 
@@ -45,7 +50,8 @@ seekers: {
 - Email and password are needed that are already active in the authentication database
 - Two web tokens are created
   - One is local token that is short lived, only active for an hour
-  - Second is on the firebase, the firebase token is long lived, only changed if their is a new password or it is deleted
+  - Second is on the firebase, the firebase token is long lived,
+    only changed if their is a new password or it is deleted
 
 ## To Sign Out Users
 
