@@ -99,27 +99,21 @@ router.post('/addUser/:parentKey', (req, res) => {
   }
 });
 
-// router.get('/', (req, res) => {
-//   rootRef
-//     .child('seekers')
-//     .once('value')
-//     .then(snapshot => {
-//       res.json(snapshot);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
-
-// router.get('/:uid', (req, res) => {
-//   const { uid } = req.params;
-//   rootRef
-//     .child('users/' + uid)
-//     .once('value')
-//     .then(snapshot => {
-//       res.json(snapshot);
-//     });
-// });
+//Add Job posting
+router.post('/jobPost/:parentKey/:uid', (req, res) => {
+  const { parentKey, uid } = req.params;
+  if (parentKey === 'companies') {
+    const { companyName, date, jobLink, jobTitle, location } = req.body;
+    rootRef
+      .child(`companyPostings/${uid}`)
+      .push({ companyName, date, jobLink, jobTitle, location })
+      .then(snap => {
+        res.status(201).json(snap.key);
+      });
+  } else {
+    res.json(`${parentKey} !== companies`);
+  }
+});
 
 // //Change UserInfo Status
 
