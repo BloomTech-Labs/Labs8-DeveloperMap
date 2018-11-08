@@ -1,4 +1,4 @@
-import Navbar from './components/NavBar/NavBarView';
+import NavBar from './components/NavBar/NavBarView';
 import EmployerBilling from './components/Employer/BillingModal/EmployerBilling';
 import EmployerSettings from './components/Employer/SettingEmployerModal/EmployerSettings';
 import EmployerProfile from './components/EmployerProfile/EmployerProfile';
@@ -10,7 +10,7 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 
 export {
-    Navbar,
+    NavBar,
     EmployerProfile,
     EmployerBilling,
     EmployerSettings,
