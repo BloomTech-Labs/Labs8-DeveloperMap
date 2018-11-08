@@ -23,6 +23,16 @@ class App extends Component {
     }
   }
 
+  /// ----- Modal Control -----
+
+  // --- Close Modal If Click Is Not On Modal ---
+  closeModalOnOutsideClick = (e) => {
+    if (e.target.dataset.type == 'map') {
+      this.props.history.push('/');
+  } 
+  console.log(e.target);
+  }
+
   /// ----- User Control Methods -----
 
   // --- Sign Up Methods ---
@@ -74,7 +84,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <NavBar { ...this.props }/>
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />

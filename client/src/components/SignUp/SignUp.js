@@ -17,7 +17,7 @@ class SignUp extends React.Component {
   render() {
     console.log('%cstate', 'color: blue', this.state);
     return (
-      <ModalContainer>
+      <ModalContainer data-type="map">
         <SignModalMain>
           <h2>Sign Up</h2>
           <form onSubmit={e => {

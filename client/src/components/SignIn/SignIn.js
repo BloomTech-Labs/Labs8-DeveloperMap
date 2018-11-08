@@ -25,7 +25,7 @@ class SignIn extends React.Component {
   render() {
     console.log('%cstate', 'color: blue', this.state);
     return (
-      <ModalContainer>
+      <ModalContainer data-type="map">
         <SignModalMain>
           <h2>{this.props.currentSignedInUser ? `Welcome ${this.props.currentSignedInUser.email}` : 'Sign In'}</h2>
           <form onSubmit={(e) => {
