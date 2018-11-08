@@ -27,7 +27,7 @@ class SignIn extends React.Component {
     return (
       <ModalContainer>
         <SignModalMain>
-          <h2>Sign In</h2>
+          <h2>{this.props.currentSignedInUser ? `Welcome ${this.props.currentSignedInUser.email}` : 'Sign In'}</h2>
           <form onSubmit={(e) => {
             this.props.signInWithEmailAndPassword(e, this.state.email, this.state.password)
             this.setState({email: '', password: ''});
@@ -36,7 +36,7 @@ class SignIn extends React.Component {
               Email
               <Input
                 name="email"
-                type="text"
+                type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
               />
@@ -45,7 +45,7 @@ class SignIn extends React.Component {
               Password
               <Input
                 name="password"
-                type="text"
+                type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
               />
@@ -58,6 +58,9 @@ class SignIn extends React.Component {
               </RegisterButton>
             </p>
           </form>
+          <button onClick = {(e) => {
+            this.props.signOutCurrentUser(e)
+            }}>Sign Out</button>
         </SignModalMain>
       </ModalContainer>
     );

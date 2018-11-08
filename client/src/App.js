@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from './firebase/firebase';
+import firebase, { auth } from './firebase/firebase';
 import { Route, NavLink, withRouter } from 'react-router-dom';
 import {
   EmployerProfile,
@@ -17,7 +17,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentLoggedInUser: null
+      currentSignedInUser: null
     }
   }
 
@@ -27,7 +27,7 @@ class App extends Component {
   signUpNewUserWithEmailAndPassword = (e, fullName, email, password, rePassword) => {
     e.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(response => this.setState({currentLoggedInUser: response.user}))
+    .then(response => this.setState({currentSignedInUser: response.user}))
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -38,12 +38,35 @@ class App extends Component {
   // --- Sign In Methods ---
   signInWithEmailAndPassword = (e, email, password) => {
     e.preventDefault();
+
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(response => this.setState({currentLoggedInUser: response.user}))
+    .then(response => this.setState({currentSignedInUser: response.user}))
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log({ errorCode, errorMessage });
+    });
+  }
+
+  // --- Sign Out Method ---
+  signOutCurrentUser = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut()
+    .then(() => {
+      alert('User Successfully Signed Out')
+      this.setState({currentSignedInUser: null})
+    })
+    .catch(() => {
+      alert('Unable to Sign Out User')
+    })
+  }
+
+  componentDidMount() {
+    // --- User Session Check (Handled by Firebase) ---
+    auth.onAuthStateChanged(currentSignedInUser => {
+      currentSignedInUser
+        ? this.setState({ currentSignedInUser })
+        : this.setState({ currentSignedInUser: null });
     });
   }
 
@@ -64,7 +87,12 @@ class App extends Component {
         />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
         <Route path="/signin" render={(props) => 
-          <SignIn {...props} signInWithEmailAndPassword={this.signInWithEmailAndPassword} />}
+          <SignIn 
+          {...props} 
+          signInWithEmailAndPassword={this.signInWithEmailAndPassword} 
+          signOutCurrentUser={this.signOutCurrentUser}
+          currentSignedInUser={this.state.currentSignedInUser}
+          />}
         />
         <Route path="/signup" render={(props) => 
           <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
