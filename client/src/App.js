@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { Route, withRouter } from 'react-router-dom';
-import { 
-  // NavBar,
+import firebase from './firebase/firebase';
+import { Route, NavLink, withRouter } from 'react-router-dom';
+import {
   EmployerProfile,
   EmployerBilling,
   EmployerSettings,
@@ -11,14 +11,34 @@ import {
   SeekerSettings,
   SeekerProfile,
   SignIn,
-  SignUp
+  SignUp,
 } from './reducer';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentLoggedInUser: null
+    }
+  }
+
+  /// ----- User Control Methods -----
+
+  // --- Sign Up Methods ---
+  signUpNewUserWithEmailAndPassword = (e, fullName, email, password, rePassword) => {
+    e.preventDefault();
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(response => this.setState({currentLoggedInUser: response.user}))
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log({ errorCode, errorMessage })
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        {/* <NavBar/> */}
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
@@ -33,7 +53,9 @@ class App extends Component {
         />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
         <Route path="/signin" component={SignIn} />
-        <Route path="/Signup" component={SignUp} />
+        <Route path="/signup" render={() => 
+          <SignUp signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
       </div>
     );
   }
