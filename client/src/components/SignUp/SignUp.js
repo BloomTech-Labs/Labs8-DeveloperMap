@@ -20,7 +20,10 @@ class SignUp extends React.Component {
       <ModalContainer>
         <SignModalMain>
           <h2>Sign Up</h2>
-          <form onSubmit={e => this.props.signUpNewUserWithEmailAndPassword(e, this.state.name, this.state.email, this.state.password, this.state.rePassword)}>
+          <form onSubmit={e => {
+            this.props.signUpNewUserWithEmailAndPassword(e, this.state.name, this.state.email, this.state.password, this.state.rePassword);
+            this.setState({name: '', email: '', password: '', rePassword: ''});
+          }}>
             <Label htmlFor="name">
               Full Name
               <Input

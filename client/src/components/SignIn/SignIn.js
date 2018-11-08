@@ -28,7 +28,10 @@ class SignIn extends React.Component {
       <ModalContainer>
         <SignModalMain>
           <h2>Sign In</h2>
-          <form>
+          <form onSubmit={(e) => {
+            this.props.signInWithEmailAndPassword(e, this.state.email, this.state.password)
+            this.setState({email: '', password: ''});
+            }}>
             <Label htmlFor="email">
               Email
               <Input
