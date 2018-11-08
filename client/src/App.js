@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import firebase from './firebase/firebase';
 import { Route, NavLink, withRouter } from 'react-router-dom';
 import {
+  NavBar,
   EmployerProfile,
   EmployerBilling,
   EmployerSettings,
@@ -51,6 +52,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavBar />
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />

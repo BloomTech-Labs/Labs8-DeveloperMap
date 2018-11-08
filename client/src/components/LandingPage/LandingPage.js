@@ -2,7 +2,6 @@ import React from 'react';
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from 'mapbox-gl-geocoder';
-import NavBar from '../NavBar/NavBarView';
 import styled from 'styled-components';
 
 const MapWindow = styled.div`
@@ -104,7 +103,6 @@ class LandingPage extends React.Component {
     return (    
       <MapWindow>
         <div style={style} {...this.state.viewport} onViewportChange={this.onViewportChange} mapboxApiAccessToken={MAPBOX_TOKEN} ref={el => (this.mapContainer = el)} />
-        <NavBar resize={this.resize} onViewportChange={this.onViewportChange} viewport={this.state.viewport} {...this.props} mapRef={this.map} mapboxApiAccessToken={MAPBOX_TOKEN}/>
       </MapWindow>        
     );
   }
