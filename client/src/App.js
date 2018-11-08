@@ -31,8 +31,20 @@ class App extends Component {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log({ errorCode, errorMessage })
-    })
+      console.log({ errorCode, errorMessage });
+    });
+  }
+
+  // --- Sign In Methods ---
+  signInWithEmailAndPassword = (e, email, password) => {
+    e.preventDefault();
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(response => this.setState({currentLoggedInUser: response.user}))
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log({ errorCode, errorMessage });
+    });
   }
 
   render() {
@@ -51,9 +63,11 @@ class App extends Component {
           component={EmployerBilling}
         />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" render={() => 
-          <SignUp signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        <Route path="/signin" render={(props) => 
+          <SignIn {...props} signInWithEmailAndPassword={this.signInWithEmailAndPassword} />}
+        />
+        <Route path="/signup" render={(props) => 
+          <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
         }/>
       </div>
     );
