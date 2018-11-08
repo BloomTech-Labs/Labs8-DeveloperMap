@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import firebase from './firebase/firebase';
 import { Route, NavLink, withRouter } from 'react-router-dom';
 import {
   EmployerProfile,
@@ -14,6 +14,27 @@ import {
 } from './reducer';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentLoggedInUser: null
+    }
+  }
+
+  /// ----- User Control Methods -----
+
+  // --- Sign Up Methods ---
+  signUpNewUserWithEmailAndPassword = (e, fullName, email, password, rePassword) => {
+    e.preventDefault();
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(response => this.setState({currentLoggedInUser: response.user}))
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log({ errorCode, errorMessage })
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -31,7 +52,9 @@ class App extends Component {
         />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
         <Route path="/signin" component={SignIn} />
-        <Route path="/Signup" component={SignUp} />
+        <Route path="/signup" render={() => 
+          <SignUp signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
       </div>
     );
   }
