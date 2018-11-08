@@ -42,8 +42,8 @@ class NavBar extends React.Component{
     render(){
         return (
             <Nav>
-            <div class='heart'><img alt='Favorites Icon' src={Heart}/></div>
-            <div class='avatar' onClick={this.handleSignIn}><img alt='Avatar Icon' src={Avatar}/></div>
+            <div className='heart'><img alt='Favorites Icon' src={Heart}/></div>
+            <div className='avatar' onClick={this.handleSignIn}><img alt='Avatar Icon' src={Avatar}/></div>
             </Nav>
         );
     }
