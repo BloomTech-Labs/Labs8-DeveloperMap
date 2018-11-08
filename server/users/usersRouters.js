@@ -3,7 +3,47 @@ const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
 
-//const updateData
+//Dynamic Gets
+
+router.get('/:parentKey', (req, res) => {
+  const { parentKey } = req.params;
+  rootRef
+    .child(parentKey)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.status(200).json(snapshot);
+      } else {
+        res
+          .status(404)
+          .json({ err: `Parent key: ${parentKey} does not exist` });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ err: 'Not allowed to read ' + parentKey });
+    });
+});
+
+router.get('/:parentKey/:uid', (req, res) => {
+  const { parentKey, uid } = req.params;
+  rootRef
+    .child(parentKey + '/' + uid)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.status(200).json(snapshot);
+      } else {
+        res.status(404).json({
+          err: `Parent key: '${parentKey}/${uid}' does not exist in parentKey:'${parentKey}'`,
+        });
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ err: 'Not allowed to read parentKey:' + '/' + uid });
+    });
+});
 
 // router.get('/', (req, res) => {
 //   rootRef
@@ -79,7 +119,7 @@ router.put('/jobs/:uid/:jb', (req, res) => {
         });
       })
       .catch(err =>
-        res.json({
+        res.status(500).json({
           err: `did not have permission to access rootRef/favoriteLookup/${uid}.`,
         })
       )
@@ -89,7 +129,7 @@ router.put('/jobs/:uid/:jb', (req, res) => {
         });
       })
       .catch(err =>
-        res.json({
+        res.status(500).json({
           err:
             'did not have permissions to access one of the following references: ' +
             Object.keys(updateObject)
@@ -131,7 +171,5 @@ router.delete('/:uid', (req, res) => {
       res.json('user deleted');
     });
 });
-
-router.get('/', (req, res) => {});
 
 module.exports = router;
