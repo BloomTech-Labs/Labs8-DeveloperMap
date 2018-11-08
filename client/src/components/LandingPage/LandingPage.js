@@ -2,51 +2,9 @@ import React from 'react';
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from 'mapbox-gl-geocoder';
-import styled from 'styled-components';
+import { MapWindow } from '../../styles/MapWindowStyle';
 
-const MapWindow = styled.div`
-   input{
-     height: 30px;
-     width: 300px;  
-     border-radius: 20px;
-     border: none;
-     padding-left: 8px;
-     &:focus {
-       outline: none;
-     }
-   }
-   .suggestions{
-     background-color: rgb(232,232,232);
-     border-radius: 4px;
-     padding-inline-start: 20px;
-     li{
-       list-style-type: none;
-       margin: 2px 0;
-       cursor: pointer;
-       &:hover{
-         color: rgb(54,154,255);
-       }
-     }
-     .active{
-      color: rgb(119,187,255);
-    }
-   }
-   .mapboxgl-control-container{
-     width: 100%;
 
-     .mapboxgl-ctrl-top-right{
-      margin-left: 3%;
-      margin-top: 6px;
-      right: initial;
-      top: initial;
-      left: initial;
-    }
-   }
-   .geocoder-pin-right{
-     display: none;
-   }
-   
-`;
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
@@ -97,6 +55,7 @@ class LandingPage extends React.Component {
       position: 'absolute',
       top: 0,
       bottom: 0,
+      left: 0,
       width: '100%',
     };
     
