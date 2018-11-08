@@ -3672,6 +3672,10 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
+fuzzy@^0.1.1:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/fuzzy/-/fuzzy-0.1.3.tgz#4c76ec2ff0ac1a36a9dccf9a00df8623078d4ed8"
+
 gauge@~2.7.3:
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/gauge/-/gauge-2.7.4.tgz#2c03405c7538c39d7eb37b317022e325fb018bf7"
@@ -5272,7 +5276,7 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
 
-lodash.debounce@^4.0.8:
+lodash.debounce@^4.0.6, lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
@@ -5366,6 +5370,15 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+mapbox-gl-geocoder@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/mapbox-gl-geocoder/-/mapbox-gl-geocoder-2.0.1.tgz#4776f9c5fd770e756006a5ac1849e529a8d1de94"
+  dependencies:
+    lodash.debounce "^4.0.6"
+    mapbox "1.0.0-beta5"
+    suggestions "^1.3.1"
+    xtend "^4.0.1"
+
 mapbox-gl@^0.51.0-beta.2:
   version "0.51.0-beta.2"
   resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.51.0-beta.2.tgz#84b6dfdbfd3ede50cf6629b40b9c8de5cf11a1b4"
@@ -5394,6 +5407,12 @@ mapbox-gl@^0.51.0-beta.2:
     supercluster "^4.1.1"
     tinyqueue "^1.1.0"
     vt-pbf "^3.0.1"
+
+mapbox@1.0.0-beta5:
+  version "1.0.0-beta5"
+  resolved "https://registry.yarnpkg.com/mapbox/-/mapbox-1.0.0-beta5.tgz#6342f98df74464fdca007bf19e58ec24133f0d66"
+  dependencies:
+    rest "^2.0.0"
 
 math-random@^1.0.1:
   version "1.0.1"
@@ -7542,6 +7561,10 @@ resolve@1.8.1, resolve@^1.3.2, resolve@^1.5.0, resolve@^1.6.0, resolve@^1.8.1:
   dependencies:
     path-parse "^1.0.5"
 
+rest@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rest/-/rest-2.0.0.tgz#6dfadf66a405c49cfbd5b4bd25b59fd29cd861bc"
+
 restore-cursor@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/restore-cursor/-/restore-cursor-2.0.0.tgz#9f7ee287f82fd326d4fd162923d62129eee0dfaf"
@@ -8186,6 +8209,13 @@ stylis-rule-sheet@^0.0.10:
 stylis@^3.5.0:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.3.tgz#99fdc46afba6af4deff570825994181a5e6ce546"
+
+suggestions@^1.3.1:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/suggestions/-/suggestions-1.3.3.tgz#932200537d453e24d170730cb85e553d8648d09c"
+  dependencies:
+    fuzzy "^0.1.1"
+    xtend "^4.0.0"
 
 supercluster@^4.1.1:
   version "4.1.1"
@@ -9053,7 +9083,7 @@ xregexp@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-4.0.0.tgz#e698189de49dd2a18cc5687b05e17c8e43943020"
 
-xtend@^4.0.0, xtend@~4.0.1:
+xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
