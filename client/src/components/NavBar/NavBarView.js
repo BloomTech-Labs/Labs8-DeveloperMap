@@ -34,11 +34,16 @@ const Nav = styled.div`
 
 
 class NavBar extends React.Component{
+
+    handleSignIn = () => {
+        this.props.history.push('/signin');
+    }
+
     render(){
         return (
             <Nav>
             <div class='heart'><img alt='Favorites Icon' src={Heart}/></div>
-            <div class='avatar'><img alt='Avatar Icon' src={Avatar}/></div>
+            <div class='avatar' onClick={this.handleSignIn}><img alt='Avatar Icon' src={Avatar}/></div>
             </Nav>
         );
     }
