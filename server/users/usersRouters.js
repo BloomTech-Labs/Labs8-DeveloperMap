@@ -219,5 +219,20 @@ router.put('/jobs/:uid/:jb', (req, res) => {
 //       res.json('user deleted');
 //     });
 // });
+  //
+  router.delete('/:parentKey/:uid', (req, res) => {
+    const { parentKey, uid } = req.params;
+    if (parentKey === 'seekers'){
+    rootRef
+      .child(`${parentKey}/${uid}`)
+      .remove()
+      .then(() => {
+        res.json('seekers deleted');
+      });
+    } else {
+      res.status(500)
+    }
+  })
+
 
 module.exports = router;
