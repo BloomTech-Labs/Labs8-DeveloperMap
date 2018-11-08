@@ -37,7 +37,7 @@ class SignUp extends React.Component {
               Email
               <Input
                 name="email"
-                type="text"
+                type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
               />
@@ -46,7 +46,7 @@ class SignUp extends React.Component {
               Password
               <Input
                 name="password"
-                type="text"
+                type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
               />
@@ -55,7 +55,7 @@ class SignUp extends React.Component {
               Re-Enter Password
               <Input
                 name="rePassword"
-                type="text"
+                type="password"
                 value={this.state.rePassword}
                 onChange={this.changeHandler}
               />
