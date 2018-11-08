@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Heart from '../../images/favorites-icon.png';
-import Avatar from '../../images/avatar-icon.jpg';
+import Avatar from '../../images/avatar-brian.png';
 
 
 const Nav = styled.div`
