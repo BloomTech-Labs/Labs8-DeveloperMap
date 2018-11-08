@@ -25,7 +25,7 @@ class LandingPage extends React.Component {
   componentDidMount() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/lndubose/cjo6br6c61dfs2snxq0bxlg3f',
+      style: 'mapbox://styles/lndubose/cjo6br6c61dfs2snxq0bxlg3f?optimize=true'
     });
     this.map.addControl(new MapboxGeocoder({
       accessToken: mapboxgl.accessToken
@@ -44,11 +44,11 @@ class LandingPage extends React.Component {
     });
   }
 
-  onViewportChange = viewport => {
-    this.setState({
-      viewport: { ...this.state.viewport, ...viewport }
-    })
-  };
+  // onViewportChange = viewport => {
+  //   this.setState({
+  //     viewport: { ...this.state.viewport, ...viewport }
+  //   })
+  // };
   
   render() {
     const style = {
@@ -61,10 +61,13 @@ class LandingPage extends React.Component {
     
     return (    
       <MapWindow>
-        <div style={style} {...this.state.viewport} onViewportChange={this.onViewportChange} mapboxApiAccessToken={MAPBOX_TOKEN} ref={el => (this.mapContainer = el)} />
+        <div style={style} {...this.state.viewport} ref={el => (this.mapContainer = el)} />
       </MapWindow>        
     );
   }
 }
 
 export default LandingPage;
+
+// onViewportChange={this.onViewportChange}
+// mapboxApiAccessToken={MAPBOX_TOKEN}

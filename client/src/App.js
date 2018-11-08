@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase, { auth } from './firebase/firebase';
 
-import { Route, NavLink, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import {
   NavBar,
   EmployerProfile,
