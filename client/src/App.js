@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase, { auth } from './firebase/firebase';
 import axios from 'axios';
-import { Route, NavLink, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
+
 import {
   NavBar,
   EmployerProfile,
@@ -21,6 +22,16 @@ class App extends Component {
     this.state = {
       currentSignedInUser: null
     }
+  }
+
+  /// ----- Modal Control -----
+
+  // --- Close Modal If Click Is Not On Modal ---
+  closeModalOnOutsideClick = (e) => {
+    if (e.target.dataset.type == 'map') {
+      this.props.history.push('/');
+  } 
+  console.log(e.target);
   }
 
   /// ----- User Control Methods -----
@@ -98,8 +109,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <NavBar />
+      <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
+        <NavBar { ...this.props }/>
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
