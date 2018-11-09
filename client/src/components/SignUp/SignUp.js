@@ -15,14 +15,14 @@ class SignUp extends React.Component {
   };
 
   render() {
-    console.log('%cstate', 'color: blue', this.state);
+    // console.log('%cstate', 'color: blue', this.state);
     return (
-      <ModalContainer>
+      <ModalContainer data-type="modal-container">
         <SignModalMain>
           <h2>Sign Up</h2>
           <form onSubmit={e => {
             this.props.signUpNewUserWithEmailAndPassword(e, this.state.name, this.state.email, this.state.password, this.state.rePassword);
-            this.setState({name: '', email: '', password: '', rePassword: ''});
+            this.state.password === this.state.rePassword ? this.setState({name: '', email: '', password: '', rePassword: ''}) : this.setState({password: '', rePassword: ''});
           }}>
             <Label htmlFor="name">
               Full Name
@@ -31,6 +31,7 @@ class SignUp extends React.Component {
                 type="text"
                 value={this.state.name}
                 onChange={this.changeHandler}
+                required
               />
             </Label>
             <Label htmlFor="email">
@@ -40,6 +41,7 @@ class SignUp extends React.Component {
                 type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
+                required
               />
             </Label>
             <Label htmlFor="password">
@@ -49,6 +51,7 @@ class SignUp extends React.Component {
                 type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
+                required
               />
             </Label>
             <Label htmlFor="rePassword">
@@ -58,6 +61,7 @@ class SignUp extends React.Component {
                 type="password"
                 value={this.state.rePassword}
                 onChange={this.changeHandler}
+                required
               />
             </Label>
             <button>Sign Up</button>

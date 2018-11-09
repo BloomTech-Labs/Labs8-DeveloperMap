@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase, { auth } from './firebase/firebase';
-
+import axios from 'axios';
 import { Route, NavLink, withRouter } from 'react-router-dom';
 import {
   NavBar,
@@ -28,8 +28,32 @@ class App extends Component {
   // --- Sign Up Methods ---
   signUpNewUserWithEmailAndPassword = (e, fullName, email, password, rePassword) => {
     e.preventDefault();
+
+    // Check to make sure that the password matches the confirm password
+    if (password !== rePassword) {
+    return alert('Password does not match the confirm password.')
+    }
+
+    //Check password length
+    if (password.length < 8) {
+    return alert('Password must be at least 8 characters long.')
+    }
+
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(response => this.setState({currentSignedInUser: response.user}))
+    .then(response => {
+      // Deconstruct response body
+      const { uid, email } = response.user;
+      // Construct User Object
+      const user = {"uid":`${uid}`, "email":`${email}`, "firstName":fullName, "lastName":'test', "jobTitle":'test', "location":'test'}
+      axios.post(`http://localhost:9000/api/database/addUser/seekers/`, {...user})
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => console.log(error))
+
+      this.setState({currentSignedInUser: response.user});
+      this.props.history.push('/');
+    })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
