@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import firebase, { auth } from './firebase/firebase';
 import axios from 'axios';
 import { Route, withRouter } from 'react-router-dom';
-
 import {
   NavBar,
   EmployerProfile,
@@ -28,10 +27,9 @@ class App extends Component {
 
   // --- Close Modal If Click Is Not On Modal ---
   closeModalOnOutsideClick = (e) => {
-    if (e.target.dataset.type == 'map') {
+    if (e.target.dataset.type === 'modal-container') {
       this.props.history.push('/');
-  } 
-  console.log(e.target);
+    } 
   }
 
   /// ----- User Control Methods -----
@@ -46,7 +44,7 @@ class App extends Component {
     }
 
     //Check password length
-    if (password.length < 8) {
+    if (password.length <= 8) {
     return alert('Password must be at least 8 characters long.')
     }
 
@@ -55,14 +53,14 @@ class App extends Component {
       // Deconstruct response body
       const { uid, email } = response.user;
       // Construct User Object
-      const user = {"uid":`${uid}`, "email":`${email}`, "firstName":fullName, "lastName":'test', "jobTitle":'test', "location":'test'}
-      axios.post(`http://localhost:9000/api/database/addUser/seekers/`, {...user})
+      const seeker = {"uid":uid, "email":email, "firstName":fullName, "lastName":'test', "jobTitle":'test', "location":'test'}
+      axios.post(`https://intense-stream-29923.herokuapp.com/api/database/addUser/seekers/`, {...seeker})
       .then((response) => {
         console.log(response.data)
       })
       .catch((error) => console.log(error))
 
-      this.setState({currentSignedInUser: response.user});
+      this.setState({currentSignedInUser: seeker});
       this.props.history.push('/');
     })
     .catch((error) => {
@@ -77,7 +75,13 @@ class App extends Component {
     e.preventDefault();
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(response => this.setState({currentSignedInUser: response.user}))
+    .then(response => {
+      axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${response.user.uid}`)
+      .then(response => this.setState({currentSignedInUser: response.data}))
+      .catch(error => console.log(error));
+
+      this.props.history.push('/');
+    })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -92,6 +96,7 @@ class App extends Component {
     .then(() => {
       alert('User Successfully Signed Out')
       this.setState({currentSignedInUser: null})
+      this.props.history.push('/');
     })
     .catch(() => {
       alert('Unable to Sign Out User')
@@ -101,10 +106,14 @@ class App extends Component {
   componentDidMount() {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
-      currentSignedInUser
-        ? this.setState({ currentSignedInUser })
-        : this.setState({ currentSignedInUser: null });
-    });
+      if(currentSignedInUser){
+        axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${currentSignedInUser.uid}`)
+        .then(response => this.setState({currentSignedInUser: response.data}))
+        .catch(error => console.log(error));
+      } else {
+        this.setState({ currentSignedInUser: null });
+      }
+      });
   }
 
   render() {
