@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
+import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
 import {
   Label,
   Input,
@@ -23,11 +24,11 @@ class SignIn extends React.Component {
   };
 
   render() {
-    console.log('%cstate', 'color: blue', this.state);
+    // console.log('%cstate', 'color: blue', this.state);
     return (
-      <ModalContainer data-type="map">
+      <ModalContainer data-type="modal-container">
         <SignModalMain>
-          <h2>{this.props.currentSignedInUser ? `Welcome ${this.props.currentSignedInUser.email}` : 'Sign In'}</h2>
+          <h2>{this.props.currentSignedInUser ? `Welcome ${this.props.currentSignedInUser.firstName}` : 'Sign In'}</h2>
           <form onSubmit={(e) => {
             this.props.signInWithEmailAndPassword(e, this.state.email, this.state.password)
             this.setState({email: '', password: ''});
@@ -39,6 +40,7 @@ class SignIn extends React.Component {
                 type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
+                required
               />
             </Label>
             <Label htmlFor="password">
@@ -48,6 +50,7 @@ class SignIn extends React.Component {
                 type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
+                required
               />
             </Label>
             <button>Sign In</button>
