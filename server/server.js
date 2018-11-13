@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const usersRouters = require('./users/usersRouters.js');
 
-const configureServer = require('./index');
+const configureServer = require('./serverConfig');
 const configureRoutes = require('./stripe-routes');
 
 server.use(express.json());
