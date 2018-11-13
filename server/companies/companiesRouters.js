@@ -23,7 +23,11 @@ router.get('/:uid', (req, res) => {
     .child(`companies/${uid}`)
     .once('value')
     .then(snapshot => {
-      res.status(200).json(snapshot.val());
+      if (snapshot.exists()) {
+        res.status(200).json(snapshot.val());
+      } else {
+        res.status(404).json({ err: 'user not found' });
+      }
     })
     .catch(err => {
       res.status(500).json({ err });
@@ -126,3 +130,5 @@ router.delete('/:uid', (req, res) => {
       }
     });
 });
+
+module.exports = router;

@@ -5,46 +5,46 @@ const router = express.Router();
 
 //------------------------------------------------------------------------------------GETS
 //Dynamic Get
-router.get('/:parentKey', (req, res) => {
-  const { parentKey } = req.params;
-  rootRef
-    .child(parentKey)
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        res.status(200).json(snapshot);
-      } else {
-        res
-          .status(404)
-          .json({ err: `Parent key: ${parentKey} does not exist` });
-      }
-    })
-    .catch(err => {
-      res.status(500).json({ err: 'Not allowed to read ' + parentKey });
-    });
-});
+// router.get('/:parentKey', (req, res) => {
+//   const { parentKey } = req.params;
+//   rootRef
+//     .child(parentKey)
+//     .once('value')
+//     .then(snapshot => {
+//       if (snapshot.exists()) {
+//         res.status(200).json(snapshot);
+//       } else {
+//         res
+//           .status(404)
+//           .json({ err: `Parent key: ${parentKey} does not exist` });
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).json({ err: 'Not allowed to read ' + parentKey });
+//     });
+// });
 
-//Dynamic Get by ID
-router.get('/:parentKey/:uid', (req, res) => {
-  const { parentKey, uid } = req.params;
-  rootRef
-    .child(parentKey + '/' + uid)
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        res.status(200).json(snapshot);
-      } else {
-        res.status(404).json({
-          err: `Parent key: '${parentKey}/${uid}' does not exist in parentKey:'${parentKey}'`,
-        });
-      }
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ err: 'Not allowed to read parentKey:' + '/' + uid });
-    });
-});
+// //Dynamic Get by ID
+// router.get('/:parentKey/:uid', (req, res) => {
+//   const { parentKey, uid } = req.params;
+//   rootRef
+//     .child(parentKey + '/' + uid)
+//     .once('value')
+//     .then(snapshot => {
+//       if (snapshot.exists()) {
+//         res.status(200).json(snapshot);
+//       } else {
+//         res.status(404).json({
+//           err: `Parent key: '${parentKey}/${uid}' does not exist in parentKey:'${parentKey}'`,
+//         });
+//       }
+//     })
+//     .catch(err => {
+//       res
+//         .status(500)
+//         .json({ err: 'Not allowed to read parentKey:' + '/' + uid });
+//     });
+// });
 //----------------------------------------------------------------------------------------------------POSTS
 //Add User to Database
 // router.post('/addUser/:parentKey', (req, res) => {
