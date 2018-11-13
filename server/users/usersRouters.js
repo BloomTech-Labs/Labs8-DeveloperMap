@@ -47,56 +47,132 @@ router.get('/:parentKey/:uid', (req, res) => {
 });
 //----------------------------------------------------------------------------------------------------POSTS
 //Add User to Database
-router.post('/addUser/:parentKey', (req, res) => {
-  const { parentKey } = req.params;
-  if (parentKey === 'companies') {
-    const {
-      uid,
-      companyName,
-      companyWebsite,
-      email,
-      location,
-      phoneNumber,
-    } = req.body;
-    const newData = {
-      companyName,
-      companyWebsite,
-      email,
-      location,
-      phoneNumber,
-    };
-    rootRef
-      .child(`${parentKey}/${uid}`)
-      .set(newData)
-      .then(() => {
-        res.json(`${companyName} has been added to database`);
-      });
-  }
-  if (parentKey === 'seekers') {
-    const { uid, email, firstName, lastName, jobTitle, location } = req.body;
-    const newData = {
-      email,
-      firstName,
-      lastName,
-      jobTitle,
-      location,
-      github: '',
-      linkedIn: '',
-      phoneNumber: '',
-      porfolio: '',
-      twitter: '',
-    };
-    rootRef
-      .child(`${parentKey}/${uid}`)
-      .set(newData)
-      .then(() => {
-        res.json(`${firstName} has been added to the database`);
-      });
-  } else {
-    res
-      .status(500)
-      .json({ err: `${parentKey} must be either 'seekers' or 'companies'` });
-  }
+// router.post('/addUser/:parentKey', (req, res) => {
+//   const { parentKey } = req.params;
+//   if (parentKey === 'companies') {
+//     const {
+//       uid,
+//       companyName,
+//       companyWebsite,
+//       email,
+//       location,
+//       phoneNumber,
+//     } = req.body;
+//     const newData = {
+//       companyName,
+//       companyWebsite,
+//       email,
+//       location,
+//       phoneNumber,
+//     };
+//     rootRef
+//       .child(`${parentKey}/${uid}`)
+//       .set(newData)
+//       .then(() => {
+//         res.json(`${companyName} has been added to database`);
+//       });
+//   }
+//   if (parentKey === 'seekers') {
+//     const { uid, email, firstName, lastName, jobTitle, location } = req.body;
+//     const newData = {
+//       email,
+//       firstName,
+//       lastName,
+//       jobTitle,
+//       location,
+//       github: '',
+//       linkedIn: '',
+//       phoneNumber: '',
+//       porfolio: '',
+//       twitter: '',
+//     };
+//     rootRef
+//       .child(`${parentKey}/${uid}`)
+//       .set(newData)
+//       .then(() => {
+//         res.json(`${firstName} has been added to the database`);
+//       });
+//   } else {
+//     res
+//       .status(500)
+//       .json({ err: `${parentKey} must be either 'seekers' or 'companies'` });
+//   }
+// });
+
+//Add Users 2.0
+//Add Seekers
+router.post('/addUser/seekers/:uid', (req, res) => {
+  const { uid } = req.params;
+  const { email, firstName, lastName, jobTitle, location } = req.body;
+  const newData = {
+    email,
+    firstName,
+    lastName,
+    jobTitle,
+    location,
+    github: '',
+    linkedIn: '',
+    phoneNumber: '',
+    portfolio: '',
+    twitter: '',
+  };
+  rootRef
+    .child(`seekers/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.json({ err: 'snapshot already exists' });
+      } else {
+        snapshot.ref
+          .set(newData)
+          .then(() => {
+            res
+              .status(201)
+              .json({ message: `${email} has been added to database.` });
+          })
+          .catch(err => {
+            res.status(500).json(err);
+          });
+      }
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+//Add Companies
+router.post('/addUser/companies/:uid', (req, res) => {
+  const { uid } = req.params;
+  const {
+    companyName,
+    companyWebsite,
+    email,
+    location,
+    phoneNumber,
+  } = req.body;
+  const newData = {
+    companyName,
+    companyWebsite,
+    email,
+    location,
+    phoneNumber,
+  };
+  rootRef
+    .child(`companies/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.status(500).json({ err: 'message already exists' });
+      } else {
+        snapshot.ref
+          .set(newData)
+          .then(() => {
+            res
+              .status(201)
+              .json({ message: `${email} has been added to database` });
+          })
+          .catch(err => res.json({ err: 'line 171' }));
+      }
+    })
+    .catch(err => res.json({ err: 'line 174' }));
 });
 
 //Add Job posting
@@ -116,6 +192,94 @@ router.post('/jobPost/:parentKey/:uid', (req, res) => {
 });
 
 // //Change UserInfo Status
+// Change Seeker single seeker info
+
+router.put('/userInfo/seekers/:uid/:name', (req, res) => {
+  const { uid, name } = req.params;
+  const updatedData = req.body[name];
+  if (updatedData) {
+    rootRef
+      .child(`seekers/${uid}/${name}`)
+      .once('value')
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          snapshot.ref.set(updatedData);
+        } else {
+          res
+            .status(404)
+            .json({ err: `Child key ${name} not found in 'seekers'` });
+        }
+      });
+  } else {
+    res.status(404).json({
+      err: `${name} does not exist in posted object. Object Keys: ${Object.keys(
+        req.body
+      )}.`,
+    });
+  }
+});
+
+router.put('/userInfo/seekers/:uid', (req, res) => {
+  const { uid } = req.params;
+  const updateKeys = Object.keys(req.body);
+  rootRef
+    .child(`seekers/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (!snapshot.exists()) {
+        return res.json({ message: 'user does not exist' });
+      }
+      let updateObject = {};
+      snapshot.forEach(childSnap => {
+        const snapKey = childSnap.key;
+        if (updateKeys.includes(snapKey)) {
+          if (childSnap.val() === req.body[snapKey]) {
+            console.log(`${snapKey} data is same as posted data`);
+          } else {
+            updateObject[snapKey] = req.body[snapKey];
+          }
+        }
+      });
+      snapshot.ref
+        .update(updateObject)
+        .then(() => {
+          res.json('userInfo updated');
+        })
+        .catch(err => res.json(err));
+    })
+    .catch(err => res.json(err));
+});
+
+router.put('/userInfo/companies/:uid', (req, res) => {
+  const { uid } = req.params;
+  const updateKeys = Object.keys(req.body);
+  rootRef
+    .child(`companies/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (!snapshot.exists()) {
+        return res.json({ message: 'user does not exist' });
+      }
+      let updateObject = {};
+      snapshot.forEach(childSnap => {
+        const snapKey = childSnap.key;
+        if (updateKeys.includes(snapKey)) {
+          if (childSnap.val() === req.body[snapKey]) {
+            console.log(`${snapKey} data is same as posted data`);
+          } else {
+            updateObject[snapKey] = req.body[snapKey];
+          }
+        }
+      });
+      snapshot.ref
+        .update(updateObject)
+        .then(() => {
+          res.json('userInfo updated');
+        })
+        .catch(err => res.json(err));
+    })
+    .catch(err => res.json(err));
+});
 
 // router.put('/userInfo/:name/:uid', (req, res) => {
 //   const { uid, name } = req.params;
@@ -188,6 +352,8 @@ router.put('/jobs/:uid/:jb', (req, res) => {
   }
 });
 
+router.put('/changeUser/:parentKey/:uid', (req, res) => {});
+
 //add Links
 
 // router.put('/links/:uid', (req, res) => {
@@ -219,20 +385,19 @@ router.put('/jobs/:uid/:jb', (req, res) => {
 //       res.json('user deleted');
 //     });
 // });
-  //
-  router.delete('/:parentKey/:uid', (req, res) => {
-    const { parentKey, uid } = req.params;
-    if (parentKey === 'seekers'){
+//
+router.delete('/:parentKey/:uid', (req, res) => {
+  const { parentKey, uid } = req.params;
+  if (parentKey === 'seekers') {
     rootRef
       .child(`${parentKey}/${uid}`)
       .remove()
       .then(() => {
         res.json('seekers deleted');
       });
-    } else {
-      res.status(500)
-    }
-  })
-
+  } else {
+    res.status(500);
+  }
+});
 
 module.exports = router;
