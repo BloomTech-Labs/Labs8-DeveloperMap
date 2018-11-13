@@ -5,9 +5,9 @@ import StripeCheckout from 'react-stripe-checkout';
 import STRIPE_PUBLISHABLE from './constants/stripe';
 import PAYMENT_SERVER_URL from './constants/server';
 
-const CURRENCY = 'USD';
+const CURRENCY = 'USD'; // U.S Dollar , can pass type of currency here
 
-const fromDollarToCent = amount => amount * 100;
+const fromDollarToCent = amount => amount * 100; //Currency in the smallest unit
 
 const successPayment = data => {
   alert('Payment Successful');
@@ -17,7 +17,7 @@ const errorPayment = data => {
   alert('Payment Error');
 };
 
-const onToken = (amount, description) => token =>
+const onToken = (amount, description) => token =>  // Creates the token for you, so you can send all the necessary information to backend
   axios.post(PAYMENT_SERVER_URL,
     {
       description,
