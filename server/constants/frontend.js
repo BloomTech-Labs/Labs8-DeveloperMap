@@ -1,4 +1,4 @@
-const FRONTEND_DEV_URLS = [ 'https://clever-liskov-29b49a.netlify.com' ];
+const FRONTEND_DEV_URLS = [ 'http://localhost:3000' ];
 
 const FRONTEND_PROD_URLS = [
   'https://www.yourdomain.com',

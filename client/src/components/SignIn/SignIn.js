@@ -8,6 +8,7 @@ import {
   RegisterButton,
 } from '../../styles/SignIn_UpStyle';
 
+
 class SignIn extends React.Component {
   //Basic state
   state = {
