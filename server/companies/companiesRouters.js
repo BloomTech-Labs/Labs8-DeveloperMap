@@ -99,3 +99,22 @@ router.put('/userInfo/companies/:uid', (req, res) => {
     })
     .catch(err => res.json(err));
 });
+
+router.delete('/:uid', (req, res) => {
+  const { uid } = req.params;
+  rootRef
+    .child(`companies/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        snapshot.ref
+          .remove()
+          .then(() => {
+            res.json('user has been deleted');
+          })
+          .catch(err => res.json(err));
+      } else {
+        return res.json("user doesn't exist");
+      }
+    });
+});
