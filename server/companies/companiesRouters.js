@@ -3,6 +3,8 @@ const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
 
+//----------------------------------------------------GETS
+
 router.get('/', (req, res) => {
   rootRef
     .child('companies')
@@ -27,6 +29,8 @@ router.get('/:uid', (req, res) => {
       res.status(500).json({ err });
     });
 });
+
+//--------------------------------------------------------POSTS
 
 router.post('/addUser/:uid', (req, res) => {
   const { uid } = req.params;
@@ -64,6 +68,8 @@ router.post('/addUser/:uid', (req, res) => {
     .catch(err => res.json(err));
 });
 
+//----------------------------------------------------------------------PUT
+
 router.put('/userInfo/companies/:uid', (req, res) => {
   const { uid } = req.params;
   const updateKeys = Object.keys(req.body);
@@ -99,6 +105,8 @@ router.put('/userInfo/companies/:uid', (req, res) => {
     })
     .catch(err => res.json(err));
 });
+
+//-------------------------------------------------------------------DELETE
 
 router.delete('/:uid', (req, res) => {
   const { uid } = req.params;
