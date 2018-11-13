@@ -3,7 +3,7 @@ const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
 
-//GETs
+//----------------------------------------------------------------GETS
 
 router.get('/', (req, res) => {
   rootRef
@@ -70,6 +70,7 @@ router.post('/addUser/:uid', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+//------------------------------------------------------------------PUT
 //Change UserInfo
 
 router.put('/userInfo/:uid', (req, res) => {
@@ -107,6 +108,8 @@ router.put('/userInfo/:uid', (req, res) => {
     })
     .catch(err => res.json(err));
 });
+
+//----------------------------------------------------------------------DELETE
 
 router.delete('/:uid', (req, res) => {
   const { uid } = req.params;
