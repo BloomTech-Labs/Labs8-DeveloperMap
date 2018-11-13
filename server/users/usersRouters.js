@@ -192,32 +192,7 @@ router.post('/jobPost/:parentKey/:uid', (req, res) => {
 });
 
 // //Change UserInfo Status
-// Change Seeker single seeker info
-
-router.put('/userInfo/seekers/:uid/:name', (req, res) => {
-  const { uid, name } = req.params;
-  const updatedData = req.body[name];
-  if (updatedData) {
-    rootRef
-      .child(`seekers/${uid}/${name}`)
-      .once('value')
-      .then(snapshot => {
-        if (snapshot.exists()) {
-          snapshot.ref.set(updatedData);
-        } else {
-          res
-            .status(404)
-            .json({ err: `Child key ${name} not found in 'seekers'` });
-        }
-      });
-  } else {
-    res.status(404).json({
-      err: `${name} does not exist in posted object. Object Keys: ${Object.keys(
-        req.body
-      )}.`,
-    });
-  }
-});
+// Change Seeker  info
 
 router.put('/userInfo/seekers/:uid', (req, res) => {
   const { uid } = req.params;
@@ -249,6 +224,8 @@ router.put('/userInfo/seekers/:uid', (req, res) => {
     })
     .catch(err => res.json(err));
 });
+
+//Change User info
 
 router.put('/userInfo/companies/:uid', (req, res) => {
   const { uid } = req.params;
