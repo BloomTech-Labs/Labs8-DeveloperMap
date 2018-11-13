@@ -331,50 +331,18 @@ router.put('/jobs/:uid/:jb', (req, res) => {
 
 router.put('/changeUser/:parentKey/:uid', (req, res) => {});
 
-//add Links
-
-// router.put('/links/:uid', (req, res) => {
-//   const { uid } = req.params;
-//   const links = req.body;
-//   const linkKeys = Object.keys(req.body);
-//   let updateObject = {};
-//   linkKeys.forEach(linkKey => {
-//     updateObject[`users/${uid}/${linkKey}`] = links[linkKey];
-//   });
-
-//   rootRef
-//     .update(updateObject)
-//     .then(() => {
-//       res.json('links added status updated');
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
+// router.delete('/:parentKey/:uid', (req, res) => {
+//   const { parentKey, uid } = req.params;
+//   if (parentKey === 'seekers') {
+//     rootRef
+//       .child(`${parentKey}/${uid}`)
+//       .remove()
+//       .then(() => {
+//         res.json('seekers deleted');
+//       });
+//   } else {
+//     res.status(500);
+//   }
 // });
-
-// //Delete Users
-// router.delete('/:uid', (req, res) => {
-//   const { uid } = req.params;
-//   rootRef
-//     .child('users/' + uid)
-//     .remove()
-//     .then(() => {
-//       res.json('user deleted');
-//     });
-// });
-//
-router.delete('/:parentKey/:uid', (req, res) => {
-  const { parentKey, uid } = req.params;
-  if (parentKey === 'seekers') {
-    rootRef
-      .child(`${parentKey}/${uid}`)
-      .remove()
-      .then(() => {
-        res.json('seekers deleted');
-      });
-  } else {
-    res.status(500);
-  }
-});
 
 module.exports = router;
