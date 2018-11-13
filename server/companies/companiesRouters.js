@@ -74,7 +74,7 @@ router.post('/addUser/:uid', (req, res) => {
 
 //----------------------------------------------------------------------PUT
 
-router.put('/userInfo/companies/:uid', (req, res) => {
+router.put('/userInfo/:uid', (req, res) => {
   const { uid } = req.params;
   const updateKeys = Object.keys(req.body);
   rootRef
