@@ -21,6 +21,7 @@ markers.post('/', (req, res) => {
   const newData = {
     type: 'Feature',
     geometry: {
+      type: 'Point',
       coordinates: [0, 0],
     },
     properties: {
@@ -29,31 +30,26 @@ markers.post('/', (req, res) => {
     },
   };
 
-  let number = 0;
-
-  rootRef.child('markers').on('value', snap => {
-    number = snap.numChildren();
-  });
   rootRef
-    .child(`markers/${number}`)
-    .set(newData)
+    .child(`markers`)
+    .push(newData)
     .then(() => res.json(newData));
 });
 
-markers.delete('/:uid', (req, res) => {
-  const { uid } = req.params;
+// markers.delete('/:uid', (req, res) => {
+//   const { uid } = req.params;
 
-  rootRef
-    .child(`markers`)
-    .once('value')
-    .then(snap => {
-      const array = snap.val();
-      array.forEach(stuff => {
-        if (stuff.properties.uid === uid) {
-          console.log(stuff);
-        }
-      });
-    });
-});
+//   rootRef
+//     .child(`markers`)
+//     .once('value')
+//     .then(snap => {
+//       const array = snap.val();
+//       array.forEach(stuff => {
+//         if (stuff.properties.uid === uid) {
+//           console.log(stuff);
+//         }
+//       });
+//     });
+// });
 
 module.exports = markers;
