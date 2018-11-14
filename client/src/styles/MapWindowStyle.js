@@ -6,20 +6,19 @@ export const MapWindow = styled.div`
       top: 7px;
       left: 3%;
     }
-  
+
     input[type='text'] {
-        height: auto;
-        width: 300px;
-        border-radius: 20px;
-        border: none;
-        padding-left: 14%;
-        &:focus {
-          outline: none;
-        }
+      height: auto;
+      width: 300px;
+      border-radius: 20px;
+      border: none;
+      padding-left: 14%;
+      &:focus {
+        outline: none;
       }
     }
   }
-  
+
   .suggestions {
     background-color: rgb(232, 232, 232);
     border-radius: 4px;
