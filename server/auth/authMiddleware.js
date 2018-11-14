@@ -1,8 +1,6 @@
 const express = require('express');
 const firebase = require('../firebase/firebase.js');
 
-module.exports = { setSeekerClaims, verifySeekerToken };
-
 const setSeekerClaims = (req, res, next) => {
   if (req.headers.authorization) {
     let idToken = req.headers.authorization;
@@ -28,6 +26,7 @@ const setSeekerClaims = (req, res, next) => {
 
 const verifySeekerToken = (req, res, next) => {
   if (req.headers.authorization) {
+    console.log('TOKEN HERE TOKEN HERE:', req.headers.authorization);
     let idToken = req.headers.authorization;
     firebase
       .auth()
@@ -90,3 +89,5 @@ const verifyCompanyToken = (req, res, next) => {
     res.json({ err: 'Token was not received.' });
   }
 };
+
+module.exports = { setSeekerClaims, verifySeekerToken };
