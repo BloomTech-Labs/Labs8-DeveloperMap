@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('../firebase/firebase.js');
 
 const setSeekerClaims = (req, res, next) => {
+  console.log('Token', req.headers.authorization);
   if (req.headers.authorization) {
     let idToken = req.headers.authorization;
     firebase
@@ -26,7 +27,6 @@ const setSeekerClaims = (req, res, next) => {
 
 const verifySeekerToken = (req, res, next) => {
   if (req.headers.authorization) {
-    console.log('TOKEN HERE TOKEN HERE:', req.headers.authorization);
     let idToken = req.headers.authorization;
     firebase
       .auth()
@@ -39,7 +39,8 @@ const verifySeekerToken = (req, res, next) => {
         } else {
           res.json({ err: 'Token does not have required claims' });
         }
-      });
+      })
+      .catch(err => res.json(err));
   } else {
     res.json({ err: 'Token was not received.' });
   }
@@ -84,7 +85,8 @@ const verifyCompanyToken = (req, res, next) => {
         } else {
           res.json({ err: 'Token does not have required claims' });
         }
-      });
+      })
+      .catch(err => res.json(err));
   } else {
     res.json({ err: 'Token was not received.' });
   }
