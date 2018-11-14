@@ -92,4 +92,34 @@ const verifyCompanyToken = (req, res, next) => {
   }
 };
 
-module.exports = { setSeekerClaims, verifySeekerToken };
+const allowSeekerUpdate = (req, res, next) => {
+  const { body } = req;
+  if (body && (body.email || body.phoneNumber)) {
+    const { email, phoneNumber, uid } = body;
+    console.log(body);
+    firebase
+      .auth()
+      .updateUser(uid, {
+        email: email,
+        phoneNumber: phoneNumber,
+      })
+      .then(() => {
+        console.log('NEXT');
+        next();
+      })
+      .catch(err => {
+        console.log('CATCH');
+        return res.json(err);
+      });
+  } else {
+    next();
+  }
+};
+
+module.exports = {
+  setSeekerClaims,
+  verifySeekerToken,
+  allowSeekerUpdate,
+  verifyCompanyToken,
+  setSeekerClaims,
+};
