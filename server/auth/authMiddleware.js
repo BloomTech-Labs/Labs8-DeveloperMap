@@ -121,5 +121,5 @@ module.exports = {
   verifySeekerToken,
   allowSeekerUpdate,
   verifyCompanyToken,
-  setSeekerClaims,
+  setCompanyClaims,
 };
