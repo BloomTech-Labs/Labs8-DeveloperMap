@@ -118,3 +118,18 @@ markers object properties (each marker has a unique uId):
 
 ### Company Postings Model
 
+The company posting are related to each company uId. 
+
+posting objects are relative to a unique company id
+
+```
+- companyName = val().isString()
+- date = val().matches(/^\\d{2}/\\d{2}/\\d{2}$/)
+- jobLink = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+- jobTitle = val().isString()
+- location = val().isString()
+```
+
+### Favorite Postings Model
+
+
