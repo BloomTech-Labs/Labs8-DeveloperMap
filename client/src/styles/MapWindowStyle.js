@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
 export const MapWindow = styled.div`
-  input {
-    height: 10px;
-    width: 300px;
-    border-radius: 20px;
-    border: none;
-    padding-left: 8px;
-    &:focus {
-      outline: none;
+  .mapboxgl-ctrl-geocoder {
+    .geocoder-icon-search {
+      top: 7px;
+      left: 3%;
+    }
+  
+    input[type='text'] {
+        height: auto;
+        width: 300px;
+        border-radius: 20px;
+        border: none;
+        padding-left: 14%;
+        &:focus {
+          outline: none;
+        }
+      }
     }
   }
+  
   .suggestions {
     background-color: rgb(232, 232, 232);
     border-radius: 4px;
