@@ -6,7 +6,7 @@ const postStripeCharge = res => (stripeErr, stripeRes) => {
   } else {
     res.status(200).send({ success: stripeRes });
   }
-}
+} //function to be called after request is made to Stripe Api
 
 const paymentApi = server => {
   server.get('/', (req, res) => {
@@ -14,7 +14,7 @@ const paymentApi = server => {
   });
 
   server.post('/', (req, res) => {
-    stripe.charges.create(req.body, postStripeCharge(res));
+    stripe.charges.create(req.body, postStripeCharge(res)); // Uses Stripe library to make an 'official' stripe payment, callback function called after request to Stripe Api succeeds or fails.
   });
 
   return server;
