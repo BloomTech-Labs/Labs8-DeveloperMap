@@ -1,1 +1,66 @@
 # Developer Heat Map
+
+<div align="center"><h2>Contributors:</h2>
+
+<a href="https://github.com/Lndubose">Lauren Dubose</a>
+
+<a href="https://github.com/easyra">Ezra Davis</a>
+
+<a href="https://github.com/TheBrockstar">Brock Rohloff</a>
+
+<a href="https://github.com/Austinlp4">Austin Pendergrast</a>
+
+</div>
+
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+  - [Frontend Built Using](#frontend-built-using)
+  - [Backend Built Using](#backend-built-using)
+  - [Reasoning](#reasoning)
+
+
+### Frontend built using:
+
+- React.js
+- Styled-components
+- Netlify
+
+Deployed [here](https://clever-liskov-29b49a.netlify.com/)
+
+### Backend built using:
+
+- Firebase
+- Node.js
+- Express
+
+Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
+
+### Reasoning:
+
+- React.js
+
+  - SPA: Single page app fits the React
+  - Because the various views are communicated through modals, a component based library is the best set of tools for content delivery. Each modal is a component.
+  - Multiple modals, react gives us freedom to make our own naming conventions, easier to find areas of the website based on naming
+  - Because we will be updating multiple views, and not a single view multiple times, React’s server side rendering is faster than other SPA client side rendering alternatives.
+
+- Firebase
+  
+  - Built in Authentication
+  - Data updates real-time
+  - Massive storage size potential (scalability)
+  - Allows us to add/change features without having to change a schema
+
+- Express
+
+  - Unopinionated framework, which allows us to write our code with less restrictions
+  - Due to its wide use, support, and relatively long history, express is considered ‘battle-tested’ in that we are less likely to encounter bugs.
+  - Works with JSON, firebase data is a json tree
+
+- Node.js
+
+  - Allows us to develop both our front-end and back-end in the same language and avoid context switching

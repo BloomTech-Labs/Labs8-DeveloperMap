@@ -11,7 +11,7 @@ const corsOptions = {
 };
 
 const configureServer = server => {
-  server.use(cors(corsOptions));
+  server.use(cors(corsOptions));     // body-parser middleware to parse your incoming requests rather than parsing them yourself
 
   server.use(bodyParser.json());
 };
