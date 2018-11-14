@@ -1,8 +1,7 @@
 import React from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl from 'mapbox-gl';
-import ReactMapGL from 'react-map-gl';
-import MapboxGeocoder from 'mapbox-gl-geocoder';
+import MapGL from 'react-map-gl';
+import Geocoder from 'react-map-gl-geocoder';
 import { MapWindow } from '../../styles/MapWindowStyle';
 
 const MAPBOX_TOKEN =
@@ -11,20 +10,35 @@ const MAPBOX_TOKEN =
 class LandingPage extends React.Component {
   state = {
     viewport: {
-      width: 400,
-      height: 400,
       latitude: 37.7577,
-      longitude: -122.4376,
-      zoom: 8,
+      longitude: -100,
+      zoom: 3,
     },
   };
 
-  // resize() {
-  //   this.onViewportChange({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight
-  //   });
-  // }
+  mapRef = React.createRef();
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+    this.resize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
+
+  resize = () => {
+    this.handleViewportChange({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  handleViewportChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport },
+    });
+  };
 
   render() {
     const style = {
@@ -35,16 +49,20 @@ class LandingPage extends React.Component {
 
     return (
       <MapWindow>
-        <ReactMapGL
-          className="map"
+        <MapGL
+          ref={this.mapRef}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
-          onViewportChange={viewport => this.setState({ viewport })}
+          onViewportChange={this.handleViewportChange}
           style={style}
-          width="100%"
-          height="100%"
-          mapStyle="mapbox://styles/lndubose/cjo6br6c61dfs2snxq0bxlg3f?optimize=true"
-        />
+          mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
+        >
+          <Geocoder
+            mapRef={this.mapRef}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            onViewportChange={this.handleViewportChange}
+          />
+        </MapGL>
       </MapWindow>
     );
   }

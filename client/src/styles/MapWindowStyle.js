@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MapWindow = styled.div`
   input {
-    height: 30px;
+    height: 10px;
     width: 300px;
     border-radius: 20px;
     border: none;
