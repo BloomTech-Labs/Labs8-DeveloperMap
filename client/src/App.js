@@ -53,10 +53,11 @@ class App extends Component {
       // Deconstruct response body
       const { uid, email } = response.user;
       // Construct User Object
-      const seeker = {"uid":uid, "email":email, "firstName":fullName, "lastName":'test', "jobTitle":'test', "location":'test'}
-      axios.post(`https://intense-stream-29923.herokuapp.com/api/database/addUser/seekers/`, {...seeker})
+      const seeker = { "email":email, "firstName":fullName, "lastName":'test', "jobTitle":'test', "location":'test'}
+      axios.post(`https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${uid}`, {...seeker})
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
+        alert(response.data.message);
       })
       .catch((error) => console.log(error))
 
@@ -67,6 +68,7 @@ class App extends Component {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log({ errorCode, errorMessage });
+      alert(errorMessage)
     });
   }
 
