@@ -38,9 +38,10 @@ router.get('/:uid', (req, res) => {
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-router.post('/addUser/:uid', (req, res) => {
-  const { uid } = req.params;
-  const { email, firstName, lastName, jobTitle, location } = req.body;
+router.post('/addUser', authMw.setSeekerClaims, (req, res) => {
+  const { email, firstName, lastName, jobTitle, location, uid } = req.body;
+  // const { uid } = req.params;
+  // const { email, firstName, lastName, jobTitle, location } = req.body;
   const newData = {
     email,
     firstName,
@@ -57,7 +58,10 @@ router.post('/addUser/:uid', (req, res) => {
     .child(`seekers/${uid}`)
     .once('value')
     .then(snapshot => {
-      if (snapshot.exists()) {
+      if (
+        snapshot.child(`seekers/${uid}`).exists() ||
+        snapshot.child(`marker/${uid}`)
+      ) {
         res.json({ err: 'user already exists' });
       } else {
         snapshot.ref
@@ -72,6 +76,21 @@ router.post('/addUser/:uid', (req, res) => {
           });
       }
     })
+
+    // rootRef.once('value').then(snapshot => {
+    //   if (snapshot.child(`seekers/${uid}`).exists() || snapshot.child(`marker/${uid}`)) {
+    //         res.json({ err: 'user already exists' });
+    //   } else {
+    //   snapshot.child(`seekers/${uid}`)
+    //   let key = snapshot.child(`markers`).push(markerData).key
+    //   let updateObject = {}
+
+    //   updateObject[`seekers/${uid}`] = req.body
+    //   updateObject[`markers/${key}`] = markerData
+    //   return rootRef.update(updateObject)
+    // }
+    // })
+
     .catch(err => res.status(500).json(err));
 });
 
