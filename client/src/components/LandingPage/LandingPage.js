@@ -1,68 +1,69 @@
 import React from 'react';
-import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl from 'mapbox-gl';
-import MapboxGeocoder from 'mapbox-gl-geocoder';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import MapGL from 'react-map-gl';
+import Geocoder from 'react-map-gl-geocoder';
 import { MapWindow } from '../../styles/MapWindowStyle';
-
-
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-mapboxgl.accessToken = MAPBOX_TOKEN;
 
 class LandingPage extends React.Component {
-  state={
+  state = {
     viewport: {
-      width: 400,
-      height: 400,
       latitude: 37.7577,
-      longitude: -122.4376,
-      zoom: 8
+      longitude: -100,
+      zoom: 3,
     },
-    
-  }
+  };
+
+  mapRef = React.createRef();
 
   componentDidMount() {
-    this.map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: 'mapbox://styles/lndubose/cjo6br6c61dfs2snxq0bxlg3f?optimize=true'
-    });
-    this.map.addControl(new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken
-  }));
+    window.addEventListener('resize', this.resize);
+    this.resize();
   }
 
   componentWillUnmount() {
-    this.map.remove();
+    window.removeEventListener('resize', this.resize);
   }
-  
 
-  resize() {
-    this.onViewportChange({
+  resize = () => {
+    this.handleViewportChange({
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     });
-  }
+  };
 
-  // onViewportChange = viewport => {
-  //   this.setState({
-  //     viewport: { ...this.state.viewport, ...viewport }
-  //   })
-  // };
-  
+  handleViewportChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport },
+    });
+  };
+
   render() {
     const style = {
       position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      width: '100%',
+      marginTop: '-8px',
+      marginLeft: '-8px',
     };
-    
-    return (    
+
+    return (
       <MapWindow>
-        <div style={style} {...this.state.viewport} ref={el => (this.mapContainer = el)} />
-      </MapWindow>        
+        <MapGL
+          ref={this.mapRef}
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+          {...this.state.viewport}
+          onViewportChange={this.handleViewportChange}
+          style={style}
+          mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
+        >
+          <Geocoder
+            mapRef={this.mapRef}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            onViewportChange={this.handleViewportChange}
+          />
+        </MapGL>
+      </MapWindow>
     );
   }
 }
