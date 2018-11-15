@@ -63,6 +63,7 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 - Node.js
 
+
   - Allows us to develop both our front-end and back-end in the same language and avoid context switching
 
 # Documentation
@@ -131,5 +132,3 @@ posting objects are relative to a unique company id
 ```
 
 ### Favorite Postings Model
-
-
