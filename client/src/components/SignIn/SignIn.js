@@ -21,7 +21,7 @@ class SignIn extends React.Component {
   };
 
   clickRegister = () => {
-    this.props.history.push('/Signup');
+    this.props.history.push('/signup');
   };
 
   render() {
