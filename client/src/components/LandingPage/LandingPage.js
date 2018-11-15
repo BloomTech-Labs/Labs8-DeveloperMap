@@ -1,6 +1,6 @@
 import React from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import MapGL from 'react-map-gl';
+import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import { MapWindow } from '../../styles/MapWindowStyle';
 
@@ -14,6 +14,7 @@ class LandingPage extends React.Component {
       longitude: -100,
       zoom: 3,
     },
+    data: [],
   };
 
   mapRef = React.createRef();
@@ -21,6 +22,50 @@ class LandingPage extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.resize);
     this.resize();
+    this.setState({
+      data: [
+        {
+          geometry: {
+            coordinates: { 0: 40, 1: -123 },
+          },
+
+          properties: {
+            title: 'Lauren',
+            uid: 'jklsfn3',
+          },
+        },
+        {
+          geometry: {
+            coordinates: { 0: 37.8, 1: -122.41 },
+          },
+          properties: {
+            title: 'Ezra',
+            uid: 'hsbneis7dd8s',
+          },
+        },
+        {
+          geometry: {
+            coordinates: {
+              0: -75.915527,
+              1: 42.106374,
+            },
+          },
+          properties: {
+            title: 'Austin',
+            uid: 'dfagagds',
+          },
+        },
+        {
+          geometry: {
+            coordinates: { 0: 0, 1: 0 },
+          },
+          properties: {
+            title: 'Brock',
+            uid: 'fd87ash3bkjs',
+          },
+        },
+      ],
+    });
   }
 
   componentWillUnmount() {
@@ -62,6 +107,18 @@ class LandingPage extends React.Component {
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
           />
+
+          {this.state.data.map((mark, i) => {
+            return (
+              <Marker
+                key={i}
+                latitude={mark.geometry.coordinates[0]}
+                longitude={mark.geometry.coordinates[1]}
+              >
+                <div>{mark.properties.title}</div>
+              </Marker>
+            );
+          })}
         </MapGL>
       </MapWindow>
     );
