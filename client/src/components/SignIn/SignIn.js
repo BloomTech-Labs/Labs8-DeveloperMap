@@ -45,7 +45,7 @@ class SignIn extends React.Component {
   }
 
   render() {
-    // console.log('%cstate', 'color: blue', this.state);
+    // console.log('%cstate', 'color: blue', this.state)
     const { location, firstName, jobTitle, email } = this.state;
 
     return (
