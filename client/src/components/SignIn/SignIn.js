@@ -61,6 +61,9 @@ class SignIn extends React.Component {
                 Register here
               </RegisterButton>
             </p>
+            <RegisterButton onClick={this.props.signUpWithGoogleAuthentication}>
+                Sign in with Google.
+              </RegisterButton>
           </form>
           <button onClick = {(e) => {
             this.props.signOutCurrentUser(e)
