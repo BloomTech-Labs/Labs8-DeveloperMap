@@ -174,6 +174,8 @@ class App extends Component {
       });
   }
 
+  // /employer/:employerId/settings
+
   render() {
     return (
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
@@ -187,7 +189,7 @@ class App extends Component {
           component={EmployerSettings}
         />
         <Route
-          path="/employer/:employerId/settings/billing"
+          path="/billing"
           component={EmployerBilling}
         />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
