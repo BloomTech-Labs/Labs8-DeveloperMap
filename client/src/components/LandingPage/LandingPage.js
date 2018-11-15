@@ -1,8 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { MapWindow } from '../../styles/MapWindowStyle';
+import { MapWindow, ShowMarker, Pop } from '../../styles/MapWindowStyle';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
@@ -22,50 +23,14 @@ class LandingPage extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.resize);
     this.resize();
-    this.setState({
-      data: [
-        {
-          geometry: {
-            coordinates: { 0: 40, 1: -123 },
-          },
-
-          properties: {
-            title: 'Lauren',
-            uid: 'jklsfn3',
-          },
-        },
-        {
-          geometry: {
-            coordinates: { 0: 37.8, 1: -122.41 },
-          },
-          properties: {
-            title: 'Ezra',
-            uid: 'hsbneis7dd8s',
-          },
-        },
-        {
-          geometry: {
-            coordinates: {
-              0: -75.915527,
-              1: 42.106374,
-            },
-          },
-          properties: {
-            title: 'Austin',
-            uid: 'dfagagds',
-          },
-        },
-        {
-          geometry: {
-            coordinates: { 0: 0, 1: 0 },
-          },
-          properties: {
-            title: 'Brock',
-            uid: 'fd87ash3bkjs',
-          },
-        },
-      ],
-    });
+    axios
+      .get('https://intense-stream-29923.herokuapp.com/api/markers')
+      .then(response => {
+        for (let mark in response.data) {
+          this.setState({ data: [...this.state.data, response.data[mark]] });
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   componentWillUnmount() {
@@ -115,7 +80,9 @@ class LandingPage extends React.Component {
                 latitude={mark.geometry.coordinates[0]}
                 longitude={mark.geometry.coordinates[1]}
               >
-                <div>{mark.properties.title}</div>
+                <ShowMarker>
+                  <Pop>{mark.properties.title}</Pop>
+                </ShowMarker>
               </Marker>
             );
           })}

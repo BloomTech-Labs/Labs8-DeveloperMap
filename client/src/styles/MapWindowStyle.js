@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import marker from '../images/markerPic.png';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
@@ -48,5 +49,23 @@ export const MapWindow = styled.div`
   }
   .geocoder-pin-right {
     display: none;
+  }
+`;
+
+export const ShowMarker = styled.div`
+  color: white;
+  background-image: url(${marker});
+  height: 40px;
+  width: 47px;
+  background-size: 40px;
+`;
+
+export const Pop = styled.div`
+  display: none;
+
+  &:hover {
+    display: block;
+    color: white;
+    background-color: black;
   }
 `;
