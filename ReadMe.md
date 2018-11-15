@@ -64,3 +64,72 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 - Node.js
 
   - Allows us to develop both our front-end and back-end in the same language and avoid context switching
+
+# Documentation
+
+### Models
+
+#### User Model
+
+The user model is broken up into two different objects that are labels companies and seekers. The companies object is created for companies registered through the app, and seekers are the job seekers that are registered through the app. All objects are created through firebase and are only accessible through admin priveledges.
+
+companies object properties (each company has a unique uId):
+
+```
+- companyName = val().isString()
+- companyWebsite = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+- email = isString() && val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)
+- location = val().isString()
+- phoneNumber = val().matches(/^\\d{3}-\\d{3}-\\d{4}$/)
+```
+
+seekers object properties (each seeker has a unique uId):
+
+```
+- email = isString() && val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)
+- firstName = val().isString()
+- github = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+- jobTitle = val().isString()
+- lastName = val().isString()
+- linkedIn = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+- location = val().isString()
+- phoneNumber = val().matches(/^\\d{3}-\\d{3}-\\d{4}$/)
+- portfolio = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+- twitter = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+```
+### Markers Model
+
+The markers model contains the geoJSON properties needed to locate users on the map and pin or mark their coordinates. The nested properties object holds the metadata for each marker.
+
+markers object properties (each marker has a unique uId):
+
+```
+- geometry {
+    - coordinates
+      - 0 = val().isNumber()
+      - 1 = val().isNumber()
+}
+- properties {
+    - title = val().isString()
+    - uid = val().isString()
+}
+- type = val().isString()
+```
+
+### Company Postings Model
+
+The company posting are related to each company uId. 
+
+posting objects are relative to a unique company id
+
+```
+- companyName = val().isString()
+- date = val().matches(/^\\d{2}/\\d{2}/\\d{2}$/)
+- jobLink = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
+- jobTitle = val().isString()
+- location = val().isString()
+```
+
+### Favorite Postings Model
+
+
