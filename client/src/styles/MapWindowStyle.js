@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
+    width: 300px;
+    border-radius: 20px;
     .geocoder-icon-search {
       top: 7px;
       left: 3%;
@@ -17,24 +19,25 @@ export const MapWindow = styled.div`
         outline: none;
       }
     }
-  }
-
-  .suggestions {
-    background-color: rgb(232, 232, 232);
-    border-radius: 4px;
-    padding-inline-start: 20px;
-    li {
-      list-style-type: none;
-      margin: 2px 0;
-      cursor: pointer;
-      &:hover {
-        color: rgb(54, 154, 255);
+    .suggestions {
+      background-color: white;
+      border-radius: 4px;
+      padding-inline-start: 20px;
+      li {
+        list-style-type: none;
+        margin: 2px 0;
+        cursor: pointer;
+        &:hover {
+          color: rgb(54, 154, 255);
+        }
+      }
+      .active {
+        color: rgb(119, 187, 255);
       }
     }
-    .active {
-      color: rgb(119, 187, 255);
-    }
   }
+
+  
   .mapboxgl-control-container {
     width: 100%;
 
