@@ -7,10 +7,23 @@ const firebase = require('./firebase.js');
 //exports.labs8 = functions.https.onRequest(server);
 exports.deleteUser = functions.auth.user().onDelete(user => {
   const { uid } = user;
+  console.log(user);
   if (user.customClaims.seeker) {
     let updateObject = {};
-    updateObject[`seekers/${uid}`] = null;
-    updateObject[`favoritePostings/${uid}`] = null;
+    firebase
+      .database()
+      .ref(`favoriteLookup`)
+      .once('value')
+      .then(snapshot => {
+        snapshot.forEach(childSnap => {
+          if (childSnap.child(uid).exists()) {
+            updateObject[`favoriteLookup/${childSnap.key}/${uid}`] = null;
+          }
+          updateObject[`seekers/${uid}`] = null;
+          updateObject[`favoritePostings/${uid}`] = null;
+        });
+      });
+
     return firebase
       .database()
       .ref()
@@ -27,6 +40,29 @@ exports.deleteUser = functions.auth.user().onDelete(user => {
   }
 });
 
+exports.logsMissingData = functions.auth.user().onCreate(user => {
+  const { uid } = user;
+  firebase
+    .database()
+    .ref()
+    .once('value')
+    .then(snapshot => {
+      console.log('checking data');
+      console.log('seekers:', !snapshot.child(`seekers/${uid}`).exists());
+      console.log('companies:', !snapshot.child(`companies/${uid}`).exists());
+      if (
+        !snapshot.child(`seekers/${uid}`).exists() &&
+        !snapshot.child(`companies/${uid}`).exists()
+      ) {
+        console.log(
+          `user data was not put into the realtime database upon creation`,
+          user
+        );
+      } else {
+        console.log('no missing data');
+      }
+    });
+});
 // exports.addClaims = functions.auth.user().onCreate(user => {
 //   firebase
 //     .auth()
