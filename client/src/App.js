@@ -12,7 +12,8 @@ import {
   SeekerSettings,
   SeekerProfile,
   SignIn,
-  SignUp,
+  SeekerSignUp,
+  EmployerSignUp
 } from './reducer';
 
 class App extends Component {
@@ -35,7 +36,7 @@ class App extends Component {
   /// ----- User Control Methods -----
 
   // --- Sign Up Methods ---
-  signUpNewUserWithEmailAndPassword = (e, fullName, email, password, rePassword) => {
+  signUpNewUserWithEmailAndPassword = (e, type, email, phone, identifier1, identifier2, jobTitle, street, city, state, zipCode, password, rePassword) => {
     e.preventDefault();
 
     // Check to make sure that the password matches the confirm password
@@ -43,32 +44,85 @@ class App extends Component {
     return alert('Password does not match the confirm password.')
     }
 
-    //Check password length
+    // Check password length
     if (password.length <= 8) {
     return alert('Password must be at least 8 characters long.')
     }
+
+    // Construct Location Object
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(response => {
       // Deconstruct response body
       const { uid, email } = response.user;
-      // Construct User Object
-      const seeker = { "email":email, "firstName":fullName, "lastName":'test', "jobTitle":'test', "location":'test'}
-      axios.post(`https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${uid}`, {...seeker})
-      .then((response) => {
-        console.log(response.data);
-        alert(response.data.message);
-      })
-      .catch((error) => console.log(error))
 
-      this.setState({currentSignedInUser: seeker});
-      this.props.history.push('/');
+      ///// ---- Add User to Database ----
+
+      // Construct Location Object
+      let location = {};
+      let accessToken = 'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
+      let addressString = street.concat(' ', city, state, zipCode);
+      let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
+      
+      // Get Location Coordinates and Return Promise
+      axios.get(mapboxGeocodingAPIURL)
+      .then( response => {
+        console.log(response.data.features[0].geometry.coordinates)
+        location = {
+          street: street,
+          city: city,
+          state: state,
+          zip: zipCode,
+          coordinates: response.data.features[0].geometry.coordinates,
+        }
+      
+        // Determine User Type
+        let user = {}
+
+        if( type === "seekers" ) {
+        // Construct Object for Seeker Type Users
+        user = {
+          "uid": uid, 
+          "email": email, 
+          "phoneNumber": phone,
+          "firstName": identifier1, 
+          "lastName": identifier2, 
+          "jobTitle": jobTitle, 
+          "location": location
+        }
+  
+        } else if( type === "companies" ) {
+        // Construct Object for Employer Type Users
+        user = {
+          "uid": uid, 
+          "email": email, 
+          "phoneNumber": phone,
+          "companyName": identifier1, 
+          "companyWebsite": identifier2, 
+          "location": location
+        }
+        } else {
+          return console.log('Invalid user type!')
+        }
+        
+        // Send user object to the server to be created in the database
+        axios.post(`https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser/${uid}`, {...user})
+        .then((response) => {
+          console.log(response.data);
+          alert(response.data.message);
+        })
+        .catch((error) => console.log(error))
+  
+        this.setState({currentSignedInUser: user});
+        this.props.history.push('/');
+      })
+      .catch(error => console.log(error))
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log({ errorCode, errorMessage });
-      alert(errorMessage)
+      alert(error)
     });
   }
 
@@ -144,7 +198,10 @@ class App extends Component {
           />}
         />
         <Route path="/signup" render={(props) => 
-          <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+          <SeekerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
+        <Route path="/employer/signup" render={(props) => 
+          <EmployerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
         }/>
       </div>
     );

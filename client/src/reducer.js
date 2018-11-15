@@ -7,7 +7,8 @@ import SeekerFavorites from './components/Seeker/SeekerFavorites';
 import SeekerSettings from './components/SeekerProfile/SeekerProfile';
 import SeekerProfile from './components/SeekerProfile/SeekerProfile';
 import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
+import SeekerSignUp from './components/SignUp/SeekerSignUp';
+import EmployerSignUp from './components/SignUp/EmployerSignUp';
 
 export {
     NavBar,
@@ -19,5 +20,6 @@ export {
     SeekerSettings,
     SeekerProfile,
     SignIn,
-    SignUp
+    SeekerSignUp,
+    EmployerSignUp
 } 
