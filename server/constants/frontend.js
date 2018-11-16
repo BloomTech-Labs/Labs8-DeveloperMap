@@ -1,7 +1,7 @@
 const FRONTEND_DEV_URLS = [ 'https://clever-liskov-29b49a.netlify.com' ]; // I used localhost:3000 for front-end testing of Stripe
 
 const FRONTEND_PROD_URLS = [
-  'https://www.yourdomain.com',  // Can change these with production url down the road or before our next presentation
+  'https://clever-liskov-29b49a.netlify.com',  // Can change these with production url down the road or before our next presentation
   'https://yourdomain.com'
 ];
 

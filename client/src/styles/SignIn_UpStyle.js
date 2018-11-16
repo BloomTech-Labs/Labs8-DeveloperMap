@@ -12,6 +12,7 @@ export const SignModalMain = styled(ModalMain)`
   border-radius: 2px;
   form{
     width: 100%;
+    max-width: 650px;
     h4{
       border-bottom: .5px solid lightgrey;
       color: rgb(184,15,10);
