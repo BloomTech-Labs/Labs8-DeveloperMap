@@ -112,6 +112,9 @@ class SignIn extends React.Component {
                   Register here
                 </RegisterButton>
               </p>
+            <RegisterButton onClick={this.props.signUpWithGoogleAuthentication}>
+                Sign in with Google.
+              </RegisterButton>
             </form>
             <button
               onClick={e => {
@@ -122,6 +125,7 @@ class SignIn extends React.Component {
             </button>
           </SignModalMain>
         )}
+
       </ModalContainer>
     );
   }
