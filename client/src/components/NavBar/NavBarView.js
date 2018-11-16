@@ -97,6 +97,11 @@ class NavBar extends React.Component {
   handleSignIn = () => {
     this.props.history.push('/signin');
   };
+  
+  billMe = () => {
+    this.props.history.push('/billing');
+  }
+
 
   render() {
     return (
@@ -113,7 +118,7 @@ class NavBar extends React.Component {
           </ToggleKnob>
           <h5>Employer</h5>
         </div>
-        <div className="heart">
+        <div className="heart" onClick={this.billMe}>
           <img alt="Favorites Icon" src={Heart} />
         </div>
         <div className="avatar" onClick={this.handleSignIn}>

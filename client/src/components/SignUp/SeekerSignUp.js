@@ -1,6 +1,14 @@
 import React from 'react';
 import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
-import { Label, Input, SignModalMain } from '../../styles/SignIn_UpStyle';
+import { 
+  Button,
+  JobTitle,
+  Location, 
+  Input, 
+  SignModalMain, 
+  Password,
+  FullName, 
+  ContactInfo } from '../../styles/SignIn_UpStyle';
 
 class SeekerSignUp extends React.Component {
   state = {
@@ -63,50 +71,89 @@ class SeekerSignUp extends React.Component {
     return (
       <ModalContainer data-type="modal-container">
         <SignModalMain>
-          <h2>Job Seeker Sign Up</h2>
+          <h2>Job Seeker - Sign Up</h2>
+          Are you an employer?{" "}
+          <span style={{color:'blue', cursor:'pointer'}} onClick = {(e) => {
+            this.employerRegister(e)
+            }}>Sign Up Here</span>
           <form onSubmit={this.submitHandler}>
-            <Label htmlFor="firstName">
-              First Name
+            <h4>Full Name</h4>
+            <FullName>
               <Input
                 name="firstName"
+                placeholder="First"
                 type="text"
                 value={this.state.firstName}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="lastName">
-              Last Name
               <Input
                 name="lastName"
+                placeholder="Last"
                 type="text"
                 value={this.state.lastName}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="email">
-              Email
+            </FullName>
+            <h4>Contact Information</h4>
+            <ContactInfo>
               <Input
                 name="email"
+                placeholder="Email"
                 type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="phone">
-              Phone
               <Input
                 name="phone"
+                placeholder="Phone"
                 type="text"
                 value={this.state.phone}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="jobTitle">
-              Job Title
+            </ContactInfo>
+            <h4>Location</h4>
+            <Location>
+              <Input
+                name="street"
+                placeholder="Street"
+                type="text"
+                value={this.state.street}
+                onChange={this.changeHandler}
+                required
+              />
+              <Input
+                name="city"
+                placeholder="City"
+                type="text"
+                value={this.state.city}
+                onChange={this.changeHandler}
+                required
+              />
+
+              <Input
+                name="state"
+                placeholder="State"
+                type="text"
+                value={this.state.state}
+                onChange={this.changeHandler}
+                required
+              />
+
+              <Input
+                name="zipCode"
+                placeholder="Zipcode"
+                type="text"
+                value={this.state.zipCode}
+                onChange={this.changeHandler}
+                required
+              />
+            </Location>
+            <h4>Job Title</h4>
+            <JobTitle>
               <Input
                 name="jobTitle"
                 type="text"
@@ -114,73 +161,29 @@ class SeekerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="street">
-              Street
-              <Input
-                name="street"
-                type="text"
-                value={this.state.street}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="city">
-              City
-              <Input
-                name="city"
-                type="text"
-                value={this.state.city}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="state">
-              State
-              <Input
-                name="state"
-                type="text"
-                value={this.state.state}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="zipCode">
-              Zip Code
-              <Input
-                name="zipCode"
-                type="text"
-                value={this.state.zipCode}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="password">
-              Password
+            </JobTitle>
+            <h4>Create Password</h4>
+            <Password>
               <Input
                 name="password"
+                placeholder="Enter New Password"
                 type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="rePassword">
-              Re-Enter Password
+
               <Input
                 name="rePassword"
+                placeholder="Re-Enter Password"
                 type="password"
                 value={this.state.rePassword}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <button>Sign Up</button>
-          </form>
-          Are you an employer?{" "}
-          <span style={{color:'blue', cursor:'pointer'}} onClick = {(e) => {
-            this.employerRegister(e)
-            }}>Sign Up Here</span>
+            </Password>
+            <Button>Sign Up</Button>            
+          </form>          
         </SignModalMain>
       </ModalContainer>
     );
