@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkout } from '../../Stripe/Checkout';
+import Checkout from '../../Stripe/Checkout';
 import {ModalContainer} from '../../../styles/ModalGlobalStyle';
 
 class EmployerBilling extends React.Component {
