@@ -38,59 +38,85 @@ router.get('/:uid', (req, res) => {
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-router.post('/addUser', authMw.setSeekerClaims, (req, res) => {
-  const { email, firstName, lastName, jobTitle, location, uid } = req.body;
-  // const { uid } = req.params;
-  // const { email, firstName, lastName, jobTitle, location } = req.body;
-  const newData = {
+//-----------------------------------------------------------------------POSTS
+//Add User
+
+router.post('/addUser', (req, res) => {
+  // Deconstruct Request Body
+  const {
     email,
     firstName,
     lastName,
+    phoneNumber,
+    jobTitle,
+    location,
+    uid,
+  } = req.body;
+
+  // Validation
+  if (
+    !email ||
+    !firstName ||
+    !email ||
+    !firstName ||
+    !lastName ||
+    !phoneNumber ||
+    !jobTitle ||
+    !location ||
+    !uid
+  ) {
+    return res
+      .status(400)
+      .json({ error: 'Missing information. Unable to create user.' });
+  }
+
+  // Construct New Seeker User Object
+  const newSeeker = {
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
     jobTitle,
     location,
     github: '',
     linkedIn: '',
-    phoneNumber: '',
     portfolio: '',
     twitter: '',
   };
+
+  // Construct New Marker Object
+  const markerData = {
+    geometry: {
+      coordinates: location.coordinates,
+      type: 'Point',
+    },
+    properties: {
+      title: firstName,
+      uid,
+    },
+  };
+
+  // Firebase Reference Interface Methods
   rootRef
-    .child(`seekers/${uid}`)
     .once('value')
     .then(snapshot => {
-      if (
-        snapshot.child(`seekers/${uid}`).exists() ||
-        snapshot.child(`marker/${uid}`)
-      ) {
-        res.json({ err: 'user already exists' });
+      if (snapshot.child(`seekers/${uid}`).exists()) {
+        return res.status(400).json({ error: 'user already exists' });
       } else {
-        snapshot.ref
-          .set(newData)
-          .then(() => {
-            res
-              .status(201)
-              .json({ message: `${email} has been added to database.` });
-          })
-          .catch(err => {
-            res.status(500).json(err);
-          });
+        // Create object to send to Firebase Database
+        let updateObject = {};
+        updateObject[`seekers/${uid}`] = newSeeker;
+        updateObject[`markers/${uid}`] = markerData;
+
+        // Update database with the new object
+        rootRef.update(updateObject);
+
+        // Success Message
+        res
+          .status(201)
+          .json({ success: `${email} has been added to database.` });
       }
     })
-
-    // rootRef.once('value').then(snapshot => {
-    //   if (snapshot.child(`seekers/${uid}`).exists() || snapshot.child(`marker/${uid}`)) {
-    //         res.json({ err: 'user already exists' });
-    //   } else {
-    //   snapshot.child(`seekers/${uid}`)
-    //   let key = snapshot.child(`markers`).push(markerData).key
-    //   let updateObject = {}
-
-    //   updateObject[`seekers/${uid}`] = req.body
-    //   updateObject[`markers/${key}`] = markerData
-    //   return rootRef.update(updateObject)
-    // }
-    // })
-
     .catch(err => res.status(500).json(err));
 });
 

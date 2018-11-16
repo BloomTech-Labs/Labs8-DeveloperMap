@@ -101,7 +101,7 @@ class App extends Component {
         }
         
         // Create User In Database
-        axios.post(`https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser/${uid}`, {...user})
+        axios.post(`http://localhost:9000/api/database/${type}/addUser/`, {...user})
         .then((response) => {
           console.log(response.data);
           alert(response.data.message);
