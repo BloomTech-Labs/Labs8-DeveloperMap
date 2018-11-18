@@ -2,7 +2,11 @@ const express = require('express');
 const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
-const authMw = require('../auth/authMiddleware.js');
+const {
+  setSeekerClaims,
+  verifySeekerToken,
+  allowSeekerUpdate,
+} = require('../auth/authMiddleware.js');
 
 //----------------------------------------------------------------GETS
 
@@ -43,6 +47,7 @@ router.get('/:uid', (req, res) => {
 
 router.post('/addUser', (req, res) => {
   // Deconstruct Request Body
+  console.log('hi');
   const {
     email,
     firstName,
@@ -52,6 +57,8 @@ router.post('/addUser', (req, res) => {
     location,
     uid,
   } = req.body;
+
+  console.log(email, firstName, lastName, phoneNumber, jobTitle, location, uid);
 
   // Validation
   if (
@@ -65,9 +72,7 @@ router.post('/addUser', (req, res) => {
     !location ||
     !uid
   ) {
-    return res
-      .status(400)
-      .json({ error: 'Missing information. Unable to create user.' });
+    return res.status(405).json('Missing information. Unable to create user.');
   }
 
   // Construct New Seeker User Object
