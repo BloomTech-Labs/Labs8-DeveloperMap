@@ -126,7 +126,7 @@ class App extends Component {
               .post(
                 `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
                 { ...user },
-                { ...headers }
+                { headers }
               )
               .then(response => {
                 console.log(response.data);
@@ -183,7 +183,7 @@ class App extends Component {
             let user = {
               uid: tempUser.user.uid,
               email: tempUser.user.email,
-              phoneNumber: tempUser.user.phone,
+              phoneNumber: tempUser.user.phoneNumber || '555-555-5555',
               location: location,
               firstName: 'identifier1',
               lastName: 'identifier2',
@@ -193,11 +193,9 @@ class App extends Component {
             // Create User In Database
             axios
               .post(
-                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${
-                  tempUser.user.uid
-                }`,
+                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser`,
                 { ...user },
-                { ...headers }
+                { headers }
               )
               .then(response => {
                 console.log(response.data);
