@@ -77,8 +77,8 @@ class LandingPage extends React.Component {
             return (
               <Marker
                 key={i}
-                latitude={mark.geometry.coordinates[0]}
-                longitude={mark.geometry.coordinates[1]}
+                latitude={mark.geometry.coordinates[1]}
+                longitude={mark.geometry.coordinates[0]}
               >
                 <ShowMarker>
                   <Pop>{mark.properties.title}</Pop>
