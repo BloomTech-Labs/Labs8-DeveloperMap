@@ -12,6 +12,7 @@ import {
   SeekerSettings,
   SeekerProfile,
   SignIn,
+  SignUp,
   SeekerSignUp,
   EmployerSignUp
 } from './reducer';
@@ -268,6 +269,9 @@ class App extends Component {
           signUpWithGoogleAuthentication={this.signUpWithGoogleAuthentication}
           />}
         />
+        <Route path="/signuptest" render={(props) => 
+          <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
         <Route path="/signup" render={(props) => 
           <SeekerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
         }/>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
-import { Label, Input, SignModalMain } from '../../styles/SignIn_UpStyle';
+import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
+import { Label, Input, SignModalMain } from '../../../styles/SignIn_UpStyle';
 
 class EmployerSignUp extends React.Component {
   state = {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
-import { Label, Input, SignModalMain } from '../../styles/SignIn_UpStyle';
+import { Label, Input } from '../../../styles/SignIn_UpStyle';
 
 class SignUpTypes extends React.Component {
   state = {
@@ -23,8 +22,7 @@ class SignUpTypes extends React.Component {
   render() {
     // console.log('%cstate', 'color: blue', this.state);
     return (
-      <ModalContainer data-type="modal-container">
-        <SignModalMain>
+      <section>
           <h2>Sign Up</h2>
           <form onSubmit={this.submitHandler}>
             <Label htmlFor="email">
@@ -62,8 +60,7 @@ class SignUpTypes extends React.Component {
           <div>
             <div>{/*Google Logo Icon*/}</div><p>Sign Up With Google</p>
           </div>
-        </SignModalMain>
-      </ModalContainer>
+      </section>
     );
   }
 }
