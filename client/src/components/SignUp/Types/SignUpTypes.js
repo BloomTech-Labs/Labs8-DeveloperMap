@@ -8,11 +8,15 @@ class SignUpTypes extends React.Component {
     repassword: ''
   };
 
+  // Form Input Control
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // On Form Submit, Check User Type
   submitHandler = e => {
+    // Redirect the user to their respective signup form if their type is user or seeker.
+    // Redirect the user to choose their user type again, if their type is not user or seeker.
     if (this.props.userType === 'employer') {
       this.props.history.push('/employer/signup')
     } else if (this.props.userType === 'seeker') {
@@ -22,6 +26,7 @@ class SignUpTypes extends React.Component {
     }
   }
 
+  // Form is not currently functional. Just a placeholder until after the next merge.
   render() {
     // console.log('%cstate', 'color: blue', this.state);
     return (
@@ -61,6 +66,7 @@ class SignUpTypes extends React.Component {
             <button>Sign Up</button>
           </form>
           <div>
+            {/*Third Party Auth Goes Here. Google Example (Nonfunctional) Below: */}
             <div>{/*Google Logo Icon*/}</div><p>Sign Up With Google</p>
           </div>
       </section>

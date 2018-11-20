@@ -12,17 +12,7 @@ class SignUp extends React.Component {
     userType: ''
   };
 
-  changeHandler = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  submitHandler = e => {
-    this.props.signUpNewUserWithEmailAndPassword(
-      e, 
-      this.state.email, 
-    );
-  }
-
+  // Sets the user type so that the correct user type form is navigated to after signing up with Google Auth/3rd Party Auth.
   setUserType = (type) => {
   this.setState({userType:type});
   this.props.history.push('/signup/method')
@@ -33,8 +23,16 @@ class SignUp extends React.Component {
     return (
       <ModalContainer data-type="modal-container">
         <SignModalMain>
-          <Route exact path="/signup/method" render={(props) => <SignUpTypes {...props} userType={this.state.userType}/>} />
-          <Route exact path="/signup" render={(props) => <SignUpUserTypes {...props} setUserType={this.setUserType}/>} />
+          {/*'Sign Up Types' Component: User selects the method that they would like to use for authentication (email + password, google auth, etc.).*/}
+          <Route exact path="/signup/method" render={ (props) => 
+          <SignUpTypes {...props} userType={this.state.userType}/>
+          }/>
+
+          {/*'User Types' Component: User selects whether they are an employer or a seeker.*/}
+          <Route exact path="/signup" render={ (props) => 
+          <SignUpUserTypes {...props} setUserType={this.setUserType}/>
+          }/>
+
         </SignModalMain>
       </ModalContainer>
     );
