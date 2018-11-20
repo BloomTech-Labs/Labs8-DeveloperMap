@@ -4,12 +4,12 @@ import { SignModalMain } from '../../styles/SignIn_UpStyle';
 import { Route } from 'react-router-dom';
 import SignUpTypes from './Types/SignUpTypes';
 import SignUpUserTypes from './Types/SignUpUserTypes';
+// import SeekerSignUp from './Forms/SeekerSignUp'; // Implement all signup functionality here eventually.
+// import EmployerSignUp from './Forms/EmployerSignUp'; // Implement all signup functionality here eventually.
 
 class SignUp extends React.Component {
   state = {
-    email: '',
-    password: '',
-    repassword: ''
+    userType: ''
   };
 
   changeHandler = e => {
@@ -23,13 +23,18 @@ class SignUp extends React.Component {
     );
   }
 
+  setUserType = (type) => {
+  this.setState({userType:type});
+  this.props.history.push('/signup/method')
+  }
+
   render() {
     // console.log('%cstate', 'color: blue', this.state);
     return (
       <ModalContainer data-type="modal-container">
         <SignModalMain>
-          <Route exact path="/signuptest" component={SignUpTypes} />
-          <Route path="/signuptest/usertype" component={SignUpUserTypes} />
+          <Route exact path="/signup/method" render={(props) => <SignUpTypes {...props} userType={this.state.userType}/>} />
+          <Route exact path="/signup" render={(props) => <SignUpUserTypes {...props} setUserType={this.setUserType}/>} />
         </SignModalMain>
       </ModalContainer>
     );

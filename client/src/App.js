@@ -269,10 +269,10 @@ class App extends Component {
           signUpWithGoogleAuthentication={this.signUpWithGoogleAuthentication}
           />}
         />
-        <Route path="/signuptest" render={(props) => 
+        <Route path="/signup" render={(props) => 
           <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
         }/>
-        <Route path="/signup" render={(props) => 
+        <Route path="/seeker/signup" render={(props) => 
           <SeekerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
         }/>
         <Route path="/employer/signup" render={(props) => 

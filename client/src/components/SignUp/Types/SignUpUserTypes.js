@@ -23,8 +23,8 @@ class SignUpUserTypes extends React.Component {
     return (
         <section> 
           <h2>Are You a...</h2>
-          <button>Job Seeker</button>
-          <button>Employer</button>
+          <button onClick={() => this.props.setUserType('seeker')}>Job Seeker</button>
+          <button onClick={() => this.props.setUserType('employer')}>Employer</button>
         </section>
     );
   }

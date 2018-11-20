@@ -13,10 +13,13 @@ class SignUpTypes extends React.Component {
   };
 
   submitHandler = e => {
-    this.props.signUpNewUserWithEmailAndPassword(
-      e, 
-      this.state.email, 
-    );
+    if (this.props.userType === 'employer') {
+      this.props.history.push('/employer/signup')
+    } else if (this.props.userType === 'seeker') {
+      this.props.history.push('/seeker/signup')
+    } else {
+      this.props.history.push('/signup')
+    }
   }
 
   render() {
