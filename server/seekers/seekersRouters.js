@@ -87,7 +87,9 @@ router.post('/addUser', (req, res) => {
   // Construct New Marker Object
   const markerData = {
     geometry: {
-      coordinates: location.coordinates,
+
+      // Convert Coordinates to Numbers
+      coordinates: location.coordinates.map(coord => Number(coord)),
       type: 'Point',
     },
     properties: {
