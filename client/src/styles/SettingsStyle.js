@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import { ModalMain } from './ModalGlobalStyle.js';
 
+// Main Container
 export const SettingsModalMain = styled(ModalMain)`
-  width: 40%;
+  position: relative;
+  width: 50%;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   padding: 20px 5% 20px 5%;
-  flex-direction: column;
-  top: 10%;
+  flex-direction: row;
   box-sizing: border-box;
   border-radius: 2px;
+  flex-wrap: wrap;
   form{
     width: 100%;
     max-width: 650px;
@@ -24,41 +26,76 @@ export const SettingsModalMain = styled(ModalMain)`
   }
 `;
 
+// Input Fields
 export const Label = styled.label`
   display: block;
   padding-bottom: 10px;
+  width: ${props => props.width ? props.width : 'auto'};
 `;
 
 export const Input = styled.input`
   display: block;
+  width: 100%;
+  font-size: 16px;
+  height: 20px;
+  border-radius: 1px;
+  border: 1px solid lightgrey;
+`;
+
+export const Select = styled.select`
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  height: 26px;
+  border-radius: 1px;
+  border: 1px solid lightgrey;
+`;
+
+export const TextArea = styled.textarea`
+  display: block;
+  width: 100%;
+  min-width:100%;
+  height: 60px;
+  border-radius: 1px;
+  border: 1px solid lightgrey;
+`;
+
+
+
+export const LeftColumn = styled.div`
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+`;
+
+export const RightColumn = styled.div`
+  display: flex;
+  width: 60%;
+  flex-direction: column;  
 `;
 
 export const Uploads = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
-  input[type=text] {
-    height: 30px;
-    width: 200px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
+  img {
+    width: 100%;
   }
+`;
+
+export const Password = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export const ContactInfo = styled.div`
   display: flex;
-  flex-direction: column;
-  input[type=text], input[type=email] {
-    width: 100%;
-    height: 30px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
-  }
-  input[type=text] {
-    margin-top: 10px;
-  }
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export const Location = styled.div`
@@ -67,7 +104,6 @@ export const Location = styled.div`
   flex-wrap: wrap;
   input[type=text] {
     height: 30px;
-    width: 200px;
     border-radius: 2px;
     border: .5px solid lightgrey;
     padding-left: 5px;
@@ -76,31 +112,10 @@ export const Location = styled.div`
 `;
 
 export const Social = styled.div`
-  input[type=text] {
-    width: 100%;
-    height: 30px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
-  }
-`;
-
-export const Password = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  input[type=password] {
-    height: 30px;
-    width: 200px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
-    margin-bottom: 15px;
-}
+width: 100%;
 `;
 
 export const SaveButton = styled.button`
-  width: 100%;
   height: 30px;
   background-color: rgb(184,15,10);
   color: white;
@@ -110,5 +125,8 @@ export const SaveButton = styled.button`
   &:hover {
     background-color: rgba(184,15,10,.8);
   }
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
 `
 

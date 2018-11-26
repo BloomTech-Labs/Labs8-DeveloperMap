@@ -1,13 +1,19 @@
 import React from 'react';
 import { ModalContainer } from '../../styles/ModalGlobalStyle';
+import profile from '../../images/avatar-icon.jpg';
 import { 
-  Button,
+  SaveButton,
+  Label,
+  Social,
   Uploads,
   Location, 
   Input, 
+  Select,
+  TextArea,
   SettingsModalMain, 
   Password,
-  FullName, 
+  LeftColumn,
+  RightColumn,
   ContactInfo } from '../../styles/SettingsStyle';
 
 class SeekerSettings extends React.Component {
@@ -27,46 +33,97 @@ class SeekerSettings extends React.Component {
       twitter: '',
     };
   }
+
   render() {
     return (
-        <ModalContainer>
+        <ModalContainer data-type="modal-container">
           <SettingsModalMain>
-            <Uploads>
-              <div>Profile Picture</div>
-              <div>Resume</div>
-            </Uploads>
-            <Password>
-              <Label>
-                <Input></Input>
-              </Label>
-              <Label>
-                <Input></Input>
-              </Label>
+            <LeftColumn>
+              <Uploads>
+                <div><img alt='Profile Picture' src={profile}/></div>
+                <div>Resume</div>
+              </Uploads>
+              <Password>
+              <h3>Update Password</h3>
+                <Label>
+                  Current Password
+                  <Input/>
+                </Label>
+                <Label>
+                  New Password
+                  <Input/>
+                </Label>
+                <Label>
+                  Retype New Password
+                  <Input/>
+                </Label>
             </Password>
-            <ContactInfo>
-              <Label>
-                <Input></Input>
-              </Label>
-              <Label>
-                <Input></Input>
-              </Label>
-            </ContactInfo>
-            <Location>
-              <Label>
-                <Input></Input>
-              </Label>
-              <Label>
-                <Input></Input>
-              </Label>
-            </Location>
-            <Social>
-              <Label>
-                <Input></Input>
-              </Label>
-              <Label>
-                <Input></Input>
-              </Label>
-            </Social>
+            </LeftColumn>
+
+            <RightColumn>
+              <ContactInfo>
+                <Label width="48%">
+                  First Name
+                  <Input/>
+                </Label>
+                <Label width="48%">
+                  Last Name
+                  <Input/>
+                </Label>
+                <Label width="100%">
+                  Email
+                  <Input/>
+                </Label>
+                <Label width="48%">
+                  Phone
+                  <Input/>
+                </Label>
+                <Label width="48%">
+                  Expertise
+                  <Select>
+                    <option value="web-developer">Web Developer</option>
+                    <option value="ux-designer">UX Designer</option>
+                    <option value="ios-developer">iOS Developer</option>
+                    <option value="andriod-developer">Android Developer</option>
+                    <option value="machine-learning">Machine Learning</option>
+                  </Select>
+                </Label>
+                <Label width="100%">
+                  Bio
+                  <TextArea></TextArea>
+                </Label>
+
+              </ContactInfo>
+              <Location>
+              <h3>Location</h3>
+                <Label>
+                  Street
+                  <Input/>
+                </Label>
+                <Label>
+                  City
+                  <Input/>
+                </Label>
+                <Label>
+                  State
+                  <Input/>
+                </Label>
+                <Label>
+                  Zip Code
+                  <Input/>
+                </Label>
+              </Location>
+              <Social>
+              <h3>Social</h3>
+                <Label>
+                  <Input/>
+                </Label>
+                <Label>
+                  <Input/>
+                </Label>
+              </Social>
+            </RightColumn>
+            <SaveButton>{this.state.editing ? 'Save Changes' : 'Edit ' }</SaveButton>
           </SettingsModalMain>
         </ModalContainer>
     );

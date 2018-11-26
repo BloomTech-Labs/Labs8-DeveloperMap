@@ -250,7 +250,7 @@ class App extends Component {
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
+        <Route path="/settings" component={SeekerSettings} />
         <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}
