@@ -1,5 +1,14 @@
 import React from 'react';
-import firebase from '../../firebase/firebase';
+import { ModalContainer } from '../../styles/ModalGlobalStyle';
+import { 
+  Button,
+  Uploads,
+  Location, 
+  Input, 
+  SettingsModalMain, 
+  Password,
+  FullName, 
+  ContactInfo } from '../../styles/SettingsStyle';
 
 class SeekerSettings extends React.Component {
   constructor(props) {
@@ -19,18 +28,51 @@ class SeekerSettings extends React.Component {
     };
   }
   render() {
-    return <div />;
+    return (
+        <ModalContainer>
+          <SettingsModalMain>
+            <Uploads>
+              <div>Profile Picture</div>
+              <div>Resume</div>
+            </Uploads>
+            <Password>
+              <Label>
+                <Input></Input>
+              </Label>
+              <Label>
+                <Input></Input>
+              </Label>
+            </Password>
+            <ContactInfo>
+              <Label>
+                <Input></Input>
+              </Label>
+              <Label>
+                <Input></Input>
+              </Label>
+            </ContactInfo>
+            <Location>
+              <Label>
+                <Input></Input>
+              </Label>
+              <Label>
+                <Input></Input>
+              </Label>
+            </Location>
+            <Social>
+              <Label>
+                <Input></Input>
+              </Label>
+              <Label>
+                <Input></Input>
+              </Label>
+            </Social>
+          </SettingsModalMain>
+        </ModalContainer>
+    );
   }
   componentDidMount() {
-    const uid = 'uid1';
-    firebase
-      .database()
-      .ref()
-      .child(`seekers/${uid}`)
-      .once('value')
-      .then(snapshot => {
-        this.setState(snapshot.val());
-      });
+
   }
 }
 
