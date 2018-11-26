@@ -5,7 +5,7 @@ import {
   SaveButton,
   Label,
   Social,
-  Uploads,
+  ProfileInfo,
   Location, 
   Input, 
   Select,
@@ -39,10 +39,21 @@ class SeekerSettings extends React.Component {
         <ModalContainer data-type="modal-container">
           <SettingsModalMain>
             <LeftColumn>
-              <Uploads>
-                <div><img alt='Profile Picture' src={profile}/></div>
-                <div>Resume</div>
-              </Uploads>
+              <ProfileInfo>
+                <div>
+                  <img alt='Profile Picture' src={profile}/>
+                  <Label>
+                  Upload New Profile Picture
+                  <Input type="file" accept=".png,.jpg,.jpeg"/>
+                </Label>
+                </div>
+                <h3>Resume</h3>
+                <a href="#">Resume.pdf</a>
+                <Label>
+                  Upload New Resume
+                  <Input type="file" accept=".pdf,.doc,.docx"/>
+                </Label>
+              </ProfileInfo>
               <Password>
               <h3>Update Password</h3>
                 <Label>

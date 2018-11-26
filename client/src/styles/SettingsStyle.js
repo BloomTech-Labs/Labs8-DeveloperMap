@@ -7,11 +7,14 @@ export const SettingsModalMain = styled(ModalMain)`
   width: 50%;
   display: flex;
   justify-content: space-between;
-  padding: 20px 5% 20px 5%;
+  padding: 30px 5% 30px 5%;
   flex-direction: row;
   box-sizing: border-box;
   border-radius: 2px;
   flex-wrap: wrap;
+  h3 {
+    width: 100%;
+  }
   form{
     width: 100%;
     max-width: 650px;
@@ -46,7 +49,7 @@ export const Select = styled.select`
   display: block;
   width: 100%;
   font-size: 16px;
-  height: 26px;
+  height: 25px;
   border-radius: 1px;
   border: 1px solid lightgrey;
 `;
@@ -74,13 +77,24 @@ export const RightColumn = styled.div`
   flex-direction: column;  
 `;
 
-export const Uploads = styled.div`
+export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
   img {
     width: 100%;
+  }
+  label {
+    padding: 20px 0;
+    input {
+      margin: 10px 0;
+      border: none;
+      height: 24px;
+    }
+  }
+  h3 {
+    margin-bottom: 10px;
   }
 `;
 
@@ -100,15 +114,9 @@ export const ContactInfo = styled.div`
 
 export const Location = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  input[type=text] {
-    height: 30px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
-    margin-bottom: 10px;
-  }
 `;
 
 export const Social = styled.div`
@@ -127,6 +135,6 @@ export const SaveButton = styled.button`
   }
   position: absolute;
   bottom: 30px;
-  right: 30px;
+  right: 10%;
 `
 

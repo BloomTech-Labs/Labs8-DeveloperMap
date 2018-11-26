@@ -9,6 +9,7 @@ height: 100%;
 display: flex;
 justify-content: center;
 align-items: center;
+overflow-y: scroll;
 background: rgba(0, 0, 0, 0.6);
 z-index: 10;
 `;
