@@ -107,7 +107,7 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     phoneNumber,
     jobTitle,
     location,
-    bio,
+    bio: '',
     github: '',
     linkedIn: '',
     portfolio: '',
