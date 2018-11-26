@@ -13,8 +13,9 @@ export const ModalContainer = styled.div`
 export const ModalMain = styled.div`
   background: rgb(255, 255, 255);
   position: fixed;
-  top: 25%;
+  top: 10%;
   left: 25%;
   width: 50%;
   height: auto;
+  margin: 0 auto;
 `;
