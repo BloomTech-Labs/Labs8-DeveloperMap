@@ -194,9 +194,7 @@ class App extends Component {
             // Create User In Database
             axios
               .post(
-                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${
-                  tempUser.user.uid
-                }`,
+                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser`,
                 { ...user },
                 { headers }
               )
