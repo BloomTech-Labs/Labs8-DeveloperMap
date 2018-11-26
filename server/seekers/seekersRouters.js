@@ -17,13 +17,6 @@ router.get('/token', async (req, res) => {
   res.json({ customToken });
 });
 
-router.get('/token/decoded', async (req, res) => {
-  const claims = { seekers: true };
-  let customToken = await firebase.auth().createCustomToken('test-uid', claims);
-  customToken = await firebase.auth().verifyIdToken(customToken);
-  res.json({ customToken });
-});
-
 router.get('/all', (req, res) => {
   rootRef
     .child('seekers')
