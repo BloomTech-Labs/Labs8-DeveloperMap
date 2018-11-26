@@ -5,7 +5,7 @@ const router = express.Router();
 
 //----------------------------------------------------GETS
 
-router.get('/', (req, res) => {
+router.get('/all', (req, res) => {
   rootRef
     .child('companies')
     .once('value')
@@ -19,6 +19,23 @@ router.get('/', (req, res) => {
 
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
+  rootRef
+    .child(`companies/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.status(200).json(snapshot.val());
+      } else {
+        res.status(404).json({ err: 'user not found' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
+});
+
+router.get('/:uid', (req, res) => {
+  const { uid } = req.body;
   rootRef
     .child(`companies/${uid}`)
     .once('value')
@@ -73,7 +90,7 @@ router.post('/addUser', (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.post()
+router.post();
 
 //----------------------------------------------------------------------PUT
 
