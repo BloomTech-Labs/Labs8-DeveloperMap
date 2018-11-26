@@ -71,6 +71,7 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     jobTitle,
     location,
     uid,
+    customToken,
   } = req.body;
 
   // Validation
@@ -135,7 +136,10 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
         // Success Message
         res
           .status(201)
-          .json({ success: `${email} has been added to database.` });
+          .json({
+            success: `${email} has been added to database.`,
+            customToken,
+          });
       }
     })
     .catch(err => res.status(500).json(err));
