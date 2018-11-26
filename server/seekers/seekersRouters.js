@@ -71,21 +71,21 @@ router.post('/addUser', (req, res) => {
   } = req.body;
 
   // Validation
-  if (
-    !email ||
-    !firstName ||
-    !email ||
-    !firstName ||
-    !lastName ||
-    !phoneNumber ||
-    !jobTitle ||
-    !location ||
-    !uid
-  ) {
-    return res
-      .status(400)
-      .json({ error: 'Missing information. Unable to create user.' });
-  }
+  // if (
+  //   !email ||
+  //   !firstName ||
+  //   !email ||
+  //   !firstName ||
+  //   !lastName ||
+  //   !phoneNumber ||
+  //   !jobTitle ||
+  //   !location ||
+  //   !uid
+  // ) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: 'Missing information. Unable to create user.' });
+  // }
 
   // Construct New Seeker User Object
   const newSeeker = {
