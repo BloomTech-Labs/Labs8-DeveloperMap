@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from '../../firebase/firebase';
 
+import Heart from '../../images/hollow-heart.png';
 import styled from 'styled-components';
 
 class EmployerPostings extends React.Component {
@@ -33,6 +34,7 @@ class EmployerPostings extends React.Component {
                       <h4>{post.jobLink}</h4>
                       <h4>{post.jobTitle}</h4>
                       <h4>{post.location}</h4>
+                      <img alt='hollow heart' src={Heart} style={{width:'50px'}}/>
                     </div>
                     )} 
             </Posts>
@@ -41,7 +43,9 @@ class EmployerPostings extends React.Component {
 }
 
 const Posts = styled.div`
-  border: 1px solid black;
+
+  max-width: 300px;
+  width: 100%;
 `;
 
 

@@ -55,7 +55,7 @@ class EmployerProfile extends React.Component {
 }
 
 const Info = styled.div`
-  border: 1px solid black;
+
   max-width: 400px;
   width: 100%;
 `;
@@ -63,7 +63,10 @@ const Info = styled.div`
 
 const Styling = styled.div`
   display: flex;
-  padding: 
+  padding: 5%;
+  justify-content: space-between;
+  max-width: 700px;
+  width: 100%;
 `;
 
 export default EmployerProfile;
