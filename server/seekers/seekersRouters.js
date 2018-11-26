@@ -87,7 +87,6 @@ router.post('/addUser', (req, res) => {
   // Construct New Marker Object
   const markerData = {
     geometry: {
-
       // Convert Coordinates to Numbers
       coordinates: location.coordinates.map(coord => Number(coord)),
       type: 'Point',
@@ -125,8 +124,8 @@ router.post('/addUser', (req, res) => {
 //------------------------------------------------------------------PUT
 //Change UserInfo
 
-router.put('/userInfo/:uid', (req, res) => {
-  const { uid } = req.params;
+router.put('/userInfo', (req, res) => {
+  const { uid } = req.body;
   const updateKeys = Object.keys(req.body);
   rootRef
     .child(`seekers/${uid}`)
