@@ -106,8 +106,8 @@ router.post('/jobsListed', (req, res) => {
 
 //----------------------------------------------------------------------PUT
 
-router.put('/userInfo/:uid', (req, res) => {
-  const { uid } = req.params;
+router.put('/userInfo', (req, res) => {
+  const { uid } = req.body;
   const updateKeys = Object.keys(req.body);
   rootRef
     .child(`companies/${uid}`)
