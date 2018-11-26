@@ -90,7 +90,19 @@ router.post('/addUser', (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.post();
+router.post('/jobsListed', (req, res) => {
+  const { uid } = req.body;
+  const { companyName, date, jobLink, jobTitle, location } = req.body;
+  rootRef
+    .child(`companyPostings/${uid}`)
+    .push({ companyName, date, jobLink, jobTitle, location })
+    .then(res => {
+      res.json({ message: 'Job added' });
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 //----------------------------------------------------------------------PUT
 
