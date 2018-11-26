@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
+import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
 import { 
   Button,
   JobTitle,
@@ -8,7 +8,7 @@ import {
   SignModalMain, 
   Password,
   FullName, 
-  ContactInfo } from '../../styles/SignIn_UpStyle';
+  ContactInfo } from '../../../styles/SignIn_UpStyle';
 
 class SeekerSignUp extends React.Component {
   state = {

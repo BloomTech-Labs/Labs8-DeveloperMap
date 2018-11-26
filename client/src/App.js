@@ -12,6 +12,7 @@ import {
   SeekerSettings,
   SeekerProfile,
   SignIn,
+  SignUp,
   SeekerSignUp,
   EmployerSignUp,
 } from './reducer';
@@ -346,6 +347,17 @@ class App extends Component {
             />
           )}
         />
+
+        <Route path="/signup" render={(props) => 
+          <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
+        <Route path="/seeker/signup" render={(props) => 
+          <SeekerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
+        <Route path="/employer/signup" render={(props) => 
+          <EmployerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
+        }/>
+
       </div>
     );
   }
