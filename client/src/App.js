@@ -67,7 +67,7 @@ class App extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(response => {
+      .then(async response => {
         // Deconstruct response body
         const { uid, email } = response.user;
         const token = await response.user.getIdToken(true);
@@ -157,13 +157,13 @@ class App extends Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(response => {
+      .then(async response => {
         // --- Add User to Database ---
         // Construct Location Object
-        const token = await tempUser.user.getIdToken(true);
-        const headers = { authorization: token };
         let location = {};
         let tempUser = response;
+        const token = await tempUser.user.getIdToken(true);
+        const headers = { authorization: token };
         let accessToken =
           'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
         let addressString = 'utah';
