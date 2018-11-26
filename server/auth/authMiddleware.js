@@ -20,6 +20,7 @@ const setSeekerClaims = (req, res, next) => {
               .auth()
               .createCustomToken(uid, claim);
             req.body.customToken = customToken;
+            console.log(req.body.customToken);
             next();
           })
           .catch(err => res.json(err));
