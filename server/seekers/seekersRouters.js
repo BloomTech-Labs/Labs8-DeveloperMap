@@ -162,8 +162,8 @@ router.put('/userInfo', (req, res) => {
 
 //----------------------------------------------------------------------DELETE
 
-router.delete('/:uid', (req, res) => {
-  const { uid } = req.params;
+router.delete('/', (req, res) => {
+  const { uid } = req.body;
   rootRef
     .child(`seekers/${uid}`)
     .once('value')
