@@ -61,7 +61,7 @@ router.get('/', (req, res) => {
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-router.post('/addUser', (req, res) => {
+router.post('/addUser', setSeekerClaims, (req, res) => {
   // Deconstruct Request Body
   const {
     email,
