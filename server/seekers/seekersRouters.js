@@ -99,6 +99,7 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     phoneNumber,
     jobTitle,
     location,
+    bio,
     github: '',
     linkedIn: '',
     portfolio: '',
@@ -134,12 +135,10 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
         rootRef.update(updateObject);
 
         // Success Message
-        res
-          .status(201)
-          .json({
-            success: `${email} has been added to database.`,
-            customToken,
-          });
+        res.status(201).json({
+          success: `${email} has been added to database.`,
+          customToken,
+        });
       }
     })
     .catch(err => res.status(500).json(err));
