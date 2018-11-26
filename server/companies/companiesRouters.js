@@ -5,6 +5,14 @@ const router = express.Router();
 
 //----------------------------------------------------GETS
 
+router.get('/token', async (req, res) => {
+  const claims = { company: true };
+  const customToken = await firebase
+    .auth()
+    .createCustomToken('test-uid', claims);
+  res.json({ customToken });
+});
+
 router.get('/all', (req, res) => {
   rootRef
     .child('companies')
@@ -49,21 +57,6 @@ router.get('/:uid', (req, res) => {
     .catch(err => {
       res.status(500).json({ err });
     });
-});
-
-router.get('/token', async (req, res) => {
-  const claims = { company: true };
-  const customToken = await firebase
-    .auth()
-    .createCustomToken('test-uid', claims);
-  res.json({ customToken });
-});
-
-router.get('/token/decoded', async (req, res) => {
-  const claims = { company: true };
-  let customToken = await firebase.auth().createCustomToken('test-uid', claims);
-  customToken = await firebase.auth().verifyIdToken(customToken);
-  res.json({ customToken });
 });
 
 //--------------------------------------------------------POSTS
