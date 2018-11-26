@@ -302,7 +302,7 @@ class App extends Component {
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <NavBar {...this.props} />
         <Route path="/" component={LandingPage} />
-        <Route path="/employer/:employerId" component={EmployerProfile} />
+        <Route path="/company/:companyId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
         <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
         <Route
