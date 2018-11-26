@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from '../../firebase/firebase';
+import JobPosting from './JobPosting';
 
-import Heart from '../../images/hollow-heart.png';
 import styled from 'styled-components';
 
 class EmployerPostings extends React.Component {
@@ -9,6 +9,7 @@ class EmployerPostings extends React.Component {
         super(props);
         this.state = {
             posts: '',
+            favToggle: false
         }
     }
 
@@ -23,19 +24,18 @@ class EmployerPostings extends React.Component {
             this.setState({ posts:snapshot.val()});
           });
     }
+
+    favToggle = () => {
+        console.log('working');
+    }
+
+
     render() {
         console.log(this.state.posts);
         return (
             <Posts>
                  {Object.values(this.state.posts).map((post, i) => 
-                    <div key={i}>
-                      <h2>{post.companyName}</h2>
-                      <h3>{post.date}</h3>
-                      <h4>{post.jobLink}</h4>
-                      <h4>{post.jobTitle}</h4>
-                      <h4>{post.location}</h4>
-                      <img alt='hollow heart' src={Heart} style={{width:'50px'}}/>
-                    </div>
+                    <JobPosting key={i} {...this.props} post={post} favToggle={this.favToggle}/>
                     )} 
             </Posts>
         )
