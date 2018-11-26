@@ -36,14 +36,15 @@ router.get('/:uid', (req, res) => {
 
 //--------------------------------------------------------POSTS
 
-router.post('/addUser/:uid', (req, res) => {
-  const { uid } = req.params;
+router.post('/addUser', (req, res) => {
   const {
-    companyName,
-    companyWebsite,
     email,
-    location,
+    firstName,
+    lastName,
     phoneNumber,
+    jobTitle,
+    location,
+    uid,
   } = req.body;
   const newData = {
     companyName,
@@ -71,6 +72,8 @@ router.post('/addUser/:uid', (req, res) => {
     })
     .catch(err => res.json(err));
 });
+
+router.post()
 
 //----------------------------------------------------------------------PUT
 
