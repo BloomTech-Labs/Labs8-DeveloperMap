@@ -142,6 +142,36 @@ router.put('/userInfo', (req, res) => {
     .catch(err => res.json(err));
 });
 
+router.put('/jobListed/:jobKey', async (req, res) => {
+  const { jobKey } = req.params;
+  const { companyName, date, location, jobLink, jobTitle, uid } = req.body;
+  const newData = { companyName, date, location, jobLink, jobTitle, uid };
+  let updateObject = {};
+  const favoritedPosts = await rootRef.child('favoritePosting').once('value');
+  updateObject[`companyPostings/${uid}/${jobKey}`] = {
+    companyName,
+    date,
+    location,
+    jobLink,
+    jobTitle,
+  };
+  if (favoritedPosts) {
+    favoritedPosts.forEach(childSnap => {
+      if (childSnap.child(jobKey).exists()) {
+        updateObject[`favoritePosting/${childSnap.key}/${jobKey}`] = newData;
+      }
+    });
+  }
+  rootRef
+    .update(updateObject)
+    .then(() => {
+      res.json('company postings updated');
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 //-------------------------------------------------------------------DELETE
 
 router.delete('/', (req, res) => {
