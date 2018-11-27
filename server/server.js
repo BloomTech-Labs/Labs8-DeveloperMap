@@ -23,7 +23,7 @@ server.use(cors(corsOptions));
 
 const corsOptions = {
   origin: (origin, callback) =>
-    (CORS_WHITELIST.indexOf(origin) !== -1)
+    (CORS_WHITELIST.indexOf(origin) !== -1 || !origin)
       ? callback(null, true)
       : callback(new Error('Not allowed by CORS'))
 };

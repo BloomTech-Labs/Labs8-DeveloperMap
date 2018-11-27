@@ -4,7 +4,7 @@ import EmployerSettings from './components/Employer/SettingEmployerModal/Employe
 import EmployerProfile from './components/EmployerProfile/EmployerProfile';
 import LandingPage from './components/LandingPage/LandingPage';
 import SeekerFavorites from './components/Seeker/SeekerFavorites';
-import SeekerSettings from './components/SeekerProfile/SeekerProfile';
+import SeekerSettings from './components/Seeker/SeekerSettings';
 import SeekerProfile from './components/SeekerProfile/SeekerProfile';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';

@@ -233,20 +233,13 @@ class App extends Component {
     e.preventDefault();
 
     // --- Firebase Auth Method ---
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(response => {
-        axios
-          .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
-              response.user.uid
-            }`
-          )
-          .then(response =>
-            this.setState({ currentSignedInUser: response.data })
-          )
-          .catch(error => console.log(error));
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(response => {
+      let uid = response.user.uid;
+      axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${uid}`)
+      .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
+      .catch(error => console.log(error));
 
         // Close Modal
         this.props.history.push('/');
@@ -279,17 +272,11 @@ class App extends Component {
   componentDidMount() {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
-      if (currentSignedInUser) {
-        axios
-          .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
-              currentSignedInUser.uid
-            }`
-          )
-          .then(response =>
-            this.setState({ currentSignedInUser: response.data })
-          )
-          .catch(error => console.log(error));
+      if(currentSignedInUser){
+        let uid = currentSignedInUser.uid;
+        axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${uid}`)
+        .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
+        .catch(error => console.log(error));
       } else {
         this.setState({ currentSignedInUser: null });
       }
@@ -305,7 +292,14 @@ class App extends Component {
         <Route path="/" component={LandingPage} />
         <Route path="/company/:companyId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/settings" component={SeekerSettings} />
+        <Route path="/settings" render={(props) => 
+          this.state.currentSignedInUser &&
+          <SeekerSettings
+          {...props} 
+          currentSignedInUser={this.state.currentSignedInUser} 
+          /> 
+        }
+        />
         <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}

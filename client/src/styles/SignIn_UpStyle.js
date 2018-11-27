@@ -116,4 +116,3 @@ export const Button = styled.button`
     background-color: rgba(184,15,10,.8);
   }
 `;
-
