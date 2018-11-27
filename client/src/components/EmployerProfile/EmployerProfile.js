@@ -2,7 +2,11 @@ import React from 'react';
 import firebase from '../../firebase/firebase';
 import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
 
-import styled from 'styled-components';
+import {
+  Info,
+  Styling
+} from './EmployerStyles';
+
 import EmployerPostings from './EmployerPostings';
 
 class EmployerProfile extends React.Component {
@@ -53,20 +57,5 @@ class EmployerProfile extends React.Component {
   }
   
 }
-
-const Info = styled.div`
-
-  max-width: 400px;
-  width: 100%;
-`;
-
-
-const Styling = styled.div`
-  display: flex;
-  padding: 5%;
-  justify-content: space-between;
-  max-width: 700px;
-  width: 100%;
-`;
 
 export default EmployerProfile;

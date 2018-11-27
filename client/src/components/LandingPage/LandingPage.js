@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import { MapWindow, ShowMarker, Pop } from './MapWindowStyle';
-import SeekerPin from '../../images/markerlogo.png';
+import SeekerPin from '../../images/markerlogo9.png';
 import CompanyPin from '../../images/markerlogo4.png';
 
 import styled from 'styled-components';

@@ -2,7 +2,9 @@ import React from 'react';
 import firebase from '../../firebase/firebase';
 import JobPosting from './JobPosting';
 
-import styled from 'styled-components';
+import {
+    Posts
+  } from './EmployerStyles';
 
 class EmployerPostings extends React.Component {
     constructor(props) {
@@ -41,12 +43,6 @@ class EmployerPostings extends React.Component {
         )
     }
 }
-
-const Posts = styled.div`
-
-  max-width: 300px;
-  width: 100%;
-`;
 
 
 export default EmployerPostings;
