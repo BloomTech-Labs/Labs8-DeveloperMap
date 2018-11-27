@@ -69,9 +69,11 @@ class App extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(response => {
+      .then(async response => {
         // Deconstruct response body
         const { uid, email } = response.user;
+        const token = await response.user.getIdToken(true);
+        const headers = { authorization: token };
 
         // --- Add User to Database ---
         // Construct Location Object
@@ -126,7 +128,8 @@ class App extends Component {
             axios
               .post(
                 `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
-                { ...user }
+                { ...user },
+                { headers }
               )
               .then(response => {
                 console.log(response.data);
@@ -299,15 +302,22 @@ class App extends Component {
     return (
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <GlobalStyle />
-        <NavBar {...this.props} />
+        <NavBar {...this.props} user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
-        <Route
+        <Route path="/settings" render={(props) => 
+          this.state.currentSignedInUser &&
+          <SeekerSettings
+          {...props} 
+          currentSignedInUser={this.state.currentSignedInUser} 
+          /> 
+        }
+        />
+        {/* <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}
-        />
+        /> */}
         <Route path="/billing" component={EmployerBilling} />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
         <Route
@@ -336,7 +346,7 @@ class App extends Component {
           )}
         />
         <Route
-          path="/seeker/signup"
+          path="/signup/seeker"
           render={props => (
             <SeekerSignUp
               {...props}
@@ -347,7 +357,7 @@ class App extends Component {
           )}
         />
         <Route
-          path="/employer/signup"
+          path="/signup/employer"
           render={props => (
             <EmployerSignUp
               {...props}
