@@ -56,3 +56,31 @@ seekers: {
 ## To Sign Out Users
 
 - Ends the local token, firebase token still persists
+
+# Endpoints
+
+## Seekers
+
+### Root Endpoint
+- https://intense-stream-29923.herokuapp.com/api/database/seekers
+
+### GET 
+
+#### GET all Job Seekers
+- https://intense-stream-29923.herokuapp.com/api/database/seekers/all
+  - Returns all job seekers
+
+#### GET Seeker Token
+- https://intense-stream-29923.herokuapp.com/api/database/seekers/token
+  - Sends a custom token with the claim of seeker
+  - Useful for testing with Postman
+
+#### GET Specific Job Seekers
+- https://intense-stream-29923.herokuapp.com/api/database/seekers/:uid
+  - Gets specific user by passing uid through params
+
+- https://intense-stream-29923.herokuapp.com/api/database/seekers
+  - Gets specific user when uid is passed through the body
+  - Meant to be used with setSeekerClaims middleware
+
+  
