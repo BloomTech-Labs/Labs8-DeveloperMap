@@ -61,7 +61,7 @@ class SeekerSettings extends React.Component {
     const user = this.props.currentSignedInUser;
     if (user) {
       this.setState({
-        ...this.state, ...user
+        ...this.state, ...user, ...user.location
       })
     } else {
       this.props.history.push('/signin');
