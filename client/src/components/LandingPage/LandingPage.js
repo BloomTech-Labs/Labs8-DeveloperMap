@@ -101,7 +101,6 @@ class LandingPage extends React.Component {
               </Marker>
             );
           })}
-          
         </MapGL>
       </MapWindow>
     );
