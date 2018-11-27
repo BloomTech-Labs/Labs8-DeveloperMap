@@ -41,7 +41,6 @@ export const MapWindow = styled.div`
   
   .mapboxgl-control-container {
     width: 100%;
-
     .mapboxgl-ctrl-top-right {
       margin-left: 3%;
       margin-top: 6px;

@@ -7,13 +7,14 @@ import Logout from '../../images/logout.png';
 const Nav = styled.div`
   width: 98%;
   height: 50px;
-  background-color: rgb(232, 232, 232);
+  background-color: rgba(232, 232, 232, .85);
   z-index: 1;
   position: absolute;
   border-radius: 25px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  box-shadow: inset 10px 10px 10px rgba(255,255,255,.5);
   .heart {
     margin-right: 2%;
     img {
@@ -44,6 +45,23 @@ const Icons = styled.div`
       width: 27px;
       height: 27px;
     } 
+  }
+`;
+
+const InButton = styled.button`
+  width: 75px;
+  height: 35px;
+  background-color: rgb(184,15,10);
+  color: white;
+  border-radius: 20px;
+  border: none;
+  margin-right: 10px;
+  box-shadow: 0 4px 2px -2px gray;
+  &:hover {
+    background-color: rgba(184,15,10,.8);
+  } 
+  &:focus {
+    outline: 0;
   }
 `;
 
@@ -83,7 +101,7 @@ class NavBar extends React.Component {
         :
         (
           <div>
-            <button onClick={this.handleSignIn}>Sign In ></button>
+            <InButton onClick={this.handleSignIn}>Sign In ></InButton>
           </div>)}
       </Nav>
     );
