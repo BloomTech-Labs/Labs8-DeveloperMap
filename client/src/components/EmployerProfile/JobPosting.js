@@ -3,9 +3,9 @@ import Heart from '../../images/hollow-heart.png';
 import EmployerPostings from './EmployerPostings';
 
 function JobPosting(props) {
-    // if(!props.posts || !props.posts.length){
-    //     return <h1>Post your first job!</h1>
-    // }
+    if(!props.posts || !props.posts.length){
+        return <h1>Post your first job!</h1>
+    }
 
     return (
         <div>

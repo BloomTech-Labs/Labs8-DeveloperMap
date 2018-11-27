@@ -16,6 +16,7 @@ import {
   SeekerSignUp,
   EmployerSignUp,
 } from './reducer';
+import styled from 'styled-components';
 
 class App extends Component {
   constructor() {
@@ -300,11 +301,11 @@ class App extends Component {
   render() {
     return (
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
-        <NavBar {...this.props} />
+        <NavBar { ...this.props } user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
         <Route path="/" component={LandingPage} />
         <Route path="/company/:companyId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
+        <Route path="/settings" component={SeekerSettings} />
         <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}
@@ -362,5 +363,67 @@ class App extends Component {
     );
   }
 }
+const KeyBox = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  bottom: 0;
+  right: 0;
+`;
+
+const ToggleKnob = styled.label`
+  position: relative;
+  width: 29px;
+  height: 12px;
+  justify-self: center;
+  align-items: center;
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    &:before {
+      position: absolute;
+      content: '';
+      height: 13px;
+      width: 13px;
+      left: 1px;
+      bottom: 0px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+  }
+  input:checked + .slider {
+    background-color: #2196f3;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  .slider.round {
+    border-radius: 12px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+`;
 
 export default withRouter(App);
