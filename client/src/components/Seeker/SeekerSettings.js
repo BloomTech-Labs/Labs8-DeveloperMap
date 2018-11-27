@@ -47,14 +47,26 @@ class SeekerSettings extends React.Component {
     };
   }
 
+  // Toggles whether or not the input fields are disabled or not.
   editSettings = e => {
     e.preventDefault();
     this.setState({ editing: !this.state.editing })
   }
 
+  // Updates state when a field is changed.
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  submitHandler = e => {
+    e.preventDefault();
+    if (editing) {
+      const location = { street: this.state.street, city: this.state.city, state: this.state.state, zip: this.state.zip };
+      const userUpdateInformation = {  }
+    } else {
+      alert('Unable to Make Changes')
+    }
+  }
 
 
   componentDidMount = () => {
@@ -203,8 +215,8 @@ class SeekerSettings extends React.Component {
                   disabled={!this.state.editing}
                   ></TextArea>
                 </Label>
-
               </ContactInfo>
+
               <Location>
               <h3>Location</h3>
                 <Label width="48%">
@@ -313,9 +325,6 @@ class SeekerSettings extends React.Component {
           </SettingsModalMain>
         </ModalContainer>
     );
-  }
-  componentDidMount() {
-
   }
 }
 

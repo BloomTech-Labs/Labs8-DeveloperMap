@@ -76,6 +76,7 @@ export const TextArea = styled.textarea`
 export const CheckBox = styled.input`
 `;
 
+// Columns
 export const LeftColumn = styled.div`
   display: flex;
   width: 30%;
@@ -89,6 +90,7 @@ export const RightColumn = styled.div`
   justify-content: space-between;
 `;
 
+// Sections
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
