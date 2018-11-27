@@ -63,9 +63,11 @@ class LandingPage extends React.Component {
         <Popup
           latitude={pin.geometry.coordinates[1]}
           longitude={pin.geometry.coordinates[0]}
-          closeOnClick={() => this.setState({ pin: null })}
+          offsetTop={-20}
+          onClose={() => this.setState({ pin: null })}
         >
           <div
+            style={{ cursor: 'pointer' }}
             onClick={() =>
               this.props.history.push(`/seeker/${pin.properties.uid}`)
             }
@@ -118,6 +120,8 @@ class LandingPage extends React.Component {
                 key={i}
                 latitude={mark.geometry.coordinates[1]}
                 longitude={mark.geometry.coordinates[0]}
+                offsetTop={-40}
+                offsetLeft={-25}
               >
                 <ShowMarker
                   src={SeekerPin}

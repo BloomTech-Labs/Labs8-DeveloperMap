@@ -53,7 +53,7 @@ class SeekerProfile extends React.Component {
               <CheckLabel>
                 <input
                   type="checkbox"
-                  disabled="true"
+                  disabled={true}
                   checked={this.state.remote}
                 />
                 <span className="slider round" />
@@ -62,7 +62,7 @@ class SeekerProfile extends React.Component {
               <CheckLabel>
                 <input
                   type="checkbox"
-                  disabled="true"
+                  disabled={true}
                   checked={this.state.relocation}
                 />
                 <span>Open to relocation</span>

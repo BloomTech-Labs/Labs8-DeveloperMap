@@ -51,11 +51,15 @@ export const MapWindow = styled.div`
   .geocoder-pin-right {
     display: none;
   }
+
+  .mapboxgl-popup {
+    height: 50px;
+  }
 `;
 
 export const ShowMarker = styled.img`
-  height: 40px;
-  width: 47px;
+  height: 45px;
+  width: 50px;
 `;
 
 export const Pop = styled.div`
