@@ -43,9 +43,10 @@ export const Input = styled.input`
   height: 20px;
   border-radius: 1px;
   border: 1px solid lightgrey;
+  padding-left: 5px;
   &:disabled {
     border-color: white;
-    // background-color: #FFF; < --- Add after settings is connected to the database.
+    background-color: whitesmoke;
   }
 `;
 
@@ -68,7 +69,7 @@ export const TextArea = styled.textarea`
   border: 1px solid lightgrey;
   &:disabled {
     border-color: white;
-    // background-color: #FFF; < --- Add after settings is connected to the database.
+    background-color: whitesmoke;
   }
 `;
 

@@ -47,13 +47,26 @@ class SeekerSettings extends React.Component {
     };
   }
 
-  editSettings = () => {
+  editSettings = e => {
+    e.preventDefault();
     this.setState({ editing: !this.state.editing })
   }
 
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+
+  componentDidMount = () => {
+    const user = this.props.currentSignedInUser;
+    if (user) {
+      this.setState({
+        ...this.state, ...user
+      })
+    } else {
+      this.props.history.push('/signin');
+    }
+  }
 
   render() {
     return (
@@ -163,8 +176,8 @@ class SeekerSettings extends React.Component {
                 <Label width="48%">
                   Phone
                   <Input
-                  name="phone"
-                  value={this.state.phone}
+                  name="phoneNumber"
+                  value={this.state.phoneNumber}
                   onChange={this.changeHandler} 
                   disabled={!this.state.editing}
                   type="phone"
@@ -172,19 +185,14 @@ class SeekerSettings extends React.Component {
                 </Label>
                 <Label width="48%">
                   Job Title
-                  <Select 
+                  <Input 
                   name="jobTitle"
                   value={this.state.jobTitle}
                   onChange={this.changeHandler} 
                   disabled={!this.state.editing}
                   type="text"
                   >
-                    <option value="web-developer">Web Developer</option>
-                    <option value="ux-designer">UX Designer</option>
-                    <option value="ios-developer">iOS Developer</option>
-                    <option value="andriod-developer">Android Developer</option>
-                    <option value="machine-learning">Machine Learning</option>
-                  </Select>
+                  </Input>
                 </Label>
                 <Label width="100%">
                   Bio

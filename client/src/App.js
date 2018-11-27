@@ -198,8 +198,9 @@ class App extends Component {
     // --- Firebase Auth Method ---
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(response => {
-      axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${response.user.uid}`)
-      .then(response => this.setState({currentSignedInUser: response.data}))
+      let uid = response.user.uid;
+      axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${uid}`)
+      .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
       .catch(error => console.log(error));
 
       // Close Modal
@@ -232,8 +233,9 @@ class App extends Component {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
       if(currentSignedInUser){
-        axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${currentSignedInUser.uid}`)
-        .then(response => this.setState({currentSignedInUser: response.data}))
+        let uid = currentSignedInUser.uid;
+        axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${uid}`)
+        .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
         .catch(error => console.log(error));
       } else {
         this.setState({ currentSignedInUser: null });
@@ -250,7 +252,14 @@ class App extends Component {
         <Route path="/" component={LandingPage} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/settings" component={SeekerSettings} />
+        <Route path="/settings" render={(props) => 
+          this.state.currentSignedInUser &&
+          <SeekerSettings
+          {...props} 
+          currentSignedInUser={this.state.currentSignedInUser} 
+          /> 
+        }
+        />
         <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}
