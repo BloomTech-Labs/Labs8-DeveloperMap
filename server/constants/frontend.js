@@ -2,7 +2,7 @@ const FRONTEND_DEV_URLS = [ 'https://clever-liskov-29b49a.netlify.com' ]; // I u
 
 const FRONTEND_PROD_URLS = [
   'https://clever-liskov-29b49a.netlify.com',  // Can change these with production url down the road or before our next presentation
-  'https://yourdomain.com'
+  'https://clever-liskov-29b49a.netlify.com'
 ];
 
 module.exports = process.env.NODE_ENV === 'production'
