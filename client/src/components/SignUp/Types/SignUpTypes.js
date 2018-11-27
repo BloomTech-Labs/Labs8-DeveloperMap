@@ -18,9 +18,9 @@ class SignUpTypes extends React.Component {
     // Redirect the user to their respective signup form if their type is user or seeker.
     // Redirect the user to choose their user type again, if their type is not user or seeker.
     if (this.props.userType === 'employer') {
-      this.props.history.push('/employer/signup')
+      this.props.history.push('/signup/employer')
     } else if (this.props.userType === 'seeker') {
-      this.props.history.push('/seeker/signup')
+      this.props.history.push('/signup/seeker')
     } else {
       this.props.history.push('/signup')
     }
