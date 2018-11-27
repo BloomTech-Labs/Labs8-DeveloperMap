@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import marker from '../images/markerPic.png';
+import marker from '../../images/markerlogo.png';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
@@ -38,7 +38,6 @@ export const MapWindow = styled.div`
     }
   }
 
-  
   .mapboxgl-control-container {
     width: 100%;
     .mapboxgl-ctrl-top-right {

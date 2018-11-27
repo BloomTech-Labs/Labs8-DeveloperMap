@@ -16,7 +16,8 @@ import {
   SeekerSignUp,
   EmployerSignUp,
 } from './reducer';
-import styled from 'styled-components';
+
+import { GlobalStyle } from './styles/GlobalStyle';
 
 class App extends Component {
   constructor() {
@@ -68,11 +69,9 @@ class App extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(async response => {
+      .then(response => {
         // Deconstruct response body
         const { uid, email } = response.user;
-        const token = await response.user.getIdToken(true);
-        const headers = { authorization: token };
 
         // --- Add User to Database ---
         // Construct Location Object
@@ -127,8 +126,7 @@ class App extends Component {
             axios
               .post(
                 `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
-                { ...user },
-                { headers }
+                { ...user }
               )
               .then(response => {
                 console.log(response.data);
@@ -158,13 +156,11 @@ class App extends Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(async response => {
+      .then(response => {
         // --- Add User to Database ---
         // Construct Location Object
         let location = {};
         let tempUser = response;
-        const token = await tempUser.user.getIdToken(true);
-        const headers = { authorization: token };
         let accessToken =
           'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
         let addressString = 'utah';
@@ -195,9 +191,10 @@ class App extends Component {
             // Create User In Database
             axios
               .post(
-                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser`,
-                { ...user },
-                { headers }
+                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${
+                  tempUser.user.uid
+                }`,
+                { ...user }
               )
               .then(response => {
                 console.log(response.data);
@@ -233,13 +230,20 @@ class App extends Component {
     e.preventDefault();
 
     // --- Firebase Auth Method ---
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(response => {
-      let uid = response.user.uid;
-      axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${uid}`)
-      .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
-      .catch(error => console.log(error));
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(response => {
+        axios
+          .get(
+            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+              response.user.uid
+            }`
+          )
+          .then(response =>
+            this.setState({ currentSignedInUser: response.data })
+          )
+          .catch(error => console.log(error));
 
         // Close Modal
         this.props.history.push('/');
@@ -272,11 +276,17 @@ class App extends Component {
   componentDidMount() {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
-      if(currentSignedInUser){
-        let uid = currentSignedInUser.uid;
-        axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${uid}`)
-        .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
-        .catch(error => console.log(error));
+      if (currentSignedInUser) {
+        axios
+          .get(
+            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+              currentSignedInUser.uid
+            }`
+          )
+          .then(response =>
+            this.setState({ currentSignedInUser: response.data })
+          )
+          .catch(error => console.log(error));
       } else {
         this.setState({ currentSignedInUser: null });
       }
@@ -288,18 +298,12 @@ class App extends Component {
   render() {
     return (
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
-        <NavBar { ...this.props } user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
+        <GlobalStyle />
+        <NavBar {...this.props} />
         <Route path="/" component={LandingPage} />
-        <Route path="/company/:companyId" component={EmployerProfile} />
+        <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/settings" render={(props) => 
-          this.state.currentSignedInUser &&
-          <SeekerSettings
-          {...props} 
-          currentSignedInUser={this.state.currentSignedInUser} 
-          /> 
-        }
-        />
+        <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
         <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}
@@ -357,67 +361,5 @@ class App extends Component {
     );
   }
 }
-const KeyBox = styled.div`
-  width: 200px;
-  height: 200px;
-  background-color: white;
-  bottom: 0;
-  right: 0;
-`;
-
-const ToggleKnob = styled.label`
-  position: relative;
-  width: 29px;
-  height: 12px;
-  justify-self: center;
-  align-items: center;
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    &:before {
-      position: absolute;
-      content: '';
-      height: 13px;
-      width: 13px;
-      left: 1px;
-      bottom: 0px;
-      background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-    }
-  }
-  input:checked + .slider {
-    background-color: #2196f3;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
-  }
-  .slider.round {
-    border-radius: 12px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
-  }
-`;
 
 export default withRouter(App);
