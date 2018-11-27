@@ -53,12 +53,9 @@ export const MapWindow = styled.div`
   }
 `;
 
-export const ShowMarker = styled.div`
-  color: white;
-  background-image: url(${marker});
+export const ShowMarker = styled.img`
   height: 40px;
   width: 47px;
-  background-size: 40px;
 `;
 
 export const Pop = styled.div`

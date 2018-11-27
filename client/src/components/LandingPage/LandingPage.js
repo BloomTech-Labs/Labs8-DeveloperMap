@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import MapGL, { Marker } from 'react-map-gl';
+import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { MapWindow, ShowMarker, Pop } from './MapWindowStyle';
+import { MapWindow, ShowMarker } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
 
@@ -20,6 +20,7 @@ class LandingPage extends React.Component {
       zoom: 3,
     },
     data: [],
+    pin: null,
   };
 
   mapRef = React.createRef();
@@ -53,6 +54,22 @@ class LandingPage extends React.Component {
       viewport: { ...this.state.viewport, ...viewport },
     });
   };
+
+  renderPopup() {
+    const { pin } = this.state;
+    console.log(pin);
+    return (
+      pin && (
+        <Popup
+          latitude={pin.geometry.coordinates[1]}
+          longitude={pin.geometry.coordinates[0]}
+          onClose={() => this.setState({ pin: null })}
+        >
+          {pin.properties.title}
+        </Popup>
+      )
+    );
+  }
 
   render() {
     const style = {
@@ -94,12 +111,16 @@ class LandingPage extends React.Component {
                 latitude={mark.geometry.coordinates[1]}
                 longitude={mark.geometry.coordinates[0]}
               >
-                <ShowMarker>
-                  <Pop>{mark.properties.title}</Pop>
-                </ShowMarker>
+                <ShowMarker
+                  src={SeekerPin}
+                  alt="red marker"
+                  onClick={() => this.setState({ pin: mark })}
+                />
               </Marker>
             );
           })}
+
+          {this.renderPopup()}
         </MapGL>
       </MapWindow>
     );
