@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase, { auth } from '../../firebase/firebase';
 import { ModalContainer } from '../../styles/ModalGlobalStyle';
 import profile from '../../images/avatar-icon.jpg';
 import { 
@@ -58,46 +59,118 @@ class SeekerSettings extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // Reauthentication Abstraction
+  reauthenticate = (currentPassword) => {
+    var user = auth.currentUser;
+    var cred = firebase.auth.EmailAuthProvider.credential(
+        user.email, currentPassword);
+    return user.reauthenticateWithCredential(cred);
+  }
+
   // Change Password
   changePassword = (currentPassword, newPassword) => {
     this.reauthenticate(currentPassword).then(() => {
-      var user = firebase.auth().currentUser;
+      var user = auth.currentUser;
       user.updatePassword(newPassword).then(() => {
-        console.log("Password updated!");
-      }).catch((error) => { console.log(error); });
-    }).catch((error) => { console.log(error); });
+        alert("Password updated!");
+      }).catch((error) => { 
+        console.log(error);
+        alert(error.message);
+      });
+    }).catch((error) => { 
+      console.log(error); 
+      alert(error.message);
+    });
   }
 
   // Change Email
   changeEmail = (currentPassword, newEmail) => {
     this.reauthenticate(currentPassword).then(() => {
-      var user = firebase.auth().currentUser;
+      var user = auth.currentUser;
       user.updateEmail(newEmail).then(() => {
-        console.log("Email updated!");
-      }).catch((error) => { console.log(error); });
-    }).catch((error) => { console.log(error); });
+        alert("Email updated!");
+      }).catch((error) => { 
+        console.log(error); 
+        alert(error.message);
+      });
+    }).catch((error) => { 
+      console.log(error); 
+      alert(error.message);
+    });
   }
 
   submitHandler = e => {
     e.preventDefault();
+
+    const currentPassword = this.state.currentPassword;
+    const newPassword = this.state.newPassword;
+    const rePassword = this.state.rePassword;
+    const email = this.state.email;
+    const emailCheck = this.state.emailCheck;
+    const emailRegex = RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+    const passwordRegex = RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})');
+
+    // Check to make sure that the fields are being edited. This shouldn't be needed, but is an extra check.
     if (this.state.editing) {
-      const location = { 
-        street: this.state.street, 
-        city: this.state.city, 
-        state: this.state.state, 
-        zip: this.state.zip 
-      };
-      const userUpdateInformation = {  }
+      // Check to see if the user attempted to change the password.
+      if (newPassword !== '' || rePassword !== '') {
+        // Check to make sure that all of the password fields have been implemented.
+        if (currentPassword && newPassword && rePassword) {
+          // Check to make sure that the newPassword matches the rePassword. 
+          if (newPassword !== rePassword) {
+            return alert ('Your new password does not match the reentered password');
+          }
+          // Validate Password Strength (Medium Strength Test)
+          if (passwordRegex.test(newPassword)) { 
+            // Call the change password method.
+            this.changePassword(currentPassword, newPassword);
+          } else {
+           return alert ('Your password must contain six characters or more and must have at least one lowercase and one uppercase alphabetical character ',
+            'or at least one lowercase and one numeric character ', 
+            'or at least one uppercase and one numeric character.')
+          }
+        } else {
+          return alert ('All password fields must be filled out in order to change your password.')
+        }
+      }
+
+      // Check to see if the email was edited.
+      if (email !== emailCheck) {
+        // Check to make sure that user has entered their password.
+        if (currentPassword !== '') {
+          if (emailRegex.test(email)) { 
+          this.changeEmail(currentPassword, email);
+          } else {
+            return alert('We could not understand the format of your email address. Please enter a valid email address.')
+          }
+        } else {
+          return alert ('Please enter your current password in the current password field in order to change your email address.')
+        }
+      }
+      // const location = { 
+      //   street: this.state.street, 
+      //   city: this.state.city, 
+      //   state: this.state.state, 
+      //   zip: this.state.zip 
+      // };
+      // const userUpdateInformation = {  }
     } else {
-      alert('Unable to Make Changes')
+     return alert('Unable to Make Changes');
     }
+
+    // Reset the password fields after a successful update.
+    this.setState({
+     newPassword : '',
+     currentPassword : '',
+     rePassword : ''
+    })
   }
 
   componentDidMount = () => {
     const user = this.props.currentSignedInUser;
     if (user) {
       this.setState({
-        ...this.state, ...user, ...user.location
+        ...this.state, ...user, ...user.location, emailCheck: user.email
       })
     } else {
       this.props.history.push('/signin');
@@ -200,7 +273,7 @@ class SeekerSettings extends React.Component {
                   />
                 </Label>
                 <Label width="100%">
-                  Email
+                  Email {this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
                   <Input
                   name="email"
                   value={this.state.email}
@@ -345,7 +418,7 @@ class SeekerSettings extends React.Component {
               </Social>
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
-            {this.state.editing ? <EditButtons right="120px">Save</EditButtons> : ''}
+            {this.state.editing ? <EditButtons right="120px" onClick={this.submitHandler}>Save</EditButtons> : ''}
           </SettingsModalMain>
         </ModalContainer>
     );
