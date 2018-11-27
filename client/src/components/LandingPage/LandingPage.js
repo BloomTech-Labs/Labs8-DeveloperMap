@@ -55,7 +55,7 @@ class LandingPage extends React.Component {
     });
   };
 
-  renderPopup() {
+  renderPopup = () => {
     const { pin } = this.state;
     console.log(pin);
     return (
@@ -63,13 +63,21 @@ class LandingPage extends React.Component {
         <Popup
           latitude={pin.geometry.coordinates[1]}
           longitude={pin.geometry.coordinates[0]}
-          onClose={() => this.setState({ pin: null })}
+          closeOnClick={() => this.setState({ pin: null })}
         >
-          {pin.properties.title}
+          <div
+            onClick={() =>
+              this.props.history.push(`/seeker/${pin.properties.uid}`)
+            }
+          >
+            {pin.properties.title}
+          </div>
         </Popup>
       )
     );
-  }
+  };
+
+  hoverMarker = () => {};
 
   render() {
     const style = {
@@ -115,6 +123,7 @@ class LandingPage extends React.Component {
                   src={SeekerPin}
                   alt="red marker"
                   onClick={() => this.setState({ pin: mark })}
+                  getCursor={'pointer'}
                 />
               </Marker>
             );
