@@ -13,7 +13,7 @@ const favoritesRouters = require('./seekers/favoritesRoutes.js');
 // const configureServer = require('./serverConfig');
 const configureRoutes = require('./stripe-routes');
 
-server.use(express.json(), helmet(), cors());
+server.use(express.json(), helmet());
 //server.use('/api/database', usersRouters);
 server.use('/api/database/seekers', seekersRouters);
 server.use('/api/database/companies', companiesRouters);
