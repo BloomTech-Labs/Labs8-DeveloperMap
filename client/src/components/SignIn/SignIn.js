@@ -120,9 +120,12 @@ class SignIn extends React.Component {
               onClick={e => {
                 this.props.signOutCurrentUser(e);
               }}
+              style={{
+                display: this.props.currentSignedInUser ? 'block' : 'none'
+              }}
             >
               Sign Out
-            </button>
+            </button> 
           </SignModalMain>
         )}
 

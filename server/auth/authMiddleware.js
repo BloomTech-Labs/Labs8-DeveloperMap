@@ -3,6 +3,7 @@ const firebase = require('../firebase/firebase.js');
 
 const setSeekerClaims = (req, res, next) => {
   console.log('Token', req.headers.authorization);
+  const claim = { seeker: true };
   if (req.headers.authorization) {
     let idToken = req.headers.authorization;
     firebase
@@ -13,8 +14,12 @@ const setSeekerClaims = (req, res, next) => {
         req.body.uid = uid;
         firebase
           .auth()
-          .setCustomUserClaims(uid, { seeker: true })
-          .then(() => {
+          .setCustomUserClaims(uid, claim)
+          .then(async () => {
+            const customToken = await firebase
+              .auth()
+              .createCustomToken(uid, claim);
+            req.body.customToken = customToken;
             next();
           })
           .catch(err => res.json(err));
