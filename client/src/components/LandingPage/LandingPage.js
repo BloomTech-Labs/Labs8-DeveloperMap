@@ -3,10 +3,9 @@ import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { MapWindow, ShowMarker, Pop } from '../../styles/MapWindowStyle';
+import { MapWindow, ShowMarker, Pop } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
-
 
 import styled from 'styled-components';
 
@@ -78,12 +77,12 @@ class LandingPage extends React.Component {
             onViewportChange={this.handleViewportChange}
           />
           <KeyBox>
-            <div className='key'>
-              <PinKey src={SeekerPin}/>
+            <div className="key">
+              <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
             </div>
-            <div className='key'>
-              <PinKey src={CompanyPin}/>
+            <div className="key">
+              <PinKey src={CompanyPin} />
               <h3>Employer</h3>
             </div>
           </KeyBox>
@@ -115,8 +114,8 @@ const PinKey = styled.img`
 const KeyBox = styled.div`
   width: 170px;
   height: 170px;
-  background-color: rgba(232, 232, 232, .85);
-  box-shadow: inset 10px 10px 10px rgba(255,255,255,.5);
+  background-color: rgba(232, 232, 232, 0.85);
+  box-shadow: inset 10px 10px 10px rgba(255, 255, 255, 0.5);
   position: absolute;
   right: 0;
   bottom: 0;
@@ -126,7 +125,7 @@ const KeyBox = styled.div`
   justify-content: center;
   align-items: center;
   padding-right: 2%;
-  .key{
+  .key {
     display: flex;
   }
 `;
