@@ -58,7 +58,7 @@ exports.deleteUserDbSeeker = functions.database
   });
 
 exports.deleteUserDbCompany = functions.database
-  .ref('/seekers/{uid}')
+  .ref('/companies/{uid}')
   .onDelete((snapshot, context) => {
     const uid = context.params.uid;
     console.log(uid);
