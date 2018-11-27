@@ -58,16 +58,40 @@ class SeekerSettings extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // Change Password
+  changePassword = (currentPassword, newPassword) => {
+    this.reauthenticate(currentPassword).then(() => {
+      var user = firebase.auth().currentUser;
+      user.updatePassword(newPassword).then(() => {
+        console.log("Password updated!");
+      }).catch((error) => { console.log(error); });
+    }).catch((error) => { console.log(error); });
+  }
+
+  // Change Email
+  changeEmail = (currentPassword, newEmail) => {
+    this.reauthenticate(currentPassword).then(() => {
+      var user = firebase.auth().currentUser;
+      user.updateEmail(newEmail).then(() => {
+        console.log("Email updated!");
+      }).catch((error) => { console.log(error); });
+    }).catch((error) => { console.log(error); });
+  }
+
   submitHandler = e => {
     e.preventDefault();
-    if (editing) {
-      const location = { street: this.state.street, city: this.state.city, state: this.state.state, zip: this.state.zip };
+    if (this.state.editing) {
+      const location = { 
+        street: this.state.street, 
+        city: this.state.city, 
+        state: this.state.state, 
+        zip: this.state.zip 
+      };
       const userUpdateInformation = {  }
     } else {
       alert('Unable to Make Changes')
     }
   }
-
 
   componentDidMount = () => {
     const user = this.props.currentSignedInUser;
