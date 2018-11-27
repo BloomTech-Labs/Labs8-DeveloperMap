@@ -32,10 +32,9 @@ exports.deleteUserAuth = functions.auth.user().onDelete(user => {
 });
 
 exports.deleteUserDbSeeker = functions.database
-  .ref('seekers/{uid}')
+  .ref('/seekers/{uid}')
   .onDelete((snapshot, context) => {
-    const uid = context.params.uid;
-    console.log(uid);
+    const uid = snapshot.key;
     rootRef
       .once('value')
       .then(snapshot => {
@@ -58,9 +57,9 @@ exports.deleteUserDbSeeker = functions.database
   });
 
 exports.deleteUserDbCompany = functions.database
-  .ref('companies/{uid}')
+  .ref('/companies/{uid}')
   .onDelete((snapshot, context) => {
-    const uid = context.params.uid;
+    const uid = snapshot.key;
     console.log(uid);
     rootRef
       .once('value')
