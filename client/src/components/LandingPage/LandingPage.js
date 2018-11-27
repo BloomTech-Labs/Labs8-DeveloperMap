@@ -4,6 +4,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import { MapWindow, ShowMarker, Pop } from '../../styles/MapWindowStyle';
+import SeekerPin from '../../images/markerlogo.png';
+import CompanyPin from '../../images/markerlogo4.png';
 
 
 import styled from 'styled-components';
@@ -76,18 +78,14 @@ class LandingPage extends React.Component {
             onViewportChange={this.handleViewportChange}
           />
           <KeyBox>
-            <div className="knobs">
-            <ToggleKnob>
-              <input type="checkbox" />
-              <span className="slider round" />
-            </ToggleKnob>
-            <h5>Job Seeker</h5>
-            <ToggleKnob>
-              <input type="checkbox" />
-              <span className="slider round" />
-            </ToggleKnob>
-            <h5>Employer</h5>
-          </div>
+            <div className='key'>
+              <PinKey src={SeekerPin}/>
+              <h3>Job Seeker</h3>
+            </div>
+            <div className='key'>
+              <PinKey src={CompanyPin}/>
+              <h3>Employer</h3>
+            </div>
           </KeyBox>
 
           {this.state.data.map((mark, i) => {
@@ -110,16 +108,28 @@ class LandingPage extends React.Component {
   }
 }
 
-
+const PinKey = styled.img`
+  width: 75px;
+  height: 75px;
+`;
 
 const KeyBox = styled.div`
-  width: 200px;
-  height: 200px;
-  background-color: white;
+  width: 170px;
+  height: 170px;
+  background-color: rgba(232, 232, 232, .85);
+  box-shadow: inset 10px 10px 10px rgba(255,255,255,.5);
   position: absolute;
   right: 0;
   bottom: 0;
   margin: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-right: 2%;
+  .key{
+    display: flex;
+  }
 `;
 
 const ToggleKnob = styled.label`
