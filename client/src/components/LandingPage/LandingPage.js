@@ -5,6 +5,7 @@ import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import { MapWindow, ShowMarker, Pop } from '../../styles/MapWindowStyle';
 
+
 import styled from 'styled-components';
 
 const MAPBOX_TOKEN =
@@ -108,6 +109,8 @@ class LandingPage extends React.Component {
     );
   }
 }
+
+
 
 const KeyBox = styled.div`
   width: 200px;
