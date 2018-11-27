@@ -15,18 +15,18 @@ const configureRoutes = require('./stripe-routes');
 
 server.use(express.json(), helmet());
 //server.use('/api/database', usersRouters);
-server.use('/api/database/seekers', seekersRouters);
-server.use('/api/database/companies', companiesRouters);
-server.use('/api/markers', markersRouters);
-server.use(cors(corsOptions));
-
-
 const corsOptions = {
   origin: (origin, callback) =>
     (CORS_WHITELIST.indexOf(origin) !== -1 || !origin)
       ? callback(null, true)
       : callback(new Error('Not allowed by CORS'))
 };
+server.use(cors(corsOptions));
+server.use('/api/database/seekers', seekersRouters);
+server.use('/api/database/companies', companiesRouters);
+server.use('/api/markers', markersRouters);
+
+
 server.use('/api/database/favorites', favoritesRouters);
 
 server.get('/', (req, res) => {
