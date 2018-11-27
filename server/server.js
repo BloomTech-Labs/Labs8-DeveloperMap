@@ -7,7 +7,7 @@ const server = express();
 const seekersRouters = require('./seekers/seekersRouters.js');
 const companiesRouters = require('./companies/companiesRouters.js');
 const markersRouters = require('./markers/markersRouters.js');
-const frontendurl = require('./constants/frontend');
+const frontendurl = require('./constants/frontend.js');
 const favoritesRouters = require('./seekers/favoritesRoutes.js');
 
 // const configureServer = require('./serverConfig');
