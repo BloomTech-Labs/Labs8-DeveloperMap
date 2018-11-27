@@ -107,3 +107,24 @@ seekers: {
  - Deletes a user from the database
  - Does not delete from auth server
 
+
+ ## Companies 
+
+### GET 
+
+#### GET all Companies
+- https://intense-stream-29923.herokuapp.com/api/database/companies/all
+  - Returns all companies
+
+#### GET Company Token
+- https://intense-stream-29923.herokuapp.com/api/database/companies/token
+  - Sends a custom token with the claim of company
+  - Useful for testing with Postman
+
+#### GET Specific Companies
+- https://intense-stream-29923.herokuapp.com/api/database/companies/:uid
+  - Gets specific user by passing uid through params
+
+- https://intense-stream-29923.herokuapp.com/api/database/companies
+  - Gets specific user when uid is passed through the body
+  - Meant to be used with setCompanyClaims middleware
