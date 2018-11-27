@@ -5,7 +5,15 @@ const router = express.Router();
 
 //----------------------------------------------------GETS
 
-router.get('/', (req, res) => {
+router.get('/token', async (req, res) => {
+  const claims = { company: true };
+  const customToken = await firebase
+    .auth()
+    .createCustomToken('test-uid', claims);
+  res.json({ customToken });
+});
+
+router.get('/all', (req, res) => {
   rootRef
     .child('companies')
     .once('value')
@@ -34,16 +42,34 @@ router.get('/:uid', (req, res) => {
     });
 });
 
+router.get('/:uid', (req, res) => {
+  const { uid } = req.body;
+  rootRef
+    .child(`companies/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.status(200).json(snapshot.val());
+      } else {
+        res.status(404).json({ err: 'user not found' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
+});
+
 //--------------------------------------------------------POSTS
 
-router.post('/addUser/:uid', (req, res) => {
-  const { uid } = req.params;
+router.post('/addUser', (req, res) => {
   const {
-    companyName,
-    companyWebsite,
     email,
-    location,
+    firstName,
+    lastName,
     phoneNumber,
+    jobTitle,
+    location,
+    uid,
   } = req.body;
   const newData = {
     companyName,
@@ -72,10 +98,24 @@ router.post('/addUser/:uid', (req, res) => {
     .catch(err => res.json(err));
 });
 
+router.post('/jobsListed', (req, res) => {
+  const { uid } = req.body;
+  const { companyName, date, jobLink, jobTitle, location } = req.body;
+  rootRef
+    .child(`companyPostings/${uid}`)
+    .push({ companyName, date, jobLink, jobTitle, location })
+    .then(res => {
+      res.json({ message: 'Job added' });
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 //----------------------------------------------------------------------PUT
 
-router.put('/userInfo/:uid', (req, res) => {
-  const { uid } = req.params;
+router.put('/userInfo', (req, res) => {
+  const { uid } = req.body;
   const updateKeys = Object.keys(req.body);
   rootRef
     .child(`companies/${uid}`)
@@ -110,9 +150,39 @@ router.put('/userInfo/:uid', (req, res) => {
     .catch(err => res.json(err));
 });
 
+router.put('/jobListed/:jobKey', async (req, res) => {
+  const { jobKey } = req.params;
+  const { companyName, date, location, jobLink, jobTitle, uid } = req.body;
+  const newData = { companyName, date, location, jobLink, jobTitle, uid };
+  let updateObject = {};
+  const favoritedPosts = await rootRef.child('favoritePosting').once('value');
+  updateObject[`companyPostings/${uid}/${jobKey}`] = {
+    companyName,
+    date,
+    location,
+    jobLink,
+    jobTitle,
+  };
+  if (favoritedPosts) {
+    favoritedPosts.forEach(childSnap => {
+      if (childSnap.child(jobKey).exists()) {
+        updateObject[`favoritePosting/${childSnap.key}/${jobKey}`] = newData;
+      }
+    });
+  }
+  rootRef
+    .update(updateObject)
+    .then(() => {
+      res.json('company postings updated');
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 //-------------------------------------------------------------------DELETE
 
-router.delete('/:uid', (req, res) => {
+router.delete('/', (req, res) => {
   const { uid } = req.params;
   rootRef
     .child(`companies/${uid}`)

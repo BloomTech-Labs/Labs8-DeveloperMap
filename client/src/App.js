@@ -14,188 +14,226 @@ import {
   SignIn,
   SignUp,
   SeekerSignUp,
-  EmployerSignUp
+  EmployerSignUp,
 } from './reducer';
+import styled from 'styled-components';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentSignedInUser: null
-    }
+      currentSignedInUser: null,
+    };
   }
 
   //// ----- Modal Control -----
   // --- Close Modal If Click Is Not On Modal ---
-  closeModalOnOutsideClick = (e) => {
+  closeModalOnOutsideClick = e => {
     if (e.target.dataset.type === 'modal-container') {
       this.props.history.push('/');
-    } 
-  }
+    }
+  };
 
   //// ----- User Control Methods -----
   /// ---- Sign Up Methods ----
-  signUpNewUserWithEmailAndPassword = (e, type, email, phone, identifier1, identifier2, jobTitle, street, city, state, zipCode, password, rePassword) => {
+  signUpNewUserWithEmailAndPassword = (
+    e,
+    type,
+    email,
+    phone,
+    identifier1,
+    identifier2,
+    jobTitle,
+    street,
+    city,
+    state,
+    zipCode,
+    password,
+    rePassword
+  ) => {
     e.preventDefault();
 
     // --- Form Validation ---
     // Check to make sure that the password matches the confirm password
     if (password !== rePassword) {
-    return alert('Password does not match the confirm password.')
+      return alert('Password does not match the confirm password.');
     }
 
     // Check password length
     if (password.length <= 8) {
-    return alert('Password must be at least 8 characters long.')
+      return alert('Password must be at least 8 characters long.');
     }
 
     // --- Firebase Auth Method ---
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(response => {
-      // Deconstruct response body
-      const { uid, email } = response.user;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async response => {
+        // Deconstruct response body
+        const { uid, email } = response.user;
+        const token = await response.user.getIdToken(true);
+        const headers = { authorization: token };
 
-      // --- Add User to Database ---
-      // Construct Location Object
-      let location = {};
-      let accessToken = 'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-      let addressString = street.concat(' ', city, state, zipCode);
-      let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
-      
-      // Get Location Coordinates and Return Promise
-      axios.get(mapboxGeocodingAPIURL)
-      .then( response => {
-        console.log(response.data.features[0].geometry.coordinates)
-        location = {
-          street: street,
-          city: city,
-          state: state,
-          zip: zipCode,
-          coordinates: response.data.features[0].geometry.coordinates,
-        }
-    
-        // --- Determine User Type ---
-        let user = {
-          "uid": uid, 
-          "email": email, 
-          "phoneNumber": phone,
-          "location": location
-        }
+        // --- Add User to Database ---
+        // Construct Location Object
+        let location = {};
+        let accessToken =
+          'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
+        let addressString = street.concat(' ', city, state, zipCode);
+        let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
 
-        // Construct Object for Seeker Type Users
-        if( type === "seekers" ) {
-        user = { ...user,
-          "firstName": identifier1, 
-          "lastName": identifier2, 
-          "jobTitle": jobTitle, 
-        }
-  
-        // Construct Object for Employer Type Users
-        } else if( type === "companies" ) {  
-        user = {
-          ...user,
-          "companyName": identifier1, 
-          "companyWebsite": identifier2, 
-        }
-        } else {
-          return console.log('Invalid user type!')
-        }
-        
-        // Create User In Database
-        axios.post(`https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`, {...user})
-        .then((response) => {
-          console.log(response.data);
-          alert(response.data.message);
-        })
-        .catch((error) => console.log(error));
-      
-        // Add the Current User to State
-        this.setState({currentSignedInUser: user});
+        // Get Location Coordinates and Return Promise
+        axios
+          .get(mapboxGeocodingAPIURL)
+          .then(response => {
+            console.log(response.data.features[0].geometry.coordinates);
+            location = {
+              street: street,
+              city: city,
+              state: state,
+              zip: zipCode,
+              coordinates: response.data.features[0].geometry.coordinates,
+            };
 
-        // Close Modal
-        this.props.history.push('/');
+            // --- Determine User Type ---
+            let user = {
+              uid: uid,
+              email: email,
+              phoneNumber: phone,
+              location: location,
+            };
+
+            // Construct Object for Seeker Type Users
+            if (type === 'seekers') {
+              user = {
+                ...user,
+                firstName: identifier1,
+                lastName: identifier2,
+                jobTitle: jobTitle,
+              };
+
+              // Construct Object for Employer Type Users
+            } else if (type === 'companies') {
+              user = {
+                ...user,
+                companyName: identifier1,
+                companyWebsite: identifier2,
+              };
+            } else {
+              return console.log('Invalid user type!');
+            }
+
+            // Create User In Database
+            axios
+              .post(
+                `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
+                { ...user },
+                { headers }
+              )
+              .then(response => {
+                console.log(response.data);
+                alert(response.data.message);
+              })
+              .catch(error => console.log(error));
+
+            // Add the Current User to State
+            this.setState({ currentSignedInUser: user });
+
+            // Close Modal
+            this.props.history.push('/');
+          })
+          .catch(error => console.log(error));
       })
-      .catch(error => console.log(error));
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log({ errorCode, errorMessage });
-      alert(error);
-    });
-  }
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage });
+        alert(error);
+      });
+  };
 
   signUpWithGoogleAuthentication = () => {
     // --- Google Auth Method ---
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-    .then(response => {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(async response => {
+        // --- Add User to Database ---
+        // Construct Location Object
+        let location = {};
+        let tempUser = response;
+        const token = await tempUser.user.getIdToken(true);
+        const headers = { authorization: token };
+        let accessToken =
+          'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
+        let addressString = 'utah';
+        let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
 
-       // --- Add User to Database ---
-      // Construct Location Object
-      let location = {};
-      let tempUser = response;
-      let accessToken = 'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-      let addressString = 'utah';
-      let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
+        // Get Location Coordinates and Return Promise
+        axios
+          .get(mapboxGeocodingAPIURL)
+          .then(response => {
+            location = {
+              street: 'street',
+              city: 'city',
+              state: 'utah',
+              zip: 'zipCode',
+              coordinates: response.data.features[0].geometry.coordinates,
+            };
 
-      // Get Location Coordinates and Return Promise
-      axios.get(mapboxGeocodingAPIURL)
-      .then( response => {
-        location = {
-          street: 'street',
-          city: 'city',
-          state: 'utah',
-          zip: 'zipCode',
-          coordinates: response.data.features[0].geometry.coordinates,
-        }
+            let user = {
+              uid: tempUser.user.uid,
+              email: tempUser.user.email,
+              phoneNumber: tempUser.user.phone,
+              location: location,
+              firstName: 'identifier1',
+              lastName: 'identifier2',
+              jobTitle: 'jobTitle',
+            };
 
-        let user = {
-          "uid": tempUser.user.uid, 
-          "email": tempUser.user.email, 
-          "phoneNumber": tempUser.user.phone,
-          "location": location,
-          "firstName": 'identifier1', 
-          "lastName": 'identifier2', 
-          "jobTitle": 'jobTitle', 
-        }
-  
-      // Create User In Database
-      axios.post(`https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${tempUser.user.uid}`, {...user})
-      .then((response) => {
-        console.log(response.data);
-        alert(response.data.message);
+            // Create User In Database
+            axios
+              .post(
+                `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser`,
+                { ...user },
+                { headers }
+              )
+              .then(response => {
+                console.log(response.data);
+                alert(response.data.message);
 
-        axios.get(`https://intense-stream-29923.herokuapp.com/api/database/seekers/${tempUser.user.uid}`)
-        .then(() => {
-          this.setState({currentSignedInUser: tempUser.data})
-          this.props.history.push('/');
-        })
-        .catch(error => console.log(error));
+                axios
+                  .get(
+                    `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+                      tempUser.user.uid
+                    }`
+                  )
+                  .then(() => {
+                    this.setState({ currentSignedInUser: tempUser.data });
+                    this.props.history.push('/');
+                  })
+                  .catch(error => console.log(error));
+              })
+              .catch(error => console.log(error));
+          })
+          .catch(error => console.log(error));
 
+        // Close Modal
       })
-      .catch((error) => console.log(error));
-
-
-    })
-    .catch((error) => console.log(error));
-
-      // Close Modal
-     
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log({ errorCode, errorMessage });
-    });
-  }
-
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage });
+      });
+  };
 
   /// ---- Sign In Methods ----
   signInWithEmailAndPassword = (e, email, password) => {
     e.preventDefault();
 
     // --- Firebase Auth Method ---
+
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(response => {
       let uid = response.user.uid;
@@ -203,31 +241,33 @@ class App extends Component {
       .then(response => this.setState({currentSignedInUser: {...response.data, uid}}))
       .catch(error => console.log(error));
 
-      // Close Modal
-      this.props.history.push('/');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log({ errorCode, errorMessage });
-    });
-  }
+        // Close Modal
+        this.props.history.push('/');
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage });
+      });
+  };
 
   // --- Sign Out Method ---
-  signOutCurrentUser = (e) => {
+  signOutCurrentUser = e => {
     e.preventDefault();
-    firebase.auth().signOut()
-    .then(() => {
-      alert('User Successfully Signed Out')
-      this.setState({currentSignedInUser: null})
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        alert('User Successfully Signed Out');
+        this.setState({ currentSignedInUser: null });
 
-      // Close Modal
-      this.props.history.push('/');
-    })
-    .catch(() => {
-      alert('Unable to Sign Out User')
-    })
-  }
+        // Close Modal
+        this.props.history.push('/');
+      })
+      .catch(() => {
+        alert('Unable to Sign Out User');
+      });
+  };
 
   componentDidMount() {
     // --- User Session Check (Handled by Firebase) ---
@@ -248,9 +288,9 @@ class App extends Component {
   render() {
     return (
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
-        <NavBar { ...this.props }/>
+        <NavBar { ...this.props } user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
         <Route path="/" component={LandingPage} />
-        <Route path="/employer/:employerId" component={EmployerProfile} />
+        <Route path="/company/:companyId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
         <Route path="/settings" render={(props) => 
           this.state.currentSignedInUser &&
@@ -264,32 +304,120 @@ class App extends Component {
           path="/employer/:employerId/settings"
           component={EmployerSettings}
         />
-        <Route
-          path="/billing"
-          component={EmployerBilling}
-        />
+        <Route path="/billing" component={EmployerBilling} />
         <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
-        <Route path="/signin" render={(props) => 
-          <SignIn 
-          {...props} 
-          signInWithEmailAndPassword={this.signInWithEmailAndPassword} 
-          signOutCurrentUser={this.signOutCurrentUser} 
-          currentSignedInUser={this.state.currentSignedInUser} 
-          signUpWithGoogleAuthentication={this.signUpWithGoogleAuthentication}
-          />}
+        <Route
+          path="/signin"
+          render={props => (
+            <SignIn
+              {...props}
+              signInWithEmailAndPassword={this.signInWithEmailAndPassword}
+              signOutCurrentUser={this.signOutCurrentUser}
+              currentSignedInUser={this.state.currentSignedInUser}
+              signUpWithGoogleAuthentication={
+                this.signUpWithGoogleAuthentication
+              }
+            />
+          )}
         />
-        <Route path="/signup" render={(props) => 
-          <SignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
-        }/>
-        <Route path="/seeker/signup" render={(props) => 
-          <SeekerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
-        }/>
-        <Route path="/employer/signup" render={(props) => 
-          <EmployerSignUp {...props} signUpNewUserWithEmailAndPassword={this.signUpNewUserWithEmailAndPassword} />
-        }/>
+        <Route
+          path="/signup"
+          render={props => (
+            <SignUp
+              {...props}
+              signUpNewUserWithEmailAndPassword={
+                this.signUpNewUserWithEmailAndPassword
+              }
+            />
+          )}
+        />
+        <Route
+          path="/seeker/signup"
+          render={props => (
+            <SeekerSignUp
+              {...props}
+              signUpNewUserWithEmailAndPassword={
+                this.signUpNewUserWithEmailAndPassword
+              }
+            />
+          )}
+        />
+        <Route
+          path="/employer/signup"
+          render={props => (
+            <EmployerSignUp
+              {...props}
+              signUpNewUserWithEmailAndPassword={
+                this.signUpNewUserWithEmailAndPassword
+              }
+            />
+          )}
+        />
       </div>
     );
   }
 }
+const KeyBox = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  bottom: 0;
+  right: 0;
+`;
+
+const ToggleKnob = styled.label`
+  position: relative;
+  width: 29px;
+  height: 12px;
+  justify-self: center;
+  align-items: center;
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    &:before {
+      position: absolute;
+      content: '';
+      height: 13px;
+      width: 13px;
+      left: 1px;
+      bottom: 0px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+  }
+  input:checked + .slider {
+    background-color: #2196f3;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  .slider.round {
+    border-radius: 12px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+`;
 
 export default withRouter(App);
