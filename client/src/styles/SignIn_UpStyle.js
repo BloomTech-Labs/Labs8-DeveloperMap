@@ -70,6 +70,14 @@ export const Location = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  input[type=text] {
+    height: 30px;
+    width: 200px;
+    border-radius: 2px;
+    border: .5px solid lightgrey;
+    padding-left: 5px;
+    margin-bottom: 10px;
+  }
 `;
 
 export const JobTitle = styled.div`
@@ -108,4 +116,3 @@ export const Button = styled.button`
     background-color: rgba(184,15,10,.8);
   }
 `;
-

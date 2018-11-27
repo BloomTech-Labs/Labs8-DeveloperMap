@@ -43,6 +43,10 @@ export const Input = styled.input`
   height: 20px;
   border-radius: 1px;
   border: 1px solid lightgrey;
+  &:disabled {
+    border-color: white;
+    // background-color: #FFF; < --- Add after settings is connected to the database.
+  }
 `;
 
 export const Select = styled.select`
@@ -58,12 +62,18 @@ export const TextArea = styled.textarea`
   display: block;
   width: 100%;
   min-width:100%;
+  max-width:100%;
   height: 60px;
   border-radius: 1px;
   border: 1px solid lightgrey;
+  &:disabled {
+    border-color: white;
+    // background-color: #FFF; < --- Add after settings is connected to the database.
+  }
 `;
 
-
+export const CheckBox = styled.input`
+`;
 
 export const LeftColumn = styled.div`
   display: flex;
@@ -74,7 +84,8 @@ export const LeftColumn = styled.div`
 export const RightColumn = styled.div`
   display: flex;
   width: 60%;
-  flex-direction: column;  
+  flex-direction: column; 
+  justify-content: space-between;
 `;
 
 export const ProfileInfo = styled.div`
@@ -93,8 +104,11 @@ export const ProfileInfo = styled.div`
       height: 24px;
     }
   }
-  h3 {
-    margin-bottom: 10px;
+  a {
+    text-align: center;
+    width: 100%;
+    padding: 5px 0;
+    background-color: whitesmoke;
   }
 `;
 
@@ -117,24 +131,32 @@ export const Location = styled.div`
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  .location-options {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
 `;
 
 export const Social = styled.div`
 width: 100%;
 `;
 
-export const SaveButton = styled.button`
+export const EditButtons = styled.button`
   height: 30px;
+  padding: 0px 20px;
   background-color: rgb(184,15,10);
   color: white;
   border: none;
   border-radius: 2px;
   box-shadow: 0 4px 2px -2px gray;
+  cursor: pointer;
+  outline: none;
   &:hover {
     background-color: rgba(184,15,10,.8);
   }
   position: absolute;
-  bottom: 30px;
-  right: 10%;
+  top: 20px;
+  right: ${props => props.right}
 `
 
