@@ -3,8 +3,7 @@ import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { MapWindow, ShowMarker, Pop } from '../../styles/MapWindowStyle';
-
+import { MapWindow, ShowMarker, Pop } from './MapWindowStyle.js';
 
 import styled from 'styled-components';
 
@@ -77,17 +76,17 @@ class LandingPage extends React.Component {
           />
           <KeyBox>
             <div className="knobs">
-            <ToggleKnob>
-              <input type="checkbox" />
-              <span className="slider round" />
-            </ToggleKnob>
-            <h5>Job Seeker</h5>
-            <ToggleKnob>
-              <input type="checkbox" />
-              <span className="slider round" />
-            </ToggleKnob>
-            <h5>Employer</h5>
-          </div>
+              <ToggleKnob>
+                <input type="checkbox" />
+                <span className="slider round" />
+              </ToggleKnob>
+              <h5>Job Seeker</h5>
+              <ToggleKnob>
+                <input type="checkbox" />
+                <span className="slider round" />
+              </ToggleKnob>
+              <h5>Employer</h5>
+            </div>
           </KeyBox>
 
           {this.state.data.map((mark, i) => {
@@ -103,14 +102,11 @@ class LandingPage extends React.Component {
               </Marker>
             );
           })}
-          
         </MapGL>
       </MapWindow>
     );
   }
 }
-
-
 
 const KeyBox = styled.div`
   width: 200px;
