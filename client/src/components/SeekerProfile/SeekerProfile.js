@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from '../../firebase/firebase';
 import axios from 'axios';
 import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
 import { Info, ProfileStyle, CheckLabel } from './ProfileModal.js';
