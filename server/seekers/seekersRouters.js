@@ -2,11 +2,22 @@ const express = require('express');
 const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
-const authMw = require('../auth/authMiddleware.js');
+const {
+  setSeekerClaims,
+  verifySeekerToken,
+} = require('../auth/authMiddleware.js');
 
 //----------------------------------------------------------------GETS
 
-router.get('/', (req, res) => {
+router.get('/token', async (req, res) => {
+  const claims = { seekers: true };
+  const customToken = await firebase
+    .auth()
+    .createCustomToken('test-uid', claims);
+  res.json({ customToken });
+});
+
+router.get('/all', (req, res) => {
   rootRef
     .child('seekers')
     .once('value')
@@ -35,13 +46,30 @@ router.get('/:uid', (req, res) => {
     });
 });
 
-//-----------------------------------------------------------------------POSTS
-//Add User
+router.get('/', (req, res) => {
+  const { uid } = req.body;
+  rootRef
+    .child(`seekers/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        res.status(200).json(snapshot.val());
+      } else {
+        res.status(404).json({ err: 'user not found' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
+});
 
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-router.post('/addUser', (req, res) => {
+//-----------------------------------------------------------------------POSTS
+//Add User
+
+router.post('/addUser', setSeekerClaims, (req, res) => {
   // Deconstruct Request Body
   const {
     email,
@@ -51,24 +79,25 @@ router.post('/addUser', (req, res) => {
     jobTitle,
     location,
     uid,
+    customToken,
   } = req.body;
 
   // Validation
-  if (
-    !email ||
-    !firstName ||
-    !email ||
-    !firstName ||
-    !lastName ||
-    !phoneNumber ||
-    !jobTitle ||
-    !location ||
-    !uid
-  ) {
-    return res
-      .status(400)
-      .json({ error: 'Missing information. Unable to create user.' });
-  }
+  // if (
+  //   !email ||
+  //   !firstName ||
+  //   !email ||
+  //   !firstName ||
+  //   !lastName ||
+  //   !phoneNumber ||
+  //   !jobTitle ||
+  //   !location ||
+  //   !uid
+  // ) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: 'Missing information. Unable to create user.' });
+  // }
 
   // Construct New Seeker User Object
   const newSeeker = {
@@ -78,6 +107,7 @@ router.post('/addUser', (req, res) => {
     phoneNumber,
     jobTitle,
     location,
+    bio: '',
     github: '',
     linkedIn: '',
     portfolio: '',
@@ -87,7 +117,6 @@ router.post('/addUser', (req, res) => {
   // Construct New Marker Object
   const markerData = {
     geometry: {
-
       // Convert Coordinates to Numbers
       coordinates: location.coordinates.map(coord => Number(coord)),
       type: 'Point',
@@ -114,9 +143,10 @@ router.post('/addUser', (req, res) => {
         rootRef.update(updateObject);
 
         // Success Message
-        res
-          .status(201)
-          .json({ success: `${email} has been added to database.` });
+        res.status(201).json({
+          success: `${email} has been added to database.`,
+          customToken,
+        });
       }
     })
     .catch(err => res.status(500).json(err));
@@ -125,8 +155,8 @@ router.post('/addUser', (req, res) => {
 //------------------------------------------------------------------PUT
 //Change UserInfo
 
-router.put('/userInfo/:uid', (req, res) => {
-  const { uid } = req.params;
+router.put('/userInfo', (req, res) => {
+  const { uid } = req.body;
   const updateKeys = Object.keys(req.body);
   rootRef
     .child(`seekers/${uid}`)
@@ -163,8 +193,8 @@ router.put('/userInfo/:uid', (req, res) => {
 
 //----------------------------------------------------------------------DELETE
 
-router.delete('/:uid', (req, res) => {
-  const { uid } = req.params;
+router.delete('/', (req, res) => {
+  const { uid } = req.body;
   rootRef
     .child(`seekers/${uid}`)
     .once('value')
