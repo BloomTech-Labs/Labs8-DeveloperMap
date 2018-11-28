@@ -2,7 +2,7 @@ const express = require('express');
 const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
-const { createMarkerObject } = require('../markers/markersMiddleware.js');
+const { createMarkerObjectSeeker } = require('../markers/markersMiddleware.js');
 const {
   setSeekerClaims,
   verifySeekerToken,
@@ -73,7 +73,7 @@ router.get('/', (req, res) => {
 router.post(
   '/addUser',
   setSeekerClaims,
-  createMarkerObject,
+  createMarkerObjectSeeker,
   async (req, res) => {
     // Deconstruct Request Body
     const {

@@ -1,6 +1,8 @@
 const express = require('express');
 const firebase = require('../firebase/firebase.js');
-const { createMarkerObject } = require('../markers/markersMiddleware.js');
+const {
+  createMarkerObjectCompany,
+} = require('../markers/markersMiddleware.js');
 const {
   setCompanyClaims,
   verifyCompanyToken,
@@ -66,34 +68,39 @@ router.get('/:uid', (req, res) => {
 
 //--------------------------------------------------------POSTS
 
-router.post('/addUser', setCompanyClaims, createMarkerObject, (req, res) => {
-  const {
-    email,
-    phoneNumber,
-    location,
-    companyName,
-    companyWebsite,
-    uid,
-    markerData,
-  } = req.body;
-  const newData = {
-    companyName,
-    companyWebsite,
-    email,
-    location,
-    phoneNumber,
-  };
-  let updateObject = {};
-  updateObject[`companies/${uid}`] = newData;
-  updateObject[`markers/${uid}`] = markerData;
-  // Update database with the new object
-  rootRef.update(updateObject).catch();
-  // Success Message
-  res.status(201).json({
-    success: `${email} has been added to database.`,
-    customToken,
-  });
-});
+router.post(
+  '/addUser',
+  setCompanyClaims,
+  createMarkerObjectCompany,
+  (req, res) => {
+    const {
+      email,
+      phoneNumber,
+      location,
+      companyName,
+      companyWebsite,
+      uid,
+      markerData,
+    } = req.body;
+    const newData = {
+      companyName,
+      companyWebsite,
+      email,
+      location,
+      phoneNumber,
+    };
+    let updateObject = {};
+    updateObject[`companies/${uid}`] = newData;
+    updateObject[`markers/${uid}`] = markerData;
+    // Update database with the new object
+    rootRef.update(updateObject).catch();
+    // Success Message
+    res.status(201).json({
+      success: `${email} has been added to database.`,
+      customToken,
+    });
+  }
+);
 
 router.post('/jobsListed', (req, res) => {
   const { companyName, date, jobLink, jobTitle, location, uid } = req.body;
