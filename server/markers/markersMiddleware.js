@@ -25,8 +25,9 @@ const createMarkerObjectSeeker = async (req, res, next) => {
           lastName,
         },
         jobTitle,
-        profilePicture: null,
+        profilePicture: '',
         uid,
+        role: seeker,
       },
     };
     req.body.markerData = markerData;
@@ -49,11 +50,11 @@ const createMarkerObjectCompany = async (req, res, next) => {
       geometry: {
         // Convert Coordinates to Numbers
         coordinates: location.coordinates.map(coord => Number(coord)),
-        type: 'Point',
       },
       properties: {
-        title: companyName,
+        title: { companyName },
         uid,
+        role: company,
       },
     };
     req.body.markerData = markerData;
