@@ -74,6 +74,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const CheckBox = styled.input`
+// Check Box Placeholder. No stylings yet, but there definitely will be.
 `;
 
 // Columns
@@ -96,6 +97,7 @@ export const ProfileInfo = styled.div`
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
+  // Profile Picture... Consider making it a component and using background images instead.
   img {
     width: 100%;
   }
@@ -107,6 +109,7 @@ export const ProfileInfo = styled.div`
       height: 24px;
     }
   }
+  // The Download Resume Link... Consider making it a component and using background images instead.
   a {
     text-align: center;
     width: 100%;
@@ -134,6 +137,7 @@ export const Location = styled.div`
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  // Check Boxes for Remote Jobs and Relocation... Consider making it a component and using background images instead.
   .location-options {
     display: flex;
     width: 100%;
@@ -145,6 +149,8 @@ export const Social = styled.div`
 width: 100%;
 `;
 
+
+// Buttons Used to Edit, Save, and Cancel
 export const EditButtons = styled.button`
   height: 30px;
   padding: 0px 20px;
