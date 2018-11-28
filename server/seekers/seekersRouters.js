@@ -66,10 +66,6 @@ router.get('/', (req, res) => {
 
 //-----------------------------------------------------------------------POSTS
 //Add User
-
-//-----------------------------------------------------------------------POSTS
-//Add User
-
 router.post(
   '/addUser',
   setSeekerClaims,
@@ -105,21 +101,25 @@ router.post(
     //     .status(400)
     //     .json({ error: 'Missing information. Unable to create user.' });
     // }
-
-    // Construct New Seeker User Object
-    const newSeeker = {
-      email,
-      firstName,
-      lastName,
-      phoneNumber,
-      jobTitle,
-      location,
-      bio: '',
-      github: '',
-      linkedIn: '',
-      portfolio: '',
-      twitter: '',
-    };
+    
+  // Construct New Seeker User Object
+  const newSeeker = {
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    jobTitle,
+    location,
+    bio: '',
+    github: '',
+    linkedIn: '',
+    portfolio: '',
+    twitter: '',
+    resume: '',
+    profilePicture: '',
+    relocation: false,
+    remote: false
+  };
 
     // Firebase Reference Interface Methods
     // Create object to send to Firebase Database

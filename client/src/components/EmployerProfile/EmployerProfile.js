@@ -22,7 +22,7 @@ class EmployerProfile extends React.Component {
   }
 
   componentDidMount() {
-    const uid = this.props.match.params.companyId;
+    const uid = this.props.match.params.employerId;
     firebase
       .database()
       .ref()
@@ -39,7 +39,7 @@ class EmployerProfile extends React.Component {
         <ModalMain>
           <Styling>
           <Info>
-            <h2>{this.state.companyName}</h2>
+            <h2 className='com-name'>{this.state.companyName}</h2>
             <h3>Location:</h3>
             <h4>{this.state.location}</h4>
             <h3>Website:</h3>
