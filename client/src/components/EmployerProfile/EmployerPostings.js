@@ -1,9 +1,12 @@
 import React from 'react';
 import firebase from '../../firebase/firebase';
 import JobPosting from './JobPosting';
+import Heart from '../../images/hollow-heart.png';
+import FavHeart from '../../images/favorites-icon.png';
 
 import {
-    Posts
+    Posts,
+    PostContainer
   } from './EmployerStyles';
 
 class EmployerPostings extends React.Component {
@@ -11,12 +14,13 @@ class EmployerPostings extends React.Component {
         super(props);
         this.state = {
             posts: '',
-            favToggle: false
+            favToggle: true,
+            heart: Heart
         }
     }
 
     componentDidMount() {
-        const uid = this.props.match.params.companyId;
+        const uid = this.props.match.params.employerId;
         firebase
           .database()
           .ref()
@@ -28,18 +32,37 @@ class EmployerPostings extends React.Component {
     }
 
     favToggle = () => {
-        console.log('working');
+        if(this.state.favToggle === true){
+        this.setState({
+            favToggle: !this.state.favToggle,
+            heart: Heart
+        });
+        } else {
+        this.setState({
+            favToggle: !this.state.favToggle,
+            heart: FavHeart
+        })
+        } 
     }
 
 
     render() {
-        console.log(this.state.posts);
+
         return (
+            <PostContainer>
+            {this.state.posts ?
             <Posts>
                  {Object.values(this.state.posts).map((post, i) => 
-                    <JobPosting key={i} {...this.props} post={post} favToggle={this.favToggle}/>
+                    <JobPosting key={i} {...this.props} post={post} favToggle={this.favToggle} heart={this.state.heart}/>
                     )} 
             </Posts>
+            :
+            <Posts>
+                <h1>
+                    This company has no job postings.
+                </h1>
+            </Posts>}
+            </PostContainer>
         )
     }
 }
