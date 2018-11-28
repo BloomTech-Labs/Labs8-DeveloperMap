@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
-=======
+
 import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 
