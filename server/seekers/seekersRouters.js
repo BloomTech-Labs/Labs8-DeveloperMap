@@ -66,9 +66,6 @@ router.get('/', (req, res) => {
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-//-----------------------------------------------------------------------POSTS
-//Add User
-
 router.post('/addUser', setSeekerClaims, (req, res) => {
   // Deconstruct Request Body
   const {
@@ -112,6 +109,10 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     linkedIn: '',
     portfolio: '',
     twitter: '',
+    resume: '',
+    profilePicture: '',
+    relocation: false,
+    remote: false
   };
 
   // Construct New Marker Object
