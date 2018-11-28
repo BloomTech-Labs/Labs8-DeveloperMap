@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
+const { createMarkerObject } = require('../markers/markersMiddleware.js');
 const {
   setSeekerClaims,
   verifySeekerToken,
@@ -69,7 +70,7 @@ router.get('/', (req, res) => {
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-router.post('/addUser', setSeekerClaims, (req, res) => {
+router.post('/addUser', createMarkerObject, async (req, res) => {
   // Deconstruct Request Body
   const {
     email,
@@ -80,8 +81,10 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     location,
     uid,
     customToken,
+    markerData,
   } = req.body;
 
+  console.log(markerData);
   // Validation
   // if (
   //   !email ||
@@ -114,42 +117,18 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     twitter: '',
   };
 
-  // Construct New Marker Object
-  const markerData = {
-    geometry: {
-      // Convert Coordinates to Numbers
-      coordinates: location.coordinates.map(coord => Number(coord)),
-      type: 'Point',
-    },
-    properties: {
-      title: firstName,
-      uid,
-    },
-  };
-
   // Firebase Reference Interface Methods
-  rootRef
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.child(`seekers/${uid}`).exists()) {
-        return res.status(400).json({ error: 'user already exists' });
-      } else {
-        // Create object to send to Firebase Database
-        let updateObject = {};
-        updateObject[`seekers/${uid}`] = newSeeker;
-        updateObject[`markers/${uid}`] = markerData;
-
-        // Update database with the new object
-        rootRef.update(updateObject);
-
-        // Success Message
-        res.status(201).json({
-          success: `${email} has been added to database.`,
-          customToken,
-        });
-      }
-    })
-    .catch(err => res.status(500).json(err));
+  // Create object to send to Firebase Database
+  let updateObject = {};
+  updateObject[`seekers/${uid}`] = newSeeker;
+  updateObject[`markers/${uid}`] = markerData;
+  // Update database with the new object
+  rootRef.update(updateObject).catch();
+  // Success Message
+  res.status(201).json({
+    success: `${email} has been added to database.`,
+    customToken,
+  });
 });
 
 //------------------------------------------------------------------PUT
