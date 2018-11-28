@@ -104,9 +104,10 @@ router.post(
 
 router.post('/jobsListed', (req, res) => {
   const { companyName, date, jobLink, jobTitle, location, uid } = req.body;
+  const companyUid = uid;
   rootRef
     .child(`companyPostings/${uid}`)
-    .push({ companyName, date, jobLink, jobTitle, location })
+    .push({ companyName, date, jobLink, jobTitle, location, companyUid })
     .then(res => {
       res.json({ message: 'Job added' });
     })
