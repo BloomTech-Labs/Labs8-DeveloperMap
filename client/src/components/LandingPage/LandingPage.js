@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { MapWindow, ShowMarker } from './MapWindowStyle';
+import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
 
@@ -57,23 +57,25 @@ class LandingPage extends React.Component {
 
   renderPopup = () => {
     const { pin } = this.state;
-    console.log(pin);
+
     return (
       pin && (
         <Popup
           latitude={pin.geometry.coordinates[1]}
           longitude={pin.geometry.coordinates[0]}
           offsetTop={-20}
-          onClose={() => this.setState({ pin: null })}
+          closeButton={false}
+          closeOnClick={false}
         >
-          <div
+          <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+          <PopupInfo
             style={{ cursor: 'pointer' }}
             onClick={() =>
               this.props.history.push(`/seeker/${pin.properties.uid}`)
             }
           >
             {pin.properties.title}
-          </div>
+          </PopupInfo>
         </Popup>
       )
     );
@@ -82,12 +84,6 @@ class LandingPage extends React.Component {
   hoverMarker = () => {};
 
   render() {
-    const style = {
-      position: 'absolute',
-      marginTop: '-8px',
-      marginLeft: '-8px',
-    };
-
     return (
       <MapWindow>
         <MapGL
@@ -95,8 +91,9 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
-          style={style}
+          style={{ position: 'absolute' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
+          onClick={() => this.setState({ pin: null })}
         >
           <Geocoder
             mapRef={this.mapRef}
@@ -127,7 +124,6 @@ class LandingPage extends React.Component {
                   src={SeekerPin}
                   alt="red marker"
                   onClick={() => this.setState({ pin: mark })}
-                  getCursor={'pointer'}
                 />
               </Marker>
             );

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import marker from '../../images/markerlogo.png';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
@@ -60,14 +59,18 @@ export const MapWindow = styled.div`
 export const ShowMarker = styled.img`
   height: 45px;
   width: 50px;
+  cursor: pointer;
 `;
 
-export const Pop = styled.div`
-  display: none;
+export const CloseX = styled.p`
+  position: absolute;
+  right: 6%;
+  top: 3px;
+  font-family: sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+`;
 
-  &:hover {
-    display: block;
-    color: white;
-    background-color: black;
-  }
+export const PopupInfo = styled.div`
+  padding: 5px 10px;
 `;
