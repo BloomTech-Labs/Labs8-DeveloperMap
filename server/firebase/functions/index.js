@@ -81,3 +81,10 @@ exports.deleteUserDbCompany = functions.database
       })
       .catch(err => console.log(err));
   });
+
+exports.logMarkerWrite = functions.database
+  .ref('markers/{uid}')
+  .onWrite((snapshot, context) => {
+    console.log('Before:', snapshot.before.val());
+    console.log('After:', snapshot.after.val());
+  });
