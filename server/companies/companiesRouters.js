@@ -74,6 +74,7 @@ router.post('/addUser', setCompanyClaims, createMarkerObject, (req, res) => {
     companyName,
     companyWebsite,
     uid,
+    markerData,
   } = req.body;
   const newData = {
     companyName,
