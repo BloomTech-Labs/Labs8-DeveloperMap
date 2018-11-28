@@ -16,7 +16,7 @@ class EmployerProfile extends React.Component {
       companyName: '',
       companyWebsite: '',
       email: '',
-      location: '',
+      location: {},
       phoneNumber: '',
     };
   }
@@ -41,7 +41,7 @@ class EmployerProfile extends React.Component {
           <Info>
             <h2 className='com-name'>{this.state.companyName}</h2>
             <h3>Location:</h3>
-            <h4>{this.state.location}</h4>
+            <h4>{this.state.location.city}</h4>
             <h3>Website:</h3>
             <h4>{this.state.companyWebsite}</h4>
             <h3>Phone</h3>
