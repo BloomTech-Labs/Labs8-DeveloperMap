@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import MapGL, { Marker } from 'react-map-gl';
+import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { MapWindow, ShowMarker, Pop } from './MapWindowStyle';
+import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
 
@@ -20,25 +20,38 @@ class LandingPage extends React.Component {
       zoom: 3,
     },
     data: [],
+    pin: null,
   };
 
   mapRef = React.createRef();
 
-  componentDidMount() {
-    window.addEventListener('resize', this.resize);
-    this.resize();
+  getMarkers = () => {
     axios
       .get('https://intense-stream-29923.herokuapp.com/api/markers')
       .then(response => {
+        const markerArray = [];
         for (let mark in response.data) {
-          this.setState({ data: [...this.state.data, response.data[mark]] });
+          markerArray.push(response.data[mark]);
         }
+        this.setState({ data: markerArray });
       })
       .catch(err => console.log(err));
+  };
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+    this.resize();
+    this.getMarkers();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.getMarkers();
+    }
   }
 
   resize = () => {
@@ -54,13 +67,35 @@ class LandingPage extends React.Component {
     });
   };
 
-  render() {
-    const style = {
-      position: 'absolute',
-      marginTop: '-8px',
-      marginLeft: '-8px',
-    };
+  renderPopup = () => {
+    const { pin } = this.state;
 
+    return (
+      pin && (
+        <Popup
+          latitude={pin.geometry.coordinates[1]}
+          longitude={pin.geometry.coordinates[0]}
+          offsetTop={-20}
+          closeButton={false}
+          closeOnClick={false}
+        >
+          <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+          <PopupInfo
+            style={{ cursor: 'pointer' }}
+            onClick={() =>
+              this.props.history.push(`/seeker/${pin.properties.uid}`)
+            }
+          >
+            {pin.properties.title}
+          </PopupInfo>
+        </Popup>
+      )
+    );
+  };
+
+  hoverMarker = () => {};
+
+  render() {
     return (
       <MapWindow>
         <MapGL
@@ -68,8 +103,11 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
-          style={style}
+          width="100%"
+          height="100%"
+          style={{ position: 'absolute' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
+          onClick={() => this.setState({ pin: null })}
         >
           <Geocoder
             mapRef={this.mapRef}
@@ -93,13 +131,19 @@ class LandingPage extends React.Component {
                 key={i}
                 latitude={mark.geometry.coordinates[1]}
                 longitude={mark.geometry.coordinates[0]}
+                offsetTop={-40}
+                offsetLeft={-25}
               >
-                <ShowMarker>
-                  <Pop>{mark.properties.title}</Pop>
-                </ShowMarker>
+                <ShowMarker
+                  src={SeekerPin}
+                  alt="red marker"
+                  onClick={() => this.setState({ pin: mark })}
+                />
               </Marker>
             );
           })}
+
+          {this.renderPopup()}
         </MapGL>
       </MapWindow>
     );
