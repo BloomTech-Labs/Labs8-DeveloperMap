@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
-=======
+
 import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 
@@ -154,13 +154,13 @@ class LandingPage extends React.Component {
 }
 
 const PinKey = styled.img`
-  width: 75px;
-  height: 75px;
+  width: 45px;
+  height: 45px;
 `;
 
 const KeyBox = styled.div`
   width: 170px;
-  height: 170px;
+  height: 140px;
   background-color: rgba(232, 232, 232, 0.85);
   box-shadow: inset 10px 10px 10px rgba(255, 255, 255, 0.5);
   position: absolute;
@@ -170,10 +170,15 @@ const KeyBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding-right: 2%;
   .key {
     display: flex;
+    align-items: center;
+  }
+  h3{
+    font-size: 1.1rem;
+    font-weight: lighter;
   }
 `;
 
