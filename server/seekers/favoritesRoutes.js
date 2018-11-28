@@ -26,7 +26,22 @@ router.get('/:uid', (req, res) => {
       if (snapshot.val() === null) {
         res.status(404).json('No favorite jobs');
       } else {
-        res.status(200).json(snapshot.val());
+        let favorites = [];
+        snapshot.forEach(childSnap => {
+          let companyUrl = '';
+          if (childSnap.child('companyUid').exists()) {
+            companyUrl = `https://clever-liskov-29b49a.netlify.com/employer/${childSnap
+              .child('companyUid')
+              .val()}`;
+          } else {
+          }
+          favorites.push({
+            ...childSnap.val(),
+            jobId: childSnap.key,
+            companyUrl,
+          });
+        });
+        res.status(200).json(favorites);
       }
     })
     .catch(err => {
@@ -38,7 +53,7 @@ router.get('/:uid', (req, res) => {
 
 router.post('/:uid/:jid', validate, (req, res) => {
   const { uid, jid } = req.params;
-  const newData = req.body;
+  let newData = req.body;
 
   rootRef
     .once('value')
