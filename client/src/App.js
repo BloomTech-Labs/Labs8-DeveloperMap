@@ -80,7 +80,7 @@ class App extends Component {
         let location = {};
         let accessToken =
           'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-        let addressString = street.concat(' ', city, state, zipCode);
+        let addressString = street.concat(' ', city, ' ', state, ' ', zipCode);
         let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
 
         // Get Location Coordinates and Return Promise
@@ -302,8 +302,9 @@ class App extends Component {
     return (
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <GlobalStyle />
+
         <NavBar {...this.props} user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
-        <Route path="/" component={LandingPage} />
+        <Route path="/" render={props => <LandingPage {...props} />} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
         <Route path="/settings" render={(props) => 

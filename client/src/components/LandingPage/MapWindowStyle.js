@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import marker from '../../images/markerlogo.png';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
-    width: 300px;
+    width: 20%;
     border-radius: 20px;
     .geocoder-icon-search {
       top: 7px;
@@ -12,10 +11,11 @@ export const MapWindow = styled.div`
 
     input[type='text'] {
       height: auto;
-      width: 300px;
+      width: 100%;
       border-radius: 20px;
       border: none;
-      padding-left: 14%;
+      padding: 10px 0 10px 14%;
+
       &:focus {
         outline: none;
       }
@@ -42,7 +42,6 @@ export const MapWindow = styled.div`
     width: 100%;
     .mapboxgl-ctrl-top-right {
       margin-left: 3%;
-      margin-top: 6px;
       right: initial;
       top: initial;
       left: initial;
@@ -51,22 +50,27 @@ export const MapWindow = styled.div`
   .geocoder-pin-right {
     display: none;
   }
-`;
 
-export const ShowMarker = styled.div`
-  color: white;
-  background-image: url(${marker});
-  height: 40px;
-  width: 47px;
-  background-size: 40px;
-`;
-
-export const Pop = styled.div`
-  display: none;
-
-  &:hover {
-    display: block;
-    color: white;
-    background-color: black;
+  .mapboxgl-popup {
+    height: 50px;
   }
+`;
+
+export const ShowMarker = styled.img`
+  height: 45px;
+  width: 50px;
+  cursor: pointer;
+`;
+
+export const CloseX = styled.p`
+  position: absolute;
+  right: 6%;
+  top: 3px;
+  font-family: sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+`;
+
+export const PopupInfo = styled.div`
+  padding: 5px 10px;
 `;
