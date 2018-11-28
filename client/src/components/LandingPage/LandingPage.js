@@ -25,21 +25,33 @@ class LandingPage extends React.Component {
 
   mapRef = React.createRef();
 
-  componentDidMount() {
-    window.addEventListener('resize', this.resize);
-    this.resize();
+  getMarkers = () => {
     axios
       .get('https://intense-stream-29923.herokuapp.com/api/markers')
       .then(response => {
+        const markerArray = [];
         for (let mark in response.data) {
-          this.setState({ data: [...this.state.data, response.data[mark]] });
+          markerArray.push(response.data[mark]);
         }
+        this.setState({ data: markerArray });
       })
       .catch(err => console.log(err));
+  };
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+    this.resize();
+    this.getMarkers();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.getMarkers();
+    }
   }
 
   resize = () => {

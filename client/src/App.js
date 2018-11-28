@@ -300,7 +300,7 @@ class App extends Component {
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <GlobalStyle />
         <NavBar {...this.props} />
-        <Route path="/" component={LandingPage} />
+        <Route path="/" render={props => <LandingPage {...props} />} />
         <Route path="/employer/:employerId" component={EmployerProfile} />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
         <Route path="/seeker/:seekerId/settings" component={SeekerSettings} />
