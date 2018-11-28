@@ -316,6 +316,11 @@ class SeekerSettings extends React.Component {
         zip: this.state.zip 
       };
 
+      let locationOptions = {
+        remote: this.state.remote,
+        relocation: this.state.relocation
+      }
+
       const socialLinks = {
         linkedIn: this.state.linkedIn,
         github: this.state.github,
@@ -342,7 +347,9 @@ class SeekerSettings extends React.Component {
           const newUserInfo = {
             ...contactInfo,
             location,
-            ...socialLinks
+            ...locationOptions,
+            ...socialLinks,
+
           }
 
           // Update User with newUserInfo Object
@@ -581,6 +588,7 @@ class SeekerSettings extends React.Component {
                   <Label>
                     <CheckBox 
                     disabled={!this.state.editing}
+                    checked={this.state.remote}
                     type="checkbox" 
                     name="remote" 
                     value="Open to Remote Bobs"
@@ -589,6 +597,7 @@ class SeekerSettings extends React.Component {
                   <Label>
                     <CheckBox 
                     disabled={!this.state.editing}
+                    checked={this.state.relocation}
                     type="checkbox" 
                     name="relocation" 
                     value="Open to Relocation"
