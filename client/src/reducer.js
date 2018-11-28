@@ -10,18 +10,20 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import SeekerSignUp from './components/SignUp/Forms/SeekerSignUp';
 import EmployerSignUp from './components/SignUp/Forms/EmployerSignUp';
+import NoUser from './components/NoUser/NoUser';
 
 export {
-    NavBar,
-    EmployerProfile,
-    EmployerBilling,
-    EmployerSettings,
-    LandingPage,
-    SeekerFavorites,
-    SeekerSettings,
-    SeekerProfile,
-    SignIn,
-    SignUp,
-    SeekerSignUp,
-    EmployerSignUp
-} 
+  NavBar,
+  EmployerProfile,
+  EmployerBilling,
+  EmployerSettings,
+  LandingPage,
+  SeekerFavorites,
+  SeekerSettings,
+  SeekerProfile,
+  SignIn,
+  SignUp,
+  SeekerSignUp,
+  EmployerSignUp,
+  NoUser,
+};
