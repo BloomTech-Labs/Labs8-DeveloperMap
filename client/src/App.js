@@ -13,8 +13,6 @@ import {
   SeekerProfile,
   SignIn,
   SignUp,
-  SeekerSignUp,
-  EmployerSignUp,
 } from './reducer';
 
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -339,28 +337,6 @@ class App extends Component {
           path="/signup"
           render={props => (
             <SignUp
-              {...props}
-              signUpNewUserWithEmailAndPassword={
-                this.signUpNewUserWithEmailAndPassword
-              }
-            />
-          )}
-        />
-        <Route
-          path="/signup/seeker"
-          render={props => (
-            <SeekerSignUp
-              {...props}
-              signUpNewUserWithEmailAndPassword={
-                this.signUpNewUserWithEmailAndPassword
-              }
-            />
-          )}
-        />
-        <Route
-          path="/signup/employer"
-          render={props => (
-            <EmployerSignUp
               {...props}
               signUpNewUserWithEmailAndPassword={
                 this.signUpNewUserWithEmailAndPassword

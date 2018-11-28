@@ -4,12 +4,13 @@ import { SignModalMain } from '../../styles/SignIn_UpStyle';
 import { Route } from 'react-router-dom';
 import SignUpTypes from './Types/SignUpTypes';
 import SignUpUserTypes from './Types/SignUpUserTypes';
-// import SeekerSignUp from './Forms/SeekerSignUp'; // Implement all signup functionality here eventually.
-// import EmployerSignUp from './Forms/EmployerSignUp'; // Implement all signup functionality here eventually.
+import SeekerSignUp from './Forms/SeekerSignUp';
+import EmployerSignUp from './Forms/EmployerSignUp';
 
 class SignUp extends React.Component {
   state = {
-    userType: ''
+    userType: '', 
+    email: ''
   };
 
   // Sets the user type so that the correct user type form is navigated to after signing up with Google Auth/3rd Party Auth.
@@ -32,6 +33,32 @@ class SignUp extends React.Component {
           <Route exact path="/signup" render={ (props) => 
           <SignUpUserTypes {...props} setUserType={this.setUserType}/>
           }/>
+
+          {/*'Seeker Signup Form' Component: Creates a seeker in the database for the user.*/}
+          <Route
+              path="/signup/seeker"
+              render={props => (
+                <SeekerSignUp
+                  {...props}
+                  signUpNewUserWithEmailAndPassword={
+                    this.props.signUpNewUserWithEmailAndPassword
+                  }
+                />
+              )}
+            />
+
+          {/*'Employer Signup Form' Component: Creates a seeker in the database for the user.*/}          
+          <Route
+            path="/signup/employer"
+            render={props => (
+              <EmployerSignUp
+                {...props}
+                signUpNewUserWithEmailAndPassword={
+                  this.props.signUpNewUserWithEmailAndPassword
+                }
+              />
+            )}
+          />
 
         </SignModalMain>
       </ModalContainer>
