@@ -70,66 +70,71 @@ router.get('/', (req, res) => {
 //-----------------------------------------------------------------------POSTS
 //Add User
 
-router.post('/addUser', createMarkerObject, async (req, res) => {
-  // Deconstruct Request Body
-  const {
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    jobTitle,
-    location,
-    uid,
-    customToken,
-    markerData,
-  } = req.body;
+router.post(
+  '/addUser',
+  setSeekerClaims,
+  createMarkerObject,
+  async (req, res) => {
+    // Deconstruct Request Body
+    const {
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      jobTitle,
+      location,
+      uid,
+      customToken,
+      markerData,
+    } = req.body;
 
-  console.log(markerData);
-  // Validation
-  // if (
-  //   !email ||
-  //   !firstName ||
-  //   !email ||
-  //   !firstName ||
-  //   !lastName ||
-  //   !phoneNumber ||
-  //   !jobTitle ||
-  //   !location ||
-  //   !uid
-  // ) {
-  //   return res
-  //     .status(400)
-  //     .json({ error: 'Missing information. Unable to create user.' });
-  // }
+    console.log(markerData);
+    // Validation
+    // if (
+    //   !email ||
+    //   !firstName ||
+    //   !email ||
+    //   !firstName ||
+    //   !lastName ||
+    //   !phoneNumber ||
+    //   !jobTitle ||
+    //   !location ||
+    //   !uid
+    // ) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: 'Missing information. Unable to create user.' });
+    // }
 
-  // Construct New Seeker User Object
-  const newSeeker = {
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    jobTitle,
-    location,
-    bio: '',
-    github: '',
-    linkedIn: '',
-    portfolio: '',
-    twitter: '',
-  };
+    // Construct New Seeker User Object
+    const newSeeker = {
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      jobTitle,
+      location,
+      bio: '',
+      github: '',
+      linkedIn: '',
+      portfolio: '',
+      twitter: '',
+    };
 
-  // Firebase Reference Interface Methods
-  // Create object to send to Firebase Database
-  let updateObject = {};
-  updateObject[`seekers/${uid}`] = newSeeker;
-  updateObject[`markers/${uid}`] = markerData;
-  // Update database with the new object
-  rootRef.update(updateObject).catch();
-  // Success Message
-  res.status(201).json({
-    success: `${email} has been added to database.`,
-    customToken,
-  });
-});
+    // Firebase Reference Interface Methods
+    // Create object to send to Firebase Database
+    let updateObject = {};
+    updateObject[`seekers/${uid}`] = newSeeker;
+    updateObject[`markers/${uid}`] = markerData;
+    // Update database with the new object
+    rootRef.update(updateObject).catch();
+    // Success Message
+    res.status(201).json({
+      success: `${email} has been added to database.`,
+      customToken,
+    });
+  }
+);
 
 //------------------------------------------------------------------PUT
 //Change UserInfo
