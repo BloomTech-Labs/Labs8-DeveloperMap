@@ -71,6 +71,15 @@ class LandingPage extends React.Component {
   renderPopup = () => {
     const { pin } = this.state;
 
+    let fullName = '';
+    console.log(pin);
+
+    if (!!pin) {
+      fullName = `${pin.properties.title.firstName} ${
+        pin.properties.title.lastName
+      }`;
+    }
+    console.log(fullName);
     return (
       pin && (
         <Popup
@@ -87,7 +96,7 @@ class LandingPage extends React.Component {
               this.props.history.push(`/seeker/${pin.properties.uid}`)
             }
           >
-            {pin.properties.title}
+            {fullName}
           </PopupInfo>
         </Popup>
       )
