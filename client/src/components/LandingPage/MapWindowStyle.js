@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
-    width: 300px;
+    width: 20%;
     border-radius: 20px;
     .geocoder-icon-search {
       top: 7px;
@@ -11,10 +11,11 @@ export const MapWindow = styled.div`
 
     input[type='text'] {
       height: auto;
-      width: 300px;
+      width: 100%;
       border-radius: 20px;
       border: none;
-      padding-left: 14%;
+      padding: 10px 0 10px 14%;
+
       &:focus {
         outline: none;
       }
@@ -41,7 +42,6 @@ export const MapWindow = styled.div`
     width: 100%;
     .mapboxgl-ctrl-top-right {
       margin-left: 3%;
-      margin-top: 6px;
       right: initial;
       top: initial;
       left: initial;
