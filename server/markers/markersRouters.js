@@ -16,7 +16,7 @@ markers.get('/', (req, res) => {
 
 // === Adds marker to the list ===
 markers.post('/', (req, res) => {
-  const { uid, firstName } = req.body;
+  const { uid, firstName, profilePicture } = req.body;
 
   const newData = {
     type: 'Feature',
@@ -27,6 +27,7 @@ markers.post('/', (req, res) => {
     properties: {
       uid: uid,
       title: firstName,
+      profilePicture: profilePicture
     },
   };
 
@@ -34,6 +35,45 @@ markers.post('/', (req, res) => {
     .child(`markers`)
     .push(newData)
     .then(() => res.json(newData));
+});
+
+// === Update Marker Information ===
+markers.put('/', (req, res) => {
+  const { uid } = req.body;
+  const updateKeys = Object.keys(req.body);
+
+  
+  rootRef
+    .child(`markers/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      if (!snapshot.exists()) {
+        return res.json({ message: 'marker does not exist' });
+      }
+      let updateObject = {};
+      snapshot.forEach(childSnap => {
+        const snapKey = childSnap.key;
+        if (updateKeys.includes(snapKey)) {
+          if (childSnap.val() === req.body[snapKey]) {
+            console.log(`${snapKey} data is same as posted data`);
+          } else {
+            updateObject[snapKey] = req.body[snapKey];
+          }
+        }
+      });
+      const updateNumber = Object.keys(updateObject).length;
+      if (updateNumber > 0) {
+        snapshot.ref
+          .update(updateObject)
+          .then(() => {
+            res.json(`Marker information updated in ${updateNumber} fields`);
+          })
+          .catch(err => res.json(err));
+      } else {
+        res.json('no new data was posted');
+      }
+    })
+    .catch(err => res.json(err));
 });
 
 // markers.delete('/:uid', (req, res) => {
