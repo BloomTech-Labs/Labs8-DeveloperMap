@@ -91,6 +91,8 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
+          width="100%"
+          height="100%"
           style={{ position: 'absolute' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
           onClick={() => this.setState({ pin: null })}
