@@ -7,7 +7,7 @@ const server = express();
 const seekersRouters = require('./seekers/seekersRouters.js');
 const companiesRouters = require('./companies/companiesRouters.js');
 const markersRouters = require('./markers/markersRouters.js');
-const frontendurl = require('./constants/frontend.js');
+
 const favoritesRouters = require('./seekers/favoritesRoutes.js');
 
 // const configureServer = require('./serverConfig');
@@ -20,7 +20,7 @@ server.use(express.json(), helmet(), cors());
 server.use('/api/database/seekers', seekersRouters);
 server.use('/api/database/companies', companiesRouters);
 server.use('/api/markers', markersRouters);
-server.use(frontendurl);
+
 
 server.use('/api/database/favorites', favoritesRouters);
 
