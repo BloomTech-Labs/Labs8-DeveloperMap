@@ -35,8 +35,6 @@ class SeekerFavorites extends React.Component {
   }
 
   render() {
-    console.log(!this.state.favorites);
-    console.log(this.state.favorites);
     return (
       <ModalContainer data-type="modal-container">
         <ModalMain>
