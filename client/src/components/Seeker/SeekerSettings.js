@@ -349,7 +349,6 @@ class SeekerSettings extends React.Component {
             location,
             ...locationOptions,
             ...socialLinks,
-
           }
 
           // Update User with newUserInfo Object
@@ -359,7 +358,29 @@ class SeekerSettings extends React.Component {
               {...newUserInfo, uid: this.state.uid}
             )
             .then(() => {
-              alert('Your information has been successfully updated!');
+              const marker = {
+                uid: this.state.uid,
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: location.coordinates,
+                },
+                properties: {
+                  uid: this.state.uid,
+                  title: {firstName: this.state.firstName, lastName: this.state.lastName},
+                  profilePicture: this.state.profilePicture
+                },
+              };
+              console.log(marker);
+              axios.put(
+                `https://intense-stream-29923.herokuapp.com/api/markers`,
+                {...marker}
+              )
+              .then(response =>  {
+                console.log(response);
+                alert('Your information has been successfully updated!');
+              })
+              .catch(error => console.log(error));
             })
             .catch(error => console.log(error));
         })
@@ -381,10 +402,18 @@ class SeekerSettings extends React.Component {
 
   componentDidMount = () => {
     const user = this.props.currentSignedInUser;
-    if (user) {
-      this.setState({
-        ...this.state, ...user, ...user.location, emailCheck: user.email
-      })
+    const userAuth = firebase.auth().currentUser;
+
+    if (user != null) {
+      if (user) {
+        this.setState({
+          ...this.state, 
+          ...user, 
+          ...user.location, 
+          emailCheck: user.email,
+          uid: userAuth.uid
+        });
+      }
     } else {
       this.props.history.push('/signin');
     }

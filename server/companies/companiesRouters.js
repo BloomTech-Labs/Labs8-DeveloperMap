@@ -1,5 +1,12 @@
 const express = require('express');
 const firebase = require('../firebase/firebase.js');
+const {
+  createMarkerObjectCompany,
+} = require('../markers/markersMiddleware.js');
+const {
+  setCompanyClaims,
+  verifyCompanyToken,
+} = require('../auth/authMiddleware.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
 
@@ -61,46 +68,42 @@ router.get('/:uid', (req, res) => {
 
 //--------------------------------------------------------POSTS
 
-router.post('/addUser', (req, res) => {
-  const {
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    jobTitle,
-    location,
-    uid,
-  } = req.body;
-  const newData = {
-    companyName,
-    companyWebsite,
-    email,
-    location,
-    phoneNumber,
-  };
-  rootRef
-    .child(`companies/${uid}`)
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        res.status(500).json({ err: 'message already exists' });
-      } else {
-        snapshot.ref
-          .set(newData)
-          .then(() => {
-            res
-              .status(201)
-              .json({ message: `${email} has been added to database` });
-          })
-          .catch(err => res.json(err));
-      }
-    })
-    .catch(err => res.json(err));
-});
+router.post(
+  '/addUser',
+  setCompanyClaims,
+  createMarkerObjectCompany,
+  (req, res) => {
+    const {
+      email,
+      phoneNumber,
+      location,
+      companyName,
+      companyWebsite,
+      uid,
+      markerData,
+    } = req.body;
+    const newData = {
+      companyName,
+      companyWebsite,
+      email,
+      location,
+      phoneNumber,
+    };
+    let updateObject = {};
+    updateObject[`companies/${uid}`] = newData;
+    updateObject[`markers/${uid}`] = markerData;
+    // Update database with the new object
+    rootRef.update(updateObject).catch();
+    // Success Message
+    res.status(201).json({
+      success: `${email} has been added to database.`,
+      customToken,
+    });
+  }
+);
 
 router.post('/jobsListed', (req, res) => {
-  const { uid } = req.body;
-  const { companyName, date, jobLink, jobTitle, location } = req.body;
+  const { companyName, date, jobLink, jobTitle, location, uid } = req.body;
   rootRef
     .child(`companyPostings/${uid}`)
     .push({ companyName, date, jobLink, jobTitle, location })
@@ -179,6 +182,45 @@ router.put('/jobListed/:jobKey', async (req, res) => {
       res.json(err);
     });
 });
+
+// Version 2.0 (Needs Testing)
+// router.put('/jobListed/:jobId', async (req, res) => {
+//   const { uid } = req.body;
+//   const { jobId } = req.params;
+//   const updateKeys = Object.keys(req.body);
+//   let matchedUidsInFavoritePostings = [];
+//   let updateObject = {};
+
+//   const companyPostings = await rootRef
+//     .child(`companyPostings/${uid}/${jobId}`)
+//     .once('value');
+//   const favoritePosting = await rootRef.child('favoritePosting').once('value');
+
+//   //Finds the UID for every parentkey in favoritePosting that had the targeted jobId
+
+//   favoritePosting.forEach(childSnap => {
+//     if (childSnap.child(jobId).exists()) {
+//       matchedJobIdsInFavoritePostings.push(childSnap.key);
+//     }
+//   });
+
+//   if (companyPostings.exists()) {
+//     companyPostings.forEach(({ key }) => {
+//       if (updateKeys.includes(key)) {
+//         //Update key with new value if key exists in data base
+//         updateObject[`companyPostings/${uid}/${jobId}/${key}`] = req.body[key];
+//         matchedJobIdsInFavoritePostings.forEach(matchedUid => {
+//           //Updates keys in all favoritePostings with t
+//           updateObject[`favoritePosting/${matchedUid}/${jobId}/${key}`] =
+//             req.body[key];
+//         });
+//       }
+//     });
+//   } else {
+//     res.json(`companyPostings/${uid}/${jobKey} does not exist`);
+//   }
+
+// });
 
 //-------------------------------------------------------------------DELETE
 
