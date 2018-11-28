@@ -68,42 +68,99 @@ class LandingPage extends React.Component {
     });
   };
 
+  renderMarker = (mark, i) => {
+    if (mark.properties.role === 'seeker') {
+      return (
+        <Marker
+          key={i}
+          latitude={mark.geometry.coordinates[1]}
+          longitude={mark.geometry.coordinates[0]}
+          offsetTop={-40}
+          offsetLeft={-25}
+        >
+          <ShowMarker
+            src={SeekerPin}
+            alt="red marker"
+            onClick={() => this.setState({ pin: mark })}
+          />
+        </Marker>
+      );
+    } else if (mark.properties.role === 'company') {
+      return (
+        <Marker
+          key={i}
+          latitude={mark.geometry.coordinates[1]}
+          longitude={mark.geometry.coordinates[0]}
+          offsetTop={-40}
+          offsetLeft={-25}
+        >
+          <ShowMarker
+            src={CompanyPin}
+            alt="gold marker"
+            onClick={() => this.setState({ pin: mark })}
+          />
+        </Marker>
+      );
+    }
+  };
+
   renderPopup = () => {
     const { pin } = this.state;
 
     let fullName = '';
-    console.log(pin);
 
     if (!!pin) {
-      fullName = `${pin.properties.title.firstName} ${
-        pin.properties.title.lastName
-      }`;
+      if (!!pin.properties.title.firstName) {
+        fullName = `${pin.properties.title.firstName} ${
+          pin.properties.title.lastName
+        }`;
+        return (
+          pin && (
+            <Popup
+              latitude={pin.geometry.coordinates[1]}
+              longitude={pin.geometry.coordinates[0]}
+              offsetTop={-20}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+              <PopupInfo
+                style={{ cursor: 'pointer' }}
+                onClick={() =>
+                  this.props.history.push(`/seeker/${pin.properties.uid}`)
+                }
+              >
+                {fullName}
+              </PopupInfo>
+            </Popup>
+          )
+        );
+      } else if (!!pin.properties.title.companyName) {
+        fullName = pin.properties.title.companyName;
+        return (
+          pin && (
+            <Popup
+              latitude={pin.geometry.coordinates[1]}
+              longitude={pin.geometry.coordinates[0]}
+              offsetTop={-20}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+              <PopupInfo
+                style={{ cursor: 'pointer' }}
+                onClick={() =>
+                  this.props.history.push(`/employer/${pin.properties.uid}`)
+                }
+              >
+                {fullName}
+              </PopupInfo>
+            </Popup>
+          )
+        );
+      }
     }
-    console.log(fullName);
-    return (
-      pin && (
-        <Popup
-          latitude={pin.geometry.coordinates[1]}
-          longitude={pin.geometry.coordinates[0]}
-          offsetTop={-20}
-          closeButton={false}
-          closeOnClick={false}
-        >
-          <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
-          <PopupInfo
-            style={{ cursor: 'pointer' }}
-            onClick={() =>
-              this.props.history.push(`/seeker/${pin.properties.uid}`)
-            }
-          >
-            {fullName}
-          </PopupInfo>
-        </Popup>
-      )
-    );
   };
-
-  hoverMarker = () => {};
 
   render() {
     return (
@@ -135,23 +192,7 @@ class LandingPage extends React.Component {
             </div>
           </KeyBox>
 
-          {this.state.data.map((mark, i) => {
-            return (
-              <Marker
-                key={i}
-                latitude={mark.geometry.coordinates[1]}
-                longitude={mark.geometry.coordinates[0]}
-                offsetTop={-40}
-                offsetLeft={-25}
-              >
-                <ShowMarker
-                  src={SeekerPin}
-                  alt="red marker"
-                  onClick={() => this.setState({ pin: mark })}
-                />
-              </Marker>
-            );
-          })}
+          {this.state.data.map(this.renderMarker)}
 
           {this.renderPopup()}
         </MapGL>
