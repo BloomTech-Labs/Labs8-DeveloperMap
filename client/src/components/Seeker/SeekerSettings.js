@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import firebase, { auth, storage } from '../../firebase/firebase';
 import { ModalContainer } from '../../styles/ModalGlobalStyle';
 import profile from '../../images/avatar-icon.jpg';
@@ -109,8 +110,14 @@ class SeekerSettings extends React.Component {
     });
   }
 
+  // Handle Any Settings Update
   submitHandler = e => {
     e.preventDefault();
+
+    // Disable Editing After Update Begins
+    this.setState({
+      editing: false
+    })
 
     // Variables that reference state
     const currentPassword = this.state.currentPassword;
@@ -164,9 +171,9 @@ class SeekerSettings extends React.Component {
 
       // Check to see if a file is being uploaded.
       if (profilePictureInput !== '' || resumeInput !== '') {
-        //// MAKE THIS MORE DRY. THIS SHOULD BE ABSTRACTED
 
-        // PROFILE PICTURES
+        //// MAKE THIS MORE DRY. THIS SHOULD BE ABSTRACTED
+        // ---------- PROFILE PICTURES ----------
         // Check to make sure that the stored profile picture is a file
         if (profilePictureInput instanceof File) {
           const metadata = {
@@ -209,12 +216,19 @@ class SeekerSettings extends React.Component {
           // Upload completed successfully, now we can get the download URL
           upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
-            this.setState({profilePicture:downloadURL});
+            axios.put(
+              `https://intense-stream-29923.herokuapp.com/api/database/seekers/userInfo`,
+              {profilePicture: downloadURL, uid: this.state.uid}
+            )
+            .then(() => {
+              this.setState({profilePicture:downloadURL});
+            })
+            .catch(error => console.log(error));
           });
           });
         }
 
-       // RESUMES
+       // ---------- RESUMES ----------
        // Check to make sure that the stored resume is a file
         if (resumeInput instanceof File) {
 
@@ -261,24 +275,86 @@ class SeekerSettings extends React.Component {
           // Upload completed successfully, now we can get the download URL
           upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
-            this.setState({resume:downloadURL});
+            axios.put(
+                    `https://intense-stream-29923.herokuapp.com/api/database/seekers/userInfo`,
+                    {resume: downloadURL, uid: this.state.uid}
+                  )
+                  .then(() => {
+                    this.setState({resume:downloadURL});
+                  })
+                  .catch(error => console.log(error));
           });
           });
         }
       }
 
-      // const location = { 
-      //   street: this.state.street, 
-      //   city: this.state.city, 
-      //   state: this.state.state, 
-      //   zip: this.state.zip 
-      // };
-      // const userUpdateInformation = {  }
+      // Construct User Object By Extracting From State
+      // ...Do this in a better way!
+      const contactInfo = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        phone: this.state.phone,
+        jobTitle: this.state.jobTitle,
+        bio: this.state.bio
+      };
+
+      let location = { 
+        street: this.state.street, 
+        city: this.state.city, 
+        state: this.state.state, 
+        zip: this.state.zip 
+      };
+
+      const socialLinks = {
+        linkedIn: this.state.linkedIn,
+        github: this.state.github,
+        twitter: this.state.twitter,
+        portfolio: this.state.portfolio,
+      }
+
+      let accessToken =
+        'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
+      let addressString = location.street.concat(' ', location.city, ' ', location.state, ' ', location.zipCode);
+      let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
+
+      // Get Location Coordinates and Return Promise
+      axios
+        .get(mapboxGeocodingAPIURL)
+        .then(response => {
+
+          // Add Coordinates to Location Object
+          location = { ...location,
+            coordinates: response.data.features[0].geometry.coordinates,
+          };
+
+          // Construct newUserInfo Object
+          const newUserInfo = {
+            ...contactInfo,
+            location,
+            ...socialLinks
+          }
+
+          // Update User with newUserInfo Object
+          axios
+            .put(
+              `https://intense-stream-29923.herokuapp.com/api/database/seekers/userInfo`,
+              {...newUserInfo, uid: this.state.uid}
+            )
+            .then(() => {
+              alert('Your information has been successfully updated!');
+            })
+            .catch(error => console.log(error));
+        })
+        .catch(error => console.log(error));
+
+
+
     } else {
      return alert('Unable to Make Changes');
     }
 
-    // Reset the password fields after a successful update
+    // Reset Password Fields After Update
     this.setState({
      newPassword : '',
      currentPassword : '',
