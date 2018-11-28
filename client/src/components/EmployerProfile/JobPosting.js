@@ -1,25 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import Heart from '../../images/hollow-heart.png';
+import FavHeart from '../../images/favorites-icon.png';
 
-
-function JobPosting(props) {
-    // if(!props.posts || !props.posts.length){
-    //     return <h1>Post your first job!</h1>
-    // }
-    return (
-        <Job>
-            <div>
-            <h2>{props.post.companyName}</h2>
-            <h3>{props.post.date}</h3>
-            <h4>{props.post.jobLink}</h4>
-            <h4>{props.post.jobTitle}</h4>
-            <h4>{props.post.location}</h4>
-            </div>
-            <div>
-            <img alt='hollow heart' src={props.heart} style={{width:'50px'}} onClick={props.favToggle}/>
-            </div>
-        </Job>
-)
+class JobPosting extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        }
+    }
+    render(){
+        return (
+            <Job>
+                <div>
+                <h2>{this.props.post.companyName}</h2>
+                <h3>{this.props.post.date}</h3>
+                <h4>{this.props.post.jobLink}</h4>
+                <h4>{this.props.post.jobTitle}</h4>
+                <h4>{this.props.post.location}</h4>
+                </div>
+                <div>                 
+                    <img alt='hollow heart' src={Heart} style={{width:'50px'}} onClick={this.props.favToggle}/>
+                </div>
+            </Job>
+        )
+    }
 }
 
 const Job = styled.div`

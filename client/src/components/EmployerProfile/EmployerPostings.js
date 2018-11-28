@@ -1,8 +1,8 @@
 import React from 'react';
 import firebase from '../../firebase/firebase';
 import JobPosting from './JobPosting';
-import Heart from '../../images/hollow-heart.png';
 import FavHeart from '../../images/favorites-icon.png';
+import Heart from '../../images/hollow-heart.png';
 
 import {
     Posts,
@@ -13,9 +13,8 @@ class EmployerPostings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: '',
-            favToggle: true,
-            heart: Heart
+            posts: [],
+            favToggle: false,
         }
     }
 
@@ -31,18 +30,14 @@ class EmployerPostings extends React.Component {
           });
     }
 
-    favToggle = () => {
-        if(this.state.favToggle === true){
-        this.setState({
-            favToggle: !this.state.favToggle,
-            heart: Heart
-        });
+    favToggle = (e) => {
+        e.preventDefault();
+        console.log(e.target.src, FavHeart);
+        if(e.target.src === FavHeart){
+            e.target.src = Heart;
         } else {
-        this.setState({
-            favToggle: !this.state.favToggle,
-            heart: FavHeart
-        })
-        } 
+            e.target.src = FavHeart
+        }
     }
 
 
@@ -53,7 +48,15 @@ class EmployerPostings extends React.Component {
             {this.state.posts ?
             <Posts>
                  {Object.values(this.state.posts).map((post, i) => 
-                    <JobPosting key={i} {...this.props} post={post} favToggle={this.favToggle} heart={this.state.heart}/>
+                    <JobPosting 
+                        key={i} 
+                        index={i}
+                        {...this.props} 
+                        post={post} 
+                        heart={this.state.heart}
+                        favToggle={this.favToggle}
+                        />
+                        
                     )} 
             </Posts>
             :
