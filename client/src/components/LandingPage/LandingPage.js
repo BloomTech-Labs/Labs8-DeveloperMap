@@ -3,11 +3,7 @@ import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-<<<<<<< HEAD
-=======
 
-
->>>>>>> master
 import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 
@@ -229,7 +225,7 @@ const KeyBox = styled.div`
     display: flex;
     align-items: center;
   }
-  h3{
+  h3 {
     font-size: 1.1rem;
     font-weight: lighter;
   }
