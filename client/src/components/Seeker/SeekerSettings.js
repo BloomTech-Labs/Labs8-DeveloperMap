@@ -63,10 +63,16 @@ class SeekerSettings extends React.Component {
   };
 
   // Updates state when a file is selected for upload.
-  handleFiles = (e) => {
+  handleFiles = e => {
     const file = e.currentTarget.files[0]
     this.setState({ [e.currentTarget.name]: file });
     console.log(file);
+  }
+
+  // Updates state when a checkbox is changed.
+  handleCheckboxes = e => {
+    const checked = e.currentTarget.checked;
+    this.setState({ [e.currentTarget.name]: checked });
   }
  
 
@@ -78,7 +84,7 @@ class SeekerSettings extends React.Component {
     return user.reauthenticateWithCredential(cred);
   }
 
-  // Change Password
+  // Change Password (Firebase)
   changePassword = (currentPassword, newPassword) => {
     this.reauthenticate(currentPassword).then(() => {
       var user = auth.currentUser;
@@ -94,7 +100,7 @@ class SeekerSettings extends React.Component {
     });
   }
 
-  // Change Email
+  // Change Email (Firebase)
   changeEmail = (currentPassword, newEmail) => {
     this.reauthenticate(currentPassword).then(() => {
       var user = auth.currentUser;
@@ -127,6 +133,8 @@ class SeekerSettings extends React.Component {
     const emailCheck = this.state.emailCheck;
     const profilePictureInput = this.state.profilePictureInput;
     const resumeInput = this.state.resumeInput;
+
+    // Regular Expressions for Validation
     const emailRegex = RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
     const passwordRegex = RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})');
     const fileRegex = RegExp('\.[0-9a-z]+$','g');
@@ -143,7 +151,7 @@ class SeekerSettings extends React.Component {
           }
           // Validate Password Strength (Medium Strength Test)
           if (passwordRegex.test(newPassword)) { 
-            // Call the change password method
+            // --- Change The Password ---
             this.changePassword(currentPassword, newPassword);
           } else {
            return alert ('Your password must contain six characters or more and must have at least one lowercase and one uppercase alphabetical character ',
@@ -180,7 +188,8 @@ class SeekerSettings extends React.Component {
             contentType: profilePictureInput.type
           }
           const upload = storage.child(`profilePics/${this.props.currentSignedInUser.uid}/profilePicture${profilePictureInput.name.match(fileRegex)[0]}`).put(profilePictureInput, metadata)
-          // Listen for state changes, errors, and completion of the upload.
+
+         // Firebase Upload State Tracking
           upload.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
           (snapshot) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -240,6 +249,7 @@ class SeekerSettings extends React.Component {
           // Instantiate Upload
           const upload = storage.child(`resumes/${this.props.currentSignedInUser.uid}/resume${resumeInput.name.match(fileRegex)[0]}`).put(resumeInput, metadata);
 
+          // Firebase Upload State Tracking
           upload.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
           (snapshot) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -377,7 +387,11 @@ class SeekerSettings extends React.Component {
     return (
         <ModalContainer data-type="modal-container">
           <SettingsModalMain>
+
+    {/* ----- LEFT COLUMN ----- */}
             <LeftColumn>
+
+            {/* Profile Information Section */}
               <ProfileInfo>
                 <div>
                   <h3></h3>
@@ -411,6 +425,8 @@ class SeekerSettings extends React.Component {
                   />
                 </Label>
               </ProfileInfo>
+            
+            {/* Password Section */}
               <Password>
               <h3>Update Password</h3>
                 <Label>
@@ -446,7 +462,10 @@ class SeekerSettings extends React.Component {
             </Password>
             </LeftColumn>
 
+ {/* ----- RIGHT COLUMN ----- */}
             <RightColumn>
+
+            {/* Contact Information Section */}
               <ContactInfo>
                 <h3>Contact Info</h3>
                 <Label width="48%">
@@ -470,7 +489,9 @@ class SeekerSettings extends React.Component {
                   />
                 </Label>
                 <Label width="100%">
-                  Email {this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
+                  Email {
+                    /*Put this in a styled component later*/ 
+                    this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
                   <Input
                   name="email"
                   value={this.state.email}
@@ -510,7 +531,8 @@ class SeekerSettings extends React.Component {
                   ></TextArea>
                 </Label>
               </ContactInfo>
-
+                  
+            {/* Location Information Section*/}
               <Location>
               <h3>Location</h3>
                 <Label width="48%">
@@ -553,23 +575,29 @@ class SeekerSettings extends React.Component {
                   type="text"
                   />
                 </Label>
+
+              {/* Remote Jobs and Relocation Checkboxes  */}
                 <div className="location-options">
                   <Label>
-                  <CheckBox 
-                  disabled={!this.state.editing}
-                  type="checkbox" 
-                  name="remote" 
-                  value="Open to Remote Bobs"/> <span>Open to Remote Jobs</span>
+                    <CheckBox 
+                    disabled={!this.state.editing}
+                    type="checkbox" 
+                    name="remote" 
+                    value="Open to Remote Bobs"
+                    onChange={this.handleCheckboxes} /> <span>Open to Remote Jobs</span>
                   </Label>
                   <Label>
-                  <CheckBox 
-                  disabled={!this.state.editing}
-                  type="checkbox" 
-                  name="relocation" 
-                  value="Open to Relocation"/> <span>Open to Relocation</span>
+                    <CheckBox 
+                    disabled={!this.state.editing}
+                    type="checkbox" 
+                    name="relocation" 
+                    value="Open to Relocation"
+                    onChange={this.handleCheckboxes} /> <span>Open to Relocation</span>
                   </Label>
                 </div>
               </Location>
+
+            {/* Social Media + Porfolio Links Section */}
               <Social>
               <h3>Social Links</h3>
                 <Label>
@@ -612,6 +640,7 @@ class SeekerSettings extends React.Component {
                   type="url"
                   />
                 </Label>
+
               </Social>
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
