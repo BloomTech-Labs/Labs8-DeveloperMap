@@ -1,6 +1,6 @@
 import React from 'react';
 import Heart from '../../images/hollow-heart.png';
-import EmployerPostings from './EmployerPostings';
+
 
 function JobPosting(props) {
     if(!props.posts || !props.posts.length){

@@ -1,8 +1,8 @@
 const configureStripe = require('stripe');
 
 const STRIPE_SECRET_KEY = process.env.NODE_ENV === 'production'
-    ? 'sk_live_MY_SECRET_KEY'
-    : 'sk_test_PpMqcjSTNKejHAdeygFxcyRN'; // Stripe key given to us by the stripe dashboard under developers/ Api keys
+    ? process.env.STRIPE_SECRET_KEY
+    : process.env.STRIPE_TEST_KEY; // Stripe key given to us by the stripe dashboard under developers/ Api keys
 
 const stripe = configureStripe(STRIPE_SECRET_KEY);
 

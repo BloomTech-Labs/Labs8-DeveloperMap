@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('../firebase/firebase.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
+const { createMarkerObjectSeeker } = require('../markers/markersMiddleware.js');
 const {
   setSeekerClaims,
   verifySeekerToken,
@@ -65,37 +66,42 @@ router.get('/', (req, res) => {
 
 //-----------------------------------------------------------------------POSTS
 //Add User
+router.post(
+  '/addUser',
+  setSeekerClaims,
+  createMarkerObjectSeeker,
+  async (req, res) => {
+    // Deconstruct Request Body
+    const {
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      jobTitle,
+      location,
+      uid,
+      customToken,
+      markerData,
+    } = req.body;
 
-router.post('/addUser', setSeekerClaims, (req, res) => {
-  // Deconstruct Request Body
-  const {
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    jobTitle,
-    location,
-    uid,
-    customToken,
-  } = req.body;
-
-  // Validation
-  // if (
-  //   !email ||
-  //   !firstName ||
-  //   !email ||
-  //   !firstName ||
-  //   !lastName ||
-  //   !phoneNumber ||
-  //   !jobTitle ||
-  //   !location ||
-  //   !uid
-  // ) {
-  //   return res
-  //     .status(400)
-  //     .json({ error: 'Missing information. Unable to create user.' });
-  // }
-
+    console.log(markerData);
+    // Validation
+    // if (
+    //   !email ||
+    //   !firstName ||
+    //   !email ||
+    //   !firstName ||
+    //   !lastName ||
+    //   !phoneNumber ||
+    //   !jobTitle ||
+    //   !location ||
+    //   !uid
+    // ) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: 'Missing information. Unable to create user.' });
+    // }
+    
   // Construct New Seeker User Object
   const newSeeker = {
     email,
@@ -115,43 +121,20 @@ router.post('/addUser', setSeekerClaims, (req, res) => {
     remote: false
   };
 
-  // Construct New Marker Object
-  const markerData = {
-    geometry: {
-      // Convert Coordinates to Numbers
-      coordinates: location.coordinates.map(coord => Number(coord)),
-      type: 'Point',
-    },
-    properties: {
-      title: firstName,
-      uid,
-    },
-  };
-
-  // Firebase Reference Interface Methods
-  rootRef
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.child(`seekers/${uid}`).exists()) {
-        return res.status(400).json({ error: 'user already exists' });
-      } else {
-        // Create object to send to Firebase Database
-        let updateObject = {};
-        updateObject[`seekers/${uid}`] = newSeeker;
-        updateObject[`markers/${uid}`] = markerData;
-
-        // Update database with the new object
-        rootRef.update(updateObject);
-
-        // Success Message
-        res.status(201).json({
-          success: `${email} has been added to database.`,
-          customToken,
-        });
-      }
-    })
-    .catch(err => res.status(500).json(err));
-});
+    // Firebase Reference Interface Methods
+    // Create object to send to Firebase Database
+    let updateObject = {};
+    updateObject[`seekers/${uid}`] = newSeeker;
+    updateObject[`markers/${uid}`] = markerData;
+    // Update database with the new object
+    rootRef.update(updateObject).catch();
+    // Success Message
+    res.status(201).json({
+      success: `${email} has been added to database.`,
+      customToken,
+    });
+  }
+);
 
 //------------------------------------------------------------------PUT
 //Change UserInfo
