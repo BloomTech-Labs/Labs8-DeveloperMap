@@ -8,6 +8,8 @@ export const Nav = styled.div`
   position: absolute;
   border-radius: 25px;
   display: flex;
+  top: 6px;
+  right: 1%;
   justify-content: flex-end;
   align-items: center;
   box-shadow: inset 10px 10px 10px rgba(255,255,255,.5);
