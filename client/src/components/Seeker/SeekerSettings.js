@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase, { auth } from '../../firebase/firebase';
+import firebase, { auth, storage } from '../../firebase/firebase';
 import { ModalContainer } from '../../styles/ModalGlobalStyle';
 import profile from '../../images/avatar-icon.jpg';
 import { 
@@ -9,7 +9,6 @@ import {
   ProfileInfo,
   Location, 
   Input, 
-  Select,
   TextArea,
   CheckBox,
   SettingsModalMain, 
@@ -23,9 +22,11 @@ class SeekerSettings extends React.Component {
     super(props);
     this.state = {
       profilePicture: '',
+      profilePictureInput: '',
       resume: '',
+      resumeInput: '',
       currentPassword: '',
-      newPassword: '',
+      newPassword: '', 
       rePassword: '',
       firstName: '',
       lastName: '',
@@ -56,8 +57,17 @@ class SeekerSettings extends React.Component {
 
   // Updates state when a field is changed.
   changeHandler = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    let targetValue = e.currentTarget.value;
+    this.setState({ [e.currentTarget.name]: targetValue });
   };
+
+  // Updates state when a file is selected for upload.
+  handleFiles = (e) => {
+    const file = e.currentTarget.files[0]
+    this.setState({ [e.currentTarget.name]: file });
+    console.log(file);
+  }
+ 
 
   // Reauthentication Abstraction
   reauthenticate = (currentPassword) => {
@@ -102,27 +112,31 @@ class SeekerSettings extends React.Component {
   submitHandler = e => {
     e.preventDefault();
 
+    // Variables that reference state
     const currentPassword = this.state.currentPassword;
     const newPassword = this.state.newPassword;
     const rePassword = this.state.rePassword;
     const email = this.state.email;
     const emailCheck = this.state.emailCheck;
+    const profilePictureInput = this.state.profilePictureInput;
+    const resumeInput = this.state.resumeInput;
     const emailRegex = RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
     const passwordRegex = RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})');
+    const fileRegex = RegExp('\.[0-9a-z]+$','g');
 
-    // Check to make sure that the fields are being edited. This shouldn't be needed, but is an extra check.
+    // Check to make sure that the fields are being edited. This shouldn't be needed, but is an extra check
     if (this.state.editing) {
-      // Check to see if the user attempted to change the password.
+      // Check to see if the user attempted to change the password
       if (newPassword !== '' || rePassword !== '') {
-        // Check to make sure that all of the password fields have been implemented.
+        // Check to make sure that all of the password fields have been implemented
         if (currentPassword && newPassword && rePassword) {
-          // Check to make sure that the newPassword matches the rePassword. 
+          // Check to make sure that the newPassword matches the rePassword.
           if (newPassword !== rePassword) {
             return alert ('Your new password does not match the reentered password');
           }
           // Validate Password Strength (Medium Strength Test)
           if (passwordRegex.test(newPassword)) { 
-            // Call the change password method.
+            // Call the change password method
             this.changePassword(currentPassword, newPassword);
           } else {
            return alert ('Your password must contain six characters or more and must have at least one lowercase and one uppercase alphabetical character ',
@@ -134,9 +148,9 @@ class SeekerSettings extends React.Component {
         }
       }
 
-      // Check to see if the email was edited.
+      // Check to see if the email was edited
       if (email !== emailCheck) {
-        // Check to make sure that user has entered their password.
+        // Check to make sure that user has entered their password
         if (currentPassword !== '') {
           if (emailRegex.test(email)) { 
           this.changeEmail(currentPassword, email);
@@ -147,6 +161,112 @@ class SeekerSettings extends React.Component {
           return alert ('Please enter your current password in the current password field in order to change your email address.')
         }
       }
+
+      // Check to see if a file is being uploaded.
+      if (profilePictureInput !== '' || resumeInput !== '') {
+        //// MAKE THIS MORE DRY. THIS SHOULD BE ABSTRACTED
+
+        // PROFILE PICTURES
+        // Check to make sure that the stored profile picture is a file
+        if (profilePictureInput instanceof File) {
+          const metadata = {
+            contentType: profilePictureInput.type
+          }
+          const upload = storage.child(`profilePics/${this.props.currentSignedInUser.uid}/profilePicture${profilePictureInput.name.match(fileRegex)[0]}`).put(profilePictureInput, metadata)
+          // Listen for state changes, errors, and completion of the upload.
+          upload.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+              case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+              case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          }, (error) => {
+          // IMPLEMENT CASES FOR ERRORS AT THIS URL LATER:
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              alert('Unauthorized. Please contact technical support.')
+              break;
+
+            case 'storage/canceled':
+              // User canceled the upload
+              alert('Upload cancelled')
+              break;
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              alert('An unknown error occurred. Please contact technical support.')
+              break;
+          }}, () => {
+          // Upload completed successfully, now we can get the download URL
+          upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            this.setState({profilePicture:downloadURL});
+          });
+          });
+        }
+
+       // RESUMES
+       // Check to make sure that the stored resume is a file
+        if (resumeInput instanceof File) {
+
+          // Define Metadata
+          const metadata = {
+            contentType: resumeInput.type
+          }
+
+          // Instantiate Upload
+          const upload = storage.child(`resumes/${this.props.currentSignedInUser.uid}/resume${resumeInput.name.match(fileRegex)[0]}`).put(resumeInput, metadata);
+
+          upload.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+              case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+              case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          }, (error) => {
+          // IMPLEMENT CASES FOR ERRORS AT THIS URL LATER:
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              alert('Unauthorized. Please contact technical support.')
+              break;
+
+            case 'storage/canceled':
+              // User canceled the upload
+              alert('Upload cancelled')
+              break;
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              alert('An unknown error occurred. Please contact technical support.')
+              break;
+          }}, () => {
+          // Upload completed successfully, now we can get the download URL
+          upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            this.setState({resume:downloadURL});
+          });
+          });
+        }
+      }
+
       // const location = { 
       //   street: this.state.street, 
       //   city: this.state.city, 
@@ -158,7 +278,7 @@ class SeekerSettings extends React.Component {
      return alert('Unable to Make Changes');
     }
 
-    // Reset the password fields after a successful update.
+    // Reset the password fields after a successful update
     this.setState({
      newPassword : '',
      currentPassword : '',
@@ -185,14 +305,16 @@ class SeekerSettings extends React.Component {
               <ProfileInfo>
                 <div>
                   <h3></h3>
-                  <img alt='Profile Picture' src={profile}/>
+                  <img alt='Profile Picture' src={ 
+                    this.state.profilePicture !== '' ?
+                    this.state.profilePicture : profile
+                    }/>
                   <Label>
                   Upload New Profile Picture <br/>
                   (.png, .jpg, .jpeg)
                   <Input
-                  name="profilePicture"
-                  value={this.state.profilePicture}
-                  onChange={this.changeHandler} 
+                  name="profilePictureInput"
+                  onChange={e => this.handleFiles(e)} 
                   disabled={!this.state.editing}
                   type="file" 
                   accept=".png,.jpg,.jpeg"
@@ -200,14 +322,13 @@ class SeekerSettings extends React.Component {
                 </Label>
                 </div>
                 <h3>Resume</h3>
-                <a href="#">Resume.pdf</a>
+                {this.state.resume && <a href={this.state.resume}>Download Resume</a>}
                 <Label>
                   Upload New Resume<br/>
                   (.pdf, .doc, .docx)
                   <Input
-                  name="resume"
-                  value={this.state.resume}
-                  onChange={this.changeHandler} 
+                  name="resumeInput"
+                  onChange={e => this.handleFiles(e)} 
                   disabled={!this.state.editing}
                   type="file"
                   accept=".pdf,.doc,.docx"
