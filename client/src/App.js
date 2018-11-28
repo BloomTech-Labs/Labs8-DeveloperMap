@@ -80,7 +80,7 @@ class App extends Component {
         let location = {};
         let accessToken =
           'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-        let addressString = street.concat(' ', city, state, zipCode);
+        let addressString = street.concat(' ', city, ' ', state, ' ', zipCode);
         let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
 
         // Get Location Coordinates and Return Promise
