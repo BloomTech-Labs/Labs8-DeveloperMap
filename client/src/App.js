@@ -13,6 +13,7 @@ import {
   SeekerProfile,
   SignIn,
   SignUp,
+  NoUser,
 } from './reducer';
 
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -297,9 +298,13 @@ class App extends Component {
               currentSignedInUser.uid
             }`
           )
-          .then(response => {
-            this.setState({ currentSignedInUser: response.data })
-          }
+          .then(response =>
+            this.setState({
+              currentSignedInUser: {
+                ...response.data,
+                uid: currentSignedInUser.uid,
+              },
+            })
           )
           .catch(error => {
             console.log(error)
@@ -324,17 +329,29 @@ class App extends Component {
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <GlobalStyle />
 
-        <NavBar {...this.props} user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
+        <NavBar
+          {...this.props}
+          user={this.state.currentSignedInUser}
+          signOut={this.signOutCurrentUser}
+        />
         <Route path="/" render={props => <LandingPage {...props} />} />
-        <Route path="/employer/:employerId" component={EmployerProfile} />
+        <Route
+          path="/employer/:employerId"
+          render={props => (
+            <EmployerProfile user={this.state.currentSignedInUser} {...props} />
+          )}
+        />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/settings" render={(props) => 
-          this.state.currentSignedInUser &&
-          <SeekerSettings
-          {...props} 
-          currentSignedInUser={this.state.currentSignedInUser} 
-          /> 
-        }
+        <Route
+          path="/settings"
+          render={props =>
+            this.state.currentSignedInUser && (
+              <SeekerSettings
+                {...props}
+                currentSignedInUser={this.state.currentSignedInUser}
+              />
+            )
+          }
         />
         {/* <Route
           path="/employer/:employerId/settings"
@@ -368,6 +385,7 @@ class App extends Component {
             />
           )}
         />
+        <Route path="/nouser" component={NoUser} />
       </div>
     );
   }

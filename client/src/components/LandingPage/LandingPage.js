@@ -4,7 +4,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
-
 import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 
@@ -24,6 +23,10 @@ class LandingPage extends React.Component {
     },
     data: [],
     pin: null,
+    filter: {
+      seeker: true,
+      company: true,
+    },
   };
 
   mapRef = React.createRef();
@@ -70,33 +73,123 @@ class LandingPage extends React.Component {
     });
   };
 
+  markerShow = e => {
+    if (e.target.name === 'seeker') {
+      this.setState(prevState => {
+        return {
+          filter: {
+            ...this.state.filter,
+            seeker: !prevState.filter.seeker,
+          },
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          filter: {
+            ...this.state.filter,
+            company: !prevState.filter.company,
+          },
+        };
+      });
+    }
+  };
+
+  renderMarker = (mark, i) => {
+    if (mark.properties.role === 'seeker') {
+      return (
+        <Marker
+          key={i}
+          latitude={mark.geometry.coordinates[1]}
+          longitude={mark.geometry.coordinates[0]}
+          offsetTop={-40}
+          offsetLeft={-25}
+        >
+          <ShowMarker
+            src={SeekerPin}
+            alt="red marker"
+            onClick={() => this.setState({ pin: mark })}
+            show={this.state.filter.seeker}
+          />
+        </Marker>
+      );
+    } else if (mark.properties.role === 'company') {
+      return (
+        <Marker
+          key={i}
+          latitude={mark.geometry.coordinates[1]}
+          longitude={mark.geometry.coordinates[0]}
+          offsetTop={-40}
+          offsetLeft={-25}
+        >
+          <ShowMarker
+            src={CompanyPin}
+            alt="gold marker"
+            onClick={() => this.setState({ pin: mark })}
+            show={this.state.filter.company}
+          />
+        </Marker>
+      );
+    }
+  };
+
   renderPopup = () => {
     const { pin } = this.state;
 
-    return (
-      pin && (
-        <Popup
-          latitude={pin.geometry.coordinates[1]}
-          longitude={pin.geometry.coordinates[0]}
-          offsetTop={-20}
-          closeButton={false}
-          closeOnClick={false}
-        >
-          <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
-          <PopupInfo
-            style={{ cursor: 'pointer' }}
-            onClick={() =>
-              this.props.history.push(`/seeker/${pin.properties.uid}`)
-            }
-          >
-            {pin.properties.title}
-          </PopupInfo>
-        </Popup>
-      )
-    );
-  };
+    let fullName = '';
 
-  hoverMarker = () => {};
+    if (!!pin) {
+      if (!!pin.properties.title.firstName) {
+        fullName = `${pin.properties.title.firstName} ${
+          pin.properties.title.lastName
+        }`;
+        return (
+          pin && (
+            <Popup
+              latitude={pin.geometry.coordinates[1]}
+              longitude={pin.geometry.coordinates[0]}
+              offsetTop={-20}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+              <PopupInfo
+                style={{ cursor: 'pointer' }}
+                onClick={() =>
+                  this.props.history.push(`/seeker/${pin.properties.uid}`)
+                }
+              >
+                {fullName}
+              </PopupInfo>
+            </Popup>
+          )
+        );
+      } else if (!!pin.properties.title.companyName) {
+        fullName = pin.properties.title.companyName;
+        return (
+          pin && (
+            <Popup
+              latitude={pin.geometry.coordinates[1]}
+              longitude={pin.geometry.coordinates[0]}
+              offsetTop={-20}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+              <PopupInfo
+                style={{ cursor: 'pointer' }}
+                onClick={() =>
+                  this.props.history.push(`/employer/${pin.properties.uid}`)
+                }
+              >
+                {fullName}
+              </PopupInfo>
+            </Popup>
+          )
+        );
+      }
+    }
+  };
 
   render() {
     return (
@@ -121,30 +214,26 @@ class LandingPage extends React.Component {
             <div className="key">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
+              <input
+                type="checkbox"
+                name="seeker"
+                checked={this.state.filter.seeker}
+                onClick={this.markerShow}
+              />
             </div>
             <div className="key">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
+              <input
+                type="checkbox"
+                name="company"
+                checked={this.state.filter.company}
+                onClick={this.markerShow}
+              />
             </div>
           </KeyBox>
 
-          {this.state.data.map((mark, i) => {
-            return (
-              <Marker
-                key={i}
-                latitude={mark.geometry.coordinates[1]}
-                longitude={mark.geometry.coordinates[0]}
-                offsetTop={-40}
-                offsetLeft={-25}
-              >
-                <ShowMarker
-                  src={SeekerPin}
-                  alt="red marker"
-                  onClick={() => this.setState({ pin: mark })}
-                />
-              </Marker>
-            );
-          })}
+          {this.state.data.map(this.renderMarker)}
 
           {this.renderPopup()}
         </MapGL>
@@ -176,7 +265,7 @@ const KeyBox = styled.div`
     display: flex;
     align-items: center;
   }
-  h3{
+  h3 {
     font-size: 1.1rem;
     font-weight: lighter;
   }

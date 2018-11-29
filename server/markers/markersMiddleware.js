@@ -3,20 +3,31 @@ const rootRef = firebase.database().ref();
 
 const createMarkerObjectSeeker = async (req, res, next) => {
   const { location, uid } = req.body;
-  let { firstName } = req.body;
+  let { firstName, lastName, jobTitle } = req.body;
   if (!firstName) {
     firstName = await rootRef.child(`seekers/${uid}/firstName`).once('value');
+  }
+  if (!lastName) {
+    lastName = await rootRef.child(`seekers/${uid}/lastName`).once('value');
+  }
+  if (!jobTitle) {
+    jobTitle = await rootRef.child(`seekers/${uid}/jobTitle`).once('value');
   }
   if (location) {
     const markerData = {
       geometry: {
         // Convert Coordinates to Numbers
         coordinates: location.coordinates.map(coord => Number(coord)),
-        type: 'Point',
       },
       properties: {
-        title: firstName,
+        title: {
+          firstName,
+          lastName,
+        },
+        jobTitle,
+        profilePicture: '',
         uid,
+        role: seeker,
       },
     };
     req.body.markerData = markerData;
@@ -39,11 +50,11 @@ const createMarkerObjectCompany = async (req, res, next) => {
       geometry: {
         // Convert Coordinates to Numbers
         coordinates: location.coordinates.map(coord => Number(coord)),
-        type: 'Point',
       },
       properties: {
-        title: companyName,
+        title: { companyName },
         uid,
+        role: company,
       },
     };
     req.body.markerData = markerData;
