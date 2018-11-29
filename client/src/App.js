@@ -302,6 +302,7 @@ class App extends Component {
             this.setState({
               currentSignedInUser: {
                 ...response.data,
+                role: userType
                 uid: currentSignedInUser.uid,
               },
             })
@@ -311,7 +312,6 @@ class App extends Component {
             if (!this.props.location.pathname.includes('signup'))
             this.props.history.push('/signup')
           });
-
         })
         .catch((error) => {
           console.log(error);
