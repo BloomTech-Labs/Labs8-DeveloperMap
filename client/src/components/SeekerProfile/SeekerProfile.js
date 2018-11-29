@@ -154,16 +154,24 @@ class SeekerProfile extends React.Component {
                 <span>Open to relocation</span>
               </CheckLabel>
             </div>
-            <Info>
-              <div className="info">
-                <img src={paperPlane} alt="paper plane" />
-                <p>{this.state.email}</p>
-              </div>
-              <div className="info">
-                <img src={phonePic} alt="phone number" />
-                <p>{this.state.phoneNumber}</p>
-              </div>
-            </Info>
+            {this.props.currentSignedInUser ? (
+              <Info>
+                <div className="info">
+                  <img src={paperPlane} alt="paper plane" />
+                  <p>{this.state.email}</p>
+                </div>
+                <div className="info">
+                  <img src={phonePic} alt="phone number" />
+                  <p>{this.state.phoneNumber}</p>
+                </div>
+              </Info>
+            ) : (
+              <Info>
+                <div className="info">
+                  <a href={'/signin'}>Contact Candidate</a>
+                </div>
+              </Info>
+            )}
           </ProfileStyle>
         </ModalMain>
       </ModalContainer>
