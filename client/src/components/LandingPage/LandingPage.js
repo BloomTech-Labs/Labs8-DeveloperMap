@@ -261,6 +261,7 @@ const KeyBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-right: 2%;
+  z-index: 5;
   .key {
     display: flex;
     align-items: center;
