@@ -303,17 +303,29 @@ class App extends Component {
       <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
         <GlobalStyle />
 
-        <NavBar {...this.props} user={this.state.currentSignedInUser} signOut={this.signOutCurrentUser}/>
+        <NavBar
+          {...this.props}
+          user={this.state.currentSignedInUser}
+          signOut={this.signOutCurrentUser}
+        />
         <Route path="/" render={props => <LandingPage {...props} />} />
-        <Route path="/employer/:employerId" component={EmployerProfile} />
+        <Route
+          path="/employer/:employerId"
+          render={props => (
+            <EmployerProfile user={this.state.currentSignedInUser} />
+          )}
+        />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
-        <Route path="/settings" render={(props) => 
-          this.state.currentSignedInUser &&
-          <SeekerSettings
-          {...props} 
-          currentSignedInUser={this.state.currentSignedInUser} 
-          /> 
-        }
+        <Route
+          path="/settings"
+          render={props =>
+            this.state.currentSignedInUser && (
+              <SeekerSettings
+                {...props}
+                currentSignedInUser={this.state.currentSignedInUser}
+              />
+            )
+          }
         />
         {/* <Route
           path="/employer/:employerId/settings"
