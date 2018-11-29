@@ -61,49 +61,66 @@ class SeekerProfile extends React.Component {
         <ModalMain>
           <ProfileStyle>
             <Icons>
-              <a href={this.state.linkedIn} target="_blank">
+              <a
+                href={this.state.linkedIn}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   className={this.state.linkedIn ? null : 'none'}
                   src={linkedinPic}
-                  alt="LinkedIn Picture"
+                  alt="LinkedIn"
                 />
               </a>
-              <a href={this.state.github} target="_blank">
+              <a
+                href={this.state.github}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   className={this.state.github ? null : 'none'}
                   src={githubPic}
-                  alt="Github Picture"
+                  alt="Github"
                 />
               </a>
-              <a href={this.state.portfolio} target="_blank">
+              <a
+                href={this.state.portfolio}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   className={this.state.portfolio ? null : 'none'}
                   src={computerPic}
-                  alt="Computer Picture"
+                  alt="Computer"
                 />
               </a>
-              <a href={this.state.twitter} target="_blank">
+              <a
+                href={this.state.twitter}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   className={this.state.twitter ? null : 'none'}
                   src={twitterPic}
-                  alt="Twitter Picture"
+                  alt="Twitter"
                 />
               </a>
-              <a href={this.state.resume} target="_blank">
+              <a
+                href={this.state.resume}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   className={this.state.resume ? null : 'none'}
                   src={resumePic}
-                  alt="Resume Picture"
+                  alt="Resume"
                 />
               </a>
             </Icons>
             {this.state.profilePicture ? (
-              <ProfilePic
-                src={this.state.profilePicture}
-                alt="profile picture"
-              />
+              <ProfilePic src={this.state.profilePicture} alt="profile" />
             ) : (
-              <ProfilePic src={profile} alt="default picture" />
+              <ProfilePic src={profile} alt="default" />
             )}
             <MainContent>
               <h1>{`${this.state.firstName} ${this.state.lastName}`}</h1>
@@ -139,11 +156,11 @@ class SeekerProfile extends React.Component {
             </div>
             <Info>
               <div className="info">
-                <img src={paperPlane} alt="" />
+                <img src={paperPlane} alt="paper plane" />
                 <p>{this.state.email}</p>
               </div>
               <div className="info">
-                <img src={phonePic} alt="" />
+                <img src={phonePic} alt="phone number" />
                 <p>{this.state.phoneNumber}</p>
               </div>
             </Info>
