@@ -287,7 +287,12 @@ class App extends Component {
             }`
           )
           .then(response =>
-            this.setState({ currentSignedInUser: response.data })
+            this.setState({
+              currentSignedInUser: {
+                ...response.data,
+                uid: currentSignedInUser.uid,
+              },
+            })
           )
           .catch(error => console.log(error));
       } else {
