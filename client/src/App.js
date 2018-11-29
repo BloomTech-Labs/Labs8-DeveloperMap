@@ -13,8 +13,6 @@ import {
   SeekerProfile,
   SignIn,
   SignUp,
-  SeekerSignUp,
-  EmployerSignUp,
   NoUser,
 } from './reducer';
 
@@ -281,9 +279,22 @@ class App extends Component {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
       if (currentSignedInUser) {
-        axios
+        firebase.auth().currentUser.getIdTokenResult()
+        .then((idTokenResult) => {
+
+          let userType;
+
+           // Confirm the user is an Admin.
+           if (idTokenResult.claims.seeker) {
+            userType = "seekers";
+          } else if (idTokenResult.claims.company) {
+            userType = "companies";
+          } else {
+            return console.log('Invalid user type!')
+          }
+          axios
           .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+            `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${
               currentSignedInUser.uid
             }`
           )
@@ -295,7 +306,16 @@ class App extends Component {
               },
             })
           )
-          .catch(error => console.log(error));
+          .catch(error => {
+            console.log(error)
+            if (!this.props.location.pathname.includes('signup'))
+            this.props.history.push('/signup')
+          });
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       } else {
         this.setState({ currentSignedInUser: null });
       }
@@ -361,28 +381,7 @@ class App extends Component {
               signUpNewUserWithEmailAndPassword={
                 this.signUpNewUserWithEmailAndPassword
               }
-            />
-          )}
-        />
-        <Route
-          path="/signup/seeker"
-          render={props => (
-            <SeekerSignUp
-              {...props}
-              signUpNewUserWithEmailAndPassword={
-                this.signUpNewUserWithEmailAndPassword
-              }
-            />
-          )}
-        />
-        <Route
-          path="/signup/employer"
-          render={props => (
-            <EmployerSignUp
-              {...props}
-              signUpNewUserWithEmailAndPassword={
-                this.signUpNewUserWithEmailAndPassword
-              }
+              currentSignedInUser={this.state.currentSignedInUser}
             />
           )}
         />

@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
 import { 
   Button,
@@ -6,14 +7,14 @@ import {
   Location, 
   Input, 
   SignModalMain, 
-  Password,
+  // Password,
   FullName, 
   ContactInfo } from '../../../styles/SignIn_UpStyle';
 
 class SeekerSignUp extends React.Component {
   state = {
     type: 'seekers',
-    email: '',
+    // email: '',
     phone: '',
     firstName: '',
     lastName: '',
@@ -22,8 +23,8 @@ class SeekerSignUp extends React.Component {
     city: '',
     state: '',
     zipCode: '',
-    password: '',
-    rePassword: ''
+    // password: '',
+    // rePassword: ''
   };
 
   changeHandler = e => {
@@ -31,35 +32,28 @@ class SeekerSignUp extends React.Component {
   };
 
   submitHandler = e => {
-    this.props.signUpNewUserWithEmailAndPassword(
-      e, 
-      this.state.type,
-      this.state.email,
-      this.state.phone, 
-      this.state.firstName, 
-      this.state.lastName, 
-      this.state.jobTitle, 
-      this.state.street, 
-      this.state.city, 
-      this.state.state, 
-      this.state.zipCode, 
-      this.state.password, 
-      this.state.rePassword
-    );
-
-    this.state.password === this.state.rePassword ? this.setState({
-      email: '',
-      phone: '',
-      firstName: '',
-      lastName: '',
-      jobTitle: '',
-      street: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      password: '',
-      rePassword: '',
-    }) : this.setState({password: '', rePassword: ''});
+    const user = firebase.auth().currentUser;
+    e.preventDefault();
+    
+    if (user) {
+      this.props.signUpNewUser(
+        e, 
+        this.state.type,
+        user.email, 
+        this.state.phone, 
+        this.state.firstName, 
+        this.state.lastName, 
+        this.state.jobTitle, 
+        this.state.street, 
+        this.state.city, 
+        this.state.state, 
+        this.state.zipCode, 
+        // this.state.password,                      
+        // this.state.rePassword
+      );
+    } else {
+      console.log('nope');
+    }
   }
 
   employerRegister = () => {
@@ -98,14 +92,14 @@ class SeekerSignUp extends React.Component {
             </FullName>
             <h4>Contact Information</h4>
             <ContactInfo>
-              <Input
+              {/* <Input
                 name="email"
                 placeholder="Email"
                 type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
                 required
-              />
+              /> */}
               <Input
                 name="phone"
                 placeholder="Phone"
@@ -133,7 +127,6 @@ class SeekerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-
               <Input
                 name="state"
                 placeholder="State"
@@ -142,7 +135,6 @@ class SeekerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-
               <Input
                 name="zipCode"
                 placeholder="Zipcode"
@@ -162,7 +154,7 @@ class SeekerSignUp extends React.Component {
                 required
               />
             </JobTitle>
-            <h4>Create Password</h4>
+            {/* <h4>Create Password</h4>
             <Password>
               <Input
                 name="password"
@@ -181,7 +173,7 @@ class SeekerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-            </Password>
+            </Password> */}
             <Button>Sign Up</Button>            
           </form>          
         </SignModalMain>

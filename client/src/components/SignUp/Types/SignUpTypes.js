@@ -1,11 +1,12 @@
 import React from 'react';
+import firebase from 'firebase';
 import { Label, Input } from '../../../styles/SignIn_UpStyle';
 
 class SignUpTypes extends React.Component {
   state = {
     email: '',
     password: '',
-    repassword: ''
+    rePassword: ''
   };
 
   // Form Input Control
@@ -13,10 +14,9 @@ class SignUpTypes extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // On Form Submit, Check User Type
-  submitHandler = e => {
-    // Redirect the user to their respective signup form if their type is user or seeker.
-    // Redirect the user to choose their user type again, if their type is not user or seeker.
+  // Redirect the user to their respective signup form if their type is user or seeker.
+  // Redirect the user to choose their user type again, if their type is not user or seeker.
+  userRedirect = () => {
     if (this.props.userType === 'employer') {
       this.props.history.push('/signup/employer')
     } else if (this.props.userType === 'seeker') {
@@ -25,6 +25,41 @@ class SignUpTypes extends React.Component {
       this.props.history.push('/signup')
     }
   }
+
+
+  // On Form Submit, Check User Type
+  submitHandler = e => {  
+
+    e.preventDefault();
+
+    // --- Form Validation ---
+    // Check to make sure that the password matches the confirm password
+    if (this.state.password !== this.state.rePassword) {
+      return alert('Password does not match the confirm password.');
+    }
+
+    // Check password length
+    if (this.state.password.length <= 8) {
+      return alert('Password must be at least 8 characters long.');
+    }
+
+    // Authorize User with Firebase OAuth2 Method
+    this.props.authorizeNewUserWithEmailAndPassword(this.state.email, this.state.password, this.state.rePassword);
+    this.userRedirect();
+  }
+
+  componentDidMount = () => {
+
+    // If a user is signed in and on this page, re-direct th
+    const user = firebase.auth().currentUser;
+    if (user !== null) {
+      if (this.props.currentSignedInUser) {
+        this.props.history.push('/settings')
+      } else {
+      this.userRedirect();
+    }
+  }
+}
 
   // Form is not currently functional. Just a placeholder until after the next merge.
   render() {
@@ -66,8 +101,9 @@ class SignUpTypes extends React.Component {
             <button>Sign Up</button>
           </form>
           <div>
-            {/*Third Party Auth Goes Here. Google Example (Nonfunctional) Below: */}
+            {/*Third Party Auth Goes Here. Two Examples (Nonfunctional) Below: */}
             <div>{/*Google Logo Icon*/}</div><p>Sign Up With Google</p>
+            <div>{/*GitHub Logo Icon*/}</div><p>Sign Up With GitHub</p>
           </div>
       </section>
     );
