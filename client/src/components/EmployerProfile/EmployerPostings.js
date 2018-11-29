@@ -36,7 +36,7 @@ class EmployerPostings extends React.Component {
         e.target.src = Heart;
       }
     } else {
-      if (window.confirm('Do you want to unfavorite this post?')) {
+      if (window.confirm('Do you want to favorite this post?')) {
         console.log(jobId);
         e.target.src = FavHeart;
       }
