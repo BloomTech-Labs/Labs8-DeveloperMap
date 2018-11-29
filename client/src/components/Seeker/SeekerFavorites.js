@@ -26,7 +26,6 @@ class SeekerFavorites extends React.Component {
         `http://localhost:9000/api/database/favorites/${uid}`
       )
       .then(response => {
-        let favorites = [];
         console.log(response.data);
         response.data.forEach(job => console.log(job));
         this.setState({ favorites: response.data });
@@ -38,11 +37,9 @@ class SeekerFavorites extends React.Component {
     return (
       <ModalContainer data-type="modal-container">
         <ModalMain>
-          <h1>Favorite Jobs</h1>
           <Fav>
-            {this.state.favorites.length < 1 && (
-              <h1>This user has not favorited any jobs</h1>
-            )}
+            <h1>Favorite Jobs</h1>
+            {this.state.favorites.length < 1 && <h1>No Favorites</h1>}
             {this.state.favorites.map((favorite, i) => (
               <Favorite key={i} {...this.props} favorite={favorite} />
             ))}
