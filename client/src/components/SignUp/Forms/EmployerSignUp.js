@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
 import { Label, Input, SignModalMain } from '../../../styles/SignIn_UpStyle';
 
@@ -23,7 +24,10 @@ class EmployerSignUp extends React.Component {
   };
 
   submitHandler = e => {
-    this.props.signUpNewEmployer(
+    const user = firebase.auth().currentUser;
+
+    if (user) {
+    this.props.signUpNewUser(
       e, 
       this.state.type, 
       // this.state.email, 
@@ -38,6 +42,9 @@ class EmployerSignUp extends React.Component {
       // this.state.password, 
       // this.state.rePassword
     );
+    } else {
+      this.props.history.push('/signup');
+    }
   }
 
   render() {

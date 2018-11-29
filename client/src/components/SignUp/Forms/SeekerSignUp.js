@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
 import { 
   Button,
@@ -26,30 +27,33 @@ class SeekerSignUp extends React.Component {
     // rePassword: ''
   };
 
-  signUpNewSeeker = () => {
-    
-  }
-
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   submitHandler = e => {
-    this.props.signUpNewSeeker(
-      e, 
-      this.state.type,
-      // this.state.email, 
-      this.state.phone, 
-      this.state.firstName, 
-      this.state.lastName, 
-      this.state.jobTitle, 
-      this.state.street, 
-      this.state.city, 
-      this.state.state, 
-      this.state.zipCode, 
-      // this.state.password,                      
-      // this.state.rePassword
-    );
+    const user = firebase.auth().currentUser;
+    e.preventDefault();
+    
+    if (user) {
+      this.props.signUpNewUser(
+        e, 
+        this.state.type,
+        user.email, 
+        this.state.phone, 
+        this.state.firstName, 
+        this.state.lastName, 
+        this.state.jobTitle, 
+        this.state.street, 
+        this.state.city, 
+        this.state.state, 
+        this.state.zipCode, 
+        // this.state.password,                      
+        // this.state.rePassword
+      );
+    } else {
+      console.log('nope');
+    }
   }
 
   employerRegister = () => {

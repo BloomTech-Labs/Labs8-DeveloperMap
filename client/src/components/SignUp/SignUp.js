@@ -33,14 +33,25 @@ class SignUp extends React.Component {
   }
 
   /// ---- Add New User To Database ----
-  signUpNewUser = (uid, email, phoneNumber, jobTitle, identifier1, identifier2, street, city, state, zipCode) => {
-    const headers = {}
+  signUpNewUser = (
+    e, 
+    type,
+    email, 
+    phoneNumber, 
+    identifier1, 
+    identifier2, 
+    jobTitle, 
+    street, 
+    city, 
+    state, 
+    zipCode
+    ) => {
 
     // Get idToken of Authorized User
     firebase.auth().currentUser.getIdToken(true)
     .then(idToken => {
-      headers = {authorization: idToken}
-
+      const headers = {authorization: idToken}
+      console.log({headers})
       // Construct Location Object
       let location = {};
       let accessToken =
@@ -52,7 +63,6 @@ class SignUp extends React.Component {
       axios
         .get(mapboxGeocodingAPIURL)
         .then(response => {
-          console.log(response.data.features[0].geometry.coordinates);
           location = {
             street: street,
             city: city,
@@ -60,17 +70,17 @@ class SignUp extends React.Component {
             zip: zipCode,
             coordinates: response.data.features[0].geometry.coordinates,
           };
+          console.log({location})
 
               // --- Determine User Type ---
               let user = {
-                uid,
                 email,
                 phoneNumber,
                 location,
               };
 
               // Construct Object for Seeker Type Users
-              if (this.state.userType === 'seeker') {
+              if (type === 'seekers') {
                 user = {
                   ...user,
                   firstName: identifier1,
@@ -79,7 +89,7 @@ class SignUp extends React.Component {
                 };
 
                 // Construct Object for Employer Type Users
-              } else if (this.state.userType === 'employer') {
+              } else if (type === 'companies') {
                 user = {
                   ...user,
                   companyName: identifier1,
@@ -88,24 +98,25 @@ class SignUp extends React.Component {
               } else {
                 return console.log('Invalid user type!');
               }
-
+              console.log('User Prepared')
               // Create User In Database
               axios
                 .post(
-                  `https://intense-stream-29923.herokuapp.com/api/database/${this.state.userType}s/addUser`,
+                  `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
                   { ...user },
                   { headers }
                 )
                 .then(response => {
-                  console.log(response.data);
                   alert(response.data.message);
+                  firebase.auth().signInWithCustomToken(response.data.token)
+                  .catch(error => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log({ errorCode, errorMessage });
+                    alert(error);
+                  });
                 })
                 .catch(error => console.log(error));
-
-
-              // Close Modal
-              this.props.history.push('/');
-
           })
           .catch((error) => console.log(error))
         })
@@ -146,9 +157,7 @@ class SignUp extends React.Component {
               render={props => (
                 <SeekerSignUp
                   {...props}
-                  signUpNewUserWithEmailAndPassword={
-                    this.props.signUpNewUserWithEmailAndPassword
-                  }
+                  signUpNewUser={this.signUpNewUser}
                 />
               )}
             />
@@ -159,8 +168,8 @@ class SignUp extends React.Component {
             render={props => (
               <EmployerSignUp
                 {...props}
-                signUpNewUserWithEmailAndPassword={
-                  this.props.signUpNewUserWithEmailAndPassword
+                signUpNewUser={
+                  this.signUpNewUser
                 }
               />
             )}
