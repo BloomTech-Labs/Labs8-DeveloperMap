@@ -35,12 +35,17 @@ class JobPosting extends React.Component {
         .querySelector(`#${this.props.post.jobId}`)
         .setAttribute('src', FavHeart);
     }
+    const { jobLink } = this.props.post;
     return (
       <Job>
         <div>
           <h2>{this.props.post.companyName}</h2>
           <h3>{this.props.post.date}</h3>
-          <h4>{this.props.post.jobLink}</h4>
+          <h4>
+            <a href={jobLink.includes('http') ? jobLink : `https://${jobLink}`}>
+              {this.props.post.jobLink}
+            </a>
+          </h4>
           <h4>{this.props.post.jobTitle}</h4>
           <h4>{this.props.post.location}</h4>
         </div>
