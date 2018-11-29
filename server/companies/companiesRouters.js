@@ -81,6 +81,7 @@ router.post(
       companyWebsite,
       uid,
       markerData,
+      customToken,
     } = req.body;
     const newData = {
       companyName,
@@ -93,7 +94,7 @@ router.post(
     updateObject[`companies/${uid}`] = newData;
     updateObject[`markers/${uid}`] = markerData;
     // Update database with the new object
-    rootRef.update(updateObject).catch();
+    rootRef.update(updateObject).catch(error => console.log(error));
     // Success Message
     res.status(201).json({
       success: `${email} has been added to database.`,

@@ -24,6 +24,9 @@ class EmployerSignUp extends React.Component {
   };
 
   submitHandler = e => {
+
+    e.preventDefault();
+
     const user = firebase.auth().currentUser;
 
     if (user) {

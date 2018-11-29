@@ -102,13 +102,13 @@ class SignUp extends React.Component {
               // Create User In Database
               axios
                 .post(
-                  `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
+                  `http://localhost:9000/api/database/${type}/addUser`,
                   { ...user },
                   { headers }
                 )
                 .then(response => {
                   alert(response.data.message);
-                  firebase.auth().signInWithCustomToken(response.data.token)
+                  firebase.auth().signInWithCustomToken(response.data.customToken)
                   .catch(error => {
                     const errorCode = error.code;
                     const errorMessage = error.message;

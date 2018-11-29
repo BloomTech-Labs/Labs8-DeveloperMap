@@ -278,20 +278,39 @@ class App extends Component {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
       if (currentSignedInUser) {
-        axios
+        firebase.auth().currentUser.getIdTokenResult()
+        .then((idTokenResult) => {
+
+          let userType;
+
+           // Confirm the user is an Admin.
+           if (idTokenResult.claims.seeker) {
+            userType = "seekers";
+          } else if (idTokenResult.claims.company) {
+            userType = "companies";
+          } else {
+            return console.log('Invalid user type!')
+          }
+          axios
           .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+            `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${
               currentSignedInUser.uid
             }`
           )
-          .then(response =>
+          .then(response => {
             this.setState({ currentSignedInUser: response.data })
+          }
           )
           .catch(error => {
             console.log(error)
             if (!this.props.location.pathname.includes('signup'))
             this.props.history.push('/signup')
           });
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       } else {
         this.setState({ currentSignedInUser: null });
       }
