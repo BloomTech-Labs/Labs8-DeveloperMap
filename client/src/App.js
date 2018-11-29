@@ -302,7 +302,7 @@ class App extends Component {
             this.setState({
               currentSignedInUser: {
                 ...response.data,
-                role: userType
+                role: userType,
                 uid: currentSignedInUser.uid,
               },
             })
