@@ -56,6 +56,7 @@ class SeekerProfile extends React.Component {
   }
 
   render() {
+    
     return (
       <ModalContainer data-type="modal-container">
         <ModalMain>

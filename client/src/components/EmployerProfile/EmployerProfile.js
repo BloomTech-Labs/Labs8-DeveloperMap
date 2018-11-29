@@ -33,7 +33,7 @@ class EmployerProfile extends React.Component {
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain>
+        <ModalMain style={{ maxWidth: '750px' }}>
           <Styling>
             <Info>
               <h2 className="com-name">{this.state.companyName}</h2>
