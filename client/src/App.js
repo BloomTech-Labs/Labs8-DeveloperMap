@@ -298,7 +298,7 @@ class App extends Component {
             }`
           )
           .then(response => {
-            this.setState({ currentSignedInUser: response.data })
+            this.setState({ currentSignedInUser: { ...response.data, role: userType } })
           }
           )
           .catch(error => {
@@ -306,7 +306,6 @@ class App extends Component {
             if (!this.props.location.pathname.includes('signup'))
             this.props.history.push('/signup')
           });
-
         })
         .catch((error) => {
           console.log(error);

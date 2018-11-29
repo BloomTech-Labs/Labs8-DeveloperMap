@@ -102,7 +102,7 @@ class SignUp extends React.Component {
               // Create User In Database
               axios
                 .post(
-                  `http://localhost:9000/api/database/${type}/addUser`,
+                  `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
                   { ...user },
                   { headers }
                 )
