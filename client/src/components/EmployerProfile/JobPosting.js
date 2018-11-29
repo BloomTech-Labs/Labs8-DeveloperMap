@@ -23,7 +23,7 @@ class JobPosting extends React.Component {
     }
   }
 
-  passJobIdThenToggle = e => {
+  passPostThenToggle = e => {
     this.props.favToggle(e, this.props.post);
   };
   render() {
@@ -42,7 +42,7 @@ class JobPosting extends React.Component {
             alt="hollow heart"
             src={Heart}
             style={{ width: '50px' }}
-            onClick={this.passJobIdThenToggle}
+            onClick={this.passPostThenToggle}
           />
         </div>
       </Job>
