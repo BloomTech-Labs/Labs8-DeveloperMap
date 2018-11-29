@@ -222,7 +222,7 @@ class LandingPage extends React.Component {
                 type="checkbox"
                 name="seeker"
                 checked={this.state.filter.seeker}
-                onClick={this.markerShow}
+                onChange={this.markerShow}
               />
             </div>
             <div className="key">
@@ -232,7 +232,7 @@ class LandingPage extends React.Component {
                 type="checkbox"
                 name="company"
                 checked={this.state.filter.company}
-                onClick={this.markerShow}
+                onChange={this.markerShow}
               />
             </div>
           </KeyBox>
