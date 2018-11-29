@@ -34,6 +34,7 @@ class JobPosting extends React.Component {
         </div>
         <div>
           <img
+            id={this.props.post.jobId}
             alt="hollow heart"
             src={Heart}
             style={{ width: '50px' }}
