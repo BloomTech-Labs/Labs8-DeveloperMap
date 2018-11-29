@@ -30,9 +30,7 @@ router.get('/:uid', (req, res) => {
         snapshot.forEach(childSnap => {
           let companyUrl = '';
           if (childSnap.child('companyUid').exists()) {
-            companyUrl = `https://clever-liskov-29b49a.netlify.com/employer/${childSnap
-              .child('companyUid')
-              .val()}`;
+            companyUrl = `/employer/${childSnap.child('companyUid').val()}`;
           } else {
           }
           favorites.push({
