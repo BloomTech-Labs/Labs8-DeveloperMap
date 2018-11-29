@@ -22,8 +22,8 @@ class SeekerFavorites extends React.Component {
     });
     axios
       .get(
-        // `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}`
-        `http://localhost:9000/api/database/favorites/${uid}`
+        `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}`
+        //`http://localhost:9000/api/database/favorites/${uid}`
       )
       .then(response => {
         console.log(response.data);
