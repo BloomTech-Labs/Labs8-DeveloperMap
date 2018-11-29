@@ -17,6 +17,8 @@ import githubPic from '../../images/Icons/icons8-github.png';
 import linkedinPic from '../../images/Icons/icons8-linkedin-filled.png';
 import resumePic from '../../images/Icons/icons8-resume.png';
 import twitterPic from '../../images/Icons/icons8-twitter-filled.png';
+import paperPlane from '../../images/Icons/icons8-paper-plane-26.png';
+import phonePic from '../../images/Icons/icons8-phone-26.png';
 
 class SeekerProfile extends React.Component {
   constructor(props) {
@@ -104,11 +106,17 @@ class SeekerProfile extends React.Component {
               <ProfilePic src={profile} alt="default picture" />
             )}
             <MainContent>
-              <h2>{this.state.firstName}</h2>
-              <h4>
+              <h1>{`${this.state.firstName} ${this.state.lastName}`}</h1>
+              <h3>
                 {this.state.location.city}, {this.state.location.state}
-              </h4>
-              {this.state.bio ? <p>Bio: {this.state.bio}</p> : <span />}
+              </h3>
+              {this.state.bio ? (
+                <p>
+                  <span>Bio:</span> {this.state.bio}
+                </p>
+              ) : (
+                <span />
+              )}
             </MainContent>
             <div className="options">
               <CheckLabel>
@@ -130,8 +138,14 @@ class SeekerProfile extends React.Component {
               </CheckLabel>
             </div>
             <Info>
-              <p>{this.state.email}</p>
-              <p>{this.state.phoneNumber}</p>
+              <div className="info">
+                <img src={paperPlane} alt="" />
+                <p>{this.state.email}</p>
+              </div>
+              <div className="info">
+                <img src={phonePic} alt="" />
+                <p>{this.state.phoneNumber}</p>
+              </div>
             </Info>
           </ProfileStyle>
         </ModalMain>

@@ -16,7 +16,15 @@ export const ModalContainer = styled.div`
 
 export const ModalMain = styled.div`
   background: rgb(255, 255, 255);
-  width: 50%;
+  width: 60%;
   height: auto;
   margin: 0 auto;
+
+  @media (max-width: 801px) {
+    width: 70%;
+  }
+
+  @media (max-width: 661px) {
+    width: 90%;
+  }
 `;

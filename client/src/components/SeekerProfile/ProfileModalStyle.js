@@ -30,7 +30,7 @@ export const Icons = styled.div`
 
 // Controls Profile Picture
 export const ProfilePic = styled.img`
-  width: 25%;
+  width: 30%;
   border-radius: 50%;
 `;
 
@@ -38,6 +38,14 @@ export const ProfilePic = styled.img`
 export const MainContent = styled.div`
   text-align: center;
   width: 50%;
+
+  h1 {
+    padding: 5px 0;
+  }
+
+  span {
+    font-weight: bold;
+  }
 
   p {
     padding: 5px 0;
@@ -47,12 +55,22 @@ export const MainContent = styled.div`
 // Controls the checkboxes
 export const CheckLabel = styled.label`
   display: block;
-  padding: 10px;
+  padding: 5px;
 `;
 
 // Controls the info box
 export const Info = styled.div`
   border: 1px solid black;
-  padding: 5px 5%;
-  margin-bottom: 20px;
+  padding: 20px 7%;
+  margin: 10px 0 20px 0;
+
+  .info {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+
+    p {
+      padding-left: 5%;
+    }
+  }
 `;
