@@ -312,7 +312,7 @@ class App extends Component {
         <Route
           path="/employer/:employerId"
           render={props => (
-            <EmployerProfile user={this.state.currentSignedInUser} />
+            <EmployerProfile user={this.state.currentSignedInUser} {...props} />
           )}
         />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
