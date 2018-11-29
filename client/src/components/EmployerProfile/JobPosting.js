@@ -15,7 +15,9 @@ class JobPosting extends React.Component {
     //     document.querySelector(`#${jobId}`).setAttribute('src', FavHeart);
     //   }
     // });
-    const favoritedList = ['jb1'];
+    const favoritedList = this.props.favoritedList;
+    console.log(favoritedList);
+    console.log(favoritedList.includes(this.props.post.jobId));
     if (favoritedList.includes(this.props.post.jobId)) {
       document
         .querySelector(`#${this.props.post.jobId}`)
@@ -27,6 +29,12 @@ class JobPosting extends React.Component {
     this.props.favToggle(e, this.props.post);
   };
   render() {
+    const favoritedList = this.props.favoritedList;
+    if (favoritedList.includes(this.props.post.jobId)) {
+      document
+        .querySelector(`#${this.props.post.jobId}`)
+        .setAttribute('src', FavHeart);
+    }
     return (
       <Job>
         <div>
