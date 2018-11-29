@@ -5,7 +5,7 @@ import { Label, Input, SignModalMain } from '../../../styles/SignIn_UpStyle';
 class EmployerSignUp extends React.Component {
   state = {
     type: 'companies',
-    email: '',
+    // email: '',
     phone: '',
     companyName: '',
     website: '',
@@ -14,8 +14,8 @@ class EmployerSignUp extends React.Component {
     city: '',
     state: '',
     zipCode: '',
-    password: '',
-    rePassword: ''
+    // password: '',
+    // rePassword: ''
   };
 
   changeHandler = e => {
@@ -23,10 +23,10 @@ class EmployerSignUp extends React.Component {
   };
 
   submitHandler = e => {
-    this.props.signUpNewUserWithEmailAndPassword(
+    this.props.signUpNewEmployer(
       e, 
       this.state.type, 
-      this.state.email, 
+      // this.state.email, 
       this.state.phone,
       this.state.companyName, 
       this.state.website, 
@@ -35,23 +35,9 @@ class EmployerSignUp extends React.Component {
       this.state.city, 
       this.state.state, 
       this.state.zipCode, 
-      this.state.password, 
-      this.state.rePassword
+      // this.state.password, 
+      // this.state.rePassword
     );
-
-    this.state.password === this.state.rePassword ? this.setState({
-      email: '',
-      phone: '',
-      companyName: '',
-      website: '',
-      jobTitle: '',
-      street: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      password: '',
-      rePassword: '',
-    }) : this.setState({password: '', rePassword: ''});
   }
 
   render() {
@@ -81,7 +67,7 @@ class EmployerSignUp extends React.Component {
                 required
               />
             </Label>
-            <Label htmlFor="email">
+            {/* <Label htmlFor="email">
               Email
               <Input
                 name="email"
@@ -90,7 +76,7 @@ class EmployerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
+            </Label> */}
             <Label htmlFor="phone">
               Phone
               <Input
@@ -141,7 +127,7 @@ class EmployerSignUp extends React.Component {
                 required
               />
             </Label>
-            <Label htmlFor="password">
+            {/* <Label htmlFor="password">
               Password
               <Input
                 name="password"
@@ -160,7 +146,7 @@ class EmployerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
+            </Label> */}
             <button>Sign Up</button>
           </form>
         </SignModalMain>

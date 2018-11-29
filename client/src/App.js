@@ -287,7 +287,11 @@ class App extends Component {
           .then(response =>
             this.setState({ currentSignedInUser: response.data })
           )
-          .catch(error => console.log(error));
+          .catch(error => {
+            console.log(error)
+            if (!this.props.location.pathname.includes('signup'))
+            this.props.history.push('/signup')
+          });
       } else {
         this.setState({ currentSignedInUser: null });
       }
@@ -341,6 +345,7 @@ class App extends Component {
               signUpNewUserWithEmailAndPassword={
                 this.signUpNewUserWithEmailAndPassword
               }
+              currentSignedInUser={this.state.currentSignedInUser}
             />
           )}
         />
