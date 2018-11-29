@@ -49,22 +49,22 @@ router.get('/:uid', (req, res) => {
     });
 });
 
-router.get('/:uid', (req, res) => {
-  const { uid } = req.body;
-  rootRef
-    .child(`companies/${uid}`)
-    .once('value')
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        res.status(200).json(snapshot.val());
-      } else {
-        res.status(404).json({ err: 'user not found' });
-      }
-    })
-    .catch(err => {
-      res.status(500).json({ err });
-    });
-});
+// router.get('/:uid', (req, res) => {
+//   const { uid } = req.body;
+//   rootRef
+//     .child(`companies/${uid}`)
+//     .once('value')
+//     .then(snapshot => {
+//       if (snapshot.exists()) {
+//         res.status(200).json(snapshot.val());
+//       } else {
+//         res.status(404).json({ err: 'user not found' });
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).json({ err });
+//     });
+// });
 
 //--------------------------------------------------------POSTS
 
@@ -105,9 +105,11 @@ router.post(
 
 router.post('/jobsListed', (req, res) => {
   const { companyName, date, jobLink, jobTitle, location, uid } = req.body;
+  const companyUid = uid;
+  const jobId = rootRef.push(null).key;
   rootRef
-    .child(`companyPostings/${uid}`)
-    .push({ companyName, date, jobLink, jobTitle, location })
+    .child(`companyPostings/${uid}/${jobId}`)
+    .set({ companyName, date, jobLink, jobTitle, location, companyUid, jobId })
     .then(res => {
       res.json({ message: 'Job added' });
     })
