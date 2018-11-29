@@ -57,6 +57,7 @@ export const MapWindow = styled.div`
 `;
 
 export const ShowMarker = styled.img`
+  display: ${props => (props.show ? 'block' : 'none')};
   height: 45px;
   width: 50px;
   cursor: pointer;

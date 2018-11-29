@@ -23,6 +23,10 @@ class LandingPage extends React.Component {
     },
     data: [],
     pin: null,
+    filter: {
+      seeker: true,
+      company: true,
+    },
   };
 
   mapRef = React.createRef();
@@ -69,6 +73,28 @@ class LandingPage extends React.Component {
     });
   };
 
+  markerShow = e => {
+    if (e.target.name === 'seeker') {
+      this.setState(prevState => {
+        return {
+          filter: {
+            ...this.state.filter,
+            seeker: !prevState.filter.seeker,
+          },
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          filter: {
+            ...this.state.filter,
+            company: !prevState.filter.company,
+          },
+        };
+      });
+    }
+  };
+
   renderMarker = (mark, i) => {
     if (mark.properties.role === 'seeker') {
       return (
@@ -83,6 +109,7 @@ class LandingPage extends React.Component {
             src={SeekerPin}
             alt="red marker"
             onClick={() => this.setState({ pin: mark })}
+            show={this.state.filter.seeker}
           />
         </Marker>
       );
@@ -99,6 +126,7 @@ class LandingPage extends React.Component {
             src={CompanyPin}
             alt="gold marker"
             onClick={() => this.setState({ pin: mark })}
+            show={this.state.filter.company}
           />
         </Marker>
       );
@@ -186,10 +214,22 @@ class LandingPage extends React.Component {
             <div className="key">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
+              <input
+                type="checkbox"
+                name="seeker"
+                checked={this.state.filter.seeker}
+                onClick={this.markerShow}
+              />
             </div>
             <div className="key">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
+              <input
+                type="checkbox"
+                name="company"
+                checked={this.state.filter.company}
+                onClick={this.markerShow}
+              />
             </div>
           </KeyBox>
 
