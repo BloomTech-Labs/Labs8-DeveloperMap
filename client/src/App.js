@@ -288,7 +288,12 @@ class App extends Component {
             }`
           )
           .then(response =>
-            this.setState({ currentSignedInUser: response.data })
+            this.setState({
+              currentSignedInUser: {
+                ...response.data,
+                uid: currentSignedInUser.uid,
+              },
+            })
           )
           .catch(error => console.log(error));
       } else {
@@ -310,7 +315,12 @@ class App extends Component {
           signOut={this.signOutCurrentUser}
         />
         <Route path="/" render={props => <LandingPage {...props} />} />
-        <Route path="/employer/:employerId" component={EmployerProfile} />
+        <Route
+          path="/employer/:employerId"
+          render={props => (
+            <EmployerProfile user={this.state.currentSignedInUser} {...props} />
+          )}
+        />
         <Route path="/seeker/:seekerId" component={SeekerProfile} />
         <Route
           path="/settings"
