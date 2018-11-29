@@ -13,6 +13,7 @@ const favoritesRouters = require('./seekers/favoritesRoutes.js');
 // const configureServer = require('./serverConfig');
 const configureRoutes = require('./stripe-routes');
 
+
 server.use(express.json(), cors(), helmet());
 //server.use('/api/database', usersRouters);
 
@@ -25,7 +26,8 @@ server.use('/api/markers', markersRouters);
 server.use('/api/database/favorites', favoritesRouters);
 
 server.get('/', (req, res) => {
-  res.status(200).send('Developer Map API. Currently In Development.');
+  // res.status(200).send('Developer Map API. Currently In Development.');
+  res.status(200).send(process.env.STRIPE_TEST_KEY);
 });
 
 // configureServer(server);
