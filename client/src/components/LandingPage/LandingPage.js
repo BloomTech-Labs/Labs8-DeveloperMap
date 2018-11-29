@@ -31,19 +31,6 @@ class LandingPage extends React.Component {
 
   mapRef = React.createRef();
 
-  getMarkers = () => {
-    axios
-      .get('https://intense-stream-29923.herokuapp.com/api/markers')
-      .then(response => {
-        const markerArray = [];
-        for (let mark in response.data) {
-          markerArray.push(response.data[mark]);
-        }
-        this.setState({ data: markerArray });
-      })
-      .catch(err => console.log(err));
-  };
-
   componentDidMount() {
     window.addEventListener('resize', this.resize);
     this.resize();
@@ -73,6 +60,21 @@ class LandingPage extends React.Component {
     });
   };
 
+  // Gets the markers from the server
+  getMarkers = () => {
+    axios
+      .get('https://intense-stream-29923.herokuapp.com/api/markers')
+      .then(response => {
+        const markerArray = [];
+        for (let mark in response.data) {
+          markerArray.push(response.data[mark]);
+        }
+        this.setState({ data: markerArray });
+      })
+      .catch(err => console.log(err));
+  };
+
+  // Filter feature for the markers
   markerShow = e => {
     if (e.target.name === 'seeker') {
       this.setState(prevState => {
@@ -95,6 +97,7 @@ class LandingPage extends React.Component {
     }
   };
 
+  // Renders the markers to the map
   renderMarker = (mark, i) => {
     if (mark.properties.role === 'seeker') {
       return (
@@ -133,6 +136,7 @@ class LandingPage extends React.Component {
     }
   };
 
+  // Renders the popup to the map
   renderPopup = () => {
     const { pin } = this.state;
 
