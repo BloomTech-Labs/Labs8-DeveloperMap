@@ -24,7 +24,7 @@ class JobPosting extends React.Component {
   }
 
   passJobIdThenToggle = e => {
-    this.props.favToggle(e, this.props.post.jobId);
+    this.props.favToggle(e, this.props.post);
   };
   render() {
     return (
