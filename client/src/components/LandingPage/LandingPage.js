@@ -6,7 +6,7 @@ import Geocoder from 'react-map-gl-geocoder';
 
 import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
-
+import MainLogo from '../../images/mainlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
 
 import styled from 'styled-components';
@@ -210,6 +210,7 @@ class LandingPage extends React.Component {
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
           />
+          <LogoImg alt="logo" src={MainLogo}/>
           <KeyBox>
             <div className="key">
               <PinKey src={SeekerPin} />
@@ -241,6 +242,15 @@ class LandingPage extends React.Component {
     );
   }
 }
+
+const LogoImg = styled.img`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: auto;
+  margin: 2%;
+`;
 
 const PinKey = styled.img`
   width: 45px;
