@@ -33,7 +33,7 @@ class EmployerSignUp extends React.Component {
     this.props.signUpNewUser(
       e, 
       this.state.type, 
-      // this.state.email, 
+      user.email,
       this.state.phone,
       this.state.companyName, 
       this.state.website, 

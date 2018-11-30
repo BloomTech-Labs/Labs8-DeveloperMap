@@ -8,6 +8,7 @@ export const ProfileStyle = styled.div`
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
+ 
 `;
 
 // Manipulates the icons on the side of the modal
@@ -26,6 +27,7 @@ export const Icons = styled.div`
   .none {
     display: none;
   }
+  
 `;
 
 // Controls Profile Picture

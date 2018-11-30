@@ -9,6 +9,8 @@ import SignUpUserTypes from './Types/SignUpUserTypes';
 import SeekerSignUp from './Forms/SeekerSignUp';
 import EmployerSignUp from './Forms/EmployerSignUp';
 
+// axios.defaults.withCredentials = true;
+
 class SignUp extends React.Component {
   state = {
     userType: '', 
@@ -51,7 +53,6 @@ class SignUp extends React.Component {
     firebase.auth().currentUser.getIdToken(true)
     .then(idToken => {
       const headers = {authorization: idToken}
-      console.log({headers})
       // Construct Location Object
       let location = {};
       let accessToken =
@@ -98,7 +99,6 @@ class SignUp extends React.Component {
               } else {
                 return console.log('Invalid user type!');
               }
-              console.log('User Prepared')
               // Create User In Database
               axios
                 .post(

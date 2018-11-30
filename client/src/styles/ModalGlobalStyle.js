@@ -12,6 +12,7 @@ export const ModalContainer = styled.div`
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
+ 
 `;
 
 export const ModalMain = styled.div`
