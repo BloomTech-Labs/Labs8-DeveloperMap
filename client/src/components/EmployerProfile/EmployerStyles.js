@@ -25,6 +25,10 @@ export const Styling = styled.div`
   justify-content: space-between;
   max-width: 750px;
   width: 100%;
+  @media (max-width: 650px) {
+    flex-wrap: wrap;
+    padding-top: 500px;
+  }
 `;
 
 export const Posts = styled.div`
@@ -36,4 +40,7 @@ export const PostContainer = styled.div`
   justify-content: center;
   max-width: 400px;
   width: 100%;
+  @media (max-width: 650px) {
+    flex-direction: row;
+  }
 `;
