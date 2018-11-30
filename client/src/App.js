@@ -304,45 +304,46 @@ class App extends Component {
     // --- User Session Check (Handled by Firebase) ---
     auth.onAuthStateChanged(currentSignedInUser => {
       if (currentSignedInUser) {
-        firebase.auth().currentUser.getIdTokenResult()
-        .then((idTokenResult) => {
+        firebase
+          .auth()
+          .currentUser.getIdTokenResult()
+          .then(idTokenResult => {
+            
+           let userType;
+           let role;
 
-          let userType;
-          let role;
-
-           if (idTokenResult.claims.seekers) {
-            userType = "seekers";
-            role = "seeker";
-          } else if (idTokenResult.claims.companies) {
-            userType = "companies";
-            role = "company";
-          } else {
-            return console.log('Invalid user type!')
-          }
-          
-          axios
-          .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${
-              currentSignedInUser.uid
-            }`
-          )
-          .then(response =>
-            this.setState({
-              currentSignedInUser: {
-                ...response.data,
-                role: role,
-                uid: currentSignedInUser.uid,
-              },
-            })
-          )
+            if (idTokenResult.claims.seeker) {
+              userType = 'seekers';
+              role = "seeker";
+            } else if (idTokenResult.claims.company) {
+              userType = 'companies';
+              role = "company";
+            } else {
+              return console.log('Invalid user type!');
+            }
+            axios
+              .get(
+                `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${
+                  currentSignedInUser.uid
+                }`
+              )
+              .then(response =>
+                this.setState({
+                  currentSignedInUser: {
+                    ...response.data,
+                    role: role,
+                    uid: currentSignedInUser.uid,
+                  },
+                })
+              )
+              .catch(error => {
+                if (!this.props.location.pathname.includes('signup'))
+                  this.props.history.push('/signup');
+              });
+          })
           .catch(error => {
-            if (!this.props.location.pathname.includes('signup'))
-            this.props.history.push('/signup')
+            console.log(error);
           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
       } else {
         this.setState({ currentSignedInUser: null });
       }
@@ -368,7 +369,15 @@ class App extends Component {
             <EmployerProfile user={this.state.currentSignedInUser} {...props} />
           )}
         />
-        <Route path="/seeker/:seekerId" component={SeekerProfile} />
+        <Route
+          path="/seeker/:seekerId"
+          render={props => (
+            <SeekerProfile
+              currentSignedInUser={this.state.currentSignedInUser}
+              {...props}
+            />
+          )}
+        />
         <Route
           path="/settings"
           render={props =>
