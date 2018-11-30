@@ -6,7 +6,6 @@ import {
   NavBar,
   EmployerProfile,
   EmployerBilling,
-  EmployerSettings,
   LandingPage,
   SeekerFavorites,
   SeekerSettings,
@@ -283,15 +282,18 @@ class App extends Component {
         .then((idTokenResult) => {
 
           let userType;
-
+          let role;
            // Confirm the user is an Admin.
-           if (idTokenResult.claims.seeker) {
+           if (idTokenResult.claims.seekers) {
             userType = "seekers";
-          } else if (idTokenResult.claims.company) {
+            role = "seeker";
+          } else if (idTokenResult.claims.companies) {
             userType = "companies";
+            role = "company";
           } else {
             return console.log('Invalid user type!')
           }
+          
           axios
           .get(
             `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${
@@ -302,7 +304,7 @@ class App extends Component {
             this.setState({
               currentSignedInUser: {
                 ...response.data,
-                role: userType,
+                role: role,
                 uid: currentSignedInUser.uid,
               },
             })
