@@ -54,7 +54,7 @@ const createMarkerObjectCompany = async (req, res, next) => {
       properties: {
         title: { companyName },
         uid,
-        role: company,
+        role: 'company',
       },
     };
     req.body.markerData = markerData;
