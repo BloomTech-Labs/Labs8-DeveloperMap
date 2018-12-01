@@ -27,7 +27,7 @@ const createMarkerObjectSeeker = async (req, res, next) => {
         jobTitle,
         profilePicture: '',
         uid,
-        role: seeker,
+        role: 'seeker',
       },
     };
     req.body.markerData = markerData;
@@ -54,7 +54,7 @@ const createMarkerObjectCompany = async (req, res, next) => {
       properties: {
         title: { companyName },
         uid,
-        role: 'company',
+        role: company,
       },
     };
     req.body.markerData = markerData;
