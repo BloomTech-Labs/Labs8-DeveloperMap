@@ -261,7 +261,6 @@ const KeyBox = styled.div`
   width: 170px;
   height: 140px;
   background-color: rgba(232, 232, 232, 0.85);
-  box-shadow: inset 10px 10px 10px rgba(255, 255, 255, 0.5);
   position: absolute;
   right: 0;
   bottom: 0;
@@ -270,7 +269,8 @@ const KeyBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-right: 2%;
+  padding-right: 1%;
+  border-radius: 2px;
   z-index: 5;
   .key {
     display: flex;
