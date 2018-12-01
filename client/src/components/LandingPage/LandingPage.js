@@ -269,7 +269,7 @@ const KeyBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-right: 1%;
+  padding-right: 2%;
   border-radius: 2px;
   z-index: 5;
   .key {
