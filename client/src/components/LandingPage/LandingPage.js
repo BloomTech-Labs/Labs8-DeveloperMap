@@ -252,7 +252,7 @@ class LandingPage extends React.Component {
             <div className="key">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
-              <ToggleKnob>
+              <ToggleKnob htmlFor="seeker">
                 <input
                   type="checkbox"
                   name="seeker"
@@ -260,13 +260,12 @@ class LandingPage extends React.Component {
                   checked={this.state.filter.seeker}
                   onChange={this.markerShow}
                 />
-                <label htmlFor="seeker" />
               </ToggleKnob>
             </div>
             <div className="key">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
-              <ToggleKnob>
+              <ToggleKnob htmlFor="company">
                 <input
                   type="checkbox"
                   name="company"
@@ -274,7 +273,6 @@ class LandingPage extends React.Component {
                   checked={this.state.filter.company}
                   onChange={this.markerShow}
                 />
-                <label htmlFor="company" />
               </ToggleKnob>
             </div>
           </KeyBox>
@@ -309,7 +307,7 @@ const KeyBox = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
-  margin: 2% 10%;
+  margin: 4% 3%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -328,13 +326,13 @@ const KeyBox = styled.div`
   }
 `;
 
-const ToggleKnob = styled.div`
+const ToggleKnob = styled.label`
   position: relative;
   width: 30px;
   height: 12px;
   background-color: ${props =>
-    props.children[0].props.checked
-      ? props.children[0].props.id === 'company'
+    props.children.props.checked
+      ? props.children.props.id === 'company'
         ? 'rgb(207, 149, 4)'
         : 'rgb(122, 38, 38)'
       : 'rgb(128, 128, 128)'};
@@ -345,10 +343,8 @@ const ToggleKnob = styled.div`
   cursor: pointer;
 
   input[type='checkbox'] {
-    visibility: hidden;
-  }
-
-  label {
+    outline: none;
+    appearance: none;
     display: block;
     width: 17px;
     height: 17px;
@@ -357,14 +353,14 @@ const ToggleKnob = styled.div`
     transition: all 0.5s ease;
     cursor: pointer;
     position: absolute;
-    top: -2.5px;
+    top: -5px;
     left: 15px;
 
     background: rgb(37, 36, 48);
   }
 
-  input[type='checkbox']:checked + label {
-    left: -3px;
+  input[type='checkbox']:checked {
+    left: -5px;
   }
 `;
 
