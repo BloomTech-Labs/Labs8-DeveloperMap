@@ -84,6 +84,26 @@ router.post('/:uid/:jid', validate, (req, res) => {
     .catch(err => res.status(500).json({ error: `Server error --> ${err}` }));
 });
 
+//  ==== PUT for updating favorite posts ====
+
+router.put('/', async (req, res) => {
+  const { newFavorites, uid, companyUid } = req.body;
+  let updateObject = {};
+  rootRef
+    .child(`companyPostings/${companyUid}`)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(childSnap => {
+        if (newFavorites.includes(childSnap.key)) {
+          console.log(childSnap.key);
+          updateObject[childSnap.key] = childSnap.val();
+        }
+      });
+      rootRef.child(`favoritePostings/${uid}`).set(updateObject);
+      res.json('updated');
+    });
+});
+
 // ==== DELETE will remove the job from the favorites list ====
 
 router.delete('/:uid/:jid', (req, res) => {
