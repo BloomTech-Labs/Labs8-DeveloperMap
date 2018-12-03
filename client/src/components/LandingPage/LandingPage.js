@@ -56,7 +56,7 @@ class LandingPage extends React.Component {
             company: true,
           },
         });
-      } else if (this.props.currentSignedInUser.role === 'seeker') {
+      } else if (this.props.currentSignedInUser.role === 'company') {
         this.setState({
           currentSignedInUser: this.props.currentSignedInUser,
           filter: {
