@@ -142,16 +142,17 @@ router.post(
 router.put('/userInfo', createMarkerObjectSeeker, (req, res) => {
   const { uid, markerData } = req.body;
   const updateKeys = Object.keys(req.body);
-  let updateObject = {};
-  if (markerData) {
-    updateObject[`markers/${uid}`] = markerData;
-  }
+
   rootRef
     .child(`seekers/${uid}`)
     .once('value')
     .then(snapshot => {
       if (!snapshot.exists()) {
         return res.json({ message: 'user does not exist' });
+      }
+      let updateObject = {};
+      if (markerData) {
+        updateObject[`markers/${uid}`] = markerData;
       }
 
       snapshot.forEach(childSnap => {
