@@ -166,7 +166,6 @@ class App extends Component {
     //       'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
     //     let addressString = 'utah';
     //     let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
-
     //     // Get Location Coordinates and Return Promise
     //     axios
     //       .get(mapboxGeocodingAPIURL)
@@ -178,7 +177,6 @@ class App extends Component {
     //           zip: 'zipCode',
     //           coordinates: response.data.features[0].geometry.coordinates,
     //         };
-
     //         let user = {
     //           uid: tempUser.user.uid,
     //           email: tempUser.user.email,
@@ -188,7 +186,6 @@ class App extends Component {
     //           lastName: 'identifier2',
     //           jobTitle: 'jobTitle',
     //         };
-
     //         // Create User In Database
     //         axios
     //           .post(
@@ -200,7 +197,6 @@ class App extends Component {
     //           .then(response => {
     //             console.log(response.data);
     //             alert(response.data.message);
-
     //             axios
     //               .get(
     //                 `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
@@ -216,7 +212,6 @@ class App extends Component {
     //           .catch(error => console.log(error));
     //       })
     //       .catch(error => console.log(error));
-
     //     // Close Modal
     //   })
     //   .catch(error => {
@@ -235,52 +230,49 @@ class App extends Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(response => {
+        firebase
+          .auth()
+          .currentUser.getIdTokenResult()
+          .then(idTokenResult => {
+            let userId = response.user.uid;
+            let userType;
+            let role;
 
-        firebase.auth().currentUser.getIdTokenResult()
-        .then((idTokenResult) => {
+            if (idTokenResult.claims.seeker) {
+              userType = 'seekers';
+              role = 'seeker';
+            } else if (idTokenResult.claims.company) {
+              userType = 'companies';
+              role = 'company';
+            } else {
+              return console.log('Invalid user type!');
+            }
 
-          let userId = response.user.uid;
-          let userType;
-          let role;
+            axios
+              .get(
+                `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${userId}`
+              )
+              .then(response =>
+                this.setState({
+                  currentSignedInUser: {
+                    ...response.data,
+                    role: role,
+                    uid: userId,
+                  },
+                })
+              )
+              .catch(error => console.log(error));
 
-
-           if (idTokenResult.claims.seekers) {
-            userType = "seekers";
-            role = "seeker";
-          } else if (idTokenResult.claims.companies) {
-            userType = "companies";
-            role = "company";
-          } else {
-            return console.log('Invalid user type!')
-          }
-
-        axios
-          .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${
-              userId
-            }`
-          )
-          .then(response =>
-            this.setState({
-              currentSignedInUser: {
-                ...response.data,
-                role: role,
-                uid: userId,
-              },
-            })
-          )
-          .catch(error => console.log(error));
-
-        // Close Modal
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ errorCode, errorMessage });
+            // Close Modal
+            this.props.history.push('/');
+          })
+          .catch(error => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log({ errorCode, errorMessage });
+          });
       });
-  });
-}
+  };
 
   // --- Sign Out Method ---
   signOutCurrentUser = e => {
@@ -308,16 +300,15 @@ class App extends Component {
           .auth()
           .currentUser.getIdTokenResult()
           .then(idTokenResult => {
-            
-           let userType;
-           let role;
+            let userType;
+            let role;
 
             if (idTokenResult.claims.seeker) {
               userType = 'seekers';
-              role = "seeker";
+              role = 'seeker';
             } else if (idTokenResult.claims.company) {
               userType = 'companies';
-              role = "company";
+              role = 'company';
             } else {
               return console.log('Invalid user type!');
             }
@@ -362,7 +353,15 @@ class App extends Component {
           user={this.state.currentSignedInUser}
           signOut={this.signOutCurrentUser}
         />
-        <Route path="/" render={props => <LandingPage {...props} />} />
+        <Route
+          path="/"
+          render={props => (
+            <LandingPage
+              {...props}
+              currentSignedInUser={this.state.currentSignedInUser}
+            />
+          )}
+        />
         <Route
           path="/employer/:employerId"
           render={props => (

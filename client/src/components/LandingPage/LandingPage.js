@@ -120,7 +120,7 @@ class LandingPage extends React.Component {
           },
         };
       });
-    } else {
+    } else if (e.target.name === 'company') {
       this.setState(prevState => {
         return {
           filter: {
@@ -246,7 +246,6 @@ class LandingPage extends React.Component {
             mapRef={this.mapRef}
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
-            onDoubleClick={e => e.preventDefault}
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
@@ -343,9 +342,10 @@ const ToggleKnob = styled.div`
   border-radius: 5px;
   z-index: 10;
   margin: 0 10px;
+  cursor: pointer;
 
-  input {
-    appearance: none;
+  input[type='checkbox'] {
+    visibility: hidden;
   }
 
   label {
@@ -369,6 +369,3 @@ const ToggleKnob = styled.div`
 `;
 
 export default LandingPage;
-
-// onViewportChange={this.onViewportChange}
-// mapboxApiAccessToken={MAPBOX_TOKEN}
