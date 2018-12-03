@@ -32,7 +32,7 @@ router.get('/all', (req, res) => {
     });
 });
 
-router.get('/jobPostings/:companyUid/:uid', (req, res) => {
+router.get('/jobPostings/:companyUid/:seekersUid', async (req, res) => {
   const { seekersUid, companyUid } = req.params;
   let favoritedList = [];
   const companyPostings = await rootRef
