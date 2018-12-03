@@ -101,25 +101,25 @@ router.post(
     //     .status(400)
     //     .json({ error: 'Missing information. Unable to create user.' });
     // }
-    
-  // Construct New Seeker User Object
-  const newSeeker = {
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    jobTitle,
-    location,
-    bio: '',
-    github: '',
-    linkedIn: '',
-    portfolio: '',
-    twitter: '',
-    resume: '',
-    profilePicture: '',
-    relocation: false,
-    remote: false
-  };
+
+    // Construct New Seeker User Object
+    const newSeeker = {
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      jobTitle,
+      location,
+      bio: '',
+      github: '',
+      linkedIn: '',
+      portfolio: '',
+      twitter: '',
+      resume: '',
+      profilePicture: '',
+      relocation: false,
+      remote: false,
+    };
 
     // Firebase Reference Interface Methods
     // Create object to send to Firebase Database
@@ -139,9 +139,13 @@ router.post(
 //------------------------------------------------------------------PUT
 //Change UserInfo
 
-router.put('/userInfo', (req, res) => {
-  const { uid } = req.body;
+router.put('/userInfo', createMarkerObjectSeeker, (req, res) => {
+  const { uid, markerData } = req.body;
   const updateKeys = Object.keys(req.body);
+  let updateObject = {};
+  if (markerData) {
+    updateObject[`markers/${uid}`] = markerData;
+  }
   rootRef
     .child(`seekers/${uid}`)
     .once('value')
@@ -149,7 +153,7 @@ router.put('/userInfo', (req, res) => {
       if (!snapshot.exists()) {
         return res.json({ message: 'user does not exist' });
       }
-      let updateObject = {};
+
       snapshot.forEach(childSnap => {
         const snapKey = childSnap.key;
         if (updateKeys.includes(snapKey)) {
