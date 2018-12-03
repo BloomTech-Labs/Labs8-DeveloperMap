@@ -44,6 +44,39 @@ class LandingPage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (
+      prevProps.currentSignedInUser !== this.props.currentSignedInUser &&
+      this.props.currentSignedInUser !== null
+    ) {
+      if (this.props.currentSignedInUser.role === 'seeker') {
+        this.setState({
+          currentSignedInUser: this.props.currentSignedInUser,
+          filter: {
+            seeker: false,
+            company: true,
+          },
+        });
+      } else if (this.props.currentSignedInUser.role === 'seeker') {
+        this.setState({
+          currentSignedInUser: this.props.currentSignedInUser,
+          filter: {
+            seeker: true,
+            company: false,
+          },
+        });
+      }
+    } else if (
+      prevProps.currentSignedInUser !== this.props.currentSignedInUser &&
+      this.props.currentSignedInUser === null
+    ) {
+      this.setState({
+        filter: {
+          seeker: true,
+          company: true,
+        },
+      });
+    }
+
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.getMarkers();
     }
@@ -62,7 +95,7 @@ class LandingPage extends React.Component {
     });
   };
 
-  // Gets the markers from the server
+  // ==== Gets the markers from the server ====
   getMarkers = () => {
     axios
       .get('https://intense-stream-29923.herokuapp.com/api/markers')
@@ -76,7 +109,7 @@ class LandingPage extends React.Component {
       .catch(err => console.log(err));
   };
 
-  // Filter feature for the markers
+  // ==== Filter feature for the markers ====
   markerShow = e => {
     if (e.target.name === 'seeker') {
       this.setState(prevState => {
@@ -99,7 +132,7 @@ class LandingPage extends React.Component {
     }
   };
 
-  // Renders the markers to the map
+  // ==== Renders the markers to the map ====
   renderMarker = (mark, i) => {
     if (mark.properties.role === 'seeker') {
       return (
@@ -138,7 +171,7 @@ class LandingPage extends React.Component {
     }
   };
 
-  // Renders the popup to the map
+  // ==== Renders the popup to the map ====
   renderPopup = () => {
     const { pin } = this.state;
 
@@ -317,8 +350,8 @@ const ToggleKnob = styled.div`
 
   label {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
 
     transition: all 0.5s ease;
