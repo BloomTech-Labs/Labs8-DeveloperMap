@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import axios from 'axios';
 import firebase, { auth, storage } from '../../firebase/firebase';
 import { ModalContainer } from '../../styles/ModalGlobalStyle';
@@ -18,7 +18,7 @@ import {
   RightColumn,
   ContactInfo } from '../../styles/SettingsStyle';
 
-class EmployerSettings extends React.Component {
+class EmployerSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -436,8 +436,7 @@ class EmployerSettings extends React.Component {
 
   render() {
     return (
-        <ModalContainer data-type="modal-container">
-          <SettingsModalMain>
+          <Fragment>
 
     {/* ----- LEFT COLUMN ----- */}
             <LeftColumn>
@@ -699,8 +698,7 @@ class EmployerSettings extends React.Component {
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
             {this.state.editing ? <EditButtons right="120px" onClick={this.submitHandler}>Save</EditButtons> : ''}
-          </SettingsModalMain>
-        </ModalContainer>
+          </Fragment>
     );
   }
 }

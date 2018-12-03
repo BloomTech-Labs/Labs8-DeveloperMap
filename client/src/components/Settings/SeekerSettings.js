@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import axios from 'axios';
 import firebase, { auth, storage } from '../../firebase/firebase';
 import { ModalContainer } from '../../styles/ModalGlobalStyle';
+import { Route, NavLink } from 'react-router-dom';
 import profile from '../../images/avatar-icon.jpg';
 import { 
   EditButtons,
@@ -381,9 +382,11 @@ class SeekerSettings extends Component {
                   coordinates: location.coordinates,
                 },
                 properties: {
+                  jobTitle: this.state.jobTitle,
                   uid: this.state.uid,
                   title: {firstName: this.state.firstName, lastName: this.state.lastName},
-                  profilePicture: this.state.profilePicture
+                  profilePicture: this.state.profilePicture,
+                  role: "seeker"
                 },
               };
               console.log(marker);
@@ -440,8 +443,15 @@ class SeekerSettings extends Component {
 
     {/* ----- LEFT COLUMN ----- */}
             <LeftColumn>
+              <NavLink to="/settings/profile">Profile Information</NavLink>
+              <NavLink to="/settings/password">Password</NavLink>
+            </LeftColumn>
+
+ {/* ----- RIGHT COLUMN ----- */}
+            <RightColumn>
 
             {/* Profile Information Section */}
+            <Route path="/settings/profile" render={(props) =>
               <ProfileInfo>
                 <div>
                   {/* <h3></h3> */}
@@ -476,8 +486,10 @@ class SeekerSettings extends Component {
                   />
                 </Label>
               </ProfileInfo>
-            
+            }/>
+
             {/* Password Section */}
+            <Route path="/settings/password" render={(props) =>
               <Password>
               <h3>Update Password</h3>
                 <Label>
@@ -511,12 +523,10 @@ class SeekerSettings extends Component {
                   />
                 </Label>
             </Password>
-            </LeftColumn>
-
- {/* ----- RIGHT COLUMN ----- */}
-            <RightColumn>
+            }/>
 
             {/* Contact Information Section */}
+            <Route path="/settings/contact-information" render={(props) =>
               <ContactInfo>
                 <h3>Contact Info</h3>
                 <Label width="48%">
@@ -582,8 +592,10 @@ class SeekerSettings extends Component {
                   ></TextArea>
                 </Label>
               </ContactInfo>
-                  
-            {/* Location Information Section*/}
+            }/>
+
+          {/* Location Information Section*/}
+          <Route path="/settings/location" render={(props) =>
               <Location>
               <h3>Location</h3>
                 <Label width="48%">
@@ -626,7 +638,6 @@ class SeekerSettings extends Component {
                   type="text"
                   />
                 </Label>
-
               {/* Remote Jobs and Relocation Checkboxes  */}
                 <div className="location-options">
                   <Label>
@@ -649,8 +660,10 @@ class SeekerSettings extends Component {
                   </Label>
                 </div>
               </Location>
+          }/>
 
             {/* Social Media + Porfolio Links Section */}
+            <Route path="/settings/social" render={(props) =>
               <Social>
               <h3>Social Links</h3>
                 <Label>
@@ -693,8 +706,8 @@ class SeekerSettings extends Component {
                   type="url"
                   />
                 </Label>
-
               </Social>
+            }/>
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
             {this.state.editing ? <EditButtons right="120px" onClick={this.submitHandler}>Save</EditButtons> : ''}

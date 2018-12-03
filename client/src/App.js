@@ -244,8 +244,7 @@ class App extends Component {
           let userType;
           let role;
 
-
-           if (idTokenResult.claims.seekers) {
+           if (idTokenResult.claims.seeker) {
             userType = "seekers";
             role = "seeker";
           } else if (idTokenResult.claims.companies) {
@@ -316,7 +315,7 @@ class App extends Component {
             if (idTokenResult.claims.seeker) {
               userType = 'seekers';
               role = "seeker";
-            } else if (idTokenResult.claims.company) {
+            } else if (idTokenResult.claims.companies) {
               userType = 'companies';
               role = "company";
             } else {
