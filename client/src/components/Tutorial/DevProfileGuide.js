@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import seeker from '../../images/markerlogo.png';
 
-const DevProfileGuide = () => {
+class DevProfileGuide extends React.Component{
+    switchPage = () => {
+        this.props.history.push('/tutorial/comprofileguide');
+    }
+    render() {
     return (
         <ProfileGuide>
            <h1>Job Seeker Profile</h1>
@@ -16,8 +20,10 @@ const DevProfileGuide = () => {
                At the bottom you will see their contact info if you are a verified company through MappaJob. 
            </p>
            <h1>Picture goes here</h1>
+           <button onClick={this.switchPage}>Next</button>
         </ProfileGuide>
     );
+    }
 }
 
 const ProfileGuide = styled.div`

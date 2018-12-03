@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../../images/mainlogo.png';
 import planet from '../../images/planet.png';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
 
-const Intro = () => {
+
+class Intro extends React.Component{
+
+    switchPage = () => {
+        this.props.history.push('/tutorial/gettingstarted');
+    }
+    render() {
     return (
-        <ModalContainer data-type="modal-container">
-        <ModalMain>
         <IntoContainer>
             <h1>
                 Welcome to  <span><img src={logo} alt="" style={{ width: '200px' }}/></span>
@@ -21,11 +24,11 @@ const Intro = () => {
                 MappaJob help make your experience as a developer or employer an easier one.
             </p>
             <img src={planet} alt="" style={{ width: '300px' }}/>
-            <button>Next</button>
+            <button onClick={this.switchPage}>Next</button>
         </IntoContainer>
-        </ModalMain>
-            </ModalContainer>
+
     );
+    }
 }
 
 const IntoContainer = styled.div`

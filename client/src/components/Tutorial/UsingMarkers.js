@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import company from '../../images/markerlogo4.png';
 import seeker from '../../images/markerlogo.png';
 
-const UsingMarkers = () => {
+class UsingMarkers extends React.Component{
+    switchPage = () => {
+        this.props.history.push('/tutorial/devprofileguide');
+    }
+    render(){
     return (
         <MarkerGuide>
             <h1>Using the Markers</h1>
@@ -20,8 +24,10 @@ const UsingMarkers = () => {
                 right hand corner of your screen. 
             </p>
             <h1>Picture Goes here</h1>
+            <button onClick={this.switchPage}>Next</button>
         </MarkerGuide>
     );
+    }
 }
 
 const MarkerGuide = styled.div`

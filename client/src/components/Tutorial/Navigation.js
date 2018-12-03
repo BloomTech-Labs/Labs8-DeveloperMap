@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Navigating = () => {
+class Navigating extends React.Component {
+    switchPage = () => {
+        this.props.history.push('/tutorial/usingmarkers');
+    }
+    render() {
     return (
         <NavGuide>
             <h1>Navigation</h1>
@@ -16,8 +20,10 @@ const Navigating = () => {
             </p>
             <h1>Picture goes here
             </h1>
+            <button onClick={this.switchPage}>Next</button>
         </NavGuide>
     );
+    }
 }
 
 const NavGuide = styled.div`

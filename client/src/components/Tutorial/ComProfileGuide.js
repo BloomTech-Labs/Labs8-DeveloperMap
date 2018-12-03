@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import company from '../../images/markerlogo4.png';
 
-const ComProfileGuide = () => {
+class ComProfileGuide extends React.Component{
+    switchPage = () => {
+        this.props.history.push('/tutorial/editsettings');
+    }
+    render(){
     return (
         <ProfileGuide>
            <h1>Employer Profile</h1>
@@ -17,9 +21,10 @@ const ComProfileGuide = () => {
                the top of the screen.
            </p>
            <h1>Picture goes here</h1>
-           
+           <button onClick={this.switchPage}>Next</button>
         </ProfileGuide>
     );
+    }
 }
 
 const ProfileGuide = styled.div`

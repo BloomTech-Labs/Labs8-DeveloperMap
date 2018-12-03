@@ -15,9 +15,10 @@ export const Nav = styled.div`
   
   .heart {
     margin-right: 2%;
+    padding-top: 2px;
     img {
       width: 25px;
-      height: 25px;
+      height: 23px;
     }
   }
   .avatar {
@@ -54,7 +55,7 @@ export const InButton = styled.button`
   border-radius: 20px;
   border: none;
   margin-right: 10px;
-  box-shadow: 0 4px 2px -2px gray;
+  box-shadow: 0 4px 2px -2px rgba(15,15,15,.2);
   &:hover {
     background-color: rgba(184,15,10,.8);
   } 

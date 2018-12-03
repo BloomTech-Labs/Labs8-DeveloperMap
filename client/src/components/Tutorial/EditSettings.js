@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const EditSettings = () => {
+class EditSettings extends React.Component{
+    switchPage = () => {
+        this.props.history.push('/');
+    }
+    render() {
     return (
         <SettingsGuide>
            <h1>Edit Settings</h1>
@@ -14,8 +18,10 @@ const EditSettings = () => {
                closing, or your new settings will not be saved.
            </p>
            <h1>Picture goes here</h1>
+           <button onClick={this.switchPage}>Done</button>
         </SettingsGuide>
     );
+    }
 }
 
 const SettingsGuide = styled.div`

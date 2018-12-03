@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const GettingStarted = (props) => {
+class GettingStarted extends React.Component{
+    switchPage = () => {
+        this.props.history.push('/tutorial/navigation');
+    }
+    render() {
     return (
-
             <StartContainer>
                 <h1>Getting Started</h1>
                 <p>
@@ -24,14 +27,14 @@ const GettingStarted = (props) => {
                     will be re-entering these in just a second. Now just fill out the Sign up form with your info and 
                     submit. You will then be redireced to the Map.
                 </p>
+                <button onClick={this.switchPage}>Next</button>
             </StartContainer>
-
     );
+    }
 }
 
 const StartContainer = styled.div`
   padding: 5%;
-  display: none;
 `;
 
 export default GettingStarted;
