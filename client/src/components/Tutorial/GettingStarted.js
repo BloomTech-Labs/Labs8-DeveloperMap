@@ -13,6 +13,17 @@ const GettingStarted = (props) => {
                     is set up.
                 </p>
                 <h1>Picture Goes Here</h1>
+                <p>
+                    Click on the 'Register Here' link to start filling out your information needed to 
+                    use the application effectively. You will be prompted to choose whether you are 
+                    a Job Seeker or an Employer.
+                </p>
+                <h1>Picture Goes Here</h1>
+                <p>
+                    Next Enter your Email and Password that you would like to affiliate with your account. Note: You 
+                    will be re-entering these in just a second. Now just fill out the Sign up form with your info and 
+                    submit. You will then be redireced to the Map.
+                </p>
             </StartContainer>
 
     );
