@@ -205,7 +205,7 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
-          style={{ position: 'absolute' }}
+          style={{ position: 'absolute', margin: '-1px' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
           onClick={() => this.setState({ pin: null })}
         >
@@ -213,28 +213,37 @@ class LandingPage extends React.Component {
             mapRef={this.mapRef}
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
+            onDoubleClick={e => e.preventDefault}
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
             <div className="key">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
-              <input
-                type="checkbox"
-                name="seeker"
-                checked={this.state.filter.seeker}
-                onChange={this.markerShow}
-              />
+              <ToggleKnob>
+                <input
+                  type="checkbox"
+                  name="seeker"
+                  id="seeker"
+                  checked={this.state.filter.seeker}
+                  onChange={this.markerShow}
+                />
+                <label htmlFor="seeker" />
+              </ToggleKnob>
             </div>
             <div className="key">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
-              <input
-                type="checkbox"
-                name="company"
-                checked={this.state.filter.company}
-                onChange={this.markerShow}
-              />
+              <ToggleKnob>
+                <input
+                  type="checkbox"
+                  name="company"
+                  id="company"
+                  checked={this.state.filter.company}
+                  onChange={this.markerShow}
+                />
+                <label htmlFor="company" />
+              </ToggleKnob>
             </div>
           </KeyBox>
 
@@ -262,17 +271,17 @@ const PinKey = styled.img`
 `;
 
 const KeyBox = styled.div`
-  width: 170px;
-  height: 140px;
+  width: 200px;
+  height: 150px;
   background-color: rgba(232, 232, 232, 0.85);
   position: absolute;
   right: 0;
   bottom: 0;
-  margin: 2%;
+  margin: 2% 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding-right: 2%;
   border-radius: 2px;
   z-index: 5;
@@ -283,61 +292,46 @@ const KeyBox = styled.div`
   h3 {
     font-size: 1.1rem;
     font-weight: lighter;
+    width: 80px;
   }
 `;
 
-const ToggleKnob = styled.label`
+const ToggleKnob = styled.div`
   position: relative;
-  width: 29px;
+  width: 30px;
   height: 12px;
-  justify-self: center;
-  align-items: center;
+  background-color: ${props =>
+    props.children[0].props.checked
+      ? props.children[0].props.id === 'company'
+        ? 'rgb(207, 149, 4)'
+        : 'rgb(122, 38, 38)'
+      : 'rgb(128, 128, 128)'};
+  margin: 20px 0;
+  border-radius: 5px;
+  z-index: 10;
+  margin: 0 10px;
+
   input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    &:before {
-      position: absolute;
-      content: '';
-      height: 13px;
-      width: 13px;
-      left: 1px;
-      bottom: 0px;
-      background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-    }
-  }
-  input:checked + .slider {
-    background-color: #2196f3;
+    appearance: none;
   }
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
-  }
-  .slider.round {
-    border-radius: 12px;
-  }
-
-  .slider.round:before {
+  label {
+    display: block;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
+
+    transition: all 0.5s ease;
+    cursor: pointer;
+    position: absolute;
+    top: -2.5px;
+    left: 15px;
+
+    background: rgb(37, 36, 48);
+  }
+
+  input[type='checkbox']:checked + label {
+    left: -3px;
   }
 `;
 
