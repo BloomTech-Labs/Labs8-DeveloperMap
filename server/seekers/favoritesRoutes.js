@@ -17,7 +17,7 @@ const validate = (req, res, next) => {
 
 // ==== GET will return all the jobs favorited keys for the specific user ====
 
-router.get('/:uid/keys', async (req, res) => {
+router.get('/keys/:uid', async (req, res) => {
   const { uid } = req.params;
   let favoritedList = [];
   const favoritePostings = await rootRef
