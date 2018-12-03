@@ -135,9 +135,9 @@ class SeekerSettings extends React.Component {
     const resumeInput = this.state.resumeInput;
 
     // Regular Expressions for Validation
-    const emailRegex = RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+    const emailRegex = RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$');
     const passwordRegex = RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})');
-    const fileRegex = RegExp('\.[0-9a-z]+$','g');
+    const fileRegex = RegExp('\\.[0-9a-z]+$','g');
 
     // Check to make sure that the fields are being edited. This shouldn't be needed, but is an extra check
     if (this.state.editing) {
@@ -199,9 +199,13 @@ class SeekerSettings extends React.Component {
               case firebase.storage.TaskState.PAUSED: // or 'paused'
                 console.log('Upload is paused');
                 break;
+
               case firebase.storage.TaskState.RUNNING: // or 'running'
                 console.log('Upload is running');
                 break;
+            
+              default:
+              console.log('Upload Initiated');
             }
           }, (error) => {
           // IMPLEMENT CASES FOR ERRORS AT THIS URL LATER:
@@ -221,6 +225,9 @@ class SeekerSettings extends React.Component {
               // Unknown error occurred, inspect error.serverResponse
               alert('An unknown error occurred. Please contact technical support.')
               break;
+
+            default:
+            alert('An unknown error occurred. Please contact technical support.')
           }}, () => {
           // Upload completed successfully, now we can get the download URL
           upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
@@ -256,12 +263,17 @@ class SeekerSettings extends React.Component {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
+
               case firebase.storage.TaskState.PAUSED: // or 'paused'
                 console.log('Upload is paused');
                 break;
+
               case firebase.storage.TaskState.RUNNING: // or 'running'
                 console.log('Upload is running');
                 break;
+
+              default:
+              console.log('Upload Initiated');
             }
           }, (error) => {
           // IMPLEMENT CASES FOR ERRORS AT THIS URL LATER:
@@ -281,6 +293,9 @@ class SeekerSettings extends React.Component {
               // Unknown error occurred, inspect error.serverResponse
               alert('An unknown error occurred. Please contact technical support.')
               break;
+
+            default:
+            alert('An unknown error occurred. Please contact technical support.')
           }}, () => {
           // Upload completed successfully, now we can get the download URL
           upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
@@ -430,8 +445,9 @@ class SeekerSettings extends React.Component {
             {/* Profile Information Section */}
               <ProfileInfo>
                 <div>
-                  <h3></h3>
-                  <img alt='Profile Picture' src={ 
+                  {/* <h3></h3> */}
+                  <br/>
+                  <img alt='Profile Pic' src={ 
                     this.state.profilePicture !== '' ?
                     this.state.profilePicture : profile
                     }/>

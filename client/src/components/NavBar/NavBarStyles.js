@@ -12,7 +12,6 @@ export const Nav = styled.div`
   right: 1%;
   justify-content: flex-end;
   align-items: center;
-  box-shadow: inset 10px 10px 10px rgba(255,255,255,.5);
   .heart {
     margin-right: 2%;
     img {
@@ -34,7 +33,7 @@ export const Nav = styled.div`
 
 export const Icons = styled.div`
   display: flex;
-  margin: 0 2%;
+  margin-right: 10px;
   justify-content: space-between;
   width: 100px;
   .signout{

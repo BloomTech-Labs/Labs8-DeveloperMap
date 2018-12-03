@@ -6,7 +6,7 @@ import Geocoder from 'react-map-gl-geocoder';
 
 import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
-
+import MainLogo from '../../images/mainlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
 
 import styled from 'styled-components';
@@ -20,6 +20,8 @@ class LandingPage extends React.Component {
       latitude: 37.7577,
       longitude: -100,
       zoom: 3,
+      width: '100%',
+      height: '100%',
     },
     data: [],
     pin: null,
@@ -203,8 +205,6 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
-          width="100%"
-          height="100%"
           style={{ position: 'absolute' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
           onClick={() => this.setState({ pin: null })}
@@ -214,6 +214,7 @@ class LandingPage extends React.Component {
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
           />
+          <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
             <div className="key">
               <PinKey src={SeekerPin} />
@@ -246,6 +247,15 @@ class LandingPage extends React.Component {
   }
 }
 
+const LogoImg = styled.img`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: auto;
+  margin: 2%;
+`;
+
 const PinKey = styled.img`
   width: 45px;
   height: 45px;
@@ -255,7 +265,6 @@ const KeyBox = styled.div`
   width: 170px;
   height: 140px;
   background-color: rgba(232, 232, 232, 0.85);
-  box-shadow: inset 10px 10px 10px rgba(255, 255, 255, 0.5);
   position: absolute;
   right: 0;
   bottom: 0;
@@ -265,6 +274,8 @@ const KeyBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-right: 2%;
+  border-radius: 2px;
+  z-index: 5;
   .key {
     display: flex;
     align-items: center;
