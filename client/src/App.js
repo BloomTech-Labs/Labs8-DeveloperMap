@@ -9,6 +9,7 @@ import {
   LandingPage,
   SeekerFavorites,
   SeekerSettings,
+  Settings,
   SeekerProfile,
   SignIn,
   SignUp,
@@ -382,7 +383,7 @@ class App extends Component {
           path="/settings"
           render={props =>
             this.state.currentSignedInUser && (
-              <SeekerSettings
+              <Settings
                 {...props}
                 currentSignedInUser={this.state.currentSignedInUser}
               />
