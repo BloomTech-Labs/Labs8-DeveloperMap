@@ -19,14 +19,14 @@ const validate = (req, res, next) => {
 
 router.get('/:uid/keys', async (req, res) => {
   const { uid } = req.params;
-  let favoriteKey = [];
+  let favoritedList = [];
   const favoritePostings = await rootRef
     .child(`favoritePostings/${uid}`)
     .once('value');
   favoritePostings.forEach(favoritePosting => {
-    favoriteKey.push(favoritePosting.key);
+    favoritedList.push(favoritePosting.key);
   });
-  res.json(favoriteKey);
+  res.json(favoritedList);
 });
 
 // ==== GET will return all the jobs favorited for the specific user ====
