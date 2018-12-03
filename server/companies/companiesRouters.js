@@ -32,6 +32,24 @@ router.get('/all', (req, res) => {
     });
 });
 
+router.get('/jobPostings/:companyUid/:uid', (req, res) => {
+  const { seekersUid, companyUid } = req.params;
+  let favoritedList = [];
+  const companyPostings = await rootRef
+    .child(`companyPostings/${companyUid}`)
+    .once('value');
+  const favoritePostings = await rootRef
+    .child(`favoritePostings/${seekersUid}`)
+    .once('value');
+  favoritePostings.forEach(favoritePosting => {
+    favoritedList.push(favoritePosting.key);
+  });
+  res.json({
+    posts: companyPostings.val(),
+    favoritedList: favoritedList,
+  });
+});
+
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
   rootRef
