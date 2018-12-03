@@ -20,6 +20,8 @@ class LandingPage extends React.Component {
       latitude: 37.7577,
       longitude: -100,
       zoom: 3,
+      width: '100%',
+      height: '100%',
     },
     data: [],
     pin: null,
@@ -199,8 +201,6 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
-          width="100%"
-          height="100%"
           style={{ position: 'absolute' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
           onClick={() => this.setState({ pin: null })}
@@ -210,7 +210,7 @@ class LandingPage extends React.Component {
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
           />
-          <LogoImg alt="logo" src={MainLogo}/>
+          <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
             <div className="key">
               <PinKey src={SeekerPin} />
