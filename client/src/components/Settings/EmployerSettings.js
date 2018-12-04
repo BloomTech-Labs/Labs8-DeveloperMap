@@ -6,7 +6,6 @@ import profile from '../../images/avatar-icon.jpg';
 import { 
   EditButtons,
   Label,
-  Social,
   ProfileInfo,
   Location, 
   Input, 
@@ -29,8 +28,8 @@ class EmployerSettings extends Component {
       currentPassword: '',
       newPassword: '', 
       rePassword: '',
-      firstName: '',
-      lastName: '',
+      companyName: '',
+      companyWebsite: '',
       email: '',
       jobTitle: '',
       phone: '',
@@ -316,8 +315,8 @@ class EmployerSettings extends Component {
       // Construct User Object By Extracting From State
       // ...Do this in a better way!
       const contactInfo = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
+        companyName: this.state.companyName,
+        companyWebsite: this.state.companyWebsite,
         email: this.state.email,
         phone: this.state.phone,
         jobTitle: this.state.jobTitle,
@@ -383,7 +382,7 @@ class EmployerSettings extends Component {
                 properties: {
                   jobTitle: this.state.jobTitle,
                   uid: this.state.uid,
-                  title: {firstName: this.state.firstName, lastName: this.state.lastName},
+                  title: {companyName: this.state.companyName, companyWebsite: this.state.companyWebsite},
                   profilePicture: this.state.profilePicture,
                   role: "seeker"
                 },
@@ -450,10 +449,10 @@ class EmployerSettings extends Component {
                     }/>
                   </div>
                 <NavLink exact to="/settings">Profile</NavLink>
-                <NavLink to="/settings/password">Password</NavLink>
+                <NavLink to="/settings/security">Security</NavLink>
                 <NavLink to="/settings/contact-information">Contact</NavLink>
                 <NavLink to="/settings/location">Location</NavLink>
-                <NavLink to="/settings/social">Social</NavLink>
+                <NavLink to="/settings/job-listings">Listings</NavLink>
               </Navigation>
             </LeftColumn>
 
@@ -548,27 +547,27 @@ class EmployerSettings extends Component {
             <Route path="/settings/contact-information" render={(props) =>
               <ContactInfo>
                 <h3>Contact Info</h3>
-                <Label width="48%">
-                  First Name
+                <Label width="100%">
+                  Company Name
                   <Input
-                  name="firstName"
-                  value={this.state.firstName}
+                  name="companyName"
+                  value={this.state.companyName}
                   onChange={this.changeHandler} 
                   disabled={!this.state.editing}
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
-                  Last Name
+                <Label width="100%">
+                  Company Website
                   <Input
-                  name="lastName"
-                  value={this.state.lastName}
+                  name="companyWebsite"
+                  value={this.state.companyWebsite}
                   onChange={this.changeHandler} 
                   disabled={!this.state.editing}
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   Phone
                   <Input
                   name="phoneNumber"
@@ -577,26 +576,6 @@ class EmployerSettings extends Component {
                   disabled={!this.state.editing}
                   type="phone"
                   />
-                </Label>
-                <Label width="48%">
-                  Job Title
-                  <Input 
-                  name="jobTitle"
-                  value={this.state.jobTitle}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="text"
-                  >
-                  </Input>
-                </Label>
-                <Label width="100%">
-                  Bio
-                  <TextArea 
-                  name="bio"
-                  value={this.state.bio}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  ></TextArea>
                 </Label>
               </ContactInfo>
             }/>
@@ -656,65 +635,11 @@ class EmployerSettings extends Component {
                     value="Open to Remote Bobs"
                     onChange={this.handleCheckboxes} /> <span>Open to Remote Jobs</span>
                   </Label>
-                  <Label>
-                    <CheckBox 
-                    disabled={!this.state.editing}
-                    checked={this.state.relocation}
-                    type="checkbox" 
-                    name="relocation" 
-                    value="Open to Relocation"
-                    onChange={this.handleCheckboxes} /> <span>Open to Relocation</span>
-                  </Label>
                 </div>
               </Location>
           }/>
 
-            {/* Social Media + Porfolio Links Section */}
-            <Route path="/settings/social" render={(props) =>
-              <Social>
-              <h3>Social Links</h3>
-                <Label width="100%">
-                  LinkedIn
-                  <Input
-                  name="linkedIn"
-                  value={this.state.linkedIn}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="url"
-                  />
-                </Label>
-                <Label width="100%">
-                  GitHub
-                  <Input
-                  name="github"
-                  value={this.state.github}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="url"
-                  />
-                </Label>
-                <Label width="100%">
-                  Twitter
-                  <Input
-                  name="twitter"
-                  value={this.state.twitter}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="url"
-                  />
-                </Label>
-                <Label width="100%">
-                  Personal Portfolio
-                  <Input
-                  name="portfolio"
-                  value={this.state.portfolio}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="url"
-                  />
-                </Label>
-              </Social>
-            }/>
+            {/* Posts Section */}
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
             {this.state.editing ? <EditButtons right="120px" onClick={this.submitHandler}>Save</EditButtons> : ''}
