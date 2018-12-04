@@ -498,6 +498,20 @@ class SeekerSettings extends Component {
             {/* Password Section */}
             <Route path="/settings/password" render={(props) =>
               <Password>
+              <h3>Update Email Address</h3>
+              <Label width="100%">
+                  Email {
+                    /*Put this in a styled component later*/ 
+                    this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
+                  <Input
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.changeHandler} 
+                  disabled={!this.state.editing}
+                  type="email"
+                  />
+                </Label>
+
               <h3>Update Password</h3>
                 <Label>
                   Current Password
@@ -554,18 +568,6 @@ class SeekerSettings extends Component {
                   onChange={this.changeHandler} 
                   disabled={!this.state.editing}
                   type="text"
-                  />
-                </Label>
-                <Label width="100%">
-                  Email {
-                    /*Put this in a styled component later*/ 
-                    this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
-                  <Input
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="email"
                   />
                 </Label>
                 <Label width="48%">
