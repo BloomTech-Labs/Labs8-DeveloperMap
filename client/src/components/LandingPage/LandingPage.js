@@ -4,12 +4,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
-import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
+import {
+  MapWindow,
+  ShowMarker,
+  CloseX,
+  PopupInfo,
+  LogoImg,
+  PinKey,
+  KeyBox,
+  ToggleKnob,
+} from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import MainLogo from '../../images/mainlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
-
-import styled from 'styled-components';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
@@ -33,19 +40,6 @@ class LandingPage extends React.Component {
 
   mapRef = React.createRef();
 
-  getMarkers = () => {
-    axios
-      .get('https://intense-stream-29923.herokuapp.com/api/markers')
-      .then(response => {
-        const markerArray = [];
-        for (let mark in response.data) {
-          markerArray.push(response.data[mark]);
-        }
-        this.setState({ data: markerArray });
-      })
-      .catch(err => console.log(err));
-  };
-
   componentDidMount() {
     window.addEventListener('resize', this.resize);
     this.resize();
@@ -57,6 +51,39 @@ class LandingPage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (
+      prevProps.currentSignedInUser !== this.props.currentSignedInUser &&
+      this.props.currentSignedInUser !== null
+    ) {
+      if (this.props.currentSignedInUser.role === 'seeker') {
+        this.setState({
+          currentSignedInUser: this.props.currentSignedInUser,
+          filter: {
+            seeker: false,
+            company: true,
+          },
+        });
+      } else if (this.props.currentSignedInUser.role === 'company') {
+        this.setState({
+          currentSignedInUser: this.props.currentSignedInUser,
+          filter: {
+            seeker: true,
+            company: false,
+          },
+        });
+      }
+    } else if (
+      prevProps.currentSignedInUser !== this.props.currentSignedInUser &&
+      this.props.currentSignedInUser === null
+    ) {
+      this.setState({
+        filter: {
+          seeker: true,
+          company: true,
+        },
+      });
+    }
+
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.getMarkers();
     }
@@ -75,6 +102,21 @@ class LandingPage extends React.Component {
     });
   };
 
+  // ==== Gets the markers from the server ====
+  getMarkers = () => {
+    axios
+      .get('https://intense-stream-29923.herokuapp.com/api/markers')
+      .then(response => {
+        const markerArray = [];
+        for (let mark in response.data) {
+          markerArray.push(response.data[mark]);
+        }
+        this.setState({ data: markerArray });
+      })
+      .catch(err => console.log(err));
+  };
+
+  // ==== Filter feature for the markers ====
   markerShow = e => {
     if (e.target.name === 'seeker') {
       this.setState(prevState => {
@@ -85,7 +127,7 @@ class LandingPage extends React.Component {
           },
         };
       });
-    } else {
+    } else if (e.target.name === 'company') {
       this.setState(prevState => {
         return {
           filter: {
@@ -97,6 +139,7 @@ class LandingPage extends React.Component {
     }
   };
 
+  // ==== Renders the markers to the map ====
   renderMarker = (mark, i) => {
     if (mark.properties.role === 'seeker') {
       return (
@@ -135,6 +178,7 @@ class LandingPage extends React.Component {
     }
   };
 
+  // ==== Renders the popup to the map ====
   renderPopup = () => {
     const { pin } = this.state;
 
@@ -201,7 +245,7 @@ class LandingPage extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           {...this.state.viewport}
           onViewportChange={this.handleViewportChange}
-          style={{ position: 'absolute' }}
+          style={{ position: 'absolute', margin: '-1px' }}
           mapStyle="mapbox://styles/lndubose/cjohrsfn608in2qqyyn2wu15g"
           onClick={() => this.setState({ pin: null })}
         >
@@ -215,22 +259,28 @@ class LandingPage extends React.Component {
             <div className="key">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
-              <input
-                type="checkbox"
-                name="seeker"
-                checked={this.state.filter.seeker}
-                onClick={this.markerShow}
-              />
+              <ToggleKnob htmlFor="seeker">
+                <input
+                  type="checkbox"
+                  name="seeker"
+                  id="seeker"
+                  checked={this.state.filter.seeker}
+                  onChange={this.markerShow}
+                />
+              </ToggleKnob>
             </div>
             <div className="key">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
-              <input
-                type="checkbox"
-                name="company"
-                checked={this.state.filter.company}
-                onClick={this.markerShow}
-              />
+              <ToggleKnob htmlFor="company">
+                <input
+                  type="checkbox"
+                  name="company"
+                  id="company"
+                  checked={this.state.filter.company}
+                  onChange={this.markerShow}
+                />
+              </ToggleKnob>
             </div>
           </KeyBox>
 
@@ -243,101 +293,4 @@ class LandingPage extends React.Component {
   }
 }
 
-const LogoImg = styled.img`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 300px;
-  height: auto;
-  margin: 2%;
-`;
-
-const PinKey = styled.img`
-  width: 45px;
-  height: 45px;
-`;
-
-const KeyBox = styled.div`
-  width: 170px;
-  height: 140px;
-  background-color: rgba(232, 232, 232, 0.85);
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 2%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding-right: 2%;
-  border-radius: 2px;
-  z-index: 5;
-  .key {
-    display: flex;
-    align-items: center;
-  }
-  h3 {
-    font-size: 1.1rem;
-    font-weight: lighter;
-  }
-`;
-
-const ToggleKnob = styled.label`
-  position: relative;
-  width: 29px;
-  height: 12px;
-  justify-self: center;
-  align-items: center;
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    &:before {
-      position: absolute;
-      content: '';
-      height: 13px;
-      width: 13px;
-      left: 1px;
-      bottom: 0px;
-      background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-    }
-  }
-  input:checked + .slider {
-    background-color: #2196f3;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
-  }
-  .slider.round {
-    border-radius: 12px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
-  }
-`;
-
 export default LandingPage;
-
-// onViewportChange={this.onViewportChange}
-// mapboxApiAccessToken={MAPBOX_TOKEN}

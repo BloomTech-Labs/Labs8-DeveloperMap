@@ -83,6 +83,7 @@ class SignIn extends React.Component {
                   this.state.password
                 );
                 this.setState({ email: '', password: '' });
+                this.props.history.push('/');
               }}
             >
               <Label htmlFor="email">
@@ -112,7 +113,9 @@ class SignIn extends React.Component {
                   Register here
                 </RegisterButton>
               </p>
-            <RegisterButton onClick={this.props.signUpWithGoogleAuthentication}>
+              <RegisterButton
+                onClick={this.props.signUpWithGoogleAuthentication}
+              >
                 Sign in with Google.
               </RegisterButton>
             </form>
@@ -121,14 +124,13 @@ class SignIn extends React.Component {
                 this.props.signOutCurrentUser(e);
               }}
               style={{
-                display: this.props.currentSignedInUser ? 'block' : 'none'
+                display: this.props.currentSignedInUser ? 'block' : 'none',
               }}
             >
               Sign Out
-            </button> 
+            </button>
           </SignModalMain>
         )}
-
       </ModalContainer>
     );
   }
