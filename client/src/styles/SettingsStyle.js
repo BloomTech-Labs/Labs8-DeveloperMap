@@ -41,8 +41,13 @@ a {
   background-color: rgba(109, 7, 26, .95);
   color: white;
   padding: 10px 5px;
+  margin: 20px 0 5px 0;
 }
-`
+
+img {
+  width: 100%;
+}
+`;
 
 // Input Fields
 export const Label = styled.label`
@@ -110,12 +115,9 @@ export const RightColumn = styled.div`
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
-  // Profile Picture... Consider making it a component and using background images instead.
-  img {
-    width: 100%;
-  }
+  height: 100%;
   label {
     padding: 20px 0;
     input {

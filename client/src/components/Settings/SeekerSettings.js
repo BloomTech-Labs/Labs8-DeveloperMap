@@ -445,6 +445,12 @@ class SeekerSettings extends Component {
     {/* ----- LEFT COLUMN ----- */}
             <LeftColumn>
               <Navigation>
+                <div>
+                    <img alt='Profile Pic' src={ 
+                      this.state.profilePicture !== '' ?
+                      this.state.profilePicture : profile
+                    }/>
+                  </div>
                 <NavLink to="/settings">Profile Information</NavLink>
                 <NavLink to="/settings/password">Password</NavLink>
                 <NavLink to="/settings/contact-information">Contact Information</NavLink>
@@ -459,28 +465,23 @@ class SeekerSettings extends Component {
             {/* Profile Information Section */}
             <Route exact path="/settings" render={(props) =>
               <ProfileInfo>
-                <div>
-                  {/* <h3></h3> */}
-                  <br/>
-                  <img alt='Profile Pic' src={ 
-                    this.state.profilePicture !== '' ?
-                    this.state.profilePicture : profile
-                    }/>
                   <Label>
-                  Upload New Profile Picture <br/>
-                  (.png, .jpg, .jpeg)
-                  <Input
-                  name="profilePictureInput"
-                  onChange={e => this.handleFiles(e)} 
-                  disabled={!this.state.editing}
-                  type="file" 
-                  accept=".png,.jpg,.jpeg"
-                  />
+                    <h3>Profile Picture</h3>
+                    Upload New Profile Picture <br/>
+                    (.png, .jpg, .jpeg)
+                    <Input
+                    name="profilePictureInput"
+                    onChange={e => this.handleFiles(e)} 
+                    disabled={!this.state.editing}
+                    type="file" 
+                    accept=".png,.jpg,.jpeg"
+                    />
                 </Label>
-                </div>
-                <h3>Resume</h3>
+
+                
                 {this.state.resume && <a href={this.state.resume}>Download Resume</a>}
                 <Label>
+                  <h3>Resume</h3>
                   Upload New Resume<br/>
                   (.pdf, .doc, .docx)
                   <Input
