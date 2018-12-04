@@ -67,7 +67,7 @@ img {
 // Input Fields
 export const Label = styled.label`
   display: block;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   width: ${props => props.width ? props.width : 'auto'};
 `;
 
@@ -130,18 +130,9 @@ export const RightColumn = styled.div`
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: ${props => props.justify};
   flex-wrap: wrap;
   height: 100%;
-  label {
-    padding: 20px 0;
-    input {
-      margin: 10px 0;
-      border: none;
-      height: 24px;
-      padding: 0px 10px;
-    }
-  }
   // The Download Resume Link... Consider making it a component and using background images instead.
   a {
     text-align: center;

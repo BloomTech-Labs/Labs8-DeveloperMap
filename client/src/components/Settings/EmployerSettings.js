@@ -450,7 +450,6 @@ class EmployerSettings extends Component {
                   </div>
                 <NavLink exact to="/settings">Profile</NavLink>
                 <NavLink to="/settings/security">Security</NavLink>
-                <NavLink to="/settings/contact-information">Contact</NavLink>
                 <NavLink to="/settings/location">Location</NavLink>
                 <NavLink to="/settings/job-listings">Listings</NavLink>
               </Navigation>
@@ -461,7 +460,7 @@ class EmployerSettings extends Component {
 
             {/* Profile Information Section */}
             <Route exact path="/settings" render={(props) =>
-              <ProfileInfo>
+              <ProfileInfo justify="space-between">
                   <Label>
                     <h3>Profile Picture</h3>
                     Upload New Profile Picture <br/>
@@ -474,19 +473,36 @@ class EmployerSettings extends Component {
                     accept=".png,.jpg,.jpeg"
                     />
                 </Label>
-
-                
-                {this.state.resume && <a href={this.state.resume}>Download Resume</a>}
-                <Label>
-                  <h3>Resume</h3>
-                  Upload New Resume<br/>
-                  (.pdf, .doc, .docx)
+        
+                <h3>Contact Info</h3>
+                <Label width="100%">
+                  Company Name
                   <Input
-                  name="resumeInput"
-                  onChange={e => this.handleFiles(e)} 
+                  name="companyName"
+                  value={this.state.companyName}
+                  onChange={this.changeHandler} 
                   disabled={!this.state.editing}
-                  type="file"
-                  accept=".pdf,.doc,.docx"
+                  type="text"
+                  />
+                </Label>
+                <Label width="100%">
+                  Company Website
+                  <Input
+                  name="companyWebsite"
+                  value={this.state.companyWebsite}
+                  onChange={this.changeHandler} 
+                  disabled={!this.state.editing}
+                  type="text"
+                  />
+                </Label>
+                <Label width="100%">
+                  Phone
+                  <Input
+                  name="phoneNumber"
+                  value={this.state.phoneNumber}
+                  onChange={this.changeHandler} 
+                  disabled={!this.state.editing}
+                  type="phone"
                   />
                 </Label>
               </ProfileInfo>

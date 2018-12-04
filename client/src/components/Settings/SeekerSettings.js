@@ -462,7 +462,7 @@ class SeekerSettings extends Component {
 
             {/* Profile Information Section */}
             <Route exact path="/settings" render={(props) =>
-              <ProfileInfo>
+              <ProfileInfo justify="space-around">
                   <Label>
                     <h3>Profile Picture</h3>
                     Upload New Profile Picture <br/>
