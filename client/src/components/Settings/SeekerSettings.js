@@ -14,6 +14,7 @@ import {
   TextArea,
   CheckBox,
   SettingsModalMain, 
+  Navigation,
   Password,
   LeftColumn,
   RightColumn,
@@ -443,15 +444,20 @@ class SeekerSettings extends Component {
 
     {/* ----- LEFT COLUMN ----- */}
             <LeftColumn>
-              <NavLink to="/settings/profile">Profile Information</NavLink>
-              <NavLink to="/settings/password">Password</NavLink>
+              <Navigation>
+                <NavLink to="/settings">Profile Information</NavLink>
+                <NavLink to="/settings/password">Password</NavLink>
+                <NavLink to="/settings/contact-information">Contact Information</NavLink>
+                <NavLink to="/settings/location">Location</NavLink>
+                <NavLink to="/settings/social">Social Links</NavLink>
+              </Navigation>
             </LeftColumn>
 
  {/* ----- RIGHT COLUMN ----- */}
             <RightColumn>
 
             {/* Profile Information Section */}
-            <Route path="/settings/profile" render={(props) =>
+            <Route exact path="/settings" render={(props) =>
               <ProfileInfo>
                 <div>
                   {/* <h3></h3> */}

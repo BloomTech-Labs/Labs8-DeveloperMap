@@ -29,6 +29,21 @@ export const SettingsModalMain = styled(ModalMain)`
   }
 `;
 
+// Settings Navigation
+export const Navigation = styled.div`
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+a {
+  font-weight: bold;
+  text-decoration: none;
+  background-color: rgba(109, 7, 26, .95);
+  color: white;
+  padding: 10px 5px;
+}
+`
+
 // Input Fields
 export const Label = styled.label`
   display: block;
@@ -80,13 +95,13 @@ export const CheckBox = styled.input`
 // Columns
 export const LeftColumn = styled.div`
   display: flex;
-  width: 30%;
+  width: 20%;
   flex-direction: column;
 `;
 
 export const RightColumn = styled.div`
   display: flex;
-  width: 60%;
+  width: 70%;
   flex-direction: column; 
   justify-content: space-between;
 `;
