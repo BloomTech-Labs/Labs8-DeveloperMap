@@ -107,8 +107,8 @@ router.post(
       email,
       location,
       phoneNumber,
-      profilePicture = '',
-      remote = false
+      profilePicture: '',
+      remote: false,
     };
     let updateObject = {};
     updateObject[`companies/${uid}`] = newData;
@@ -124,7 +124,7 @@ router.post(
 );
 
 router.post('/jobsListed', (req, res) => {
-  const { companyName, date, jobLink, jobTitle,  uid } = req.body;
+  const { companyName, date, jobLink, jobTitle, uid } = req.body;
   const companyUid = uid;
   const jobId = rootRef.push(null).key;
   rootRef
