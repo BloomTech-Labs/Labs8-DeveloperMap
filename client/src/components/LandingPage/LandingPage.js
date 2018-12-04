@@ -4,12 +4,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
-import { MapWindow, ShowMarker, CloseX, PopupInfo } from './MapWindowStyle';
+import {
+  MapWindow,
+  ShowMarker,
+  CloseX,
+  PopupInfo,
+  LogoImg,
+  PinKey,
+  KeyBox,
+  ToggleKnob,
+} from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import MainLogo from '../../images/mainlogo.png';
 import CompanyPin from '../../images/markerlogo4.png';
-
-import styled from 'styled-components';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
@@ -285,83 +292,5 @@ class LandingPage extends React.Component {
     );
   }
 }
-
-const LogoImg = styled.img`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 300px;
-  height: auto;
-  margin: 2%;
-`;
-
-const PinKey = styled.img`
-  width: 45px;
-  height: 45px;
-`;
-
-const KeyBox = styled.div`
-  width: 200px;
-  height: 150px;
-  background-color: rgba(232, 232, 232, 0.85);
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 4% 3%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-right: 2%;
-  border-radius: 2px;
-  z-index: 5;
-  .key {
-    display: flex;
-    align-items: center;
-  }
-  h3 {
-    font-size: 1.1rem;
-    font-weight: lighter;
-    width: 80px;
-  }
-`;
-
-const ToggleKnob = styled.label`
-  position: relative;
-  width: 30px;
-  height: 12px;
-  background-color: ${props =>
-    props.children.props.checked
-      ? props.children.props.id === 'company'
-        ? 'rgb(207, 149, 4)'
-        : 'rgb(122, 38, 38)'
-      : 'rgb(128, 128, 128)'};
-  margin: 20px 0;
-  border-radius: 5px;
-  z-index: 10;
-  margin: 0 10px;
-  cursor: pointer;
-
-  input[type='checkbox'] {
-    outline: none;
-    appearance: none;
-    display: block;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-
-    transition: all 0.5s ease;
-    cursor: pointer;
-    position: absolute;
-    top: -5px;
-    left: 15px;
-
-    background: rgb(37, 36, 48);
-  }
-
-  input[type='checkbox']:checked {
-    left: -5px;
-  }
-`;
 
 export default LandingPage;
