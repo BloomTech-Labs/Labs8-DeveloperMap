@@ -4,7 +4,7 @@ const googleAuthImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-de
 const googleAuthHoverImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_pressed_web.png?alt=media&token=e4a98c94-5d5d-4e78-aadb-54d20fb44e1e'
 
 export const SignModalMain = styled(ModalMain)`
-  width: 21%;
+  width: ${props => props.width};
   display: flex;
   align-items: center;
   padding: 50px 5% 50px 5%;

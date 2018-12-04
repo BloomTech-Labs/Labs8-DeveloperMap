@@ -13,6 +13,12 @@ class SignUpTypes extends React.Component {
 
   // Form Input Control
   changeHandler = e => {
+    if (e.currentTarget.value === '') {
+      e.currentTarget.classList.remove('active');
+    } else {
+      e.currentTarget.classList.add('active');
+    }
+
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -71,9 +77,6 @@ class SignUpTypes extends React.Component {
           <form onSubmit={this.submitHandler}>
           <h2>Sign Up</h2>
             <AuthField>
-              <Label htmlFor="email">
-                Email
-              </Label>  
               <Input
                 id="email"
                 name="email"
@@ -82,11 +85,11 @@ class SignUpTypes extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
+              <Label htmlFor="email">
+                Email
+              </Label>  
             </AuthField>
             <AuthField>
-              <Label htmlFor="password">
-                Password
-              </Label>
               <Input
                 id="password"
                 name="password"
@@ -95,11 +98,11 @@ class SignUpTypes extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
+              <Label htmlFor="password">
+                Password
+              </Label>
             </AuthField>
             <AuthField>
-              <Label htmlFor="rePassword">
-                Re-Enter Password
-              </Label>
               <Input
                 id="rePassword"
                 name="rePassword"
@@ -108,6 +111,9 @@ class SignUpTypes extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
+              <Label htmlFor="rePassword">
+                Re-Enter Password
+              </Label>
             </AuthField>
             <Button>Sign Up</Button>
 
