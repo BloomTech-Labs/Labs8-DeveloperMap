@@ -15,6 +15,20 @@ const validate = (req, res, next) => {
   }
 };
 
+// ==== GET will return all the jobs favorited keys for the specific user ====
+
+router.get('/keys/:uid', async (req, res) => {
+  const { uid } = req.params;
+  let favoritedList = [];
+  const favoritePostings = await rootRef
+    .child(`favoritePostings/${uid}`)
+    .once('value');
+  favoritePostings.forEach(favoritePosting => {
+    favoritedList.push(favoritePosting.key);
+  });
+  res.json(favoritedList);
+});
+
 // ==== GET will return all the jobs favorited for the specific user ====
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
@@ -68,6 +82,26 @@ router.post('/:uid/:jid', validate, (req, res) => {
       }
     })
     .catch(err => res.status(500).json({ error: `Server error --> ${err}` }));
+});
+
+//  ==== PUT for updating favorite posts ====
+
+router.put('/', async (req, res) => {
+  const { newFavorites, uid, companyUid } = req.body;
+  let updateObject = {};
+  rootRef
+    .child(`companyPostings/${companyUid}`)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(childSnap => {
+        if (newFavorites.includes(childSnap.key)) {
+          console.log(childSnap.key);
+          updateObject[childSnap.key] = childSnap.val();
+        }
+      });
+      rootRef.child(`favoritePostings/${uid}`).set(updateObject);
+      res.json('updated');
+    });
 });
 
 // ==== DELETE will remove the job from the favorites list ====

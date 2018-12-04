@@ -32,6 +32,24 @@ router.get('/all', (req, res) => {
     });
 });
 
+router.get('/jobPostings/:companyUid/:seekersUid', async (req, res) => {
+  const { seekersUid, companyUid } = req.params;
+  let favoritedList = [];
+  const companyPostings = await rootRef
+    .child(`companyPostings/${companyUid}`)
+    .once('value');
+  const favoritePostings = await rootRef
+    .child(`favoritePostings/${seekersUid}`)
+    .once('value');
+  favoritePostings.forEach(favoritePosting => {
+    favoritedList.push(favoritePosting.key);
+  });
+  res.json({
+    posts: companyPostings.val(),
+    favoritedList: favoritedList,
+  });
+});
+
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
   rootRef
@@ -120,8 +138,8 @@ router.post('/jobsListed', (req, res) => {
 
 //----------------------------------------------------------------------PUT
 
-router.put('/userInfo', (req, res) => {
-  const { uid } = req.body;
+router.put('/userInfo', createMarkerObjectCompany, (req, res) => {
+  const { uid, markerData } = req.body;
   const updateKeys = Object.keys(req.body);
   rootRef
     .child(`companies/${uid}`)
@@ -131,6 +149,9 @@ router.put('/userInfo', (req, res) => {
         return res.json({ message: 'user does not exist' });
       }
       let updateObject = {};
+      if (markerData) {
+        updateObject[`markers/${uid}`] = markerData;
+      }
       snapshot.forEach(childSnap => {
         const snapKey = childSnap.key;
         if (updateKeys.includes(snapKey)) {
