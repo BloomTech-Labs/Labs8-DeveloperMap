@@ -451,11 +451,11 @@ class SeekerSettings extends Component {
                       this.state.profilePicture : profile
                     }/>
                   </div>
-                <NavLink to="/settings">Profile Information</NavLink>
+                <NavLink exact to="/settings">Profile</NavLink>
                 <NavLink to="/settings/password">Password</NavLink>
-                <NavLink to="/settings/contact-information">Contact Information</NavLink>
+                <NavLink to="/settings/contact-information">Contact</NavLink>
                 <NavLink to="/settings/location">Location</NavLink>
-                <NavLink to="/settings/social">Social Links</NavLink>
+                <NavLink to="/settings/social">Social</NavLink>
               </Navigation>
             </LeftColumn>
 
@@ -605,7 +605,7 @@ class SeekerSettings extends Component {
           <Route path="/settings/location" render={(props) =>
               <Location>
               <h3>Location</h3>
-                <Label width="48%">
+                <Label width="100%">
                   Street
                   <Input
                   name="street"
@@ -615,7 +615,7 @@ class SeekerSettings extends Component {
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   City
                   <Input
                   name="city"
@@ -625,7 +625,7 @@ class SeekerSettings extends Component {
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   State
                   <Input
                   name="state"
@@ -635,7 +635,7 @@ class SeekerSettings extends Component {
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   Zip Code
                   <Input
                   name="zip"
@@ -673,7 +673,7 @@ class SeekerSettings extends Component {
             <Route path="/settings/social" render={(props) =>
               <Social>
               <h3>Social Links</h3>
-                <Label>
+                <Label width="100%">
                   LinkedIn
                   <Input
                   name="linkedIn"
@@ -683,7 +683,7 @@ class SeekerSettings extends Component {
                   type="url"
                   />
                 </Label>
-                <Label>
+                <Label width="100%">
                   GitHub
                   <Input
                   name="github"
@@ -693,7 +693,7 @@ class SeekerSettings extends Component {
                   type="url"
                   />
                 </Label>
-                <Label>
+                <Label width="100%">
                   Twitter
                   <Input
                   name="twitter"
@@ -703,7 +703,7 @@ class SeekerSettings extends Component {
                   type="url"
                   />
                 </Label>
-                <Label>
+                <Label width="100%">
                   Personal Portfolio
                   <Input
                   name="portfolio"
