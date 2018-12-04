@@ -1,13 +1,12 @@
 import React from 'react';
-import Heart from '../../images/favorites-icon.png';
-import Avatar from '../../images/avatar-icon.jpg';
-import Logout from '../../images/logout.png';
+import Heart from '../../images/favheart.png';
+import Avatar from '../../images/gear.png';
+import Logout from '../../images/logout1.png';
 import {
   Nav,
   Icons,
   InButton
 } from './NavBarStyles';
-
 
 
 class NavBar extends React.Component {
@@ -34,13 +33,13 @@ class NavBar extends React.Component {
         {this.props.user ? (
         <Icons>
         <div className="heart" onClick={this.billMe}>
-          <img alt="Favorites Icon" src={Heart} />
-        </div>
-        <div className="signout">
-        <img alt='Logout' src={Logout} onClick={this.props.signOut}/>
+          <img alt="Favorites Icon" src={Heart} title='Favorites'/>
         </div>
         <div className="avatar">
-          <img alt="Avatar Icon" src={Avatar} onClick={this.profilePop}/>
+          <img alt="Avatar Icon" src={Avatar} onClick={this.profilePop} title='User Settings'/>
+        </div>
+        <div className="signout">
+        <img alt='Logout' src={Logout} onClick={this.props.signOut} title='Logout'/>
         </div>
         </Icons>)
         :

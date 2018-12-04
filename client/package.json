@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^6.1.0",
+    "eva-icons": "^1.1.1",
     "firebase": "^5.5.7",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",

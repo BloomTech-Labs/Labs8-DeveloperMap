@@ -13,6 +13,7 @@ import {
   SignIn,
   SignUp,
   NoUser,
+  TutorialIntro
 } from './reducer';
 
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -421,6 +422,7 @@ class App extends Component {
           )}
         />
         <Route path="/nouser" component={NoUser} />
+        <Route path="/tutorial" component={TutorialIntro} />
       </div>
     );
   }
