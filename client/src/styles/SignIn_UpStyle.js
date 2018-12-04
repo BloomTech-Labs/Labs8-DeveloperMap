@@ -93,11 +93,13 @@ export const FullName = styled.div`
 export const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   input[type=text], input[type=email] {
     width: 100%;
   }
-  input[type=text] {
-    margin-top: 10px;
+
+  .div {
+    width: 100%;
   }
 `;
 
@@ -123,10 +125,6 @@ export const Location = styled.div`
   div {
     width: 49%;
   }
-`;
-
-export const JobTitle = styled.div`
-
 `;
 
 export const Password = styled.div`

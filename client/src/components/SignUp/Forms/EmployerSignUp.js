@@ -1,7 +1,16 @@
 import React from 'react';
 import firebase from 'firebase';
 import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
-import { Label, Input, SignModalMain } from '../../../styles/SignIn_UpStyle';
+import { 
+  Label, 
+  Input, 
+  Button,
+  FullName,
+  Location,
+  ContactInfo,
+  SignModalMain,
+  AuthField 
+} from '../../../styles/SignIn_UpStyle';
 
 class EmployerSignUp extends React.Component {
   state = {
@@ -63,8 +72,8 @@ class EmployerSignUp extends React.Component {
         <SignModalMain>
           <h2>Employer Sign Up</h2>
           <form onSubmit={this.submitHandler}>
-            <Label htmlFor="companyName">
-              Company Name
+          <FullName>
+            <AuthField>
               <Input
                 name="companyName"
                 type="text"
@@ -72,29 +81,15 @@ class EmployerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="website">
-             Company Website
-              <Input
-                name="website"
-                type="url"
-                value={this.state.website}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            {/* <Label htmlFor="email">
-              Email
-              <Input
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label> */}
-            <Label htmlFor="phone">
-              Phone
+              <Label htmlFor="companyName">
+                Company Name
+              </Label>
+            </AuthField>
+
+            <AuthField>
+              <Label htmlFor="phone">
+                Phone
+              </Label>
               <Input
                 name="phone"
                 type="text"
@@ -102,47 +97,89 @@ class EmployerSignUp extends React.Component {
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="street">
-              Street
+            </AuthField>
+
+              {/* <Label htmlFor="email">
+                Email
+                <Input
+                  name="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.changeHandler}
+                  required
+                />
+              </Label> */}
+          </FullName>
+
+          <ContactInfo>
+          <AuthField>
+              <Label htmlFor="website">
+              Company Website
+              </Label>
               <Input
-                name="street"
-                type="text"
-                value={this.state.street}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="city">
-              City
+                  name="website"
+                  type="url"
+                  value={this.state.website}
+                  onChange={this.changeHandler}
+                  required
+                />
+            </AuthField>
+          </ContactInfo>
+
+          <Location>
+            <AuthField>
+              <Label htmlFor="street">
+                Street
+              </Label>
               <Input
-                name="city"
-                type="text"
-                value={this.state.city}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="state">
-              State
+                  name="street"
+                  type="text"
+                  value={this.state.street}
+                  onChange={this.changeHandler}
+                  required
+                />
+            </AuthField>
+
+            <AuthField>
+              <Label htmlFor="city">
+                City
+              </Label>
               <Input
-                name="state"
-                type="text"
-                value={this.state.state}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
-            <Label htmlFor="zipCode">
-              Zip Code
+                  name="city"
+                  type="text"
+                  value={this.state.city}
+                  onChange={this.changeHandler}
+                  required
+                />
+            </AuthField>
+
+            <AuthField>
+              <Label htmlFor="state">
+                State
+              </Label>
               <Input
-                name="zipCode"
-                type="text"
-                value={this.state.zipCode}
-                onChange={this.changeHandler}
-                required
-              />
-            </Label>
+                  name="state"
+                  type="text"
+                  value={this.state.state}
+                  onChange={this.changeHandler}
+                  required
+                />
+            </AuthField>
+
+            <AuthField>
+              <Label htmlFor="zipCode">
+                Zip Code
+              </Label>
+              <Input
+                  name="zipCode"
+                  type="text"
+                  value={this.state.zipCode}
+                  onChange={this.changeHandler}
+                  required
+                />
+            </AuthField>
+          </Location>
+
             {/* <Label htmlFor="password">
               Password
               <Input
@@ -163,7 +200,7 @@ class EmployerSignUp extends React.Component {
                 required
               />
             </Label> */}
-            <button>Sign Up</button>
+            <Button width="50%">Sign Up</Button>
           </form>
         </SignModalMain>
       </ModalContainer>

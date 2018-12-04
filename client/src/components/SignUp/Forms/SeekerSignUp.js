@@ -92,7 +92,7 @@ class SeekerSignUp extends React.Component {
               <Label htmlFor="firstName">
                 First
               </Label>
-              </AuthField>
+            </AuthField>
 
             <AuthField>   
               <Input
