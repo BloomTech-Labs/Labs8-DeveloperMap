@@ -4,8 +4,8 @@ import {
   Label,
   Input,
   Button,
+  GoogleAuthButton,
   SignModalMain,
-  RegisterButton,
   AuthField,
 } from '../../styles/SignIn_UpStyle';
 import firebase from '../../firebase/firebase.js';
@@ -123,28 +123,11 @@ class SignIn extends React.Component {
                 </Label>
               </AuthField>
               <Button>Sign In</Button>
-              <p>
-                New here?{' '}
-                <RegisterButton onClick={this.clickRegister}>
-                  Register here
-                </RegisterButton>
-              </p>
-              <RegisterButton
-                onClick={this.props.signUpWithGoogleAuthentication}
-              >
-                Sign in with Google.
-              </RegisterButton>
+              - or -
+              <Button onClick={e => {e.preventDefault(); this.props.history.push('/signup')}}>Register</Button>
+              <GoogleAuthButton />
+
             </form>
-            <button
-              onClick={e => {
-                this.props.signOutCurrentUser(e);
-              }}
-              style={{
-                display: this.props.currentSignedInUser ? 'block' : 'none',
-              }}
-            >
-              Sign Out
-            </button>
           </SignModalMain>
         )}
       </ModalContainer>

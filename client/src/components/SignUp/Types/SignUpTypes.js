@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Label, Input, Button, AuthField } from '../../../styles/SignIn_UpStyle';
+import { Label, Input, Button, AuthField, GoogleAuthButton } from '../../../styles/SignIn_UpStyle';
+
+const googleAuthImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_normal_web.png?alt=media&token=cff7b16c-6e52-483d-b195-ebc43b3f2b57';
 
 class SignUpTypes extends React.Component {
   state = {
@@ -108,11 +110,9 @@ class SignUpTypes extends React.Component {
               />
             </AuthField>
             <Button>Sign Up</Button>
-            <div>
-            {/*Third Party Auth Goes Here. Two Examples (Nonfunctional) Below: */}
-            <div>{/*Google Logo Icon*/}</div><p>Sign Up With Google</p>
-            <div>{/*GitHub Logo Icon*/}</div><p>Sign Up With GitHub</p>
-            </div>
+
+            {/* Third Party Auth */}
+            <GoogleAuthButton/>
           </form>
 
       </section>

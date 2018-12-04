@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { ModalMain } from './ModalGlobalStyle.js';
+const googleAuthImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_normal_web.png?alt=media&token=cff7b16c-6e52-483d-b195-ebc43b3f2b57';
+const googleAuthHoverImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_pressed_web.png?alt=media&token=e4a98c94-5d5d-4e78-aadb-54d20fb44e1e'
 
 export const SignModalMain = styled(ModalMain)`
   width: 21%;
@@ -105,6 +107,16 @@ export const AuthField = styled.div`
   margin-bottom: 10px;
 `;
 
+export const TypesContainer = styled.section`
+display: flex;
+flex-direction: column;
+align-items: center;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+`; 
+
 export const Location = styled.div`
   display: flex;
   justify-content: space-between;
@@ -150,10 +162,23 @@ export const Button = styled.button`
   color: white;
   border: none;
   border-radius: 25px;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 10px 0;
   box-shadow: 0 4px 2px -2px gray;
+  outline: none;
   cursor: pointer;
   &:hover {
     background-color: rgba(184,15,10,.8);
+  }
+`;
+
+export const GoogleAuthButton = styled.div`
+  background-image: url("${googleAuthImageURL}");
+  width: 191px;
+  height: 46px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-image: url("${googleAuthHoverImageURL}");
   }
 `;
