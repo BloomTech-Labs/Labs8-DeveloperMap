@@ -200,7 +200,7 @@ class EmployerSignUp extends React.Component {
                 required
               />
             </Label> */}
-            <Button width="50%">Sign Up</Button>
+            <Button width="100%">Sign Up</Button>
           </form>
         </SignModalMain>
       </ModalContainer>
