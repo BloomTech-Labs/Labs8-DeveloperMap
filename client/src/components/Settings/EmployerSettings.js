@@ -457,8 +457,8 @@ class EmployerSettings extends Component {
             {/* Profile Information Section */}
             <Route exact path="/settings" render={(props) =>
               <ProfileInfo justify="space-between">
+                  <h3>Profile Picture</h3>
                   <Label>
-                    <h3>Profile Picture</h3>
                     Upload New Profile Picture <br/>
                     (.png, .jpg, .jpeg)
                     <Input
