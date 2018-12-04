@@ -3,6 +3,7 @@ import axios from 'axios';
 import firebase, { auth, storage } from '../../firebase/firebase';
 import { Route, NavLink } from 'react-router-dom';
 import profile from '../../images/avatar-icon.jpg';
+import { Posts, PostContainer } from '../EmployerProfile/EmployerStyles';
 import { 
   EditButtons,
   Label,
@@ -652,6 +653,20 @@ class EmployerSettings extends Component {
           }/>
 
             {/* Posts Section */}
+          <Route path="/settings/job-listings" render={(props) =>
+            <PostContainer>
+              {this.state.posts ? (
+                <Posts>
+                  <div>I'm a Job Posting</div>
+                </Posts>
+              ) : (
+                <Posts>
+                  <h1>You haven't listed any jobs yet!</h1>
+                </Posts>
+              )}
+            </PostContainer>
+          }/>
+
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
             {this.state.editing ? <EditButtons right="120px" onClick={this.submitHandler}>Save</EditButtons> : ''}
