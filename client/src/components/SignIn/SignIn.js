@@ -58,7 +58,7 @@ class SignIn extends React.Component {
 
     return (
       <ModalContainer data-type="modal-container">
-        {this.state.userSignin && (
+        {/* {this.state.userSignin && (
           <SignModalMain width="21%">
             <h2>Hello, {firstName}</h2>
             <h2>JobTitle: ${jobTitle}</h2>
@@ -74,10 +74,10 @@ class SignIn extends React.Component {
               Sign Out
             </button>
           </SignModalMain>
-        )}
+        )} */}
 
         {!this.state.userSignin && (
-          <SignModalMain>
+          <SignModalMain width="21%">
             <h2>
               {this.props.currentSignedInUser
                 ? `Welcome ${this.props.currentSignedInUser.firstName}`

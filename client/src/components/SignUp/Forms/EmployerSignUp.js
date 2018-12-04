@@ -20,6 +20,12 @@ class EmployerSignUp extends React.Component {
   };
 
   changeHandler = e => {
+      if (e.currentTarget.value === '') {
+        e.currentTarget.classList.remove('active');
+      } else {
+        e.currentTarget.classList.add('active');
+      }  
+
     this.setState({ [e.target.name]: e.target.value });
   };
 

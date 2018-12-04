@@ -3,15 +3,14 @@ import firebase from 'firebase';
 import { ModalContainer } from '../../../styles/ModalGlobalStyle.js';
 import { 
   Button,
-  JobTitle,
   Location, 
   Label, 
   Input, 
   AuthField,
   SignModalMain, 
   // Password,
-  FullName, 
-  ContactInfo } from '../../../styles/SignIn_UpStyle';
+  FullName 
+} from '../../../styles/SignIn_UpStyle';
 
 class SeekerSignUp extends React.Component {
   state = {
