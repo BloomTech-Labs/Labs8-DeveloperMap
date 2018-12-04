@@ -123,11 +123,23 @@ router.post(
   }
 );
 
-router.post('/jobsListed', (req, res) => {
+router.post('/jobsListed', async (req, res) => {
   const { companyName, date, jobLink, jobTitle, uid } = req.body;
   const companyUid = uid;
   const jobId = rootRef.push(null).key;
-  const newData = { companyName, date, jobLink, jobTitle, companyUid, jobId };
+  const locationSnap = await rootRef
+    .child(`companies/${uid}/location`)
+    .once('value');
+  const location = locationSnap.val();
+  const newData = {
+    companyName,
+    date,
+    jobLink,
+    jobTitle,
+    companyUid,
+    jobId,
+    location,
+  };
   const updateObject = {
     [`companyPostings/${uid}/${jobId}`]: newData,
     [`allJobPostings/${jobId}`]: newData,
