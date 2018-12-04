@@ -8,7 +8,6 @@ import {
   EmployerBilling,
   LandingPage,
   SeekerFavorites,
-  SeekerSettings,
   Settings,
   SeekerProfile,
   SignIn,

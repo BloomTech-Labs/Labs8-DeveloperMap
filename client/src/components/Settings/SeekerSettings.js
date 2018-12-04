@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import axios from 'axios';
 import firebase, { auth, storage } from '../../firebase/firebase';
-import { ModalContainer } from '../../styles/ModalGlobalStyle';
 import { Route, NavLink } from 'react-router-dom';
 import profile from '../../images/avatar-icon.jpg';
 import { 
@@ -13,9 +12,8 @@ import {
   Input, 
   TextArea,
   CheckBox,
-  SettingsModalMain, 
   Navigation,
-  Password,
+  Security,
   LeftColumn,
   RightColumn,
   ContactInfo } from '../../styles/SettingsStyle';
@@ -452,7 +450,7 @@ class SeekerSettings extends Component {
                     }/>
                   </div>
                 <NavLink exact to="/settings">Profile</NavLink>
-                <NavLink to="/settings/password">Password</NavLink>
+                <NavLink to="/settings/security">Security</NavLink>
                 <NavLink to="/settings/contact-information">Contact</NavLink>
                 <NavLink to="/settings/location">Location</NavLink>
                 <NavLink to="/settings/social">Social</NavLink>
@@ -495,9 +493,9 @@ class SeekerSettings extends Component {
               </ProfileInfo>
             }/>
 
-            {/* Password Section */}
-            <Route path="/settings/password" render={(props) =>
-              <Password>
+            {/* Security Section */}
+            <Route path="/settings/Security" render={(props) =>
+              <Security>
               <h3>Update Email Address</h3>
               <Label width="100%">
                   Email {
@@ -543,7 +541,7 @@ class SeekerSettings extends Component {
                   type="password"
                   />
                 </Label>
-            </Password>
+            </Security>
             }/>
 
             {/* Contact Information Section */}

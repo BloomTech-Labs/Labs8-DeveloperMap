@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import axios from 'axios';
 import firebase, { auth, storage } from '../../firebase/firebase';
-import { ModalContainer } from '../../styles/ModalGlobalStyle';
+import { Route, NavLink } from 'react-router-dom';
 import profile from '../../images/avatar-icon.jpg';
 import { 
   EditButtons,
@@ -12,8 +12,8 @@ import {
   Input, 
   TextArea,
   CheckBox,
-  SettingsModalMain, 
-  Password,
+  Navigation,
+  Security,
   LeftColumn,
   RightColumn,
   ContactInfo } from '../../styles/SettingsStyle';
@@ -381,9 +381,11 @@ class EmployerSettings extends Component {
                   coordinates: location.coordinates,
                 },
                 properties: {
+                  jobTitle: this.state.jobTitle,
                   uid: this.state.uid,
                   title: {firstName: this.state.firstName, lastName: this.state.lastName},
-                  profilePicture: this.state.profilePicture
+                  profilePicture: this.state.profilePicture,
+                  role: "seeker"
                 },
               };
               console.log(marker);
@@ -440,31 +442,44 @@ class EmployerSettings extends Component {
 
     {/* ----- LEFT COLUMN ----- */}
             <LeftColumn>
+              <Navigation>
+                <div>
+                    <img alt='Profile Pic' src={ 
+                      this.state.profilePicture !== '' ?
+                      this.state.profilePicture : profile
+                    }/>
+                  </div>
+                <NavLink exact to="/settings">Profile</NavLink>
+                <NavLink to="/settings/password">Password</NavLink>
+                <NavLink to="/settings/contact-information">Contact</NavLink>
+                <NavLink to="/settings/location">Location</NavLink>
+                <NavLink to="/settings/social">Social</NavLink>
+              </Navigation>
+            </LeftColumn>
+
+ {/* ----- RIGHT COLUMN ----- */}
+            <RightColumn>
 
             {/* Profile Information Section */}
+            <Route exact path="/settings" render={(props) =>
               <ProfileInfo>
-                <div>
-                  {/* <h3></h3> */}
-                  <br/>
-                  <img alt='Profile Pic' src={ 
-                    this.state.profilePicture !== '' ?
-                    this.state.profilePicture : profile
-                    }/>
                   <Label>
-                  Upload New Profile Picture <br/>
-                  (.png, .jpg, .jpeg)
-                  <Input
-                  name="profilePictureInput"
-                  onChange={e => this.handleFiles(e)} 
-                  disabled={!this.state.editing}
-                  type="file" 
-                  accept=".png,.jpg,.jpeg"
-                  />
+                    <h3>Profile Picture</h3>
+                    Upload New Profile Picture <br/>
+                    (.png, .jpg, .jpeg)
+                    <Input
+                    name="profilePictureInput"
+                    onChange={e => this.handleFiles(e)} 
+                    disabled={!this.state.editing}
+                    type="file" 
+                    accept=".png,.jpg,.jpeg"
+                    />
                 </Label>
-                </div>
-                <h3>Resume</h3>
+
+                
                 {this.state.resume && <a href={this.state.resume}>Download Resume</a>}
                 <Label>
+                  <h3>Resume</h3>
                   Upload New Resume<br/>
                   (.pdf, .doc, .docx)
                   <Input
@@ -476,9 +491,25 @@ class EmployerSettings extends Component {
                   />
                 </Label>
               </ProfileInfo>
-            
-            {/* Password Section */}
-              <Password>
+            }/>
+
+            {/* Security Section */}
+            <Route path="/settings/security" render={(props) =>
+              <Security>
+              <h3>Update Email Address</h3>
+              <Label width="100%">
+                  Email {
+                    /*Put this in a styled component later*/ 
+                    this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
+                  <Input
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.changeHandler} 
+                  disabled={!this.state.editing}
+                  type="email"
+                  />
+                </Label>
+
               <h3>Update Password</h3>
                 <Label>
                   Current Password
@@ -510,13 +541,11 @@ class EmployerSettings extends Component {
                   type="password"
                   />
                 </Label>
-            </Password>
-            </LeftColumn>
-
- {/* ----- RIGHT COLUMN ----- */}
-            <RightColumn>
+            </Security>
+            }/>
 
             {/* Contact Information Section */}
+            <Route path="/settings/contact-information" render={(props) =>
               <ContactInfo>
                 <h3>Contact Info</h3>
                 <Label width="48%">
@@ -537,18 +566,6 @@ class EmployerSettings extends Component {
                   onChange={this.changeHandler} 
                   disabled={!this.state.editing}
                   type="text"
-                  />
-                </Label>
-                <Label width="100%">
-                  Email {
-                    /*Put this in a styled component later*/ 
-                    this.state.editing ? <span style={{color:'red', fontSize:'12px'}}><br/>Please additionally enter your current password in the "Current Password Field"</span> : ""}
-                  <Input
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.changeHandler} 
-                  disabled={!this.state.editing}
-                  type="email"
                   />
                 </Label>
                 <Label width="48%">
@@ -582,11 +599,13 @@ class EmployerSettings extends Component {
                   ></TextArea>
                 </Label>
               </ContactInfo>
-                  
-            {/* Location Information Section*/}
+            }/>
+
+          {/* Location Information Section*/}
+          <Route path="/settings/location" render={(props) =>
               <Location>
               <h3>Location</h3>
-                <Label width="48%">
+                <Label width="100%">
                   Street
                   <Input
                   name="street"
@@ -596,7 +615,7 @@ class EmployerSettings extends Component {
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   City
                   <Input
                   name="city"
@@ -606,7 +625,7 @@ class EmployerSettings extends Component {
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   State
                   <Input
                   name="state"
@@ -616,7 +635,7 @@ class EmployerSettings extends Component {
                   type="text"
                   />
                 </Label>
-                <Label width="48%">
+                <Label width="100%">
                   Zip Code
                   <Input
                   name="zip"
@@ -626,7 +645,6 @@ class EmployerSettings extends Component {
                   type="text"
                   />
                 </Label>
-
               {/* Remote Jobs and Relocation Checkboxes  */}
                 <div className="location-options">
                   <Label>
@@ -649,11 +667,13 @@ class EmployerSettings extends Component {
                   </Label>
                 </div>
               </Location>
+          }/>
 
             {/* Social Media + Porfolio Links Section */}
+            <Route path="/settings/social" render={(props) =>
               <Social>
               <h3>Social Links</h3>
-                <Label>
+                <Label width="100%">
                   LinkedIn
                   <Input
                   name="linkedIn"
@@ -663,7 +683,7 @@ class EmployerSettings extends Component {
                   type="url"
                   />
                 </Label>
-                <Label>
+                <Label width="100%">
                   GitHub
                   <Input
                   name="github"
@@ -673,7 +693,7 @@ class EmployerSettings extends Component {
                   type="url"
                   />
                 </Label>
-                <Label>
+                <Label width="100%">
                   Twitter
                   <Input
                   name="twitter"
@@ -683,7 +703,7 @@ class EmployerSettings extends Component {
                   type="url"
                   />
                 </Label>
-                <Label>
+                <Label width="100%">
                   Personal Portfolio
                   <Input
                   name="portfolio"
@@ -693,8 +713,8 @@ class EmployerSettings extends Component {
                   type="url"
                   />
                 </Label>
-
               </Social>
+            }/>
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
             {this.state.editing ? <EditButtons right="120px" onClick={this.submitHandler}>Save</EditButtons> : ''}

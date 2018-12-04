@@ -60,6 +60,7 @@ a {
 
 img {
   width: 100%;
+  border-radius: 25px;
 }
 `;
 
@@ -150,7 +151,7 @@ export const ProfileInfo = styled.div`
   }
 `;
 
-export const Password = styled.div`
+export const Security = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
