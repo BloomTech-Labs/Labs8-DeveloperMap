@@ -8,8 +8,8 @@ import {
   SignModalMain,
   AuthField,
 } from '../../styles/SignIn_UpStyle';
-import firebase from '../../firebase/firebase.js';
-import axios from 'axios';
+// import firebase from '../../firebase/firebase.js';
+// import axios from 'axios';
 
 class SignIn extends React.Component {
   //Basic state
