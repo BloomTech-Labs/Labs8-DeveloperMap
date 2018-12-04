@@ -319,7 +319,7 @@ class SeekerSettings extends Component {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
-        phone: this.state.phone,
+        phoneNumber: this.state.phoneNumber,
         jobTitle: this.state.jobTitle,
         bio: this.state.bio
       };

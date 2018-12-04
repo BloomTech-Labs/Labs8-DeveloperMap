@@ -31,9 +31,7 @@ class EmployerSettings extends Component {
       companyName: '',
       companyWebsite: '',
       email: '',
-      jobTitle: '',
       phone: '',
-      bio: '',
       street: '',
       city: '',
       state: '',
@@ -232,7 +230,7 @@ class EmployerSettings extends Component {
           upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
             axios.put(
-              `https://intense-stream-29923.herokuapp.com/api/database/seekers/userInfo`,
+              `https://intense-stream-29923.herokuapp.com/api/database/companies/userInfo`,
               {profilePicture: downloadURL, uid: this.state.uid}
             )
             .then(() => {
@@ -300,7 +298,7 @@ class EmployerSettings extends Component {
           upload.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
             axios.put(
-                    `https://intense-stream-29923.herokuapp.com/api/database/seekers/userInfo`,
+                    `https://intense-stream-29923.herokuapp.com/api/database/companies/userInfo`,
                     {resume: downloadURL, uid: this.state.uid}
                   )
                   .then(() => {
@@ -318,9 +316,7 @@ class EmployerSettings extends Component {
         companyName: this.state.companyName,
         companyWebsite: this.state.companyWebsite,
         email: this.state.email,
-        phone: this.state.phone,
-        jobTitle: this.state.jobTitle,
-        bio: this.state.bio
+        phoneNumber: this.state.phoneNumber,
       };
 
       let location = { 
@@ -368,7 +364,7 @@ class EmployerSettings extends Component {
           // Update User with newUserInfo Object
           axios
             .put(
-              `https://intense-stream-29923.herokuapp.com/api/database/seekers/userInfo`,
+              `https://intense-stream-29923.herokuapp.com/api/database/companies/userInfo`,
               {...newUserInfo, uid: this.state.uid}
             )
             .then(() => {
@@ -384,7 +380,7 @@ class EmployerSettings extends Component {
                   uid: this.state.uid,
                   title: {companyName: this.state.companyName, companyWebsite: this.state.companyWebsite},
                   profilePicture: this.state.profilePicture,
-                  role: "seeker"
+                  role: "company"
                 },
               };
               console.log(marker);
