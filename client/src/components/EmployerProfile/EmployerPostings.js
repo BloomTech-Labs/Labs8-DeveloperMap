@@ -21,29 +21,29 @@ class EmployerPostings extends React.Component {
 
   async componentDidMount() {
     const user = this.props.user;
-    let favoritedList = [];
     const employerId = this.props.match.params.employerId;
-
-    rootRef
-      .child(`companyPostings/${employerId}`)
-      .once('value')
-      .then(posts => {
-        this.setState({ posts: posts.val() });
-      })
-      .then(() => {
-        if (user) {
-          const uid = user.uid;
-          rootRef
-            .child(`favoritePostings/${uid}`)
-            .once('value')
-            .then(favoritePostings => {
-              favoritePostings.forEach(childSnap => {
-                favoritedList.push(childSnap.key);
-              });
-              this.setState({ favoritedList });
-            });
-        }
-      });
+    if (user) {
+      const uid = user.uid;
+      axios
+        .get(
+          `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/${uid}`
+        )
+        .then(response => {
+          console.log(response);
+          this.setState({
+            posts: response.data.posts,
+            favoritedList: response.data.favoritedList,
+          });
+        });
+    } else {
+      axios
+        .get(
+          `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/noUser`
+        )
+        .then(response => {
+          console.log(response);
+        });
+    }
   }
 
   favToggle = async (e, post) => {
