@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Nav = styled.div`
   width: 98%;
   height: 50px;
-  background-color: rgba(232, 232, 232, .85);
+  background-color: rgba( 109, 7, 26, .95);
   z-index: 1;
   position: absolute;
   border-radius: 25px;
@@ -12,11 +12,13 @@ export const Nav = styled.div`
   right: 1%;
   justify-content: flex-end;
   align-items: center;
+
   .heart {
     margin-right: 2%;
+    padding-top: 2px;
     img {
       width: 25px;
-      height: 25px;
+      height: 23px;
     }
   }
   .avatar {
@@ -53,7 +55,7 @@ export const InButton = styled.button`
   border-radius: 20px;
   border: none;
   margin-right: 10px;
-  box-shadow: 0 4px 2px -2px gray;
+  box-shadow: 0 4px 2px -2px rgba(15,15,15,.2);
   &:hover {
     background-color: rgba(184,15,10,.8);
   } 

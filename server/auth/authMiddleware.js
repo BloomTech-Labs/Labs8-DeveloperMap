@@ -54,7 +54,7 @@ const verifySeekerToken = (req, res, next) => {
 //----------------------------------------------------COMPANIES
 
 const setCompanyClaims = (req, res, next) => {
-  const claim = { companies: true };
+  const claim = { company: true };
   if (req.headers.authorization) {
     let idToken = req.headers.authorization;
     firebase
@@ -66,7 +66,7 @@ const setCompanyClaims = (req, res, next) => {
         firebase
           .auth()
           .setCustomUserClaims(uid, claim)
-          .then(async() => {
+          .then(async () => {
             const customToken = await firebase
               .auth()
               .createCustomToken(uid, claim);
