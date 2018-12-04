@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Label, Input } from '../../../styles/SignIn_UpStyle';
+import { Label, Input, Button, AuthField } from '../../../styles/SignIn_UpStyle';
 
 class SignUpTypes extends React.Component {
   state = {
@@ -66,45 +66,55 @@ class SignUpTypes extends React.Component {
     // console.log('%cstate', 'color: blue', this.state);
     return (
       <section>
-          <h2>Sign Up</h2>
           <form onSubmit={this.submitHandler}>
-            <Label htmlFor="email">
-              Email
+          <h2>Sign Up</h2>
+            <AuthField>
+              <Label htmlFor="email">
+                Email
+              </Label>  
               <Input
+                id="email"
                 name="email"
                 type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="password">
-              Password
+            </AuthField>
+            <AuthField>
+              <Label htmlFor="password">
+                Password
+              </Label>
               <Input
+                id="password"
                 name="password"
                 type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="rePassword">
-              Re-Enter Password
+            </AuthField>
+            <AuthField>
+              <Label htmlFor="rePassword">
+                Re-Enter Password
+              </Label>
               <Input
+                id="rePassword"
                 name="rePassword"
                 type="password"
                 value={this.state.rePassword}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <button>Sign Up</button>
-          </form>
-          <div>
+            </AuthField>
+            <Button>Sign Up</Button>
+            <div>
             {/*Third Party Auth Goes Here. Two Examples (Nonfunctional) Below: */}
             <div>{/*Google Logo Icon*/}</div><p>Sign Up With Google</p>
             <div>{/*GitHub Logo Icon*/}</div><p>Sign Up With GitHub</p>
-          </div>
+            </div>
+          </form>
+
       </section>
     );
   }

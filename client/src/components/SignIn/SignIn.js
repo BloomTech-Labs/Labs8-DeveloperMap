@@ -3,8 +3,10 @@ import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
 import {
   Label,
   Input,
+  Button,
   SignModalMain,
   RegisterButton,
+  AuthField,
 } from '../../styles/SignIn_UpStyle';
 import firebase from '../../firebase/firebase.js';
 import axios from 'axios';
@@ -18,6 +20,12 @@ class SignIn extends React.Component {
   };
 
   changeHandler = e => {
+    if (e.currentTarget.value === '') {
+      e.currentTarget.classList.remove('active');
+    } else {
+      e.currentTarget.classList.add('active');
+    }
+
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -26,22 +34,22 @@ class SignIn extends React.Component {
   };
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        axios
-          .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
-              user.uid
-            }`
-          )
-          .then(res => {
-            res.data.userSignin = true;
-            this.setState(res.data);
-          });
-      } else {
-        // No user is signed in.
-      }
-    });
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     axios
+    //       .get(
+    //         `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+    //           user.uid
+    //         }`
+    //       )
+    //       .then(res => {
+    //         res.data.userSignin = true;
+    //         this.setState(res.data);
+    //       });
+    //   } else {
+    //     // No user is signed in.
+    //   }
+    // });
   }
 
   render() {
@@ -86,27 +94,35 @@ class SignIn extends React.Component {
                 this.props.history.push('/');
               }}
             >
+            <AuthField>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={this.state.email}
+                onChange={this.changeHandler}
+                required
+              />
               <Label htmlFor="email">
                 Email
-                <Input
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.changeHandler}
-                  required
-                />
               </Label>
-              <Label htmlFor="password">
-                Password
+            </AuthField>
+
+
+              <AuthField>
                 <Input
+                  id="password"
                   name="password"
                   type="password"
                   value={this.state.password}
                   onChange={this.changeHandler}
                   required
                 />
-              </Label>
-              <button>Sign In</button>
+                <Label htmlFor="password">
+                  Password
+                </Label>
+              </AuthField>
+              <Button>Sign In</Button>
               <p>
                 New here?{' '}
                 <RegisterButton onClick={this.clickRegister}>
