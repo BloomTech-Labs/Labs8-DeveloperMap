@@ -75,6 +75,7 @@ class EmployerSignUp extends React.Component {
           <FullName>
             <AuthField>
               <Input
+                id="companyName"
                 name="companyName"
                 type="text"
                 value={this.state.companyName}
@@ -87,16 +88,17 @@ class EmployerSignUp extends React.Component {
             </AuthField>
 
             <AuthField>
-              <Label htmlFor="phone">
-                Phone
-              </Label>
               <Input
+                id="phone"
                 name="phone"
                 type="text"
                 value={this.state.phone}
                 onChange={this.changeHandler}
                 required
               />
+              <Label htmlFor="phone">
+                Phone
+              </Label>
             </AuthField>
 
               {/* <Label htmlFor="email">
@@ -112,71 +114,76 @@ class EmployerSignUp extends React.Component {
           </FullName>
 
           <ContactInfo>
-          <AuthField>
-              <Label htmlFor="website">
-              Company Website
-              </Label>
+            <AuthField>
               <Input
-                  name="website"
-                  type="url"
-                  value={this.state.website}
-                  onChange={this.changeHandler}
-                  required
+                id="website"
+                name="website"
+                type="url"
+                value={this.state.website}
+                onChange={this.changeHandler}
+                required
                 />
+              <Label htmlFor="website">
+                Company Website
+              </Label>
             </AuthField>
           </ContactInfo>
 
           <Location>
             <AuthField>
+              <Input
+                id="street"
+                name="street"
+                type="text"
+                value={this.state.street}
+                onChange={this.changeHandler}
+                required
+                />
               <Label htmlFor="street">
                 Street
               </Label>
-              <Input
-                  name="street"
-                  type="text"
-                  value={this.state.street}
-                  onChange={this.changeHandler}
-                  required
-                />
             </AuthField>
 
             <AuthField>
+              <Input
+                id="city"
+                name="city"
+                type="text"
+                value={this.state.city}
+                onChange={this.changeHandler}
+                required
+                />
               <Label htmlFor="city">
                 City
               </Label>
-              <Input
-                  name="city"
-                  type="text"
-                  value={this.state.city}
-                  onChange={this.changeHandler}
-                  required
-                />
             </AuthField>
 
             <AuthField>
+              <Input
+                id="state"
+                name="state"
+                type="text"
+                value={this.state.state}
+                onChange={this.changeHandler}
+                required
+                />
               <Label htmlFor="state">
                 State
               </Label>
-              <Input
-                  name="state"
-                  type="text"
-                  value={this.state.state}
-                  onChange={this.changeHandler}
-                  required
-                />
             </AuthField>
 
             <AuthField>
+              <Input
+                id="zipCode"
+                name="zipCode"
+                type="text"
+                value={this.state.zipCode}
+                onChange={this.changeHandler}
+                required
+                />
               <Label htmlFor="zipCode">
                 Zip Code
               </Label>
-              <Input
-                  name="zipCode"
-                  type="text"
-                  value={this.state.zipCode}
-                  onChange={this.changeHandler}
-                  required
-                />
             </AuthField>
           </Location>
 
