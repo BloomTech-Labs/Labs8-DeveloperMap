@@ -30,7 +30,7 @@ class SignIn extends React.Component {
       if (user) {
         axios
           .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
+            `https://intense-stream-29923.herokuapp.com/api/database/companies/${
               user.uid
             }`
           )

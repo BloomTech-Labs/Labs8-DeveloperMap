@@ -9,6 +9,7 @@ const CURRENCY = 'USD'; // U.S Dollar , can pass type of currency here
 
 const fromDollarToCent = amount => amount * 100; //Currency in the smallest unit
 
+
 const successPayment = data => {
   alert('Payment Successful');
 };
@@ -28,7 +29,9 @@ const onToken = (amount, description) => token =>  // Creates the token for you,
     .then(successPayment)
     .catch(errorPayment);
 
-const Checkout = ({ name, description, amount }) =>
+const Checkout = ({ name, description, amount}) => {
+ 
+  return (
   <StripeCheckout
     name={name}
     description={description}
@@ -37,5 +40,7 @@ const Checkout = ({ name, description, amount }) =>
     currency={CURRENCY}
     stripeKey={STRIPE_PUBLISHABLE}
   />
+  )
+}
 
 export default Checkout;
