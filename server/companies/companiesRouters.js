@@ -107,6 +107,8 @@ router.post(
       email,
       location,
       phoneNumber,
+      profilePicture = '',
+      remote = false
     };
     let updateObject = {};
     updateObject[`companies/${uid}`] = newData;

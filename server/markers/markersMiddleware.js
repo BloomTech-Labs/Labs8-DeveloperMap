@@ -54,6 +54,7 @@ const createMarkerObjectCompany = async (req, res, next) => {
       properties: {
         title: { companyName },
         uid,
+        profilePicture: '',
         role: 'company',
       },
     };

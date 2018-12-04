@@ -29,10 +29,45 @@ export const SettingsModalMain = styled(ModalMain)`
   }
 `;
 
+// Settings Navigation
+export const Navigation = styled.div`
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+a {
+  font-weight: bold;
+  text-decoration: none;
+  background-color: rgba(109, 7, 26, .95);
+  color: white;
+  padding: 10px 10px;
+  margin: 20px 0 5px 0;
+  border-radius: 25px;
+
+  &:hover {
+    background-color: rgba(109, 7, 26, .75);
+  }
+}
+
+.active {
+  background-color: rgba(207, 149, 4);
+  color: rgba(0, 0, 0);
+
+  &:hover {
+  background-color: rgba(207, 149, 4);
+  }
+}
+
+img {
+  width: 100%;
+  border-radius: 25px;
+}
+`;
+
 // Input Fields
 export const Label = styled.label`
   display: block;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   width: ${props => props.width ? props.width : 'auto'};
 `;
 
@@ -40,10 +75,10 @@ export const Input = styled.input`
   display: block;
   width: 100%;
   font-size: 16px;
-  height: 20px;
-  border-radius: 1px;
+
+  border-radius: 25px;
   border: 1px solid lightgrey;
-  padding-left: 5px;
+  padding: 10px 10px;
   &:disabled {
     border-color: white;
     background-color: whitesmoke;
@@ -80,13 +115,13 @@ export const CheckBox = styled.input`
 // Columns
 export const LeftColumn = styled.div`
   display: flex;
-  width: 30%;
+  width: 25%;
   flex-direction: column;
 `;
 
 export const RightColumn = styled.div`
   display: flex;
-  width: 60%;
+  width: 65%;
   flex-direction: column; 
   justify-content: space-between;
 `;
@@ -95,20 +130,9 @@ export const RightColumn = styled.div`
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: ${props => props.justify};
   flex-wrap: wrap;
-  // Profile Picture... Consider making it a component and using background images instead.
-  img {
-    width: 100%;
-  }
-  label {
-    padding: 20px 0;
-    input {
-      margin: 10px 0;
-      border: none;
-      height: 24px;
-    }
-  }
+  height: 100%;
   // The Download Resume Link... Consider making it a component and using background images instead.
   a {
     text-align: center;
@@ -118,11 +142,12 @@ export const ProfileInfo = styled.div`
   }
 `;
 
-export const Password = styled.div`
+export const Security = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: 100%;
 `;
 
 export const ContactInfo = styled.div`
@@ -130,13 +155,16 @@ export const ContactInfo = styled.div`
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: 100%;
 `;
 
 export const Location = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  height: 100%;
   // Check Boxes for Remote Jobs and Relocation... Consider making it a component and using background images instead.
   .location-options {
     display: flex;
@@ -146,7 +174,12 @@ export const Location = styled.div`
 `;
 
 export const Social = styled.div`
-width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 
@@ -154,15 +187,15 @@ width: 100%;
 export const EditButtons = styled.button`
   height: 30px;
   padding: 0px 20px;
-  background-color: rgb(184,15,10);
+  background-color: rgba(109, 7, 26, .95);
   color: white;
   border: none;
-  border-radius: 2px;
+  border-radius: 25px;
   box-shadow: 0 4px 2px -2px gray;
   cursor: pointer;
   outline: none;
   &:hover {
-    background-color: rgba(184,15,10,.8);
+    background-color: rgba(109, 7, 26, .75);
   }
   position: absolute;
   top: 20px;
