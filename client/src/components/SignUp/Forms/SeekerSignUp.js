@@ -30,6 +30,12 @@ class SeekerSignUp extends React.Component {
   };
 
   changeHandler = e => {
+    if (e.currentTarget.value === '') {
+      e.currentTarget.classList.remove('active');
+    } else {
+      e.currentTarget.classList.add('active');
+    }
+
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -77,52 +83,56 @@ class SeekerSignUp extends React.Component {
             <FullName>
             <AuthField>
               <Input
+                id="firstName"
                 name="firstName"
                 type="text"
                 value={this.state.firstName}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="firstName">
                 First
               </Label>
               </AuthField>
 
             <AuthField>   
               <Input
+                id="lastName"
                 name="lastName"
                 type="text"
                 value={this.state.lastName}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="lastName">
                 Last
               </Label>
             </AuthField>
             
             <AuthField>
               <Input
+                id="phone"
                 name="phone"
                 type="text"
                 value={this.state.phone}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="phone">
                 Phone
               </Label>
             </AuthField>
 
             <AuthField>
                 <Input
+                  id="jobTitle"
                   name="jobTitle"
                   type="text"
                   value={this.state.jobTitle}
                   onChange={this.changeHandler}
                   required
                 />
-                <Label>
+                <Label htmlFor="jobTitle">
                 Job Title
                 </Label>
               </AuthField>
@@ -132,52 +142,56 @@ class SeekerSignUp extends React.Component {
             <Location>
             <AuthField>
               <Input
+                id="street"
                 name="street"
                 type="text"
                 value={this.state.street}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="street">
                 Street
               </Label>
             </AuthField>
             
             <AuthField>
               <Input
+                id="city"
                 name="city"
                 type="text"
                 value={this.state.city}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="city">
                 City
               </Label>
             </AuthField>
             
             <AuthField>
               <Input
+                id="state"
                 name="state"
                 type="text"
                 value={this.state.state}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="state">
                 State
               </Label>
             </AuthField>
             
             <AuthField>
               <Input
+                id="zipCode" 
                 name="zipCode"
                 type="text"
                 value={this.state.zipCode}
                 onChange={this.changeHandler}
                 required
               />
-              <Label>
+              <Label htmlFor="zipCode">
                 Zip Code
               </Label>
             </AuthField>
