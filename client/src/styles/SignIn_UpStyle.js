@@ -5,6 +5,7 @@ const googleAuthHoverImageURL = 'https://firebasestorage.googleapis.com/v0/b/lab
 
 export const SignModalMain = styled(ModalMain)`
   width: ${props => props.width};
+  max-width: Calc(450px + 10%);
   display: flex;
   align-items: center;
   padding: 50px 5% 50px 5%;
@@ -76,14 +77,16 @@ export const RegisterButton = styled.span`
 
 export const FullName = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 100%;
   flex-wrap: wrap;
+
+  div {
+    width: 49%;
+  }
+
   input[type=text] {
-    height: 30px;
-    width: 200px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
+    width: 100%;
   }
 `;
 
@@ -92,10 +95,6 @@ export const ContactInfo = styled.div`
   flex-direction: column;
   input[type=text], input[type=email] {
     width: 100%;
-    height: 30px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
   }
   input[type=text] {
     margin-top: 10px;
@@ -111,7 +110,6 @@ export const TypesContainer = styled.section`
 display: flex;
 flex-direction: column;
 align-items: center;
-
   h2 {
     margin-bottom: 20px;
   }
@@ -119,26 +117,16 @@ align-items: center;
 
 export const Location = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
-  input[type=text] {
-    height: 30px;
-    width: 200px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
-    margin-bottom: 10px;
+
+  div {
+    width: 49%;
   }
 `;
 
 export const JobTitle = styled.div`
-  input[type=text] {
-    width: 100%;
-    height: 30px;
-    border-radius: 2px;
-    border: .5px solid lightgrey;
-    padding-left: 5px;
-  }
+
 `;
 
 export const Password = styled.div`

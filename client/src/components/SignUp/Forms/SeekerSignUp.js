@@ -68,12 +68,13 @@ class SeekerSignUp extends React.Component {
       <ModalContainer data-type="modal-container">
         <SignModalMain width="45%">
           <h2>Job Seeker - Sign Up</h2>
-          Are you an employer?{" "}
+          {/* Are you an employer?{" "}
           <span style={{color:'blue', cursor:'pointer'}} onClick = {(e) => {
             this.employerRegister(e)
-            }}>Sign Up Here</span>
+            }}>Sign Up Here</span> */}
           <form onSubmit={this.submitHandler}>
-            <h4>Full Name</h4>
+            <h4>Personal Information</h4>
+            <FullName>
             <AuthField>
               <Input
                 name="firstName"
@@ -99,18 +100,7 @@ class SeekerSignUp extends React.Component {
                 Last
               </Label>
             </AuthField>
-
-            <h4>Contact Information</h4>
-            <ContactInfo>
-              {/* <Input
-                name="email"
-                placeholder="Email"
-                type="email"
-                value={this.state.email}
-                onChange={this.changeHandler}
-                required
-              /> */}
-
+            
             <AuthField>
               <Input
                 name="phone"
@@ -123,7 +113,20 @@ class SeekerSignUp extends React.Component {
                 Phone
               </Label>
             </AuthField>
-            </ContactInfo>
+
+            <AuthField>
+                <Input
+                  name="jobTitle"
+                  type="text"
+                  value={this.state.jobTitle}
+                  onChange={this.changeHandler}
+                  required
+                />
+                <Label>
+                Job Title
+                </Label>
+              </AuthField>
+            </FullName>
 
             <h4>Location</h4>
             <Location>
@@ -180,22 +183,6 @@ class SeekerSignUp extends React.Component {
             </AuthField>
 
             </Location>
-            <h4>Job Title</h4>
-            <JobTitle>
-            <AuthField>
-              <Input
-                name="jobTitle"
-                type="text"
-                value={this.state.jobTitle}
-                onChange={this.changeHandler}
-                required
-              />
-              <Label>
-              Job Title
-              </Label>
-            </AuthField>
-
-            </JobTitle>
             {/* <h4>Create Password</h4>
             <Password>
               <Input
