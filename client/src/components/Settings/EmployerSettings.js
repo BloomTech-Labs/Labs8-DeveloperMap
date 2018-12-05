@@ -52,7 +52,8 @@ class EmployerSettings extends Component {
       editing: false,
       posts: [],
       jobLink: '',
-      jobTitle: ''
+      jobTitle: '',
+      paid: false
     };
   }
 
@@ -77,7 +78,7 @@ class EmployerSettings extends Component {
     rootRef
       .child(`companyPostings/${companyUid}/${jobId}`)
       .set({ companyName, date, jobLink, jobTitle, companyUid, jobId })
-    this.props.history.push('/settings/job-listings');
+    this.props.history.push('/settings');
   }
 
   // Updates state when a field is changed.
@@ -708,6 +709,13 @@ class EmployerSettings extends Component {
           </Posts>
         ) : (
                 <Posts>
+                  {this.props.currentSignedInUser.paid ? (
+                    <div>
+                    <h1>Add First Job!</h1>
+                    <button onClick={this.addJob}>+</button>
+                    </div>
+                  ):(
+                    <div>
                   <h1>You haven't listed any jobs yet! Pay for Premium account to add one.</h1>
                   <div>
                     <Checkout
@@ -715,9 +723,10 @@ class EmployerSettings extends Component {
                       description={'Monthly'}
                       amount={5}
                       {...this.props}
-                      
+
                     />
                   </div>
+                  </div>)}
                 </Posts>
               )}
             </PostContainer>

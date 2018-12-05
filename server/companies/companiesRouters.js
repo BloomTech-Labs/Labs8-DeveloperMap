@@ -143,10 +143,10 @@ router.post('/jobsListed', (req, res) => {
 
 router.post('/paysuccess', (req, res) => {
   const { uid } = req.body;
-  const paid = { paid: true }
+  const paid = true;
   rootRef
-    .child(`companies/${uid}`)
-    .set({ paid })
+    .child(`companies/${uid}/paid`)
+    .set( true )
     .then(res => {
       res.json({ message: 'Payment Recorded' })
     })
