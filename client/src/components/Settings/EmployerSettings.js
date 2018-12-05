@@ -17,6 +17,11 @@ import {
   LeftColumn,
   RightColumn,
   ContactInfo } from '../../styles/SettingsStyle';
+  import styled from 'styled-components';
+import moment from 'moment';
+import Checkout from '../Stripe/Checkout';
+
+const rootRef = firebase.database().ref();
 
 class EmployerSettings extends Component {
   constructor(props) {
@@ -45,6 +50,10 @@ class EmployerSettings extends Component {
       remote: false,
       relocation: false,
       editing: false,
+      posts: [],
+      jobLink: '',
+      jobTitle: '',
+      paid: false
     };
   }
 
@@ -52,6 +61,24 @@ class EmployerSettings extends Component {
   editSettings = e => {
     e.preventDefault();
     this.setState({ editing: !this.state.editing })
+  }
+
+  //Takes you to the job form
+  addJob = () => {
+    this.props.history.push('/settings/add-job');
+  }
+  //Adds the job to list
+  commitJob = () => {
+    const companyName = this.state.companyName;
+    const date = moment().format('MMDDYYYY');
+    const jobLink = this.state.jobLink;
+    const jobTitle = this.state.jobTitle;
+    const companyUid = this.props.currentSignedInUser.uid;
+    const jobId = rootRef.push(null).key;
+    rootRef
+      .child(`companyPostings/${companyUid}/${jobId}`)
+      .set({ companyName, date, jobLink, jobTitle, companyUid, jobId })
+    this.props.history.push('/settings');
   }
 
   // Updates state when a field is changed.
@@ -416,6 +443,7 @@ class EmployerSettings extends Component {
   componentDidMount = () => {
     const user = this.props.currentSignedInUser;
     const userAuth = firebase.auth().currentUser;
+    const employerId = this.props.currentSignedInUser.uid
 
     if (user != null) {
       if (user) {
@@ -430,6 +458,12 @@ class EmployerSettings extends Component {
     } else {
       this.props.history.push('/signin');
     }
+    rootRef
+      .child(`companyPostings/${employerId}`)
+      .once('value')
+      .then(posts => {
+        this.setState({ posts: posts.val() });
+      })
   }
 
   render() {
@@ -656,16 +690,66 @@ class EmployerSettings extends Component {
           <Route path="/settings/job-listings" render={(props) =>
             <PostContainer>
               {this.state.posts ? (
+          <Posts>
+            {Object.values(this.state.posts).map((post, i) => (
+              <Job key={i}>
+                <div>
+                  <h2>{post.companyName}</h2>
+                  <h3>{post.date}</h3>
+                  <h4>
+                    <a href={post.jobLink.includes('http') ? post.jobLink : `https://${post.jobLink}`}>
+                      {post.jobLink}
+                    </a>
+                  </h4>
+                  <h4>{post.jobTitle}</h4>
+                </div>
+              </Job>
+            ))}
+            <button onClick={this.addJob}>+</button>
+          </Posts>
+        ) : (
                 <Posts>
-                  <div>I'm a Job Posting</div>
-                </Posts>
-              ) : (
-                <Posts>
-                  <h1>You haven't listed any jobs yet!</h1>
+                  {this.props.currentSignedInUser.paid ? (
+                    <div>
+                    <h1>Add First Job!</h1>
+                    <button onClick={this.addJob}>+</button>
+                    </div>
+                  ):(
+                    <div>
+                  <h1>You haven't listed any jobs yet! Pay for Premium account to add one.</h1>
+                  <div>
+                    <Checkout
+                      name={'Upgrade to Premium'}
+                      description={'Monthly'}
+                      amount={5}
+                      {...this.props}
+
+                    />
+                  </div>
+                  </div>)}
                 </Posts>
               )}
             </PostContainer>
           }/>
+          <Route path="/settings/add-job" render={(props) => 
+           <div>
+             <JobForm onSubmit={this.commitJob}>
+               <input 
+                type="text"
+                value={this.state.jobTitle}
+                name='jobTitle'
+                onChange={this.changeHandler}
+                />
+                <input 
+                type="text"
+                value={this.state.jobLink}
+                name='jobLink'
+                onChange={this.changeHandler}
+                />
+                <button>Add Job</button>
+             </JobForm>
+           </div>
+        }/>
 
             </RightColumn>
             <EditButtons right="20px" onClick={this.editSettings}>{this.state.editing ? 'Cancel' : 'Edit ' }</EditButtons>
@@ -674,5 +758,38 @@ class EmployerSettings extends Component {
     );
   }
 }
+
+const Job = styled.div`
+  box-shadow: 0 4px 2px -2px gray;
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  max-width: 175px;
+  width: 100%;
+  border: 0.7px solid rgba(220, 220, 220, 0.6);
+  padding: 2%;
+  margin-bottom: 10px;
+  h2{
+    font-size: 1.2rem;
+  }
+  &:hover {
+    box-shadow: none;
+  }
+`;
+
+const JobForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+// function GetFormattedDate() {
+//   var todayTime = new Date();
+//   var month = format(todayTime .getMonth() + 1);
+//   var day = format(todayTime .getDate());
+//   var year = format(todayTime .getFullYear());
+//   return month + "/" + day + "/" + year;
+// };
 
 export default EmployerSettings;

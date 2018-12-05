@@ -107,8 +107,9 @@ router.post(
       email,
       location,
       phoneNumber,
-      profilePicture = '',
-      remote = false
+      profilePicture: '',
+      remote: false,
+
     };
     let updateObject = {};
     updateObject[`companies/${uid}`] = newData;
@@ -123,13 +124,29 @@ router.post(
   }
 );
 
-router.post('/jobsListed', (req, res) => {
-  const { companyName, date, jobLink, jobTitle, location, uid } = req.body;
+router.post('/jobsListed', async (req, res) => {
+  const { companyName, date, jobLink, jobTitle, uid } = req.body;
   const companyUid = uid;
   const jobId = rootRef.push(null).key;
+  const locationSnap = await rootRef
+    .child(`companies/${uid}/location`)
+    .once('value');
+  const location = locationSnap.val();
+  const newData = {
+    companyName,
+    date,
+    jobLink,
+    jobTitle,
+    companyUid,
+    jobId,
+    location,
+  };
+  const updateObject = {
+    [`companyPostings/${uid}/${jobId}`]: newData,
+    [`allJobPostings/${jobId}`]: newData,
+  };
   rootRef
-    .child(`companyPostings/${uid}/${jobId}`)
-    .set({ companyName, date, jobLink, jobTitle, location, companyUid, jobId })
+    .update(updateObject)
     .then(res => {
       res.json({ message: 'Job added' });
     })
@@ -137,6 +154,23 @@ router.post('/jobsListed', (req, res) => {
       res.json(err);
     });
 });
+
+
+// Payment success applied to company
+
+router.post('/paysuccess', (req, res) => {
+  const { uid } = req.body;
+  const paid = true;
+  rootRef
+    .child(`companies/${uid}/paid`)
+    .set( true )
+    .then(res => {
+      res.json({ message: 'Payment Recorded' })
+    })
+    .catch(err => {
+      res.json(err);
+    });
+})
 
 //----------------------------------------------------------------------PUT
 
