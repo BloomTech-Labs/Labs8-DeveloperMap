@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase, { auth } from './firebase/firebase';
 import axios from 'axios';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {
   NavBar,
   EmployerProfile,
@@ -15,7 +16,7 @@ import {
   NoUser,
   TutorialIntro,
 } from './reducer';
-
+import { AppStyle } from './styles/AppStyle';
 import { GlobalStyle } from './styles/GlobalStyle';
 
 class App extends Component {
@@ -304,84 +305,109 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" onClick={e => this.closeModalOnOutsideClick(e)}>
-        <GlobalStyle />
+      <Route
+        render={({ location }) => (
+          <AppStyle
+            className="App"
+            onClick={e => this.closeModalOnOutsideClick(e)}
+          >
+            <GlobalStyle />
 
-        <NavBar
-          {...this.props}
-          user={this.state.currentSignedInUser}
-          signOut={this.signOutCurrentUser}
-        />
-        <Route
-          path="/"
-          render={props => (
-            <LandingPage
-              {...props}
-              currentSignedInUser={this.state.currentSignedInUser}
+            <NavBar
+              {...this.props}
+              user={this.state.currentSignedInUser}
+              signOut={this.signOutCurrentUser}
             />
-          )}
-        />
-        <Route
-          path="/employer/:employerId"
-          render={props => (
-            <EmployerProfile user={this.state.currentSignedInUser} {...props} />
-          )}
-        />
-        <Route
-          path="/seeker/:seekerId"
-          render={props => (
-            <SeekerProfile
-              currentSignedInUser={this.state.currentSignedInUser}
-              {...props}
+            <Route
+              path="/"
+              render={props => (
+                <LandingPage
+                  {...props}
+                  currentSignedInUser={this.state.currentSignedInUser}
+                />
+              )}
             />
-          )}
-        />
-        <Route
-          path="/settings"
-          render={props =>
-            this.state.currentSignedInUser && (
-              <Settings
-                {...props}
-                currentSignedInUser={this.state.currentSignedInUser}
-              />
-            )
-          }
-        />
-        {/* <Route
+            <TransitionGroup>
+              <CSSTransition
+                key={location.key}
+                timeout={{ enter: 500, exit: 500 }}
+                classNames="fade"
+              >
+                <Switch location={location}>
+                  <Route
+                    path="/employer/:employerId"
+                    render={props => (
+                      <EmployerProfile
+                        user={this.state.currentSignedInUser}
+                        {...props}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/seeker/:seekerId"
+                    render={props => (
+                      <SeekerProfile
+                        currentSignedInUser={this.state.currentSignedInUser}
+                        {...props}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/settings"
+                    render={props =>
+                      this.state.currentSignedInUser && (
+                        <Settings
+                          {...props}
+                          currentSignedInUser={this.state.currentSignedInUser}
+                        />
+                      )
+                    }
+                  />
+                  {/* <Route
           path="/employer/:employerId/settings"
           component={EmployerSettings}
         /> */}
-        <Route path="/billing" component={EmployerBilling} />
-        <Route path="/favorites/:seekerId/" component={SeekerFavorites} />
-        <Route
-          path="/signin"
-          render={props => (
-            <SignIn
-              {...props}
-              signInUser={this.signInUser}
-              signOutCurrentUser={this.signOutCurrentUser}
-              currentSignedInUser={this.state.currentSignedInUser}
-              signUpWithGoogleAuthentication={
-                this.signUpWithGoogleAuthentication
-              }
-            />
-          )}
-        />
-        <Route
-          path="/signup"
-          render={props => (
-            <SignUp
-              {...props}
-              signUpNewUserWithEmailAndPassword={
-                this.signUpNewUserWithEmailAndPassword
-              }
-              currentSignedInUser={this.state.currentSignedInUser}
-            />
-          )}
-        />
-        <Route path="/nouser" component={NoUser} />
-        <Route path="/tutorial" component={TutorialIntro} />
-      </div>
+                  <Route path="/billing" component={EmployerBilling} />
+                  <Route
+                    path="/favorites/:seekerId/"
+                    component={SeekerFavorites}
+                  />
+                  <Route
+                    path="/signin"
+                    render={props => (
+                      <SignIn
+                        {...props}
+                        signInWithEmailAndPassword={
+                          this.signInWithEmailAndPassword
+                        }
+                        signOutCurrentUser={this.signOutCurrentUser}
+                        currentSignedInUser={this.state.currentSignedInUser}
+                        signUpWithGoogleAuthentication={
+                          this.signUpWithGoogleAuthentication
+                        }
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/signup"
+                    render={props => (
+                      <SignUp
+                        {...props}
+                        signUpNewUserWithEmailAndPassword={
+                          this.signUpNewUserWithEmailAndPassword
+                        }
+                        currentSignedInUser={this.state.currentSignedInUser}
+                      />
+                    )}
+                  />
+                  <Route path="/nouser" component={NoUser} />
+                  <Route path="/tutorial" component={TutorialIntro} />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </AppStyle>
+        )}
+      />
     );
   }
 }

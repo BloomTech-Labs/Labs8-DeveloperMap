@@ -77,7 +77,8 @@ class SignIn extends React.Component {
         )} */}
 
         {!this.state.userSignin && (
-          <SignModalMain width="21%">
+
+          <SignModalMain width="21%" className="modal">
             <h2>
               {this.props.currentSignedInUser
                 ? `Welcome ${this.props.currentSignedInUser.firstName}`
