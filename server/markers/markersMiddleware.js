@@ -25,11 +25,16 @@ const createMarkerObjectSeeker = async (req, res, next) => {
       .once('value')
       .then(snapshot => snapshot.val());
   }
+
   if (!jobTitle) {
-    jobTitle = await rootRef
-      .child(`seekers/${uid}/jobTitle`)
-      .once('value')
-      .then(snapshot => snapshot.val());
+    if (jobTitle === '') {
+      jobTitle = '';
+    } else {
+      jobTitle = await rootRef
+        .child(`seekers/${uid}/jobTitle`)
+        .once('value')
+        .then(snapshot => snapshot.val());
+    }
   }
   if (!profilePicture) {
     profilePicture = await rootRef
