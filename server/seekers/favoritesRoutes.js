@@ -86,7 +86,7 @@ router.post('/:uid/:jid', validate, (req, res) => {
 
 //  ==== PUT for updating favorite posts ====
 
-router.put('/', async (req, res) => {
+router.put('/', (req, res) => {
   const { favoritedList, uid } = req.body;
   let updateObject = {};
   rootRef
