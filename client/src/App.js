@@ -13,7 +13,7 @@ import {
   SignIn,
   SignUp,
   NoUser,
-  TutorialIntro
+  TutorialIntro,
 } from './reducer';
 
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -393,7 +393,7 @@ class App extends Component {
           component={EmployerSettings}
         /> */}
         <Route path="/billing" component={EmployerBilling} />
-        <Route path="/seeker/:seekerId/favorites" component={SeekerFavorites} />
+        <Route path="/favorites/:seekerId/" component={SeekerFavorites} />
         <Route
           path="/signin"
           render={props => (
