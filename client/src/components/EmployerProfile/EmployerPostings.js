@@ -13,37 +13,53 @@ class EmployerPostings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
+      posts: null,
       favToggle: false,
       favoritedList: [],
     };
   }
 
   async componentDidMount() {
-    const user = this.props.user;
     const employerId = this.props.match.params.employerId;
-    if (user) {
-      const uid = user.uid;
-      axios
-        .get(
-          `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/${uid}`
-        )
-        .then(response => {
-          console.log(response);
-          this.setState({
-            posts: response.data.posts,
-            favoritedList: response.data.favoritedList,
+
+    firebase.auth().onAuthStateChanged(({ uid }) => {
+      if (uid) {
+        if (this.state.posts) {
+          axios
+            .get(
+              `https://intense-stream-29923.herokuapp.com/api/database/favorites/keys/${uid}`
+            )
+            .then(({ data }) => {
+              console.log(data);
+              this.setState({ favoritedList: data });
+            });
+        } else {
+          axios
+            .get(
+              `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/${uid}`
+            )
+            .then(response => {
+              console.log(response);
+              this.setState({
+                posts: response.data.posts,
+                favoritedList: response.data.favoritedList,
+              });
+            });
+        }
+      } else {
+        axios
+          .get(
+            `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/noUser`
+          )
+          .then(response => {
+            console.log(response);
+            this.setState({
+              posts: response.data.posts,
+              favoritedList: response.data.favoritedList,
+            });
           });
-        });
-    } else {
-      axios
-        .get(
-          `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/noUser`
-        )
-        .then(response => {
-          console.log(response);
-        });
-    }
+      }
+    });
   }
 
   favToggle = async (e, post) => {
