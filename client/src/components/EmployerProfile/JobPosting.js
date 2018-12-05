@@ -34,7 +34,6 @@ class JobPosting extends React.Component {
       const favoritedCard = document.querySelector(`#${this.props.post.jobId}`);
       if (favoritedCard) {
         favoritedCard.setAttribute('src', FavHeart);
-        favoritedCard.classList.toggle('favorited');
       }
     }
     const { jobLink } = this.props.post;

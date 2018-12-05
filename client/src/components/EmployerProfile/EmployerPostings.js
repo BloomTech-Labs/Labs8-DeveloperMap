@@ -78,34 +78,25 @@ class EmployerPostings extends React.Component {
 
     if (e.target.src === FavHeart) {
       //Removes Favorited Post from current User if confirms
-      if (window.confirm('Do want to unfavorite this post?')) {
-        e.target.src = Heart;
-        e.target.classList.toggle('favorited');
-        axios
-          .delete(
-            `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}/${jobId}`
-          )
-          .catch();
-      }
+      const favoritedList = [
+        ...this.state.favoritedList.filter(jobId => jobId !== e.target.id),
+      ];
+      this.setState({ favoritedList });
+      e.target.src = Heart;
     } else {
       //Adds Favorited Post to current User's list if confirms
-      if (window.confirm('Do you want to favorite this post?')) {
-        e.target.src = FavHeart;
-        e.target.classList.toggle('favorited');
-        axios
-          .post(
-            `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}/${jobId}`,
-            post
-          )
-          .catch();
-      }
+      const favoritedList = [...this.state.favoritedList];
+      favoritedList.push(e.target.id);
+      this.setState({ favoritedList });
+      e.target.src = FavHeart;
     }
   };
 
   componentWillUnmount() {
-    //console.log(document.querySelectorAll(`[src: "${FavHeart}"]`));
+    console.log(document.querySelectorAll(`img[src="${FavHeart}"]`));
   }
   render() {
+    console.log(document.getElementsByClassName('favorited'));
     return (
       <PostContainer>
         {this.state.posts ? (
