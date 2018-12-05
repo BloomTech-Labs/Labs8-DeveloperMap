@@ -28,6 +28,7 @@ class SignUpTypes extends React.Component {
     } else if (this.props.userType === 'seeker') {
       this.props.history.push('/signup/seeker')
     } else {
+      console.log('pushed')
       this.props.history.push('/signup')
     }
   }
@@ -62,13 +63,13 @@ class SignUpTypes extends React.Component {
 
   componentDidMount = () => {
 
-    // If a user is signed in and on this page, re-direct th
+    // If a user is signed in and on this page, re-direct them to settings
     const user = firebase.auth().currentUser;
     if (user !== null) {
       if (this.props.currentSignedInUser) {
         this.props.history.push('/settings')
       } else {
-      this.userRedirect();
+        // Do nothing
     }
   }
 }
