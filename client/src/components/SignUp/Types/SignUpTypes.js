@@ -50,6 +50,16 @@ class SignUpTypes extends React.Component {
     );
   };
 
+  githubHandler = e => {
+    e.preventDefault();
+
+    this.props.authorizeNewUser(
+      this.state.email,
+      this.state.password,
+      'github'
+    );
+  };
+
   // On Form Submit, Check User Type
   submitHandler = e => {
     e.preventDefault();
@@ -77,7 +87,7 @@ class SignUpTypes extends React.Component {
       if (this.props.currentSignedInUser) {
         this.props.history.push('/settings');
       } else {
-        // Do nothing
+        this.userRedirect();
       }
     }
   };
@@ -126,7 +136,7 @@ class SignUpTypes extends React.Component {
           - or -
           {/* Third Party Auth */}
           <GoogleAuthButton onClick={e => this.googleHandler(e)} />
-          <GithubAuthButton onClick={e => this.googleHandler(e)} />
+          <GithubAuthButton onClick={e => this.githubHandler(e)} />
         </form>
       </section>
     );

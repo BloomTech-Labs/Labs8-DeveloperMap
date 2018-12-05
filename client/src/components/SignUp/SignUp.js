@@ -56,6 +56,28 @@ class SignUp extends React.Component {
           alert(error);
         })
       }
+
+      if (provider === 'github') {
+        const provider = new firebase.auth.GithubAuthProvider();
+        firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          if (this.state.role === 'company') {
+            this.props.history.push('/signup/employer')
+          } else if (this.state.role === 'seeker') {
+            this.props.history.push('/signup/seeker')
+          } else {
+            this.props.history.push('/signup')
+          }
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        })
+      }
   }
 
   /// ---- Add New User To Database ----
