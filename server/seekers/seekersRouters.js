@@ -142,7 +142,6 @@ router.post(
 router.put('/userInfo', createMarkerObjectSeeker, (req, res) => {
   const { uid, markerData } = req.body;
   const updateKeys = Object.keys(req.body);
-
   rootRef
     .once('value')
     .then(snapshot => {
