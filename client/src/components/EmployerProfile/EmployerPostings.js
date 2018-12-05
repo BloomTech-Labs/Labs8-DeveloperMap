@@ -98,7 +98,6 @@ class EmployerPostings extends React.Component {
           {
             favoritedList,
             uid,
-            companyUid,
           }
         )
         .then();
