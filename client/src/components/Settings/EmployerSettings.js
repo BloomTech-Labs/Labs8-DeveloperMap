@@ -71,7 +71,7 @@ class EmployerSettings extends Component {
   //Adds the job to list
   commitJob = () => {
     const companyName = this.state.companyName;
-    const date = moment().format('MMDDYYYY');
+    const date = moment().format('MM/DD/YYYY');
     const jobLink = this.state.jobLink;
     const jobTitle = this.state.jobTitle;
     const companyUid = this.props.currentSignedInUser.uid;
@@ -789,7 +789,7 @@ class EmployerSettings extends Component {
                       <Job key={i}> {/*Individual job listing for employer*/}
                         <div>
                           <h2>{post.companyName}</h2>
-                          <h3>{post.date}</h3>
+                          <h3>Date posted: {post.date}</h3>
                           <h4>
                             <a
                               href={
@@ -801,11 +801,11 @@ class EmployerSettings extends Component {
                               {post.jobLink}
                             </a>
                           </h4>
-                          <h4>{post.jobTitle}</h4>
+                          <h4> Position - {post.jobTitle}</h4>
                         </div>
                       </Job>
                     ))}
-                    <button onClick={this.addJob}>+</button>
+                    <AddButton onClick={this.addJob}>+</AddButton>
                   </Posts>
                 ) : (
                   <Posts> {/*If employer has paid, they can add their first job*/}
@@ -815,12 +815,15 @@ class EmployerSettings extends Component {
                         <button onClick={this.addJob}>+</button>
                       </div>
                     ) : (
-                      <div> {/*Premium Pay wall you have to pass before adding first job as employer */}
+                      <Premium> {/*Premium Pay wall you have to pass before adding first job as employer */}
                         <h1>
-                          You haven't listed any jobs yet! Pay for Premium
-                          account to add one.
+                          You haven't listed any jobs yet! 
                         </h1>
-                        <div>
+                        <h1>
+                          Pay for a Premium
+                          account to add one.
+                          </h1>
+                        <div className='overlay'>
                           <Checkout
                             name={'Upgrade to Premium'}
                             description={'Monthly'}
@@ -828,7 +831,7 @@ class EmployerSettings extends Component {
                             {...this.props}
                           />
                         </div>
-                      </div>
+                      </Premium>
                     )}
                   </Posts>
                 )}
@@ -841,7 +844,9 @@ class EmployerSettings extends Component {
             render={props => (
               <div>
                 <JobForm onSubmit={this.commitJob}>
+                  <h2>Add a job:</h2>
                   <input
+                    className='job-title'
                     type="text"
                     value={this.state.jobTitle} 
                     name="jobTitle"
@@ -855,7 +860,7 @@ class EmployerSettings extends Component {
                     onChange={this.changeHandler}
                     placeholder="Job Link"
                   />
-                  <button>Add Job</button>
+                  <AddButton>Add Job</AddButton>
                 </JobForm>
               </div>
             )}
@@ -881,16 +886,24 @@ const Job = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100px;
-  max-width: 175px;
+  max-width: 300px;
   width: 100%;
   border: 0.7px solid rgba(220, 220, 220, 0.6);
+  border-radius: 4px;
   padding: 2%;
   margin-bottom: 10px;
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
   &:hover {
     box-shadow: none;
+  }
+  a{
+    text-decoration: none;
+    color: rgb(109, 7, 26);
+  }
+  h3{
+    font-size: 1rem;
   }
 `;
 
@@ -901,6 +914,9 @@ const JobForm = styled.form`
   align-items: center;
   max-height: 400px;
   height: 100%;
+  h2{
+    margin-top: 100px;
+  }
   input {
     border-radius: 25px;
     height: 30px;
@@ -910,6 +926,7 @@ const JobForm = styled.form`
     border-radius: 25px;
     border: 1px solid #dbdbdb;
     padding: 10px 0 10px 15px;
+    margin: 3% 0;
 
     outline: none;
 
@@ -939,6 +956,38 @@ const JobForm = styled.form`
   }
 `;
 
+const AddButton = styled.button`
+  border-radius: 25px;
+  height: 30px;
+  max-width: 300px;
+  width: 100%;
+  padding: 2%;
+  background-color: rgba(109, 7, 26, .95);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 2px -2px gray;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background-color: rgba(109, 7, 26, .75);
+  }
+  
+`;
+
+const Premium = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1{
+    font-size: 1.6rem;
+    color: rgba(109, 7, 26, .95);
+    margin: 3% 0;
+  }
+  height: 300px;
+
+  }
+`;
 // function GetFormattedDate() {
 //   var todayTime = new Date();
 //   var month = format(todayTime .getMonth() + 1);
