@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ModalMain } from './ModalGlobalStyle.js';
-import googleAuthImageURL from '../images/signup/btn_google_signin_light_normal_web@2x.png'
-import googleAuthHoverImageURL from '../images/signup/btn_google_signin_light_pressed_web@2x.png'
+import googleAuthImageURL from '../images/signup/btn_google_signin_light_normal_web.png'
+import googleAuthHoverImageURL from '../images/signup/btn_google_signin_light_pressed_web.png'
 import githubAuthImageURL from '../images/signup/btn_github_signin_light_normal_web@2x.png'
 import githubAuthHoverImageURL from '../images/signup/btn_github_signin_light_pressed_web@2x.png'
 
@@ -169,6 +169,20 @@ export const GoogleAuthButton = styled.div`
 
   &:hover {
     background-image: url("${googleAuthHoverImageURL}");
+    background-size: cover;
+  }
+`;
+
+export const GithubAuthButton = styled.div`
+  background-image: url("${githubAuthImageURL}");
+  background-size: cover;
+  width: 191px;
+  height: 46px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-image: url("${githubAuthHoverImageURL}");
     background-size: cover;
   }
 `;

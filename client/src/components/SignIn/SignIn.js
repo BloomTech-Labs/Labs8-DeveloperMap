@@ -5,6 +5,7 @@ import {
   Input,
   Button,
   GoogleAuthButton,
+  GithubAuthButton,
   SignModalMain,
   AuthField,
 } from '../../styles/SignIn_UpStyle';
@@ -133,7 +134,12 @@ class SignIn extends React.Component {
                   this.state.password,
                   'google'
                 )}/>
-
+              <GithubAuthButton onClick={e => this.props.signInUser(
+                  e,
+                  this.state.email,
+                  this.state.password,
+                  'google'
+                )}/>
             </form>
           </SignModalMain>
         )}
