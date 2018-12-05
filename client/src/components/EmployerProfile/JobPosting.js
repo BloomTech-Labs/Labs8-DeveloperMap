@@ -31,11 +31,10 @@ class JobPosting extends React.Component {
   render() {
     const favoritedList = this.props.favoritedList;
     if (favoritedList.includes(this.props.post.jobId)) {
-      const favoritedCards = document.querySelector(
-        `#${this.props.post.jobId}`
-      );
-      if (favoritedCards) {
-        favoritedCards.setAttribute('src', FavHeart);
+      const favoritedCard = document.querySelector(`#${this.props.post.jobId}`);
+      if (favoritedCard) {
+        favoritedCard.setAttribute('src', FavHeart);
+        favoritedCard.classList.toggle('favorited');
       }
     }
     const { jobLink } = this.props.post;
