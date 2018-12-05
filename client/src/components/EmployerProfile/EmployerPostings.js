@@ -94,10 +94,13 @@ class EmployerPostings extends React.Component {
       if (user) {
         const { uid } = user;
         axios
-          .put('http://localhost:9000/api/database/favorites', {
-            favoritedList,
-            uid,
-          })
+          .put(
+            'https://intense-stream-29923.herokuapp.com/api/database/favorites',
+            {
+              favoritedList,
+              uid,
+            }
+          )
           .then();
       }
     } else {
