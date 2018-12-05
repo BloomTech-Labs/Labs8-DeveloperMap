@@ -133,6 +133,7 @@ class SignUp extends React.Component {
                 .then(response => {
                   alert(response.data.message);
                   firebase.auth().signInWithCustomToken(response.data.customToken)
+                  .then(() => this.props.history.push('/'))
                   .catch(error => {
                     const errorCode = error.code;
                     const errorMessage = error.message;

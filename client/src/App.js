@@ -174,7 +174,8 @@ class App extends Component {
         userType = 'companies';
         role = 'company';
       } else {
-        return console.log('Invalid user type!');
+        alert("We're missing some information from you. Please Sign Up!")
+        return this.props.history.push('/signup');
       }
       axios
         .get(
