@@ -92,13 +92,15 @@ class EmployerPostings extends React.Component {
     const { favoritedList, initialFavoritedList } = this.state;
     if (favoritedList !== initialFavoritedList) {
       const { uid } = this.props.user;
-      const companyUid = this.props.match.params.employerId;
       axios
-        .put('http://localhost:9000/api/database/favorites', {
-          favoritedList,
-          uid,
-          companyUid,
-        })
+        .put(
+          'https://intense-stream-29923.herokuapp.com/api/database/favorites',
+          {
+            favoritedList,
+            uid,
+            companyUid,
+          }
+        )
         .then();
     } else {
       console.log('no change');
