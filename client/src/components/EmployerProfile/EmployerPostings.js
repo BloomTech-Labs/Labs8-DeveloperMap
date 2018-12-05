@@ -78,6 +78,7 @@ class EmployerPostings extends React.Component {
       //Removes Favorited Post from current User if confirms
       if (window.confirm('Do want to unfavorite this post?')) {
         e.target.src = Heart;
+        e.target.classList.toggle('favorited');
         axios
           .delete(
             `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}/${jobId}`
@@ -88,6 +89,7 @@ class EmployerPostings extends React.Component {
       //Adds Favorited Post to current User's list if confirms
       if (window.confirm('Do you want to favorite this post?')) {
         e.target.src = FavHeart;
+        e.target.classList.toggle('favorited');
         axios
           .post(
             `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}/${jobId}`,
@@ -98,6 +100,9 @@ class EmployerPostings extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    //console.log(document.querySelectorAll(`[src: "${FavHeart}"]`));
+  }
   render() {
     return (
       <PostContainer>
