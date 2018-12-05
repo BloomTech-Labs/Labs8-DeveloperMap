@@ -70,7 +70,7 @@ class EmployerPostings extends React.Component {
 
     const user = this.props.user;
     if (!user) {
-      window.location.replace('/signin');
+      this.props.history.push('/signin');
     } else if (e.target.src === FavHeart) {
       //Removes Favorited Post from current User if confirms
       const favoritedList = [
