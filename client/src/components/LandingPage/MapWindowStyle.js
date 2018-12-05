@@ -2,8 +2,16 @@ import styled from 'styled-components';
 
 export const MapWindow = styled.div`
   .mapboxgl-ctrl-geocoder {
-    width: 20%;
+    width: 100%;
     border-radius: 20px;
+
+    @media (max-width: 1050px) {
+      min-width: 200px;
+    }
+
+    @media (max-width: 350px) {
+      min-width: 170px;
+    }
     .geocoder-icon-search {
       top: 7px;
       left: 3%;
@@ -41,11 +49,19 @@ export const MapWindow = styled.div`
   .mapboxgl-control-container {
     width: 100%;
     .mapboxgl-ctrl-top-right {
-      margin-left: Calc(1% + 10px);
+      margin-left: Calc(10% + 10px);
       margin-top: 4px;
       right: initial;
       top: initial;
       left: initial;
+
+      @media (max-width: 1050px) {
+        margin-left: Calc(3% + 10px);
+      }
+
+      .mapboxgl-ctrl {
+        margin: 10px 0 0 0;
+      }
     }
   }
   .geocoder-pin-right {
