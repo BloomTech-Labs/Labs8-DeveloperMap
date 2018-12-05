@@ -153,70 +153,67 @@ class App extends Component {
       });
   };
 
-
-
   /// ---- Sign In Methods ----
-
 
   // Gets User Data for Current Signed In User
   // Adds Data to State
-  getCurrentUserData = (response) => {
-    firebase
-    .auth()
-    .currentUser.getIdTokenResult()
-    .then(idTokenResult => {
-      let userId = response.user.uid;
-      let userType;
-      let role;
-      if (idTokenResult.claims.seeker) {
-        userType = 'seekers';
-        role = 'seeker';
-      } else if (idTokenResult.claims.company) {
-        userType = 'companies';
-        role = 'company';
-      } else {
-        alert("We're missing some information from you. Please Sign Up!")
-        return this.props.history.push('/signup');
-      }
-      axios
-        .get(
-          `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${userId}`
-        )
-        .then(response =>
-          this.setState({
-            currentSignedInUser: {
-              ...response.data,
-              role: role,
-              uid: userId,
-            },
-          })
-        )
-        .catch(error => console.log(error));
-
-      // Close Modal
-      this.props.history.push('/');
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log({ errorCode, errorMessage });
-    });
-  }
-
-  signInUser = (e, email, password, provider) => {
-    e.preventDefault();
-    if (provider === 'email') {
-    // Firebase Email Auth
+  getCurrentUserData = response => {
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(response => this.getCurrentUserData(response))
+      .currentUser.getIdTokenResult()
+      .then(idTokenResult => {
+        let userId = response.user.uid;
+        let userType;
+        let role;
+        if (idTokenResult.claims.seeker) {
+          userType = 'seekers';
+          role = 'seeker';
+        } else if (idTokenResult.claims.company) {
+          userType = 'companies';
+          role = 'company';
+        } else {
+          alert("We're missing some information from you. Please Sign Up!");
+          return this.props.history.push('/signup');
+        }
+        axios
+          .get(
+            `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${userId}`
+          )
+          .then(response =>
+            this.setState({
+              currentSignedInUser: {
+                ...response.data,
+                role: role,
+                uid: userId,
+              },
+            })
+          )
+          .catch(error => console.log(error));
+
+        // Close Modal
+        this.props.history.push('/');
+      })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log({ errorCode, errorMessage });
-        alert(error);
-      })
+      });
+  };
+
+  signInUser = (e, email, password, provider) => {
+    e.preventDefault();
+    if (provider === 'email') {
+      // Firebase Email Auth
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(response => this.getCurrentUserData(response))
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        });
     }
 
     if (provider === 'google') {
@@ -230,9 +227,9 @@ class App extends Component {
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
           alert(error);
-        })
-      }
+        });
     }
+  };
 
   // --- Sign Out Method ---
   signOutCurrentUser = e => {
@@ -288,8 +285,9 @@ class App extends Component {
                 })
               )
               .catch(error => {
-                if (!this.props.location.pathname.includes('signup'))
+                if (!this.props.location.pathname.includes('signup')) {
                   this.props.history.push('/signup');
+                }
               });
           })
           .catch(error => {
@@ -363,10 +361,7 @@ class App extends Component {
                       )
                     }
                   />
-                  {/* <Route
-          path="/employer/:employerId/settings"
-          component={EmployerSettings}
-        /> */}
+
                   <Route path="/billing" component={EmployerBilling} />
                   <Route
                     path="/favorites/:seekerId/"
@@ -377,14 +372,9 @@ class App extends Component {
                     render={props => (
                       <SignIn
                         {...props}
-                        signInWithEmailAndPassword={
-                          this.signInWithEmailAndPassword
-                        }
                         signOutCurrentUser={this.signOutCurrentUser}
                         currentSignedInUser={this.state.currentSignedInUser}
-                        signUpWithGoogleAuthentication={
-                          this.signUpWithGoogleAuthentication
-                        }
+                        signInUser={this.signInUser}
                       />
                     )}
                   />

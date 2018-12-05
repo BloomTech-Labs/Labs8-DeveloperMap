@@ -22,8 +22,9 @@ class EmployerPostings extends React.Component {
   async componentDidMount() {
     const employerId = this.props.match.params.employerId;
 
-    firebase.auth().onAuthStateChanged(({ uid }) => {
-      if (uid) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const { uid } = user;
         if (this.state.posts) {
           axios
             .get(
@@ -69,10 +70,8 @@ class EmployerPostings extends React.Component {
 
     const user = this.props.user;
     if (!user) {
-      window.location.replace('/signin');
-    }
-
-    if (e.target.src === FavHeart) {
+      this.props.history.push('/signin');
+    } else if (e.target.src === FavHeart) {
       //Removes Favorited Post from current User if confirms
       const favoritedList = [
         ...this.state.favoritedList.filter(jobId => jobId !== e.target.id),
@@ -90,17 +89,20 @@ class EmployerPostings extends React.Component {
 
   componentWillUnmount() {
     const { favoritedList, initialFavoritedList } = this.state;
+    const user = this.props;
     if (favoritedList !== initialFavoritedList) {
-      const { uid } = this.props.user;
-      axios
-        .put(
-          'https://intense-stream-29923.herokuapp.com/api/database/favorites',
-          {
-            favoritedList,
-            uid,
-          }
-        )
-        .then();
+      if (user) {
+        const { uid } = user;
+        axios
+          .put(
+            'https://intense-stream-29923.herokuapp.com/api/database/favorites',
+            {
+              favoritedList,
+              uid,
+            }
+          )
+          .then();
+      }
     } else {
       console.log('no change');
     }
