@@ -9,6 +9,7 @@ const CURRENCY = 'USD'; // U.S Dollar , can pass type of currency here
 
 const fromDollarToCent = amount => amount * 100; //Currency in the smallest unit
 
+
 const successPayment = data => {
   alert('Payment Successful');
 };
@@ -17,7 +18,20 @@ const errorPayment = data => {
   alert('Payment Error');
 };
 
-const onToken = (amount, description) => token =>  // Creates the token for you, so you can send all the necessary information to backend
+// const onToken = (amount, description) => token =>  // Creates the token for you, so you can send all the necessary information to backend
+//   axios.post(PAYMENT_SERVER_URL,
+//     {
+//       description,
+//       source: token.id,
+//       currency: CURRENCY,
+//       amount: fromDollarToCent(amount)
+//     })
+//     .then(successPayment)
+//     .catch(errorPayment);
+
+const Checkout = ({ name, description, amount, currentSignedInUser}) => {
+  const { uid } = currentSignedInUser;
+  const onToken = (amount, description) => token =>  // Creates the token for you, so you can send all the necessary information to backend
   axios.post(PAYMENT_SERVER_URL,
     {
       description,
@@ -26,9 +40,12 @@ const onToken = (amount, description) => token =>  // Creates the token for you,
       amount: fromDollarToCent(amount)
     })
     .then(successPayment)
+    .then(
+      axios.post(`https://intense-stream-29923.herokuapp.com/api/database/companies/paysuccess`, {uid} )
+    )
     .catch(errorPayment);
 
-const Checkout = ({ name, description, amount }) =>
+  return (
   <StripeCheckout
     name={name}
     description={description}
@@ -37,5 +54,7 @@ const Checkout = ({ name, description, amount }) =>
     currency={CURRENCY}
     stripeKey={STRIPE_PUBLISHABLE}
   />
+  )
+}
 
 export default Checkout;

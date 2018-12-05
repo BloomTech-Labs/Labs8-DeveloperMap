@@ -253,6 +253,7 @@ class LandingPage extends React.Component {
             mapRef={this.mapRef}
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={this.handleViewportChange}
+            placeholder="Search for places"
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
