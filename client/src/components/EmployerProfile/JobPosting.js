@@ -49,7 +49,7 @@ class JobPosting extends React.Component {
           <h4>{this.props.post.jobTitle}</h4>
           <h4>{`${this.props.post.location.city}, ${
             this.props.post.location.state
-          }`}</h4>
+          }, ${this.props.post.location.zip}`}</h4>
         </div>
         <div>
           <img
