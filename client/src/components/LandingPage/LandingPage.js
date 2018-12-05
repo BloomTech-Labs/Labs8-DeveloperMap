@@ -186,14 +186,15 @@ class LandingPage extends React.Component {
 
     if (!!pin) {
       if (!!pin.properties.title.firstName) {
-        fullName = `${pin.properties.title.firstName} ${
-          pin.properties.title.lastName
-        }`;
+        const { properties, geometry } = pin;
+        const { title, jobTitle, profilePicture } = properties;
+
+        fullName = `${title.firstName} ${title.lastName}`;
         return (
           pin && (
             <Popup
-              latitude={pin.geometry.coordinates[1]}
-              longitude={pin.geometry.coordinates[0]}
+              latitude={geometry.coordinates[1]}
+              longitude={geometry.coordinates[0]}
               offsetTop={-20}
               closeButton={false}
               closeOnClick={false}
@@ -202,21 +203,27 @@ class LandingPage extends React.Component {
               <PopupInfo
                 style={{ cursor: 'pointer' }}
                 onClick={() =>
-                  this.props.history.push(`/seeker/${pin.properties.uid}`)
+                  this.props.history.push(`/seeker/${properties.uid}`)
                 }
               >
-                {fullName}
+                <h5>{fullName}</h5>
+                {profilePicture ? (
+                  <img src={profilePicture} alt="Profile" />
+                ) : null}
+                <h6>{jobTitle}</h6>
               </PopupInfo>
             </Popup>
           )
         );
       } else if (!!pin.properties.title.companyName) {
-        fullName = pin.properties.title.companyName;
+        const { properties, geometry } = pin;
+        const { title, jobTitle, profilePicture } = properties;
+        fullName = title.companyName;
         return (
           pin && (
             <Popup
-              latitude={pin.geometry.coordinates[1]}
-              longitude={pin.geometry.coordinates[0]}
+              latitude={geometry.coordinates[1]}
+              longitude={geometry.coordinates[0]}
               offsetTop={-20}
               closeButton={false}
               closeOnClick={false}
