@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
    License: none (public domain)
 */
 
+
   html,
   body,
   div,

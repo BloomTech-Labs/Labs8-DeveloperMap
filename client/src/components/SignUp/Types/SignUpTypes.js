@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Label, Input } from '../../../styles/SignIn_UpStyle';
+import { Label, Input, Button, AuthField, GoogleAuthButton } from '../../../styles/SignIn_UpStyle';
 
 class SignUpTypes extends React.Component {
   state = {
@@ -11,6 +11,12 @@ class SignUpTypes extends React.Component {
 
   // Form Input Control
   changeHandler = e => {
+    if (e.currentTarget.value === '') {
+      e.currentTarget.classList.remove('active');
+    } else {
+      e.currentTarget.classList.add('active');
+    }
+
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -24,6 +30,12 @@ class SignUpTypes extends React.Component {
     } else {
       this.props.history.push('/signup')
     }
+  }
+
+  googleHandler = e => {
+    e.preventDefault();
+
+    this.props.authorizeNewUser(this.state.email, this.state.password, 'google');
   }
 
 
@@ -44,7 +56,7 @@ class SignUpTypes extends React.Component {
     }
 
     // Authorize User with Firebase OAuth2 Method
-    this.props.authorizeNewUserWithEmailAndPassword(this.state.email, this.state.password, this.state.rePassword);
+    this.props.authorizeNewUser(this.state.email, this.state.password, 'email');
     this.userRedirect();
   }
 
@@ -66,45 +78,53 @@ class SignUpTypes extends React.Component {
     // console.log('%cstate', 'color: blue', this.state);
     return (
       <section>
-          <h2>Sign Up</h2>
           <form onSubmit={this.submitHandler}>
-            <Label htmlFor="email">
-              Email
+          <h2>Sign Up</h2>
+            <AuthField>
               <Input
+                id="email"
                 name="email"
                 type="email"
                 value={this.state.email}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="password">
-              Password
+              <Label htmlFor="email">
+                Email
+              </Label>  
+            </AuthField>
+            <AuthField>
               <Input
+                id="password"
                 name="password"
                 type="password"
                 value={this.state.password}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <Label htmlFor="rePassword">
-              Re-Enter Password
+              <Label htmlFor="password">
+                Password
+              </Label>
+            </AuthField>
+            <AuthField>
               <Input
+                id="rePassword"
                 name="rePassword"
                 type="password"
                 value={this.state.rePassword}
                 onChange={this.changeHandler}
                 required
               />
-            </Label>
-            <button>Sign Up</button>
+              <Label htmlFor="rePassword">
+                Re-Enter Password
+              </Label>
+            </AuthField>
+            <Button>Sign Up</Button>
+
+            {/* Third Party Auth */}
+            <GoogleAuthButton onClick={e => this.googleHandler(e)}/>
           </form>
-          <div>
-            {/*Third Party Auth Goes Here. Two Examples (Nonfunctional) Below: */}
-            <div>{/*Google Logo Icon*/}</div><p>Sign Up With Google</p>
-            <div>{/*GitHub Logo Icon*/}</div><p>Sign Up With GitHub</p>
-          </div>
+
       </section>
     );
   }

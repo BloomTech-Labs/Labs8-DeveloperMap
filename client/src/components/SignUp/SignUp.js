@@ -19,8 +19,9 @@ class SignUp extends React.Component {
 
   /// ---- Auth Methods ----
   /// --- Firebase Auth Signup Method
-  authorizeNewUserWithEmailAndPassword = (email, password, rePassword) => {
-    firebase
+  authorizeNewUser = (email, password, provider) => {
+    if (provider === 'email') {
+      firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -32,6 +33,29 @@ class SignUp extends React.Component {
         console.log({ errorCode, errorMessage });
         alert(error);
       });
+    }
+
+    if (provider === 'google') {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          if (this.state.userType === 'employer') {
+            this.props.history.push('/signup/employer')
+          } else if (this.state.userType === 'seeker') {
+            this.props.history.push('/signup/seeker')
+          } else {
+            this.props.history.push('/signup')
+          }
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        })
+      }
   }
 
   /// ---- Add New User To Database ----
@@ -107,8 +131,9 @@ class SignUp extends React.Component {
                   { headers }
                 )
                 .then(response => {
-                  alert(response.data.message);
+                  alert("Your Account Has Been Created");
                   firebase.auth().signInWithCustomToken(response.data.customToken)
+                  .then(() => this.props.history.push('/'))
                   .catch(error => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
@@ -133,7 +158,7 @@ class SignUp extends React.Component {
     // console.log('%cstate', 'color: blue', this.state);
     return (
       <ModalContainer data-type="modal-container">
-        <SignModalMain>
+        <SignModalMain width="21%">
           
           {/*'User Types' Component: User selects whether they are an employer or a seeker.*/}
           <Route exact path="/signup" render={ (props) => 
@@ -146,7 +171,7 @@ class SignUp extends React.Component {
                 {...props} 
                 userType={this.state.userType}
                 currentSignedInUser={this.props.currentSignedInUser}
-                authorizeNewUserWithEmailAndPassword = {this.authorizeNewUserWithEmailAndPassword} 
+                authorizeNewUser = {this.authorizeNewUser} 
               />
             }
           />
