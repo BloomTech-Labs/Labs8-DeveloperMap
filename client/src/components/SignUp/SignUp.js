@@ -131,7 +131,7 @@ class SignUp extends React.Component {
                   { headers }
                 )
                 .then(response => {
-                  alert(response.data.message);
+                  alert("Your Account Has Been Created");
                   firebase.auth().signInWithCustomToken(response.data.customToken)
                   .then(() => this.props.history.push('/'))
                   .catch(error => {
