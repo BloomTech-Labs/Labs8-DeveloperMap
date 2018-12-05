@@ -65,8 +65,8 @@ const createMarkerObjectSeeker = async (req, res, next) => {
 };
 
 const createMarkerObjectCompany = async (req, res, next) => {
-  const { location, uid } = req.body;
-  let { companyName } = req.body;
+  const { uid } = req.body;
+  let { companyName, profilePicture, location } = req.body;
   const exists = await rootRef
     .child(`/companies/${uid}`)
     .once('value')
@@ -85,14 +85,14 @@ const createMarkerObjectCompany = async (req, res, next) => {
 
   if (!profilePicture) {
     profilePicture = await rootRef
-      .child(`seekers/${uid}/profilePicture`)
+      .child(`companies/${uid}/profilePicture`)
       .once('value')
       .then(snapshot => snapshot.val());
   }
 
   if (!location) {
     location = await rootRef
-      .child(`seekers/${uid}/location`)
+      .child(`companies/${uid}/location`)
       .once('value')
       .then(snapshot => snapshot.val());
   }
