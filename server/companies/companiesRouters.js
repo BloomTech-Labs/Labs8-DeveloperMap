@@ -107,8 +107,8 @@ router.post(
       email,
       location,
       phoneNumber,
-      profilePicture = '',
-      remote = false
+      profilePicture: '',
+      remote: false
     };
     let updateObject = {};
     updateObject[`companies/${uid}`] = newData;
@@ -137,6 +137,23 @@ router.post('/jobsListed', (req, res) => {
       res.json(err);
     });
 });
+
+
+// Payment success applied to company
+
+router.post('/paysuccess', (req, res) => {
+  const { uid } = req.body;
+  const paid = true;
+  rootRef
+    .child(`companies/${uid}/paid`)
+    .set( true )
+    .then(res => {
+      res.json({ message: 'Payment Recorded' })
+    })
+    .catch(err => {
+      res.json(err);
+    });
+})
 
 //----------------------------------------------------------------------PUT
 
