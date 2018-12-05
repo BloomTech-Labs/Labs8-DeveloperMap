@@ -58,6 +58,7 @@ class SeekerSignUp extends React.Component {
         // this.state.password,                      
         // this.state.rePassword
       );
+      this.props.history.push('/');
     } else {
       console.log('nope');
     }
