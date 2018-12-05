@@ -9,15 +9,7 @@ class JobPosting extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    // Axios.get().then(response => {
-    //   const favoritedList = response.data;
-    //   if (favoritedList.includes(this.props.post.jobId)) {
-    //     document.querySelector(`#${jobId}`).setAttribute('src', FavHeart);
-    //   }
-    // });
     const favoritedList = this.props.favoritedList;
-    console.log(favoritedList);
-    console.log(favoritedList.includes(this.props.post.jobId));
     if (favoritedList.includes(this.props.post.jobId)) {
       document
         .querySelector(`#${this.props.post.jobId}`)

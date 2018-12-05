@@ -87,20 +87,21 @@ router.post('/:uid/:jid', validate, (req, res) => {
 //  ==== PUT for updating favorite posts ====
 
 router.put('/', async (req, res) => {
-  const { newFavorites, uid, companyUid } = req.body;
+  const { favoritedList, uid, companyUid } = req.body;
   let updateObject = {};
   rootRef
-    .child(`companyPostings/${companyUid}`)
+    .child(`allJobPostings`)
     .once('value')
     .then(snapshot => {
-      snapshot.forEach(childSnap => {
-        if (newFavorites.includes(childSnap.key)) {
-          console.log(childSnap.key);
-          updateObject[childSnap.key] = childSnap.val();
-        }
+      favoritedList.forEach(jobId => {
+        updateObject[jobId] = snapshot.child(jobId).val();
       });
-      rootRef.child(`favoritePostings/${uid}`).set(updateObject);
-      res.json('updated');
+      rootRef
+        .child(`favoritePostings/${uid}`)
+        .set(updateObject)
+        .then(() => {
+          res.json('favorites updated');
+        });
     });
 });
 

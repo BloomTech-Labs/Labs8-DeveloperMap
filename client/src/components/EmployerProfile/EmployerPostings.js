@@ -66,15 +66,11 @@ class EmployerPostings extends React.Component {
 
   favToggle = async (e, post) => {
     e.preventDefault();
-    console.log(e.target.src, FavHeart);
 
     const user = this.props.user;
-    console.log(user);
     if (!user) {
       window.location.replace('/signin');
     }
-    const { uid } = user;
-    const { jobId } = post;
 
     if (e.target.src === FavHeart) {
       //Removes Favorited Post from current User if confirms
@@ -93,10 +89,22 @@ class EmployerPostings extends React.Component {
   };
 
   componentWillUnmount() {
-    console.log(document.querySelectorAll(`img[src="${FavHeart}"]`));
+    const { favoritedList, initialFavoritedList } = this.state;
+    if (favoritedList !== initialFavoritedList) {
+      const { uid } = this.props.user;
+      const companyUid = this.props.match.params.employerId;
+      axios
+        .put('http://localhost:9000/api/database/favorites', {
+          favoritedList,
+          uid,
+          companyUid,
+        })
+        .then();
+    } else {
+      console.log('no change');
+    }
   }
   render() {
-    console.log(document.getElementsByClassName('favorited'));
     return (
       <PostContainer>
         {this.state.posts ? (
