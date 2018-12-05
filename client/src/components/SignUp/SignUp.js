@@ -41,9 +41,9 @@ class SignUp extends React.Component {
         .auth()
         .signInWithPopup(provider)
         .then(() => {
-          if (this.state.userType === 'employer') {
+          if (this.state.role === 'company') {
             this.props.history.push('/signup/employer')
-          } else if (this.state.userType === 'seeker') {
+          } else if (this.state.role === 'seeker') {
             this.props.history.push('/signup/seeker')
           } else {
             this.props.history.push('/signup')
