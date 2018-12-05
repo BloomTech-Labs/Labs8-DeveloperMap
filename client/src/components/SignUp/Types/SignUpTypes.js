@@ -2,8 +2,6 @@ import React from 'react';
 import firebase from 'firebase';
 import { Label, Input, Button, AuthField, GoogleAuthButton } from '../../../styles/SignIn_UpStyle';
 
-const googleAuthImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_normal_web.png?alt=media&token=cff7b16c-6e52-483d-b195-ebc43b3f2b57';
-
 class SignUpTypes extends React.Component {
   state = {
     email: '',
@@ -34,6 +32,12 @@ class SignUpTypes extends React.Component {
     }
   }
 
+  googleHandler = e => {
+    e.preventDefault();
+
+    this.props.authorizeNewUser(this.state.email, this.state.password, 'google');
+  }
+
 
   // On Form Submit, Check User Type
   submitHandler = e => {  
@@ -52,7 +56,7 @@ class SignUpTypes extends React.Component {
     }
 
     // Authorize User with Firebase OAuth2 Method
-    this.props.authorizeNewUserWithEmailAndPassword(this.state.email, this.state.password, this.state.rePassword);
+    this.props.authorizeNewUser(this.state.email, this.state.password, 'email');
     this.userRedirect();
   }
 
@@ -118,7 +122,7 @@ class SignUpTypes extends React.Component {
             <Button>Sign Up</Button>
 
             {/* Third Party Auth */}
-            <GoogleAuthButton/>
+            <GoogleAuthButton onClick={e => this.googleHandler(e)}/>
           </form>
 
       </section>

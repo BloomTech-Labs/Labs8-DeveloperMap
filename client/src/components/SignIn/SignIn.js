@@ -85,10 +85,11 @@ class SignIn extends React.Component {
             </h2>
             <form
               onSubmit={e => {
-                this.props.signInWithEmailAndPassword(
+                this.props.signInUser(
                   e,
                   this.state.email,
-                  this.state.password
+                  this.state.password,
+                  'email'
                 );
                 this.setState({ email: '', password: '' });
                 this.props.history.push('/');
@@ -125,7 +126,12 @@ class SignIn extends React.Component {
               <Button>Sign In</Button>
               - or -
               <Button onClick={e => {e.preventDefault(); this.props.history.push('/signup')}}>Register</Button>
-              <GoogleAuthButton />
+              <GoogleAuthButton onClick={e => this.props.signInUser(
+                  e,
+                  this.state.email,
+                  this.state.password,
+                  'google'
+                )}/>
 
             </form>
           </SignModalMain>

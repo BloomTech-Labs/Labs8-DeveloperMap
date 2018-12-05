@@ -152,127 +152,85 @@ class App extends Component {
       });
   };
 
-  signUpWithGoogleAuthentication = () => {
-    // // --- Google Auth Method ---
-    // var provider = new firebase.auth.GoogleAuthProvider();
-    // firebase
-    //   .auth()
-    //   .signInWithPopup(provider)
-    //   .then(response => {
-    //     // --- Add User to Database ---
-    //     // Construct Location Object
-    //     let location = {};
-    //     let tempUser = response;
-    //     let accessToken =
-    //       'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-    //     let addressString = 'utah';
-    //     let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
-    //     // Get Location Coordinates and Return Promise
-    //     axios
-    //       .get(mapboxGeocodingAPIURL)
-    //       .then(response => {
-    //         location = {
-    //           street: 'street',
-    //           city: 'city',
-    //           state: 'utah',
-    //           zip: 'zipCode',
-    //           coordinates: response.data.features[0].geometry.coordinates,
-    //         };
-    //         let user = {
-    //           uid: tempUser.user.uid,
-    //           email: tempUser.user.email,
-    //           phoneNumber: tempUser.user.phone,
-    //           location: location,
-    //           firstName: 'identifier1',
-    //           lastName: 'identifier2',
-    //           jobTitle: 'jobTitle',
-    //         };
-    //         // Create User In Database
-    //         axios
-    //           .post(
-    //             `https://intense-stream-29923.herokuapp.com/api/database/seekers/addUser/${
-    //               tempUser.user.uid
-    //             }`,
-    //             { ...user }
-    //           )
-    //           .then(response => {
-    //             console.log(response.data);
-    //             alert(response.data.message);
-    //             axios
-    //               .get(
-    //                 `https://intense-stream-29923.herokuapp.com/api/database/seekers/${
-    //                   tempUser.user.uid
-    //                 }`
-    //               )
-    //               .then(() => {
-    //                 this.setState({ currentSignedInUser: tempUser.data });
-    //                 this.props.history.push('/');
-    //               })
-    //               .catch(error => console.log(error));
-    //           })
-    //           .catch(error => console.log(error));
-    //       })
-    //       .catch(error => console.log(error));
-    //     // Close Modal
-    //   })
-    //   .catch(error => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log({ errorCode, errorMessage });
-    //   });
-  };
+
 
   /// ---- Sign In Methods ----
-  signInWithEmailAndPassword = (e, email, password) => {
-    e.preventDefault();
 
-    // --- Firebase Auth Method ---
+
+  // Gets User Data for Current Signed In User
+  // Adds Data to State
+  getCurrentUserData = (response) => {
+    firebase
+    .auth()
+    .currentUser.getIdTokenResult()
+    .then(idTokenResult => {
+      let userId = response.user.uid;
+      let userType;
+      let role;
+      if (idTokenResult.claims.seeker) {
+        userType = 'seekers';
+        role = 'seeker';
+      } else if (idTokenResult.claims.company) {
+        userType = 'companies';
+        role = 'company';
+      } else {
+        return console.log('Invalid user type!');
+      }
+      axios
+        .get(
+          `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${userId}`
+        )
+        .then(response =>
+          this.setState({
+            currentSignedInUser: {
+              ...response.data,
+              role: role,
+              uid: userId,
+            },
+          })
+        )
+        .catch(error => console.log(error));
+
+      // Close Modal
+      this.props.history.push('/');
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log({ errorCode, errorMessage });
+    });
+  }
+
+  signInUser = (e, email, password, provider) => {
+    e.preventDefault();
+    if (provider === 'email') {
+    // Firebase Email Auth
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => {
-        firebase
-          .auth()
-          .currentUser.getIdTokenResult()
-          .then(idTokenResult => {
-            let userId = response.user.uid;
-            let userType;
-            let role;
-            if (idTokenResult.claims.seeker) {
-              userType = 'seekers';
-              role = 'seeker';
-            } else if (idTokenResult.claims.company) {
-              userType = 'companies';
-              role = 'company';
-            } else {
-              return console.log('Invalid user type!');
-            }
+      .then(response => this.getCurrentUserData(response))
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage });
+        alert(error);
+      })
+    }
 
-            axios
-              .get(
-                `https://intense-stream-29923.herokuapp.com/api/database/${userType}/${userId}`
-              )
-              .then(response =>
-                this.setState({
-                  currentSignedInUser: {
-                    ...response.data,
-                    role: role,
-                    uid: userId,
-                  },
-                })
-              )
-              .catch(error => console.log(error));
-
-            // Close Modal
-            this.props.history.push('/');
-          })
-          .catch(error => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log({ errorCode, errorMessage });
-          });
-      });
-  };
+    if (provider === 'google') {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(response => this.getCurrentUserData(response))
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        })
+      }
+    }
 
   // --- Sign Out Method ---
   signOutCurrentUser = e => {
@@ -399,7 +357,7 @@ class App extends Component {
           render={props => (
             <SignIn
               {...props}
-              signInWithEmailAndPassword={this.signInWithEmailAndPassword}
+              signInUser={this.signInUser}
               signOutCurrentUser={this.signOutCurrentUser}
               currentSignedInUser={this.state.currentSignedInUser}
               signUpWithGoogleAuthentication={

@@ -60,6 +60,7 @@ class EmployerSignUp extends React.Component {
       // this.state.password, 
       // this.state.rePassword
     );
+
     } else {
       this.props.history.push('/signup');
     }
