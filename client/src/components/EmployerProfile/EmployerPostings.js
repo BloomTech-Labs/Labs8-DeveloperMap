@@ -13,75 +13,98 @@ class EmployerPostings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
+      posts: null,
       favToggle: false,
       favoritedList: [],
     };
   }
 
   async componentDidMount() {
-    const user = this.props.user;
-    let favoritedList = [];
     const employerId = this.props.match.params.employerId;
 
-    rootRef
-      .child(`companyPostings/${employerId}`)
-      .once('value')
-      .then(posts => {
-        this.setState({ posts: posts.val() });
-      })
-      .then(() => {
-        if (user) {
-          const uid = user.uid;
-          rootRef
-            .child(`favoritePostings/${uid}`)
-            .once('value')
-            .then(favoritePostings => {
-              favoritePostings.forEach(childSnap => {
-                favoritedList.push(childSnap.key);
+    firebase.auth().onAuthStateChanged(({ uid }) => {
+      if (uid) {
+        if (this.state.posts) {
+          axios
+            .get(
+              `https://intense-stream-29923.herokuapp.com/api/database/favorites/keys/${uid}`
+            )
+            .then(({ data }) => {
+              this.setState({
+                favoritedList: data,
+                initialFavoritedList: data,
               });
-              this.setState({ favoritedList });
+            });
+        } else {
+          axios
+            .get(
+              `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/${uid}`
+            )
+            .then(({ data }) => {
+              this.setState({
+                posts: data.posts,
+                favoritedList: data.favoritedList,
+                initialFavoritedList: data.favoritedList,
+              });
             });
         }
-      });
+      } else {
+        axios
+          .get(
+            `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/noUser`
+          )
+          .then(({ data }) => {
+            this.setState({
+              posts: data.posts,
+              favoritedList: data.favoritedList,
+              initialFavoritedList: data.favoritedList,
+            });
+          });
+      }
+    });
   }
 
   favToggle = async (e, post) => {
     e.preventDefault();
-    console.log(e.target.src, FavHeart);
 
     const user = this.props.user;
-    console.log(user);
     if (!user) {
       window.location.replace('/signin');
     }
-    const { uid } = user;
-    const { jobId } = post;
 
     if (e.target.src === FavHeart) {
       //Removes Favorited Post from current User if confirms
-      if (window.confirm('Do want to unfavorite this post?')) {
-        e.target.src = Heart;
-        axios
-          .delete(
-            `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}/${jobId}`
-          )
-          .catch();
-      }
+      const favoritedList = [
+        ...this.state.favoritedList.filter(jobId => jobId !== e.target.id),
+      ];
+      this.setState({ favoritedList });
+      e.target.src = Heart;
     } else {
       //Adds Favorited Post to current User's list if confirms
-      if (window.confirm('Do you want to favorite this post?')) {
-        e.target.src = FavHeart;
-        axios
-          .post(
-            `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}/${jobId}`,
-            post
-          )
-          .catch();
-      }
+      const favoritedList = [...this.state.favoritedList];
+      favoritedList.push(e.target.id);
+      this.setState({ favoritedList });
+      e.target.src = FavHeart;
     }
   };
 
+  componentWillUnmount() {
+    const { favoritedList, initialFavoritedList } = this.state;
+    if (favoritedList !== initialFavoritedList) {
+      const { uid } = this.props.user;
+      axios
+        .put(
+          'https://intense-stream-29923.herokuapp.com/api/database/favorites',
+          {
+            favoritedList,
+            uid,
+          }
+        )
+        .then();
+    } else {
+      console.log('no change');
+    }
+  }
   render() {
     return (
       <PostContainer>
