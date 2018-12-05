@@ -812,7 +812,7 @@ class EmployerSettings extends Component {
                     {this.props.currentSignedInUser.paid ? (
                       <div>
                         <h1>Add First Job!</h1>
-                        <button onClick={this.addJob}>+</button>
+                        <AddButton onClick={this.addJob}>+</AddButton>
                       </div>
                     ) : (
                       <Premium> {/*Premium Pay wall you have to pass before adding first job as employer */}

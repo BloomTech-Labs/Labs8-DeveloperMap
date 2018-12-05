@@ -68,10 +68,15 @@ const Job = styled.div`
   max-width: 350px;
   width: 100%;
   border: 0.7px solid rgba(220, 220, 220, 0.6);
+  border-radius: 4px;
   padding: 5%;
   margin-bottom: 15px;
   &:hover {
     box-shadow: none;
+  }
+  a{
+    text-decoration: none;
+    color: rgba(109, 7, 26, .95);
   }
 `;
 
