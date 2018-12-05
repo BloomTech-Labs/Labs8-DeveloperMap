@@ -36,7 +36,7 @@ class SeekerFavorites extends React.Component {
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain>
+        <ModalMain className="modal">
           <Fav>
             <h1>Favorite Jobs</h1>
             {this.state.favorites.length < 1 && <h1>No Favorites</h1>}

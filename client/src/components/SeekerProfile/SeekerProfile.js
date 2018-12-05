@@ -55,10 +55,14 @@ class SeekerProfile extends React.Component {
       });
   }
 
+  signUpEmployer = () => {
+    this.props.history.push('/signin');
+  };
+
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain>
+        <ModalMain className="modal">
           <ProfileStyle>
             <Icons>
               <a
@@ -168,7 +172,7 @@ class SeekerProfile extends React.Component {
             ) : (
               <Info>
                 <div className="info">
-                  <a href={'/signin'}>Contact Candidate</a>
+                  <p onClick={this.signUpEmployer}>Sign Up Employer</p>
                 </div>
               </Info>
             )}

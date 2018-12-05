@@ -369,7 +369,11 @@ class App extends Component {
               )}
             />
             <TransitionGroup>
-              <CSSTransition key={location.key} timeout={800} classNames="fade">
+              <CSSTransition
+                key={location.key}
+                timeout={{ enter: 500, exit: 500 }}
+                classNames="fade"
+              >
                 <Switch location={location}>
                   <Route
                     path="/employer/:employerId"

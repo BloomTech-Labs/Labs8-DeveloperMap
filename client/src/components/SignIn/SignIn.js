@@ -51,7 +51,7 @@ class SignIn extends React.Component {
     return (
       <ModalContainer data-type="modal-container">
         {this.state.userSignin && (
-          <SignModalMain>
+          <SignModalMain className="modal">
             <h2>Hello, {firstName}</h2>
             <h2>JobTitle: ${jobTitle}</h2>
             <h2>Email: {email}</h2>
@@ -69,7 +69,7 @@ class SignIn extends React.Component {
         )}
 
         {!this.state.userSignin && (
-          <SignModalMain>
+          <SignModalMain className="modal">
             <h2>
               {this.props.currentSignedInUser
                 ? `Welcome ${this.props.currentSignedInUser.firstName}`
