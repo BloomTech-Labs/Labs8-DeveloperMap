@@ -30,19 +30,21 @@ class EmployerPostings extends React.Component {
               `https://intense-stream-29923.herokuapp.com/api/database/favorites/keys/${uid}`
             )
             .then(({ data }) => {
-              console.log(data);
-              this.setState({ favoritedList: data });
+              this.setState({
+                favoritedList: data,
+                initialFavoritedList: data,
+              });
             });
         } else {
           axios
             .get(
               `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/${uid}`
             )
-            .then(response => {
-              console.log(response);
+            .then(({ data }) => {
               this.setState({
-                posts: response.data.posts,
-                favoritedList: response.data.favoritedList,
+                posts: data.posts,
+                favoritedList: data.favoritedList,
+                initialFavoritedList: data.favoritedList,
               });
             });
         }
@@ -51,11 +53,11 @@ class EmployerPostings extends React.Component {
           .get(
             `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/noUser`
           )
-          .then(response => {
-            console.log(response);
+          .then(({ data }) => {
             this.setState({
-              posts: response.data.posts,
-              favoritedList: response.data.favoritedList,
+              posts: data.posts,
+              favoritedList: data.favoritedList,
+              initialFavoritedList: data.favoritedList,
             });
           });
       }
