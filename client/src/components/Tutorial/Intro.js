@@ -41,11 +41,18 @@ const IntoContainer = styled.div`
       margin-bottom: 35px;
       display: flex;
       align-items: center;
+      img{
+          padding-top: 20px;
+      }
+      
   }
   p{
       line-height: 1.25;
       max-width: 500px;
       margin-bottom: 10px;
+  }
+  img{
+      margin-bottom: 20px;
   }
 `;
 

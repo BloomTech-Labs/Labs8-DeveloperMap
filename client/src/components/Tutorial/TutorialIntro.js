@@ -14,7 +14,14 @@ class TutorialIntro extends React.Component {
     render() {
         return (
             <ModalContainer data-type="modal-container">
-                <ModalMain>
+                <ModalMain 
+                    style={{ 
+                        borderRadius: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        maxWidth: '650px'
+                    }}
+                    >
                     <div>
                         <Route exact path='/tutorial' component={Intro}/>
                         <Route path={`${this.props.match.path}/gettingstarted`} component={GettingStarted}/>
