@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import fav from '../../images/favicon.PNG';
+import edit from '../../images/edit.PNG';
 
 class EditSettings extends React.Component{
     switchPage = () => {
@@ -13,11 +14,11 @@ class EditSettings extends React.Component{
            <p>To edit your profile settings and change your information, click on the cog in the top 
                right of your screen.
            </p>
-           <h1>Picture goes here</h1>
+           <img src={fav} alt=""/>
            <p>Then hit edit in the top right corner of the modal. Make sure you hit the save button before 
                closing, or your new settings will not be saved.
            </p>
-           <h1>Picture goes here</h1>
+           <img src={edit} alt=""/>
            <Next onClick={this.switchPage}>Done</Next>
         </SettingsGuide>
     );
@@ -26,6 +27,14 @@ class EditSettings extends React.Component{
 
 const SettingsGuide = styled.div`
   padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p{
+      margin: 2%;
+      line-height: 1.25;
+  }
 `;
 
 const Next = styled.button`

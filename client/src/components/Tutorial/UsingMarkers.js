@@ -13,9 +13,9 @@ class UsingMarkers extends React.Component{
             <h1>Using the Markers</h1>
             <p>
                 There are two types of markers on the map. Companies are 
-                <span><img src={company} alt="" style={{ width:'50px'}}/></span>
+                <span><img src={company} alt="" style={{ width:'40px'}}/></span>
                 and Job Seekers are 
-                <span><img src={seeker} alt="" style={{ width:'50px'}}/></span>.
+                <span><img src={seeker} alt="" style={{ width:'40px'}}/></span>.
                 You can click on a marker to bring up the name of the company or seeker in which that 
                 maker belongs to. Clicking on the link there will bring you to their profile page.
             </p>
@@ -32,6 +32,18 @@ class UsingMarkers extends React.Component{
 
 const MarkerGuide = styled.div`
   padding: 5%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p{
+      margin: 2%;
+      line-height: 1.25;
+      img{
+          padding-top: 10px;
+      }
+  }
 `;
 
 const Next = styled.button`

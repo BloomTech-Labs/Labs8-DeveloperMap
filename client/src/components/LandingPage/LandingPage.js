@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
+import { NavLink } from 'react-router-dom';
 
 import {
   MapWindow,
@@ -283,6 +284,7 @@ class LandingPage extends React.Component {
                 />
               </ToggleKnob>
             </div>
+            <NavLink to='/tutorial'>How it Works</NavLink>
           </KeyBox>
 
           {this.state.data.map(this.renderMarker)}
