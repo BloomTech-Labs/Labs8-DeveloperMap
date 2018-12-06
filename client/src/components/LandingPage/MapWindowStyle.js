@@ -49,8 +49,8 @@ export const MapWindow = styled.div`
   .mapboxgl-control-container {
     width: 100%;
     .mapboxgl-ctrl-top-right {
-      margin-left: Calc(10% + 10px);
-      margin-top: 4px;
+      margin-left: Calc(3% + 10px);
+      margin-top: 5px;
       right: initial;
       top: initial;
       left: initial;
@@ -71,6 +71,11 @@ export const MapWindow = styled.div`
   .mapboxgl-popup {
     height: 50px;
   }
+
+  .mapboxgl-popup-content {
+    padding: 0;
+    border-radius: 20px;
+  }
 `;
 
 export const ShowMarker = styled.img`
@@ -82,15 +87,61 @@ export const ShowMarker = styled.img`
 
 export const CloseX = styled.p`
   position: absolute;
-  right: 6%;
-  top: 3px;
-  font-family: sans-serif;
-  font-size: 12px;
+  right: -7px;
+  top: -3px;
+  font-size: 19px;
   cursor: pointer;
+  background-color: rgb(37, 36, 48);
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
 `;
 
 export const PopupInfo = styled.div`
-  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 200px;
+  padding: 12px 10px;
+
+  div {
+    text-align: center;
+    padding-left: 2%;
+
+    h4 {
+      margin-bottom: 7px;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    .jobTitle {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      p {
+        padding-left: 2px;
+      }
+    }
+
+    .link {
+      color: rgb(30, 144, 255);
+      cursor: pointer;
+    }
+  }
+`;
+
+export const PopupImg = styled.div`
+  display: ${props => (props.image ? 'block' : 'none')};
+  width: 60px;
+  height: 60px;
+  background-image: ${props => (props.image ? `url(${props.image})` : 'null')};
+  background-size: 60px auto;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  background-position: top;
 `;
 
 export const LogoImg = styled.img`
@@ -115,7 +166,7 @@ export const PinKey = styled.img`
 export const KeyBox = styled.div`
   width: 200px;
   height: 125px;
-  background-color: rgba(109, 7, 26, .95);
+  background-color: rgba(109, 7, 26, 0.95);
   position: absolute;
   right: 0;
   bottom: 0;
@@ -124,22 +175,30 @@ export const KeyBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 2px;
+  border-radius: 20px;
   z-index: 5;
   .key {
     display: flex;
     align-items: center;
     background-color: #fafafa;
   }
+  .key1{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .key2{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
   h3 {
     font-size: 1.1rem;
     font-weight: lighter;
     width: 80px;
   }
-  a{
+  a {
     text-decoration: none;
     color: white;
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin-top: 2px;
   }
   @media (max-width: 550px) {
@@ -149,8 +208,18 @@ export const KeyBox = styled.div`
     width: 100%;
     flex-direction: row;
     height: 50px;
-    a{
+    a {
       display: none;
+    }
+    .key1{
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
+      border-top-right-radius: 0;
+    }
+    .key2{
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      border-bottom-left-radius: 0;
     }
   }
 `;

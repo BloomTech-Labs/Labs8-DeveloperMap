@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Nav = styled.div`
-  width: 75%;
+  width: 94%;
   height: 50px;
   background-color: rgba(109, 7, 26, 0.95);
   z-index: 1;
@@ -9,7 +9,7 @@ export const Nav = styled.div`
   border-radius: 25px;
   display: flex;
   top: 6px;
-  right: 15%;
+  right: 3%;
   justify-content: flex-end;
   align-items: center;
 
@@ -40,6 +40,7 @@ export const Icons = styled.div`
   margin-right: 10px;
   justify-content: space-between;
   width: 100px;
+  cursor: pointer;
   .signout {
     img {
       border-radius: 50%;
@@ -58,6 +59,7 @@ export const InButton = styled.button`
   border: none;
   margin-right: 10px;
   box-shadow: 0 4px 2px -2px rgba(15, 15, 15, 0.2);
+  cursor: pointer;
   &:hover {
     background-color: rgba(184, 15, 10, 0.8);
   }

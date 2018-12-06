@@ -229,6 +229,20 @@ class App extends Component {
           alert(error);
         });
     }
+
+    if (provider === 'github') {
+      const provider = new firebase.auth.GithubAuthProvider();
+      firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(response => this.getCurrentUserData(response))
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage });
+        alert(error);
+      })
+   }
   };
 
   // --- Sign Out Method ---
@@ -267,7 +281,7 @@ class App extends Component {
               userType = 'companies';
               role = 'company';
             } else {
-              return console.log('Invalid user type!');
+              return;
             }
             axios
               .get(

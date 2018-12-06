@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { ModalMain } from './ModalGlobalStyle.js';
-const googleAuthImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_normal_web.png?alt=media&token=cff7b16c-6e52-483d-b195-ebc43b3f2b57';
-const googleAuthHoverImageURL = 'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/thirdPartyAuth%2Fbtn_google_signin_light_pressed_web.png?alt=media&token=e4a98c94-5d5d-4e78-aadb-54d20fb44e1e'
+import googleAuthImageURL from '../images/signup/btn_google_signin_light_normal_web.png'
+import googleAuthHoverImageURL from '../images/signup/btn_google_signin_light_pressed_web.png'
+import githubAuthImageURL from '../images/signup/btn_github_signin_light_normal_web@2x.png'
+import githubAuthHoverImageURL from '../images/signup/btn_github_signin_light_pressed_web@2x.png'
 
 export const SignModalMain = styled(ModalMain)`
   width: ${props => props.width};
@@ -159,6 +161,7 @@ export const Button = styled.button`
 
 export const GoogleAuthButton = styled.div`
   background-image: url("${googleAuthImageURL}");
+  background-size: cover;
   width: 191px;
   height: 46px;
   cursor: pointer;
@@ -166,5 +169,20 @@ export const GoogleAuthButton = styled.div`
 
   &:hover {
     background-image: url("${googleAuthHoverImageURL}");
+    background-size: cover;
+  }
+`;
+
+export const GithubAuthButton = styled.div`
+  background-image: url("${githubAuthImageURL}");
+  background-size: cover;
+  width: 191px;
+  height: 46px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-image: url("${githubAuthHoverImageURL}");
+    background-size: cover;
   }
 `;

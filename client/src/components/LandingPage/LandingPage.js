@@ -14,6 +14,7 @@ import {
   PinKey,
   KeyBox,
   ToggleKnob,
+  PopupImg,
 } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import MainLogo from '../../images/mainlogo.png';
@@ -184,57 +185,59 @@ class LandingPage extends React.Component {
     const { pin } = this.state;
 
     let fullName = '';
+    let title, jobTitle, profilePicture, role, geometry, properties;
 
     if (!!pin) {
+      properties = pin.properties;
+      geometry = pin.geometry;
+      title = properties.title;
+      profilePicture = properties.profilePicture;
+      role = properties.role;
+
       if (!!pin.properties.title.firstName) {
-        fullName = `${pin.properties.title.firstName} ${
-          pin.properties.title.lastName
-        }`;
-        return (
-          pin && (
-            <Popup
-              latitude={pin.geometry.coordinates[1]}
-              longitude={pin.geometry.coordinates[0]}
-              offsetTop={-20}
-              closeButton={false}
-              closeOnClick={false}
-            >
-              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
-              <PopupInfo
-                style={{ cursor: 'pointer' }}
-                onClick={() =>
-                  this.props.history.push(`/seeker/${pin.properties.uid}`)
-                }
-              >
-                {fullName}
-              </PopupInfo>
-            </Popup>
-          )
-        );
+        jobTitle = properties.jobTitle;
+
+        fullName = `${title.firstName} ${title.lastName}`;
       } else if (!!pin.properties.title.companyName) {
-        fullName = pin.properties.title.companyName;
-        return (
-          pin && (
-            <Popup
-              latitude={pin.geometry.coordinates[1]}
-              longitude={pin.geometry.coordinates[0]}
-              offsetTop={-20}
-              closeButton={false}
-              closeOnClick={false}
-            >
-              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
-              <PopupInfo
-                style={{ cursor: 'pointer' }}
-                onClick={() =>
-                  this.props.history.push(`/employer/${pin.properties.uid}`)
-                }
-              >
-                {fullName}
-              </PopupInfo>
-            </Popup>
-          )
-        );
+        role = 'employer';
+
+        fullName = title.companyName;
+      } else {
+        console.log('Not a seeker or company');
       }
+
+      return (
+        pin && (
+          <Popup
+            latitude={geometry.coordinates[1]}
+            longitude={geometry.coordinates[0]}
+            offsetTop={-20}
+            closeButton={false}
+            closeOnClick={false}
+          >
+            <CloseX onClick={() => this.setState({ pin: null })}>&#215;</CloseX>
+            <PopupInfo>
+              <PopupImg image={profilePicture} />
+              <div>
+                <h4>{fullName}</h4>
+                {jobTitle ? (
+                  <div className="jobTitle">
+                    <p>Job Title:</p> <p>{jobTitle}</p>
+                  </div>
+                ) : null}
+                <p
+                  className="link"
+                  onClick={() => {
+                    this.props.history.push(`/${role}/${properties.uid}`);
+                  }}
+                >
+                  Learn more
+                </p>
+              </div>
+            </PopupInfo>
+          </Popup>
+        )
+      );
     }
   };
 
@@ -258,7 +261,7 @@ class LandingPage extends React.Component {
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
-            <div className="key">
+            <div className="key key1">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
               <ToggleKnob htmlFor="seeker">
@@ -271,7 +274,7 @@ class LandingPage extends React.Component {
                 />
               </ToggleKnob>
             </div>
-            <div className="key">
+            <div className="key key2">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
               <ToggleKnob htmlFor="company">
@@ -284,7 +287,7 @@ class LandingPage extends React.Component {
                 />
               </ToggleKnob>
             </div>
-            <NavLink to='/tutorial'>How it Works</NavLink>
+            <NavLink to="/tutorial">How it Works</NavLink>
           </KeyBox>
 
           {this.state.data.map(this.renderMarker)}
