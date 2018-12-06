@@ -38,7 +38,7 @@ const IntoContainer = styled.div`
   justify-content: center;
   align-items: center;
   h1{
-      margin-bottom: 35px;
+      margin-bottom: 25px;
       display: flex;
       align-items: center;
       img{

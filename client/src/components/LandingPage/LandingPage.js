@@ -258,7 +258,7 @@ class LandingPage extends React.Component {
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
-            <div className="key">
+            <div className="key key1">
               <PinKey src={SeekerPin} />
               <h3>Job Seeker</h3>
               <ToggleKnob htmlFor="seeker">
@@ -271,7 +271,7 @@ class LandingPage extends React.Component {
                 />
               </ToggleKnob>
             </div>
-            <div className="key">
+            <div className="key key2">
               <PinKey src={CompanyPin} />
               <h3>Employer</h3>
               <ToggleKnob htmlFor="company">
