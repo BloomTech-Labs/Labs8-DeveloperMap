@@ -4,14 +4,6 @@ const rootRef = firebase.database().ref();
 const createMarkerObjectSeeker = async (req, res, next) => {
   const { uid } = req.body;
   let { firstName, lastName, jobTitle, profilePicture, location } = req.body;
-  const exists = await rootRef
-    .child(`/seekers/${uid}`)
-    .once('value')
-    .then(snap => snap.exists());
-
-  if (!uid || !exists) {
-    return res.json({ message: 'user does not exist' });
-  }
 
   if (!firstName) {
     firstName = await rootRef
@@ -72,14 +64,6 @@ const createMarkerObjectSeeker = async (req, res, next) => {
 const createMarkerObjectCompany = async (req, res, next) => {
   const { uid } = req.body;
   let { companyName, profilePicture, location } = req.body;
-  const exists = await rootRef
-    .child(`/companies/${uid}`)
-    .once('value')
-    .then(snap => snap.exists());
-
-  if (!uid || !exists) {
-    return res.json({ message: 'user does not exist' });
-  }
 
   if (!companyName) {
     companyName = await rootRef
