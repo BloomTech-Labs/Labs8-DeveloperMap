@@ -321,23 +321,27 @@ router.put('/jobListed/:jobKey', async (req, res) => {
 
 //-------------------------------------------------------------------DELETE
 
-router.delete('/', (req, res) => {
-  const { uid } = req.params;
-  rootRef
-    .child(`companies/${uid}`)
+router.delete('/jobsListed/:jobId', (req, res) => {
+  const { uid } = req.body;
+  const { jobId } = req.params;
+
+  const existsInCompanyPostings = rootRef
+    .child(`companyPostings/${uid}/${jobId}`)
     .once('value')
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        snapshot.ref
-          .remove()
-          .then(() => {
-            res.json('user has been deleted');
-          })
-          .catch(err => res.json(err));
-      } else {
-        return res.json("user doesn't exist");
-      }
-    });
+    .then(snapshot => snapshot.exists());
+
+  const existsInAllJobPostings = rootRef
+    .child(`allJobPostings/${jobId}`)
+    .once('value')
+    .then(snapshot => snapshot.exists());
+
+  const updateObject = {
+    [`companyPostings/${uid}/${jobId}`]: null,
+    [`allJobPostings/${jobId}`]: null,
+  };
+  rootRef.update(updateObject).then(() => {
+    res.json({ message: `jobId: ${jobId} deleted` });
+  });
 });
 
 module.exports = router;
