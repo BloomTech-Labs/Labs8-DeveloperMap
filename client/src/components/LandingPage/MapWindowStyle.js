@@ -87,11 +87,14 @@ export const ShowMarker = styled.img`
 
 export const CloseX = styled.p`
   position: absolute;
-  right: 6%;
-  top: 3px;
-  font-family: sans-serif;
-  font-size: 12px;
+  right: -7px;
+  top: -3px;
+  font-size: 19px;
   cursor: pointer;
+  background-color: rgb(37, 36, 48);
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
 `;
 
 export const PopupInfo = styled.div`

@@ -201,7 +201,9 @@ class LandingPage extends React.Component {
               closeButton={false}
               closeOnClick={false}
             >
-              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
+              <CloseX onClick={() => this.setState({ pin: null })}>
+                &#215;
+              </CloseX>
               <PopupInfo>
                 <PopupImg image={profilePicture} />
                 <div>
