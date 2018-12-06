@@ -41,9 +41,9 @@ class SignUp extends React.Component {
         .auth()
         .signInWithPopup(provider)
         .then(() => {
-          if (this.state.role === 'company') {
+          if (this.state.userType === 'employer') {
             this.props.history.push('/signup/employer');
-          } else if (this.state.role === 'seeker') {
+          } else if (this.state.userType === 'seeker') {
             this.props.history.push('/signup/seeker');
           } else {
             this.props.history.push('/signup');
@@ -54,9 +54,32 @@ class SignUp extends React.Component {
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
           alert(error);
-        });
-    }
-  };
+
+        })
+      }
+
+      if (provider === 'github') {
+        const provider = new firebase.auth.GithubAuthProvider();
+        firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          if (this.state.userType === 'employer') {
+            this.props.history.push('/signup/employer')
+          } else if (this.state.userType === 'seeker') {
+            this.props.history.push('/signup/seeker')
+          } else {
+            this.props.history.push('/signup')
+          }
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        })
+     }
+  }
 
   /// ---- Add New User To Database ----
   signUpNewUser = (
@@ -136,7 +159,10 @@ class SignUp extends React.Component {
                 firebase
                   .auth()
                   .signInWithCustomToken(response.data.customToken)
-                  .then(() => this.props.history.push('/'))
+                  .then(() => {
+                    this.props.history.push('/');
+                    return window.location.reload();
+                  })
                   .catch(error => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
@@ -156,7 +182,7 @@ class SignUp extends React.Component {
     this.setState({ userType: type });
     this.props.history.push({
       pathname: '/signup/method',
-      state: { userType: type },
+      state: {...this.state, userType: type },
     });
   };
 
@@ -185,7 +211,7 @@ class SignUp extends React.Component {
             render={props => (
               <SignUpTypes
                 {...props}
-                userType={this.state.userType}
+                userType={this.props.location.state.userType}
                 currentSignedInUser={this.props.currentSignedInUser}
                 authorizeNewUser={this.authorizeNewUser}
               />
