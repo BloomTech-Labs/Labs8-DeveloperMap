@@ -59,6 +59,7 @@ export const InButton = styled.button`
   border: none;
   margin-right: 10px;
   box-shadow: 0 4px 2px -2px rgba(15, 15, 15, 0.2);
+  cursor: pointer;
   &:hover {
     background-color: rgba(184, 15, 10, 0.8);
   }

@@ -138,7 +138,7 @@ class SignIn extends React.Component {
                   e,
                   this.state.email,
                   this.state.password,
-                  'google'
+                  'github'
                 )}/>
             </form>
           </SignModalMain>
