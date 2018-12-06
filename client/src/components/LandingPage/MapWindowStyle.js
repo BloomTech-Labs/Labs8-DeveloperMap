@@ -74,6 +74,7 @@ export const MapWindow = styled.div`
 
   .mapboxgl-popup-content {
     padding: 0;
+    border-radius: 20px;
   }
 `;
 
@@ -94,20 +95,50 @@ export const CloseX = styled.p`
 `;
 
 export const PopupInfo = styled.div`
-  max-width: 150px;
-  text-align: center;
-  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 200px;
+  padding: 12px 10px;
+
+  div {
+    text-align: center;
+    padding-left: 2%;
+
+    h4 {
+      margin-bottom: 7px;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    .jobTitle {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      p {
+        padding-left: 2px;
+      }
+    }
+
+    .link {
+      color: rgb(30, 144, 255);
+      cursor: pointer;
+    }
+  }
 `;
 
 export const PopupImg = styled.div`
   display: ${props => (props.image ? 'block' : 'none')};
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
+  width: 60px;
+  height: 60px;
   background-image: ${props => (props.image ? `url(${props.image})` : 'null')};
-  background-size: 50px auto;
+  background-size: 60px auto;
   background-repeat: no-repeat;
   border-radius: 50%;
+  background-position: top;
 `;
 
 export const LogoImg = styled.img`

@@ -202,15 +202,24 @@ class LandingPage extends React.Component {
               closeOnClick={false}
             >
               <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
-              <PopupInfo
-                style={{ cursor: 'pointer' }}
-                onClick={() =>
-                  this.props.history.push(`/seeker/${properties.uid}`)
-                }
-              >
-                <h4>{fullName}</h4>
-                <h5>Job Title: {jobTitle}</h5>
+              <PopupInfo>
                 <PopupImg image={profilePicture} />
+                <div>
+                  <h4>{fullName}</h4>
+                  {jobTitle ? (
+                    <div className="jobTitle">
+                      <p>Job Title:</p> <p>{jobTitle}</p>
+                    </div>
+                  ) : null}
+                  <p
+                    className="link"
+                    onClick={() =>
+                      this.props.history.push(`/seeker/${properties.uid}`)
+                    }
+                  >
+                    Learn more
+                  </p>
+                </div>
               </PopupInfo>
             </Popup>
           )
