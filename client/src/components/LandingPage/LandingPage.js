@@ -14,6 +14,7 @@ import {
   PinKey,
   KeyBox,
   ToggleKnob,
+  PopupImg,
 } from './MapWindowStyle';
 import SeekerPin from '../../images/markerlogo.png';
 import MainLogo from '../../images/mainlogo.png';
@@ -208,9 +209,7 @@ class LandingPage extends React.Component {
                 }
               >
                 <h5>{fullName}</h5>
-                {profilePicture ? (
-                  <img src={profilePicture} alt="Profile" />
-                ) : null}
+                <PopupImg image={profilePicture} />
                 <h6>{jobTitle}</h6>
               </PopupInfo>
             </Popup>
@@ -291,7 +290,7 @@ class LandingPage extends React.Component {
                 />
               </ToggleKnob>
             </div>
-            <NavLink to='/tutorial'>How it Works</NavLink>
+            <NavLink to="/tutorial">How it Works</NavLink>
           </KeyBox>
 
           {this.state.data.map(this.renderMarker)}

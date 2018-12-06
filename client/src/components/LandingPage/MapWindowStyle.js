@@ -93,6 +93,12 @@ export const PopupInfo = styled.div`
   padding: 5px 10px;
 `;
 
+export const PopupImg = styled.div`
+  width: 50px;
+  height: 50px;
+  background-image: ${props => (props.image ? `url(${props.image})` : 'null')};
+`;
+
 export const LogoImg = styled.img`
   position: absolute;
   bottom: 0;
@@ -110,7 +116,7 @@ export const PinKey = styled.img`
 export const KeyBox = styled.div`
   width: 200px;
   height: 125px;
-  background-color: rgba(109, 7, 26, .95);
+  background-color: rgba(109, 7, 26, 0.95);
   position: absolute;
   right: 0;
   bottom: 0;
@@ -131,10 +137,10 @@ export const KeyBox = styled.div`
     font-weight: lighter;
     width: 80px;
   }
-  a{
+  a {
     text-decoration: none;
     color: white;
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin-top: 2px;
   }
 `;
