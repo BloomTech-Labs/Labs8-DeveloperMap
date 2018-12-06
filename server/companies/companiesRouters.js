@@ -50,6 +50,47 @@ router.get('/jobPostings/:companyUid/:seekersUid', async (req, res) => {
   });
 });
 
+router.get(
+  '/allCompanyDataAndFavKeys/:companyUid/:seekersUid',
+  async (req, res) => {
+    const { seekersUid, companyUid } = req.params;
+    let favoritedList = [];
+    const posts = await rootRef
+      .child(`companyPostings/${companyUid}`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+
+    const companyInfo = await rootRef
+      .child(`companies/${companyUid}`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+
+    await rootRef
+      .child(`favoritePostings/${seekersUid}`)
+      .once('value')
+      .then(snapshot =>
+        snapshot.forEach(snapshot => {
+          favoritedList.push(snapshot.key);
+        })
+      );
+    res.json({ posts, companyInfo, favoritedList });
+  }
+);
+
+router.get('/allCompanyData/:companyUid', async (req, res) => {
+  const { companyUid } = req.params;
+  const posts = await rootRef
+    .child(`companyPostings/${companyUid}`)
+    .once('value')
+    .then(snapshot => snapshot.val());
+
+  const companyInfo = await rootRef
+    .child(`companies/${companyUid}`)
+    .once('value')
+    .then(snapshot => snapshot.val());
+  res.json({ posts, companyInfo });
+});
+
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
   rootRef
