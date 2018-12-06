@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Nav = styled.div`
-  width: 75%;
+  width: 94%;
   height: 50px;
   background-color: rgba(109, 7, 26, 0.95);
   z-index: 1;
@@ -9,7 +9,7 @@ export const Nav = styled.div`
   border-radius: 25px;
   display: flex;
   top: 6px;
-  right: 15%;
+  right: 3%;
   justify-content: flex-end;
   align-items: center;
 
@@ -40,6 +40,7 @@ export const Icons = styled.div`
   margin-right: 10px;
   justify-content: space-between;
   width: 100px;
+  cursor: pointer;
   .signout {
     img {
       border-radius: 50%;
