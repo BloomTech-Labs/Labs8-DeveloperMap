@@ -28,10 +28,11 @@ function Favorite(props) {
 const FavoriteCard = styled.div`
   border: 1px solid black;
   width: 300px;
-  margin: 5%;
+  margin: 2%;
   padding: 3%;
   display: flex;
   justify-content: space-between;
+  border-radius: 4px;
 `;
 
 export default Favorite;
