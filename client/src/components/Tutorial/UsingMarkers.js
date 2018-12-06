@@ -24,7 +24,7 @@ class UsingMarkers extends React.Component{
                 right hand corner of your screen. 
             </p>
             <h1>Picture Goes here</h1>
-            <button onClick={this.switchPage}>Next</button>
+            <Next onClick={this.switchPage}>Next</Next>
         </MarkerGuide>
     );
     }
@@ -32,6 +32,21 @@ class UsingMarkers extends React.Component{
 
 const MarkerGuide = styled.div`
   padding: 5%;
+`;
+
+const Next = styled.button`
+  width: 100px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgba(109, 7, 26, .95);
+  cursor: pointer;
+  outline: none;
+  height: 30px;
+  color: white;
+  box-shadow: 0 4px 2px -2px gray;
+  &:hover {
+    background-color: rgba(109, 7, 26, .75);
+  }
 `;
 
 export default UsingMarkers;

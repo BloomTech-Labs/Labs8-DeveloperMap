@@ -27,7 +27,7 @@ class GettingStarted extends React.Component{
                     will be re-entering these in just a second. Now just fill out the Sign up form with your info and 
                     submit. You will then be redireced to the Map.
                 </p>
-                <button onClick={this.switchPage}>Next</button>
+                <Next onClick={this.switchPage}>Next</Next>
             </StartContainer>
     );
     }
@@ -35,6 +35,21 @@ class GettingStarted extends React.Component{
 
 const StartContainer = styled.div`
   padding: 5%;
+`;
+
+const Next = styled.button`
+  width: 100px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgba(109, 7, 26, .95);
+  cursor: pointer;
+  outline: none;
+  height: 30px;
+  color: white;
+  box-shadow: 0 4px 2px -2px gray;
+  &:hover {
+    background-color: rgba(109, 7, 26, .75);
+  }
 `;
 
 export default GettingStarted;
