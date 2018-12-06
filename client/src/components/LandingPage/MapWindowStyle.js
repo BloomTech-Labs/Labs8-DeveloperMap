@@ -106,6 +106,11 @@ export const LogoImg = styled.img`
   width: 300px;
   height: auto;
   margin: 2%;
+  @media (max-width: 550px) {
+    margin: 50px auto;
+    padding-left: 30%;
+    width: 250px;
+  }
 `;
 
 export const PinKey = styled.img`
@@ -142,6 +147,17 @@ export const KeyBox = styled.div`
     color: white;
     font-size: 0.9rem;
     margin-top: 2px;
+  }
+  @media (max-width: 550px) {
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    flex-direction: row;
+    height: 50px;
+    a{
+      display: none;
+    }
   }
 `;
 
