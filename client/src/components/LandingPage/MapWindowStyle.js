@@ -131,6 +131,12 @@ export const KeyBox = styled.div`
     font-weight: lighter;
     width: 80px;
   }
+  a{
+    text-decoration: none;
+    color: white;
+    font-size: .9rem;
+    margin-top: 2px;
+  }
 `;
 
 export const ToggleKnob = styled.label`
