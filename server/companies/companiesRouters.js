@@ -250,34 +250,26 @@ router.put('/userInfo', createMarkerObjectCompany, (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.put('/jobListed/:jobKey', async (req, res) => {
-  const { jobKey } = req.params;
+router.put('/jobListed/:jobId', async (req, res) => {
+  const { jobId } = req.params;
   const { companyName, date, location, jobLink, jobTitle, uid } = req.body;
-  const newData = { companyName, date, location, jobLink, jobTitle, uid };
-  let updateObject = {};
-  const favoritedPosts = await rootRef.child('favoritePosting').once('value');
-  updateObject[`companyPostings/${uid}/${jobKey}`] = {
-    companyName,
-    date,
-    location,
-    jobLink,
-    jobTitle,
+  const newData = { companyName, date, location, jobLink, jobTitle };
+
+  let updateObject = {
+    [`companyPostings/${uid}/${jobId}`]: newData,
+    [`allJobListed/${uid}/${jobId}`]: newData,
   };
-  if (favoritedPosts) {
-    favoritedPosts.forEach(childSnap => {
-      if (childSnap.child(jobKey).exists()) {
-        updateObject[`favoritePosting/${childSnap.key}/${jobKey}`] = newData;
-      }
-    });
-  }
-  rootRef
-    .update(updateObject)
-    .then(() => {
-      res.json('company postings updated');
-    })
-    .catch(err => {
-      res.json(err);
-    });
+  await rootRef
+    .child('favoritePostings')
+    .once('value')
+    .then(snapshot =>
+      snapshot.forEach(childSnap => {
+        if (childSnap.child(jobId).exists()) {
+          updateObject[`favoritePostings/${childSnap.key}/${jobId}`] = newData;
+        }
+      })
+    );
+  rootRef.update(updateObject).then(res.json({ updateObject }));
 });
 
 // Version 2.0 (Needs Testing)
