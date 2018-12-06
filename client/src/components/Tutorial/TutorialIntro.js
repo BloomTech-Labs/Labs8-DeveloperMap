@@ -22,6 +22,7 @@ class TutorialIntro extends React.Component {
                         maxWidth: '650px'
                     }}
                     >
+                    
                     <div>
                         <Route exact path='/tutorial' component={Intro}/>
                         <Route path={`${this.props.match.path}/gettingstarted`} component={GettingStarted}/>
