@@ -185,73 +185,58 @@ class LandingPage extends React.Component {
     const { pin } = this.state;
 
     let fullName = '';
+    let title, jobTitle, profilePicture, geometry, properties;
 
     if (!!pin) {
       if (!!pin.properties.title.firstName) {
-        const { properties, geometry } = pin;
-        const { title, jobTitle, profilePicture } = properties;
+        properties = pin.properties;
+        geometry = pin.geometry;
+        title = properties.title;
+        jobTitle = properties.jobTitle;
+        profilePicture = properties.profilePicture;
+        fullName = title.companyName;
 
         fullName = `${title.firstName} ${title.lastName}`;
-        return (
-          pin && (
-            <Popup
-              latitude={geometry.coordinates[1]}
-              longitude={geometry.coordinates[0]}
-              offsetTop={-20}
-              closeButton={false}
-              closeOnClick={false}
-            >
-              <CloseX onClick={() => this.setState({ pin: null })}>
-                &#215;
-              </CloseX>
-              <PopupInfo>
-                <PopupImg image={profilePicture} />
-                <div>
-                  <h4>{fullName}</h4>
-                  {jobTitle ? (
-                    <div className="jobTitle">
-                      <p>Job Title:</p> <p>{jobTitle}</p>
-                    </div>
-                  ) : null}
-                  <p
-                    className="link"
-                    onClick={() =>
-                      this.props.history.push(`/seeker/${properties.uid}`)
-                    }
-                  >
-                    Learn more
-                  </p>
-                </div>
-              </PopupInfo>
-            </Popup>
-          )
-        );
-      } else if (!!pin.properties.title.companyName) {
-        const { properties, geometry } = pin;
-        const { title, jobTitle, profilePicture } = properties;
+      } else {
+        properties = pin.properties;
+        geometry = pin.geometry;
+        title = properties.title;
+        profilePicture = properties.profilePicture;
         fullName = title.companyName;
-        return (
-          pin && (
-            <Popup
-              latitude={geometry.coordinates[1]}
-              longitude={geometry.coordinates[0]}
-              offsetTop={-20}
-              closeButton={false}
-              closeOnClick={false}
-            >
-              <CloseX onClick={() => this.setState({ pin: null })}>X</CloseX>
-              <PopupInfo
-                style={{ cursor: 'pointer' }}
-                onClick={() =>
-                  this.props.history.push(`/employer/${pin.properties.uid}`)
-                }
-              >
-                {fullName}
-              </PopupInfo>
-            </Popup>
-          )
-        );
       }
+
+      return (
+        pin && (
+          <Popup
+            latitude={geometry.coordinates[1]}
+            longitude={geometry.coordinates[0]}
+            offsetTop={-20}
+            closeButton={false}
+            closeOnClick={false}
+          >
+            <CloseX onClick={() => this.setState({ pin: null })}>&#215;</CloseX>
+            <PopupInfo>
+              <PopupImg image={profilePicture} />
+              <div>
+                <h4>{fullName}</h4>
+                {jobTitle ? (
+                  <div className="jobTitle">
+                    <p>Job Title:</p> <p>{jobTitle}</p>
+                  </div>
+                ) : null}
+                <p
+                  className="link"
+                  onClick={() =>
+                    this.props.history.push(`/seeker/${properties.uid}`)
+                  }
+                >
+                  Learn more
+                </p>
+              </div>
+            </PopupInfo>
+          </Popup>
+        )
+      );
     }
   };
 
