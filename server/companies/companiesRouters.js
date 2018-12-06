@@ -50,6 +50,47 @@ router.get('/jobPostings/:companyUid/:seekersUid', async (req, res) => {
   });
 });
 
+router.get(
+  '/allCompanyDataAndFavKeys/:companyUid/:seekersUid',
+  async (req, res) => {
+    const { seekersUid, companyUid } = req.params;
+    let favoritedList = [];
+    const posts = await rootRef
+      .child(`companyPostings/${companyUid}`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+
+    const companyInfo = await rootRef
+      .child(`companies/${companyUid}`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+
+    await rootRef
+      .child(`favoritePostings/${seekersUid}`)
+      .once('value')
+      .then(snapshot =>
+        snapshot.forEach(snapshot => {
+          favoritedList.push(snapshot.key);
+        })
+      );
+    res.json({ posts, companyInfo, favoritedList });
+  }
+);
+
+router.get('/allCompanyData/:companyUid', async (req, res) => {
+  const { companyUid } = req.params;
+  const posts = await rootRef
+    .child(`companyPostings/${companyUid}`)
+    .once('value')
+    .then(snapshot => snapshot.val());
+
+  const companyInfo = await rootRef
+    .child(`companies/${companyUid}`)
+    .once('value')
+    .then(snapshot => snapshot.val());
+  res.json({ posts, companyInfo });
+});
+
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
   rootRef
@@ -209,34 +250,26 @@ router.put('/userInfo', createMarkerObjectCompany, (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.put('/jobListed/:jobKey', async (req, res) => {
-  const { jobKey } = req.params;
+router.put('/jobListed/:jobId', async (req, res) => {
+  const { jobId } = req.params;
   const { companyName, date, location, jobLink, jobTitle, uid } = req.body;
-  const newData = { companyName, date, location, jobLink, jobTitle, uid };
-  let updateObject = {};
-  const favoritedPosts = await rootRef.child('favoritePosting').once('value');
-  updateObject[`companyPostings/${uid}/${jobKey}`] = {
-    companyName,
-    date,
-    location,
-    jobLink,
-    jobTitle,
+  const newData = { companyName, date, location, jobLink, jobTitle };
+
+  let updateObject = {
+    [`companyPostings/${uid}/${jobId}`]: newData,
+    [`allJobListed/${uid}/${jobId}`]: newData,
   };
-  if (favoritedPosts) {
-    favoritedPosts.forEach(childSnap => {
-      if (childSnap.child(jobKey).exists()) {
-        updateObject[`favoritePosting/${childSnap.key}/${jobKey}`] = newData;
-      }
-    });
-  }
-  rootRef
-    .update(updateObject)
-    .then(() => {
-      res.json('company postings updated');
-    })
-    .catch(err => {
-      res.json(err);
-    });
+  await rootRef
+    .child('favoritePostings')
+    .once('value')
+    .then(snapshot =>
+      snapshot.forEach(childSnap => {
+        if (childSnap.child(jobId).exists()) {
+          updateObject[`favoritePostings/${childSnap.key}/${jobId}`] = newData;
+        }
+      })
+    );
+  rootRef.update(updateObject).then(res.json({ updateObject }));
 });
 
 // Version 2.0 (Needs Testing)
@@ -280,23 +313,39 @@ router.put('/jobListed/:jobKey', async (req, res) => {
 
 //-------------------------------------------------------------------DELETE
 
-router.delete('/', (req, res) => {
-  const { uid } = req.params;
-  rootRef
-    .child(`companies/${uid}`)
+router.delete('/jobsListed/:jobId', async (req, res) => {
+  const { uid } = req.body;
+  const { jobId } = req.params;
+
+  // const existsInCompanyPostings = rootRef
+  //   .child(`companyPostings/${uid}/${jobId}`)
+  //   .once('value')
+  //   .then(snapshot => snapshot.exists());
+
+  // const existsInAllJobPostings = rootRef
+  //   .child(`allJobPostings/${jobId}`)
+  //   .once('value')
+  //   .then(snapshot => snapshot.exists());
+
+  let updateObject = {
+    [`companyPostings/${uid}/${jobId}`]: null,
+    [`allJobPostings/${jobId}`]: null,
+  };
+
+  await rootRef
+    .child('favoritePostings')
     .once('value')
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        snapshot.ref
-          .remove()
-          .then(() => {
-            res.json('user has been deleted');
-          })
-          .catch(err => res.json(err));
-      } else {
-        return res.json("user doesn't exist");
-      }
-    });
+    .then(snapshot =>
+      snapshot.forEach(childSnap => {
+        if (childSnap.child(jobId).exists()) {
+          updateObject[`favoritePostings/${childSnap.key}/${jobId}`] = null;
+        }
+      })
+    );
+
+  rootRef.update(updateObject).then(() => {
+    res.json({ message: `jobId: ${jobId} deleted` });
+  });
 });
 
 module.exports = router;

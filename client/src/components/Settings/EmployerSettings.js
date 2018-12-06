@@ -70,16 +70,26 @@ class EmployerSettings extends Component {
   };
   //Adds the job to list
   commitJob = () => {
-    const companyName = this.state.companyName;
-    const date = moment().format('MM/DD/YYYY');
-    const jobLink = this.state.jobLink;
-    const jobTitle = this.state.jobTitle;
-    const companyUid = this.props.currentSignedInUser.uid;
-    const jobId = rootRef.push(null).key;
-    rootRef
-      .child(`companyPostings/${companyUid}/${jobId}`)
-      .set({ companyName, date, jobLink, jobTitle, companyUid, jobId });
-    this.props.history.push('/settings');
+    if (Object.keys(this.state.posts).length > 4) {
+      alert('At limit for job postings');
+      this.props.history.push('/settings');
+    } else {
+      const companyName = this.state.companyName;
+      const date = moment().format('MM/DD/YYYY');
+      const jobLink = this.state.jobLink;
+      const jobTitle = this.state.jobTitle;
+      const uid = this.props.currentSignedInUser.uid;
+
+      const newData = { companyName, date, jobLink, jobTitle, uid };
+
+      axios
+        .post(
+          `https://intense-stream-29923.herokuapp.com/api/database/companies/jobsListed/`,
+          newData
+        )
+        .catch();
+      this.props.history.push('/settings');
+    }
   };
 
   // Updates state when a field is changed.
@@ -786,7 +796,9 @@ class EmployerSettings extends Component {
                 {this.state.posts ? (
                   <Posts>
                     {Object.values(this.state.posts).map((post, i) => (
-                      <Job key={i}> {/*Individual job listing for employer*/}
+                      <Job key={i}>
+                        {' '}
+                        {/*Individual job listing for employer*/}
                         <div>
                           <h2>{post.companyName}</h2>
                           <h3>Date posted: {post.date}</h3>
@@ -808,22 +820,21 @@ class EmployerSettings extends Component {
                     <AddButton onClick={this.addJob}>+</AddButton>
                   </Posts>
                 ) : (
-                  <Posts> {/*If employer has paid, they can add their first job*/}
+                  <Posts>
+                    {' '}
+                    {/*If employer has paid, they can add their first job*/}
                     {this.props.currentSignedInUser.paid ? (
                       <div>
                         <h1>Add First Job!</h1>
                         <AddButton onClick={this.addJob}>+</AddButton>
                       </div>
                     ) : (
-                      <Premium> {/*Premium Pay wall you have to pass before adding first job as employer */}
-                        <h1>
-                          You haven't listed any jobs yet! 
-                        </h1>
-                        <h1>
-                          Pay for a Premium
-                          account to add one.
-                          </h1>
-                        <div className='overlay'>
+                      <Premium>
+                        {' '}
+                        {/*Premium Pay wall you have to pass before adding first job as employer */}
+                        <h1>You haven't listed any jobs yet!</h1>
+                        <h1>Pay for a Premium account to add one.</h1>
+                        <div className="overlay">
                           <Checkout
                             name={'Upgrade to Premium'}
                             description={'Monthly'}
@@ -846,9 +857,9 @@ class EmployerSettings extends Component {
                 <JobForm onSubmit={this.commitJob}>
                   <h2>Add a job:</h2>
                   <input
-                    className='job-title'
+                    className="job-title"
                     type="text"
-                    value={this.state.jobTitle} 
+                    value={this.state.jobTitle}
                     name="jobTitle"
                     onChange={this.changeHandler}
                     placeholder="Job Title"
@@ -898,11 +909,11 @@ const Job = styled.div`
   &:hover {
     box-shadow: none;
   }
-  a{
+  a {
     text-decoration: none;
     color: rgb(109, 7, 26);
   }
-  h3{
+  h3 {
     font-size: 1rem;
   }
 `;
@@ -914,7 +925,7 @@ const JobForm = styled.form`
   align-items: center;
   max-height: 400px;
   height: 100%;
-  h2{
+  h2 {
     margin-top: 100px;
   }
   input {
@@ -938,20 +949,20 @@ const JobForm = styled.form`
       padding: 15px 0 5px 15px;
     }
   }
-  button{
+  button {
     border-radius: 25px;
     height: 30px;
     max-width: 300px;
     width: 100%;
     padding: 2%;
-    background-color: rgba(109, 7, 26, .95);
+    background-color: rgba(109, 7, 26, 0.95);
     color: white;
     border: none;
     box-shadow: 0 4px 2px -2px gray;
     cursor: pointer;
     outline: none;
     &:hover {
-      background-color: rgba(109, 7, 26, .75);
+      background-color: rgba(109, 7, 26, 0.75);
     }
   }
 `;
@@ -962,16 +973,15 @@ const AddButton = styled.button`
   max-width: 300px;
   width: 100%;
   padding: 2%;
-  background-color: rgba(109, 7, 26, .95);
+  background-color: rgba(109, 7, 26, 0.95);
   color: white;
   border: none;
   box-shadow: 0 4px 2px -2px gray;
   cursor: pointer;
   outline: none;
   &:hover {
-    background-color: rgba(109, 7, 26, .75);
+    background-color: rgba(109, 7, 26, 0.75);
   }
-  
 `;
 
 const Premium = styled.div`
