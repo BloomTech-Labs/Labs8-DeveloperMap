@@ -325,15 +325,15 @@ router.delete('/jobsListed/:jobId', (req, res) => {
   const { uid } = req.body;
   const { jobId } = req.params;
 
-  const existsInCompanyPostings = rootRef
-    .child(`companyPostings/${uid}/${jobId}`)
-    .once('value')
-    .then(snapshot => snapshot.exists());
+  // const existsInCompanyPostings = rootRef
+  //   .child(`companyPostings/${uid}/${jobId}`)
+  //   .once('value')
+  //   .then(snapshot => snapshot.exists());
 
-  const existsInAllJobPostings = rootRef
-    .child(`allJobPostings/${jobId}`)
-    .once('value')
-    .then(snapshot => snapshot.exists());
+  // const existsInAllJobPostings = rootRef
+  //   .child(`allJobPostings/${jobId}`)
+  //   .once('value')
+  //   .then(snapshot => snapshot.exists());
 
   const updateObject = {
     [`companyPostings/${uid}/${jobId}`]: null,
