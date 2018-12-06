@@ -139,5 +139,6 @@ export const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 100%;
+    font-family: 'Roboto', 'Helvetica';
   }
 `;
