@@ -124,12 +124,20 @@ export const KeyBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 2px;
+  border-radius: 20px;
   z-index: 5;
   .key {
     display: flex;
     align-items: center;
     background-color: #fafafa;
+  }
+  .key1{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .key2{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   h3 {
     font-size: 1.1rem;
@@ -151,6 +159,16 @@ export const KeyBox = styled.div`
     height: 50px;
     a{
       display: none;
+    }
+    .key1{
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
+      border-top-right-radius: 0;
+    }
+    .key2{
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      border-bottom-left-radius: 0;
     }
   }
 `;
