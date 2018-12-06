@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const Info = styled.div`
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 300px;
   width: 100%;
   padding: 5%;
@@ -14,7 +16,7 @@ export const Info = styled.div`
     margin-bottom: 10px;
   }
   h4{
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 `;
 

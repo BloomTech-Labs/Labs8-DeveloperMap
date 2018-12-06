@@ -13,8 +13,8 @@ import EmployerSignUp from './Forms/EmployerSignUp';
 
 class SignUp extends React.Component {
   state = {
-    userType: '', 
-    email: ''
+    userType: '',
+    email: '',
   };
 
   /// ---- Auth Methods ----
@@ -22,17 +22,17 @@ class SignUp extends React.Component {
   authorizeNewUser = (email, password, provider) => {
     if (provider === 'email') {
       firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User Authorized')
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ errorCode, errorMessage });
-        alert(error);
-      });
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          console.log('User Authorized');
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        });
     }
 
     if (provider === 'google') {
@@ -42,11 +42,11 @@ class SignUp extends React.Component {
         .signInWithPopup(provider)
         .then(() => {
           if (this.state.role === 'company') {
-            this.props.history.push('/signup/employer')
+            this.props.history.push('/signup/employer');
           } else if (this.state.role === 'seeker') {
-            this.props.history.push('/signup/seeker')
+            this.props.history.push('/signup/seeker');
           } else {
-            this.props.history.push('/signup')
+            this.props.history.push('/signup');
           }
         })
         .catch(error => {
@@ -54,6 +54,7 @@ class SignUp extends React.Component {
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
           alert(error);
+
         })
       }
 
@@ -77,84 +78,87 @@ class SignUp extends React.Component {
           console.log({ errorCode, errorMessage });
           alert(error);
         })
-      }
+     }
   }
 
   /// ---- Add New User To Database ----
   signUpNewUser = (
-    e, 
+    e,
     type,
-    email, 
-    phoneNumber, 
-    identifier1, 
-    identifier2, 
-    jobTitle, 
-    street, 
-    city, 
-    state, 
+    email,
+    phoneNumber,
+    identifier1,
+    identifier2,
+    jobTitle,
+    street,
+    city,
+    state,
     zipCode
-    ) => {
-
+  ) => {
     // Get idToken of Authorized User
-    firebase.auth().currentUser.getIdToken(true)
-    .then(idToken => {
-      const headers = {authorization: idToken}
-      // Construct Location Object
-      let location = {};
-      let accessToken =
-        'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-      let addressString = street.concat(' ', city, ' ', state, ' ', zipCode);
-      let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then(idToken => {
+        const headers = { authorization: idToken };
+        // Construct Location Object
+        let location = {};
+        let accessToken =
+          'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
+        let addressString = street.concat(' ', city, ' ', state, ' ', zipCode);
+        let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
 
-      // Get Location Coordinates and Return Promise
-      axios
-        .get(mapboxGeocodingAPIURL)
-        .then(response => {
-          location = {
-            street: street,
-            city: city,
-            state: state,
-            zip: zipCode,
-            coordinates: response.data.features[0].geometry.coordinates,
-          };
-          console.log({location})
+        // Get Location Coordinates and Return Promise
+        axios
+          .get(mapboxGeocodingAPIURL)
+          .then(response => {
+            location = {
+              street: street,
+              city: city,
+              state: state,
+              zip: zipCode,
+              coordinates: response.data.features[0].geometry.coordinates,
+            };
+            console.log({ location });
 
-              // --- Determine User Type ---
-              let user = {
-                email,
-                phoneNumber,
-                location,
+            // --- Determine User Type ---
+            let user = {
+              email,
+              phoneNumber,
+              location,
+            };
+
+            // Construct Object for Seeker Type Users
+            if (type === 'seekers') {
+              user = {
+                ...user,
+                firstName: identifier1,
+                lastName: identifier2,
+                jobTitle,
               };
 
-              // Construct Object for Seeker Type Users
-              if (type === 'seekers') {
-                user = {
-                  ...user,
-                  firstName: identifier1,
-                  lastName: identifier2,
-                  jobTitle,
-                };
-
-                // Construct Object for Employer Type Users
-              } else if (type === 'companies') {
-                user = {
-                  ...user,
-                  companyName: identifier1,
-                  companyWebsite: identifier2,
-                };
-              } else {
-                return console.log('Invalid user type!');
-              }
-              // Create User In Database
-              axios
-                .post(
-                  `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
-                  { ...user },
-                  { headers }
-                )
-                .then(response => {
-                  alert("Your Account Has Been Created");
-                  firebase.auth().signInWithCustomToken(response.data.customToken)
+              // Construct Object for Employer Type Users
+            } else if (type === 'companies') {
+              user = {
+                ...user,
+                companyName: identifier1,
+                companyWebsite: identifier2,
+              };
+            } else {
+              return console.log('Invalid user type!');
+            }
+            // Create User In Database
+            axios
+              .post(
+                `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
+                { ...user },
+                { headers }
+              )
+              .then(response => {
+                alert('Your Account Has Been Created');
+                firebase
+                  .auth()
+                  .signInWithCustomToken(response.data.customToken)
                   .then(() => this.props.history.push('/'))
                   .catch(error => {
                     const errorCode = error.code;
@@ -162,18 +166,25 @@ class SignUp extends React.Component {
                     console.log({ errorCode, errorMessage });
                     alert(error);
                   });
-                })
-                .catch(error => console.log(error));
+              })
+              .catch(error => console.log(error));
           })
-          .catch((error) => console.log(error))
-        })
-        .catch((error) => console.log(error))
-  }
+          .catch(error => console.log(error));
+      })
+      .catch(error => console.log(error));
+  };
 
   // Sets the user type so that the correct user type form is navigated to after signing up with Google Auth/3rd Party Auth.
-  setUserType = (type) => {
-    this.setState({userType:type});
-    this.props.history.push('/signup/method')
+  setUserType = type => {
+    this.setState({ userType: type });
+    this.props.history.push({
+      pathname: '/signup/method',
+      state: { userType: type },
+    });
+  };
+
+  componentDidMount() {
+    this.setState({ ...this.props.location.state });
   }
 
   render() {
@@ -181,47 +192,44 @@ class SignUp extends React.Component {
     return (
       <ModalContainer data-type="modal-container">
         <SignModalMain width="21%">
-          
           {/*'User Types' Component: User selects whether they are an employer or a seeker.*/}
-          <Route exact path="/signup" render={ (props) => 
-            <SignUpUserTypes {...props} setUserType={this.setUserType}/>
-          }/>
-
-          {/*'Sign Up Types' Component: User selects the method that they would like to use for authentication (email + password, google auth, etc.).*/}
-          <Route exact path="/signup/method" render={ (props) => 
-              <SignUpTypes 
-                {...props} 
-                userType={this.state.userType}
-                currentSignedInUser={this.props.currentSignedInUser}
-                authorizeNewUser = {this.authorizeNewUser} 
-              />
-            }
+          <Route
+            exact
+            path="/signup"
+            render={props => (
+              <SignUpUserTypes {...props} setUserType={this.setUserType} />
+            )}
           />
 
-          {/*'Seeker Signup Form' Component: Creates a seeker in the database for the user.*/}
+          {/*'Sign Up Types' Component: User selects the method that they would like to use for authentication (email + password, google auth, etc.).*/}
           <Route
-              path="/signup/seeker"
-              render={props => (
-                <SeekerSignUp
-                  {...props}
-                  signUpNewUser={this.signUpNewUser}
-                />
-              )}
-            />
-
-          {/*'Employer Signup Form' Component: Creates a seeker in the database for the user.*/}          
-          <Route
-            path="/signup/employer"
+            exact
+            path="/signup/method"
             render={props => (
-              <EmployerSignUp
+              <SignUpTypes
                 {...props}
-                signUpNewUser={
-                  this.signUpNewUser
-                }
+                userType={this.state.userType}
+                currentSignedInUser={this.props.currentSignedInUser}
+                authorizeNewUser={this.authorizeNewUser}
               />
             )}
           />
 
+          {/*'Seeker Signup Form' Component: Creates a seeker in the database for the user.*/}
+          <Route
+            path="/signup/seeker"
+            render={props => (
+              <SeekerSignUp {...props} signUpNewUser={this.signUpNewUser} />
+            )}
+          />
+
+          {/*'Employer Signup Form' Component: Creates a seeker in the database for the user.*/}
+          <Route
+            path="/signup/employer"
+            render={props => (
+              <EmployerSignUp {...props} signUpNewUser={this.signUpNewUser} />
+            )}
+          />
         </SignModalMain>
       </ModalContainer>
     );

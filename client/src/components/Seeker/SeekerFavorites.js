@@ -36,9 +36,9 @@ class SeekerFavorites extends React.Component {
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain className="modal">
+        <ModalMain className="modal" style={{ maxWidth: '725px', padding: '1%', borderRadius: '25px' }}>
+        <h1 style={{ textAlign: 'center' }}>Favorite Jobs</h1>
           <Fav>
-            <h1>Favorite Jobs</h1>
             {this.state.favorites.length < 1 && <h1>No Favorites</h1>}
             {this.state.favorites.map((favorite, i) => (
               <Favorite key={i} {...this.props} favorite={favorite} />
@@ -52,8 +52,9 @@ class SeekerFavorites extends React.Component {
 
 const Fav = styled.div`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  max-width: 300px;
+  max-width: 725px;
   width: 100%;
 `;
 

@@ -100,6 +100,11 @@ export const LogoImg = styled.img`
   width: 300px;
   height: auto;
   margin: 2%;
+  @media (max-width: 550px) {
+    margin: 50px auto;
+    padding-left: 30%;
+    width: 250px;
+  }
 `;
 
 export const PinKey = styled.img`
@@ -109,8 +114,8 @@ export const PinKey = styled.img`
 
 export const KeyBox = styled.div`
   width: 200px;
-  height: 150px;
-  background-color: rgba(232, 232, 232, 0.85);
+  height: 125px;
+  background-color: rgba(109, 7, 26, .95);
   position: absolute;
   right: 0;
   bottom: 0;
@@ -119,17 +124,34 @@ export const KeyBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-right: 2%;
   border-radius: 2px;
   z-index: 5;
   .key {
     display: flex;
     align-items: center;
+    background-color: #fafafa;
   }
   h3 {
     font-size: 1.1rem;
     font-weight: lighter;
     width: 80px;
+  }
+  a{
+    text-decoration: none;
+    color: white;
+    font-size: .9rem;
+    margin-top: 2px;
+  }
+  @media (max-width: 550px) {
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    flex-direction: row;
+    height: 50px;
+    a{
+      display: none;
+    }
   }
 `;
 
