@@ -8,6 +8,8 @@ import {
   ProfilePic,
   Icons,
   MainContent,
+  SignEmployer,
+  ProfileModalStyle,
 } from './ProfileModalStyle.js';
 
 // Images for the Profile Modal
@@ -62,7 +64,7 @@ class SeekerProfile extends React.Component {
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain className="modal">
+        <ProfileModalStyle className="modal">
           <ProfileStyle>
             <Icons>
               <a
@@ -132,8 +134,8 @@ class SeekerProfile extends React.Component {
                 {this.state.location.city}, {this.state.location.state}
               </h3>
               {this.state.bio ? (
-                <div>
-                  <p>Bio:</p>
+                <div className="bio">
+                  <h4>Bio:</h4>
                   <p>{this.state.bio}</p>
                 </div>
               ) : (
@@ -171,14 +173,12 @@ class SeekerProfile extends React.Component {
                 </div>
               </Info>
             ) : (
-              <Info>
-                <div className="info">
-                  <p onClick={this.signUpEmployer}>Sign Up Employer</p>
-                </div>
-              </Info>
+              <SignEmployer>
+                <p onClick={this.signUpEmployer}>Sign Up Employer</p>
+              </SignEmployer>
             )}
           </ProfileStyle>
-        </ModalMain>
+        </ProfileModalStyle>
       </ModalContainer>
     );
   }

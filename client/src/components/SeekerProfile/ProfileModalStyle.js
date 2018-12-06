@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import { ModalMain } from '../../styles/ModalGlobalStyle';
+
+export const ProfileModalStyle = styled(ModalMain)`
+  width: 55%;
+`;
 
 // Controls the content in the modal
 export const ProfileStyle = styled.div`
@@ -6,8 +11,7 @@ export const ProfileStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 20px 0;
 `;
 
 // Manipulates the icons on the side of the modal
@@ -55,12 +59,36 @@ export const MainContent = styled.div`
   p {
     padding: 5px 0;
   }
+
+  .bio {
+    margin: 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h4 {
+      align-self: center;
+    }
+
+    p {
+      margin-left: 2%;
+      text-align: left;
+      line-height: 1.25;
+    }
+  }
 `;
 
 // Controls the checkboxes
 export const CheckLabel = styled.label`
   display: block;
-  padding: 5px;
+  padding: 8px;
+  font-size: 1.3rem;
+
+  input {
+    height: 13px;
+  }
 `;
 
 // Controls the info box
@@ -68,6 +96,8 @@ export const Info = styled.div`
   border: 1px solid black;
   padding: 20px 7%;
   margin: 10px 0 20px 0;
+  min-height: 105px;
+  border-radius: 20px;
 
   .info {
     display: flex;
@@ -75,7 +105,25 @@ export const Info = styled.div`
     padding-bottom: 10px;
 
     p {
-      padding-left: 5%;
+      font-size: 1.3rem;
+      cursor: pointer;
     }
+  }
+`;
+
+// Controls info box when not signed in
+export const SignEmployer = styled.div`
+  border: 1px solid black;
+  padding: 20px 7%;
+  margin: 10px 0 20px 0;
+  min-height: 105px;
+  background-color: rgb(37, 36, 48);
+  color: rgb(255, 255, 255);
+  border-radius: 20px;
+
+  p {
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding-top: 17px;
   }
 `;
