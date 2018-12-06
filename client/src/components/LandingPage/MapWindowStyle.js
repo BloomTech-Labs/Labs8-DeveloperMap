@@ -71,6 +71,10 @@ export const MapWindow = styled.div`
   .mapboxgl-popup {
     height: 50px;
   }
+
+  .mapboxgl-popup-content {
+    padding: 0;
+  }
 `;
 
 export const ShowMarker = styled.img`
@@ -90,13 +94,20 @@ export const CloseX = styled.p`
 `;
 
 export const PopupInfo = styled.div`
-  padding: 5px 10px;
+  max-width: 150px;
+  text-align: center;
+  padding: 5px;
 `;
 
 export const PopupImg = styled.div`
+  display: ${props => (props.image ? 'block' : 'none')};
   width: 50px;
   height: 50px;
+  margin: 0 auto;
   background-image: ${props => (props.image ? `url(${props.image})` : 'null')};
+  background-size: 50px auto;
+  background-repeat: no-repeat;
+  border-radius: 50%;
 `;
 
 export const LogoImg = styled.img`
@@ -155,7 +166,7 @@ export const KeyBox = styled.div`
     width: 100%;
     flex-direction: row;
     height: 50px;
-    a{
+    a {
       display: none;
     }
   }

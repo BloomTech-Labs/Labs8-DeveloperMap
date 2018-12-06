@@ -208,9 +208,9 @@ class LandingPage extends React.Component {
                   this.props.history.push(`/seeker/${properties.uid}`)
                 }
               >
-                <h5>{fullName}</h5>
+                <h4>{fullName}</h4>
+                <h5>Job Title: {jobTitle}</h5>
                 <PopupImg image={profilePicture} />
-                <h6>{jobTitle}</h6>
               </PopupInfo>
             </Popup>
           )
