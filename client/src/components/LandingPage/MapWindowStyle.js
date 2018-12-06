@@ -138,7 +138,7 @@ export const PopupImg = styled.div`
   width: 60px;
   height: 60px;
   background-image: ${props => (props.image ? `url(${props.image})` : 'null')};
-  background-size: 60px auto;
+  background-size: cover;
   background-repeat: no-repeat;
   border-radius: 50%;
   background-position: top;
@@ -182,11 +182,11 @@ export const KeyBox = styled.div`
     align-items: center;
     background-color: #fafafa;
   }
-  .key1{
+  .key1 {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
-  .key2{
+  .key2 {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
@@ -211,12 +211,12 @@ export const KeyBox = styled.div`
     a {
       display: none;
     }
-    .key1{
+    .key1 {
       border-top-left-radius: 25px;
       border-bottom-left-radius: 25px;
       border-top-right-radius: 0;
     }
-    .key2{
+    .key2 {
       border-top-right-radius: 25px;
       border-bottom-right-radius: 25px;
       border-bottom-left-radius: 0;

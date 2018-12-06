@@ -8,6 +8,8 @@ import {
   ProfilePic,
   Icons,
   MainContent,
+  SignEmployer,
+  ProfileModalStyle,
 } from './ProfileModalStyle.js';
 
 // Images for the Profile Modal
@@ -62,7 +64,7 @@ class SeekerProfile extends React.Component {
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain className="modal">
+        <ProfileModalStyle className="modal">
           <ProfileStyle>
             <Icons>
               <a
@@ -122,9 +124,9 @@ class SeekerProfile extends React.Component {
               </a>
             </Icons>
             {this.state.profilePicture ? (
-              <ProfilePic src={this.state.profilePicture} alt="profile" />
+              <ProfilePic image={this.state.profilePicture} alt="profile" />
             ) : (
-              <ProfilePic src={profile} alt="default" />
+              <ProfilePic image={profile} alt="default" />
             )}
             <MainContent>
               <h1>{`${this.state.firstName} ${this.state.lastName}`}</h1>
@@ -132,9 +134,10 @@ class SeekerProfile extends React.Component {
                 {this.state.location.city}, {this.state.location.state}
               </h3>
               {this.state.bio ? (
-                <p>
-                  <span>Bio:</span> {this.state.bio}
-                </p>
+                <div className="bio">
+                  <h4>Bio:</h4>
+                  <p>{this.state.bio}</p>
+                </div>
               ) : (
                 <span />
               )}
@@ -170,14 +173,12 @@ class SeekerProfile extends React.Component {
                 </div>
               </Info>
             ) : (
-              <Info>
-                <div className="info">
-                  <p onClick={this.signUpEmployer}>Sign Up Employer</p>
-                </div>
-              </Info>
+              <SignEmployer>
+                <p onClick={this.signUpEmployer}>Sign Up Employer</p>
+              </SignEmployer>
             )}
           </ProfileStyle>
-        </ModalMain>
+        </ProfileModalStyle>
       </ModalContainer>
     );
   }

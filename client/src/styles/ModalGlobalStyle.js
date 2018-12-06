@@ -12,7 +12,6 @@ export const ModalContainer = styled.div`
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
- 
 `;
 
 export const ModalMain = styled.div`
@@ -20,6 +19,7 @@ export const ModalMain = styled.div`
   width: 60%;
   height: auto;
   margin: 0 auto;
+  border-radius: 20px;
 
   @media (max-width: 801px) {
     width: 70%;
