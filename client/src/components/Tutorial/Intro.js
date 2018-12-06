@@ -24,7 +24,7 @@ class Intro extends React.Component{
                 MappaJob help make your experience as a developer or employer an easier one.
             </p>
             <img src={planet} alt="" style={{ width: '300px' }}/>
-            <button onClick={this.switchPage}>Next</button>
+            <Next onClick={this.switchPage}>Next</Next>
         </IntoContainer>
 
     );
@@ -41,11 +41,33 @@ const IntoContainer = styled.div`
       margin-bottom: 35px;
       display: flex;
       align-items: center;
+      img{
+          padding-top: 20px;
+      }
+      
   }
   p{
       line-height: 1.25;
       max-width: 500px;
       margin-bottom: 10px;
+  }
+  img{
+      margin-bottom: 20px;
+  }
+`;
+
+const Next = styled.button`
+  width: 100px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgba(109, 7, 26, .95);
+  cursor: pointer;
+  outline: none;
+  height: 30px;
+  color: white;
+  box-shadow: 0 4px 2px -2px gray;
+  &:hover {
+    background-color: rgba(109, 7, 26, .75);
   }
 `;
 
