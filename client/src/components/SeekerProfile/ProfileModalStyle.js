@@ -8,7 +8,6 @@ export const ProfileStyle = styled.div`
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
- 
 `;
 
 // Manipulates the icons on the side of the modal
@@ -27,13 +26,17 @@ export const Icons = styled.div`
   .none {
     display: none;
   }
-  
 `;
 
 // Controls Profile Picture
-export const ProfilePic = styled.img`
-  width: 30%;
+export const ProfilePic = styled.div`
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
+  background-image: ${props => (props.image ? `url(${props.image})` : 'null')};
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
 `;
 
 // Controls Name, Location, Bio

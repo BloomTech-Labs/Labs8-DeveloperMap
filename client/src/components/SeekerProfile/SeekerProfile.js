@@ -122,9 +122,9 @@ class SeekerProfile extends React.Component {
               </a>
             </Icons>
             {this.state.profilePicture ? (
-              <ProfilePic src={this.state.profilePicture} alt="profile" />
+              <ProfilePic image={this.state.profilePicture} alt="profile" />
             ) : (
-              <ProfilePic src={profile} alt="default" />
+              <ProfilePic image={profile} alt="default" />
             )}
             <MainContent>
               <h1>{`${this.state.firstName} ${this.state.lastName}`}</h1>
@@ -132,9 +132,10 @@ class SeekerProfile extends React.Component {
                 {this.state.location.city}, {this.state.location.state}
               </h3>
               {this.state.bio ? (
-                <p>
-                  <span>Bio:</span> {this.state.bio}
-                </p>
+                <div>
+                  <p>Bio:</p>
+                  <p>{this.state.bio}</p>
+                </div>
               ) : (
                 <span />
               )}
