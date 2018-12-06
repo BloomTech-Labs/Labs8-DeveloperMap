@@ -313,7 +313,7 @@ router.put('/jobListed/:jobId', async (req, res) => {
 
 //-------------------------------------------------------------------DELETE
 
-router.delete('/jobsListed/:jobId', (req, res) => {
+router.delete('/jobsListed/:jobId', async (req, res) => {
   const { uid } = req.body;
   const { jobId } = req.params;
 
@@ -327,10 +327,22 @@ router.delete('/jobsListed/:jobId', (req, res) => {
   //   .once('value')
   //   .then(snapshot => snapshot.exists());
 
-  const updateObject = {
+  let updateObject = {
     [`companyPostings/${uid}/${jobId}`]: null,
     [`allJobPostings/${jobId}`]: null,
   };
+
+  await rootRef
+    .child('favoritePostings')
+    .once('value')
+    .then(snapshot =>
+      snapshot.forEach(childSnap => {
+        if (childSnap.child(jobId).exists()) {
+          updateObject[`favoritePostings/${childSnap.key}/${jobId}`] = null;
+        }
+      })
+    );
+
   rootRef.update(updateObject).then(() => {
     res.json({ message: `jobId: ${jobId} deleted` });
   });
