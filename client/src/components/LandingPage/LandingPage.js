@@ -185,24 +185,25 @@ class LandingPage extends React.Component {
     const { pin } = this.state;
 
     let fullName = '';
-    let title, jobTitle, profilePicture, geometry, properties;
+    let title, jobTitle, profilePicture, role, geometry, properties;
 
     if (!!pin) {
+      properties = pin.properties;
+      geometry = pin.geometry;
+      title = properties.title;
+      profilePicture = properties.profilePicture;
+      role = properties.role;
+
       if (!!pin.properties.title.firstName) {
-        properties = pin.properties;
-        geometry = pin.geometry;
-        title = properties.title;
         jobTitle = properties.jobTitle;
-        profilePicture = properties.profilePicture;
-        fullName = title.companyName;
 
         fullName = `${title.firstName} ${title.lastName}`;
-      } else {
-        properties = pin.properties;
-        geometry = pin.geometry;
-        title = properties.title;
-        profilePicture = properties.profilePicture;
+      } else if (!!pin.properties.title.companyName) {
+        role = 'employer';
+
         fullName = title.companyName;
+      } else {
+        console.log('Not a seeker or company');
       }
 
       return (
@@ -226,9 +227,9 @@ class LandingPage extends React.Component {
                 ) : null}
                 <p
                   className="link"
-                  onClick={() =>
-                    this.props.history.push(`/seeker/${properties.uid}`)
-                  }
+                  onClick={() => {
+                    this.props.history.push(`/${role}/${properties.uid}`);
+                  }}
                 >
                   Learn more
                 </p>
