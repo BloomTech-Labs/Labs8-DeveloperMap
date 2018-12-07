@@ -87,7 +87,9 @@ class EmployerSettings extends Component {
           `https://intense-stream-29923.herokuapp.com/api/database/companies/jobsListed/`,
           newData
         )
-        .catch();
+        .then(() => {
+          console.log('job posted');
+        });
       this.props.history.push('/settings');
     }
   };
