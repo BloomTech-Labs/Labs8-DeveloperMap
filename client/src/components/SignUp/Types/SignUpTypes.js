@@ -9,7 +9,6 @@ import {
   GithubAuthButton,
   Valid,
 } from '../../../styles/SignIn_UpStyle';
-import { AlertModal } from '../../../reducer.js';
 
 class SignUpTypes extends React.Component {
   state = {
