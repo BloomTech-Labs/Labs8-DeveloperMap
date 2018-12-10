@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ModalMain, ModalContainer } from '../../styles/ModalGlobalStyle';
 import map from './map-smol.png';
 
+// Background Gradient
 export const LoadingContainer = styled(ModalContainer)`
 background: rgba(15,32,39,.75);
 background: linear-gradient(to right, rgba(44,83,100,.9), rgba(32,58,67,.9), rgba(15,32,39,.9));
@@ -49,11 +50,12 @@ width: 100%;
   background: url(${map});
   border-radius: 100%;
   background-size: 180px;
-  box-shadow: 0 5px 2px 1px rgba(44,83,100, 1), inset 0 0 3px 1px rgba(44,83,100, 1);
+  box-shadow: 0 0 30px 10px rgba(44,83,100, 1), inset 0 0 3px 1px rgba(44,83,100, 1);
   animation: globe 3.5s infinite linear;
   z-index: 500;
 }
 
+// Animation
 @keyframes globe {
   0% {
     background-position-x: 0;
