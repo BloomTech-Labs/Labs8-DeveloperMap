@@ -53,7 +53,7 @@ export const Icons = styled.div`
 export const InButton = styled.button`
   width: 75px;
   height: 35px;
-  background-color: rgb(184, 15, 10);
+  background-color: rgb(199, 144, 6);
   color: white;
   border-radius: 20px;
   border: none;
@@ -61,7 +61,7 @@ export const InButton = styled.button`
   box-shadow: 0 4px 2px -2px rgba(15, 15, 15, 0.2);
   cursor: pointer;
   &:hover {
-    background-color: rgba(184, 15, 10, 0.8);
+    background-color: rgba(199, 144, 6, 0.8);
   }
   &:focus {
     outline: 0;
