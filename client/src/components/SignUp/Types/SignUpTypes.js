@@ -6,14 +6,18 @@ import {
   Button,
   AuthField,
   GoogleAuthButton,
-  GithubAuthButton
+  GithubAuthButton,
+  Valid,
 } from '../../../styles/SignIn_UpStyle';
+import { AlertModal } from '../../../reducer.js';
 
 class SignUpTypes extends React.Component {
   state = {
     email: '',
     password: '',
     rePassword: '',
+    show: false,
+    message: '',
   };
 
   // Form Input Control
@@ -31,14 +35,14 @@ class SignUpTypes extends React.Component {
   // Redirect the user to choose their user type again, if their type is not user or seeker.
   userRedirect = () => {
     if (firebase.auth().currentUser) {
-      console.log(firebase.auth().currentUser)
+      console.log(firebase.auth().currentUser);
       if (this.props.userType === 'employer') {
         this.props.history.push('/signup/employer');
       } else if (this.props.userType === 'seeker') {
         this.props.history.push('/signup/seeker');
       } else {
         this.props.history.push('/signup/method');
-    }
+      }
     } else {
       return;
     }
@@ -71,12 +75,25 @@ class SignUpTypes extends React.Component {
     // --- Form Validation ---
     // Check to make sure that the password matches the confirm password
     if (this.state.password !== this.state.rePassword) {
-      return alert('Password does not match the confirm password.');
+      this.setState({
+        show: true,
+        message: 'Password do not match, confirm password.',
+      });
     }
 
     // Check password length
     if (this.state.password.length <= 8) {
-      return alert('Password must be at least 8 characters long.');
+      this.setState({
+        show: true,
+        message: 'Password must be at least 8 characters long.',
+      });
+    }
+
+    if (
+      this.state.password.length >= 8 ||
+      this.state.password !== this.state.rePassword
+    ) {
+      this.setState({ show: false, message: '' });
     }
 
     // Authorize User with Firebase OAuth2 Method
@@ -136,9 +153,8 @@ class SignUpTypes extends React.Component {
             />
             <Label htmlFor="rePassword">Re-Enter Password</Label>
           </AuthField>
-          <Button>Sign Up</Button>
-          - or -
-          {/* Third Party Auth */}
+          <Valid show={this.state.show}>{this.state.message}</Valid>
+          <Button>Sign Up</Button>- or -{/* Third Party Auth */}
           <GoogleAuthButton onClick={e => this.googleHandler(e)} />
           <GithubAuthButton onClick={e => this.githubHandler(e)} />
         </form>

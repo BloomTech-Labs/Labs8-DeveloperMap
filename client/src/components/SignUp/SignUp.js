@@ -31,7 +31,6 @@ class SignUp extends React.Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
         });
     }
 
@@ -54,22 +53,21 @@ class SignUp extends React.Component {
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
           alert(error);
+        });
+    }
 
-        })
-      }
-
-      if (provider === 'github') {
-        const provider = new firebase.auth.GithubAuthProvider();
-        firebase
+    if (provider === 'github') {
+      const provider = new firebase.auth.GithubAuthProvider();
+      firebase
         .auth()
         .signInWithPopup(provider)
         .then(() => {
           if (this.state.userType === 'employer') {
-            this.props.history.push('/signup/employer')
+            this.props.history.push('/signup/employer');
           } else if (this.state.userType === 'seeker') {
-            this.props.history.push('/signup/seeker')
+            this.props.history.push('/signup/seeker');
           } else {
-            this.props.history.push('/signup')
+            this.props.history.push('/signup');
           }
         })
         .catch(error => {
@@ -77,9 +75,9 @@ class SignUp extends React.Component {
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
           alert(error);
-        })
-     }
-  }
+        });
+    }
+  };
 
   /// ---- Add New User To Database ----
   signUpNewUser = (
@@ -182,7 +180,7 @@ class SignUp extends React.Component {
     this.setState({ userType: type });
     this.props.history.push({
       pathname: '/signup/method',
-      state: {...this.state, userType: type },
+      state: { ...this.state, userType: type },
     });
   };
 
@@ -214,6 +212,7 @@ class SignUp extends React.Component {
                 userType={this.props.location.state.userType}
                 currentSignedInUser={this.props.currentSignedInUser}
                 authorizeNewUser={this.authorizeNewUser}
+                toggleModal={this.props.toggleModal}
               />
             )}
           />
