@@ -3,12 +3,17 @@ import Heart from '../../images/favheart.png';
 import Avatar from '../../images/gear.png';
 import Logout from '../../images/logout1.png';
 import Plus from '../../images/plussign.png';
+import Question from '../../images/question.png';
 import { Nav, Icons, InButton } from './NavBarStyles';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showMenu: false
+    };
   }
   handleSignIn = () => {
     this.props.history.push('/signin');
@@ -25,6 +30,12 @@ class NavBar extends React.Component {
 
   addJobs = () => {
     this.props.history.push('/settings/job-listings');
+  }
+
+  infoToggle = () => {
+    this.setState({
+      showMenu: !this.state.showMenu
+    })
   }
 
   render() {
@@ -58,6 +69,24 @@ class NavBar extends React.Component {
                 title="Logout"
               />
             </div>
+            <div className="question">
+              <img 
+                src={Question} 
+                alt="Info"
+                title="More Info"
+                onClick={this.infoToggle}
+                />
+                { this.state.showMenu
+              ? (
+                <DropMenu>
+                  <Link to='/tutorial'>How it Works</Link>
+                </DropMenu>
+              )
+              : (
+              null
+              )
+          }
+            </div>
           </Icons>
         ) : (
           <div>
@@ -68,5 +97,22 @@ class NavBar extends React.Component {
     );
   }
 }
+
+const DropMenu = styled.div`
+  position: absolute;
+  min-width: 160px;
+  background-color: rgba(109, 7, 26, 0.95);
+  z-index: 1;
+  padding: 12px 16px;
+  margin-top: 20px;
+  right: 1%;
+  height: 75px;
+  border: none;
+  border-radius: 20px;
+  a{
+    color: white;
+    text-decoration: none;
+  }
+`;
 
 export default NavBar;

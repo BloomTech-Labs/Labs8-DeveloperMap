@@ -33,13 +33,21 @@ export const Nav = styled.div`
       height: 27px;
     }
   }
+  .question {
+    img {
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 export const Icons = styled.div`
   display: flex;
   margin-right: 10px;
   justify-content: space-between;
-  width: 100px;
+  width: 125px;
+  align-items: center;
   cursor: pointer;
   .signout {
     img {
