@@ -73,27 +73,21 @@ class SignUpTypes extends React.Component {
     e.preventDefault();
 
     // --- Form Validation ---
-    // Check to make sure that the password matches the confirm password
-    if (this.state.password !== this.state.rePassword) {
-      this.setState({
-        show: true,
-        message: 'Password do not match, confirm password.',
-      });
-    }
-
-    // Check password length
+    // Check to make sure that the passwords match and they are the correct length
     if (this.state.password.length <= 8) {
       this.setState({
         show: true,
-        message: 'Password must be at least 8 characters long.',
+        message: 'Passwords must be at least 8 characters long.',
       });
-    }
-
-    if (
-      this.state.password.length >= 8 ||
-      this.state.password !== this.state.rePassword
-    ) {
-      this.setState({ show: false, message: '' });
+    } else if (this.state.password !== this.state.rePassword) {
+      this.setState({
+        show: true,
+        message: 'Passwords do not match, confirm password.',
+      });
+    } else {
+      {
+        this.setState({ show: false, message: '' });
+      }
     }
 
     // Authorize User with Firebase OAuth2 Method
