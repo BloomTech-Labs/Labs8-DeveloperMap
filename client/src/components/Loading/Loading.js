@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import SpinningGlobe from './SpinningGlobe';
 
 class Loading extends Component {
   render () {
     return (
-      <div>I'm Loading Mom!</div>
+      <SpinningGlobe/>
     )
   }
 

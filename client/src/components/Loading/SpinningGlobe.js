@@ -1,10 +1,13 @@
-import React from 'React';
+import React from 'react';
+import {GlobeContainer} from './LoadingStyles.js';
 
 const SpinningGlobe = () => {
   return (
-    <div className="globe-container">
-      <div className="globe-filter"/>
-      <div className="spinning-globe"/>
-    </div>
+    <GlobeContainer>
+     <div className="globe-filter"/>
+     <div className="globe-spinning"/>
+   </GlobeContainer>
   )
 }
+
+export default SpinningGlobe;
