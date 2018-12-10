@@ -287,7 +287,6 @@ class LandingPage extends React.Component {
                 />
               </ToggleKnob>
             </div>
-            <NavLink to="/tutorial">How it Works</NavLink>
           </KeyBox>
 
           {this.state.data.map(this.renderMarker)}
