@@ -11,7 +11,8 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import SeekerSignUp from './components/SignUp/Forms/SeekerSignUp';
 import EmployerSignUp from './components/SignUp/Forms/EmployerSignUp';
-import NoUser from './components/NoUser/NoUser';
+import NoUser from './components/ErrorModals/NoUser';
+import AlertModal from './components/ErrorModals/AlertModal';
 import TutorialIntro from './components/Tutorial/TutorialIntro';
 
 export {
@@ -29,5 +30,6 @@ export {
   SeekerSignUp,
   EmployerSignUp,
   NoUser,
-  TutorialIntro
+  AlertModal,
+  TutorialIntro,
 };
