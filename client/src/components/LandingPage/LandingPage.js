@@ -206,6 +206,7 @@ class LandingPage extends React.Component {
         console.log('Not a seeker or company');
       }
 
+
       return (
         pin && (
           <Popup
@@ -240,6 +241,7 @@ class LandingPage extends React.Component {
       );
     }
   };
+
 
   render() {
     return (

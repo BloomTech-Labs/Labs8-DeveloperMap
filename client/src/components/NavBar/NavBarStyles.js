@@ -76,19 +76,20 @@ export const InButton = styled.button`
   }
 `;
 
+
 export const DropMenu = styled.div`
-  position: absolute;
-  min-width: 160px;
-  background-color: rgba(109, 7, 26, 0.95);
-  z-index: 1;
-  padding: 12px 16px;
-  margin-top: 20px;
-  right: 1%;
-  height: 75px;
-  border: none;
-  border-radius: 20px;
-  a {
-    color: white;
-    text-decoration: none;
-  }
+position: absolute;
+min-width: 160px;
+background-color: rgba(109, 7, 26, 0.95);
+z-index: 1;
+padding: 12px 16px;
+margin-top: 20px;
+right: 1%;
+height: 75px;
+border: none;
+border-radius: 20px;
+a{
+  color: white;
+  text-decoration: none;
+}
 `;

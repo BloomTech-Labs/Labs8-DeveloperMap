@@ -6,7 +6,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {
   NavBar,
   EmployerProfile,
-  EmployerBilling,
   LandingPage,
   SeekerFavorites,
   Settings,
@@ -265,7 +264,6 @@ class App extends Component {
                     }
                   />
 
-                  <Route path="/billing" component={EmployerBilling} />
                   <Route
                     path="/favorites/:seekerId/"
                     component={SeekerFavorites}
