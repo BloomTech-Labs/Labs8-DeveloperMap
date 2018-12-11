@@ -19,52 +19,6 @@ class EmployerPostings extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const employerId = this.props.match.params.employerId;
-
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        const { uid } = user;
-        if (this.state.posts) {
-          axios
-            .get(
-              `https://intense-stream-29923.herokuapp.com/api/database/favorites/keys/${uid}`
-            )
-            .then(({ data }) => {
-              this.setState({
-                favoritedList: data,
-                initialFavoritedList: data,
-              });
-            });
-        } else {
-          axios
-            .get(
-              `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/${uid}`
-            )
-            .then(({ data }) => {
-              this.setState({
-                posts: data.posts,
-                favoritedList: data.favoritedList,
-                initialFavoritedList: data.favoritedList,
-              });
-            });
-        }
-      } else {
-        axios
-          .get(
-            `https://intense-stream-29923.herokuapp.com/api/database/companies/jobPostings/${employerId}/noUser`
-          )
-          .then(({ data }) => {
-            this.setState({
-              posts: data.posts,
-              favoritedList: data.favoritedList,
-              initialFavoritedList: data.favoritedList,
-            });
-          });
-      }
-    });
-  }
-
   favToggle = async (e, post) => {
     e.preventDefault();
 
