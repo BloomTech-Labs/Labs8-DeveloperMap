@@ -75,7 +75,7 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 # Structure
 
-### Index
+## Index
 
 **(Alphabetical)**
 
@@ -119,9 +119,13 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 ## Contents
 ### Client
+Contains the client/frontend of the project. 
+**Files:** .gitignore, package.json, README.md, yarn.lock
+
 
 ### Server
-
+Contains the server/backend of the project.
+**Files:** index.js, package.json, server.js, serverConfig.js, ServerDocs.md, yarn.lock
 
 # Models
 
