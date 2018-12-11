@@ -997,14 +997,12 @@ const Premium = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h1{
+  h1 {
     font-size: 1.6rem;
-    color: rgba(109, 7, 26, .95);
+    color: rgba(109, 7, 26, 0.95);
     margin: 3% 0;
   }
   height: 300px;
-
-  }
 `;
 // function GetFormattedDate() {
 //   var todayTime = new Date();
