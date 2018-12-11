@@ -9,7 +9,6 @@ export const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: scroll;
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
 `;
