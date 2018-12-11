@@ -68,6 +68,33 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 # Documentation
 
+### Structure
+
+#### Index (Alphabetical)
+- Client
+    - public
+    - src
+    package.json
+    yarn.lock
+- Server
+    - auth
+    - companies
+    - constants
+    - firebase
+    - markers
+    - seekers
+    - stripe-routes
+    - users
+    - index.js
+    - package.json
+    - yarn.lock
+
+#### Contents
+##### Client
+
+##### Server
+
+
 ### Models
 
 #### User Model
