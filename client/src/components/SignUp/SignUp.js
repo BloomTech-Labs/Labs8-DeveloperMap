@@ -30,7 +30,6 @@ class SignUp extends React.Component {
         .catch(error => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.table(error);
           console.log({ errorCode, errorMessage });
           this.props.toggleModal('Email Already in Use', errorMessage);
         });
