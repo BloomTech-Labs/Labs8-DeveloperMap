@@ -32,7 +32,7 @@ class SignUp extends React.Component {
           const errorMessage = error.message;
           console.table(error);
           console.log({ errorCode, errorMessage });
-          this.props.toggleModal(errorMessage, 'Email Already in Use');
+          this.props.toggleModal('Email Already in Use', errorMessage);
         });
     }
 
@@ -54,7 +54,7 @@ class SignUp extends React.Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          this.props.toggleModal({ errorMessage, errorCode });
+          this.props.toggleModal({ errorCode, errorMessage });
         });
     }
 
@@ -76,7 +76,7 @@ class SignUp extends React.Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorMessage, errorCode });
-          this.props.toggleModal({ errorMessage, errorCode });
+          this.props.toggleModal({ errorCode, errorMessage });
         });
     }
   };
@@ -167,7 +167,7 @@ class SignUp extends React.Component {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log({ errorCode, errorMessage });
-                    this.props.toggleModal(errorMessage, errorCode);
+                    this.props.toggleModal(errorCode, errorMessage);
                   });
               })
               .catch(error => console.log(error));
@@ -214,7 +214,6 @@ class SignUp extends React.Component {
                 userType={this.props.location.state.userType}
                 currentSignedInUser={this.props.currentSignedInUser}
                 authorizeNewUser={this.authorizeNewUser}
-                toggleModal={this.props.toggleModal}
               />
             )}
           />

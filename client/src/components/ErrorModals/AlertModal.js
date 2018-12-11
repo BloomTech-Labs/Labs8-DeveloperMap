@@ -3,10 +3,11 @@ import { ModalMain } from '../../styles/ModalGlobalStyle';
 import styled from 'styled-components';
 
 const AlertModal = props => {
+  const { header, message } = props.modal;
   return (
     <AlertContainer className={props.show ? 'display' : ''}>
-      <h3>{props.modal.header}</h3>
-      <p>{props.modal.message}</p>
+      <h3>{header}</h3>
+      {message ? <p>{message}</p> : ''}
     </AlertContainer>
   );
 };
@@ -24,18 +25,23 @@ const AlertContainer = styled(ModalMain)`
   height: 150px;
   width: 25%;
   z-index: 100;
-  padding: 3% 2%;
+  padding: 3% 2% 6% 2%;
+  border-radius: 0px 0px 20px 20px;
 
   transition: all 0.5s ease-in;
 
   &.display {
     opacity: 1;
     animation: slide 1s ease-in;
-    top: 0px;
+    top: -10px;
+
+    h3 {
+      margin-top: 20px;
+    }
   }
 
-  h3 {
-    margin-bottom: 15px;
+  p {
+    margin-top: 15px;
   }
 
   @media (max-width: 661px) {
@@ -61,8 +67,8 @@ const AlertContainer = styled(ModalMain)`
       animation-timing-function: ease-in;
     }
     66% {
-      -webkit-transform: translateY(20px);
-      transform: translateY(20px);
+      -webkit-transform: translateY(10px);
+      transform: translateY(10px);
       -webkit-animation-timing-function: ease-out;
       animation-timing-function: ease-out;
     }

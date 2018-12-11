@@ -34,7 +34,7 @@ class App extends Component {
     };
   }
 
-  toggleModal = (message = '', header = '') => {
+  toggleModal = (header = '', message = '') => {
     this.setState(prevState => {
       return {
         modal: {
@@ -86,7 +86,7 @@ class App extends Component {
           userType = 'companies';
           role = 'company';
         } else {
-          this.props.toggleModal(
+          this.toggleModal(
             "We're missing some information from you. Please Sign Up!"
           );
           return this.props.history.push('/signup');
@@ -128,7 +128,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          this.props.toggleModal(errorMessage, errorCode);
+          this.toggleModal(errorCode, errorMessage);
         });
     }
 
@@ -142,7 +142,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          this.props.toggleModal(errorMessage, errorCode);
+          this.toggleModal(errorCode, errorMessage);
         });
     }
 
@@ -156,7 +156,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          this.props.toggleModal(errorMessage, errorCode);
+          this.toggleModal(errorCode, errorMessage);
         });
     }
   };
@@ -168,14 +168,14 @@ class App extends Component {
       .auth()
       .signOut()
       .then(() => {
-        this.props.toggleModal('User Successfully Signed Out');
+        this.toggleModal('User Successfully Signed Out');
         this.setState({ currentSignedInUser: null });
 
         // Close Modal
         this.props.history.push('/');
       })
       .catch(() => {
-        this.props.toggleModal('Unable to Sign Out User');
+        this.toggleModal('Unable to Sign Out User');
       });
   };
 
