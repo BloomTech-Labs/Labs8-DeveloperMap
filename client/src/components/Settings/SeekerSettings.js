@@ -449,9 +449,9 @@ class SeekerSettings extends Component {
                       this.state.profilePicture : profile
                     }/>
                   </div>
-                <NavLink exact to="/settings">Profile</NavLink>
+                <NavLink exact to="/settings">Uploads</NavLink>
                 <NavLink to="/settings/security">Security</NavLink>
-                <NavLink to="/settings/contact-information">Contact</NavLink>
+                <NavLink to="/settings/contact-information">Profile</NavLink>
                 <NavLink to="/settings/location">Location</NavLink>
                 <NavLink to="/settings/social">Social</NavLink>
               </Navigation>
@@ -474,7 +474,7 @@ class SeekerSettings extends Component {
                     type="file" 
                     accept=".png,.jpg,.jpeg"
                     />
-                </Label>
+                  </Label>
 
                 
                 {this.state.resume && <a href={this.state.resume}>Download Resume</a>}
