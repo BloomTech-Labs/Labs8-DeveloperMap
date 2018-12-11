@@ -30,7 +30,9 @@ class SignUp extends React.Component {
         .catch(error => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          console.table(error);
           console.log({ errorCode, errorMessage });
+          this.props.toggleModal('Email Already in Use', errorMessage);
         });
     }
 
@@ -153,7 +155,7 @@ class SignUp extends React.Component {
                 { headers }
               )
               .then(response => {
-                alert('Your Account Has Been Created');
+                this.props.toggleModal('Your Account Has Been Created');
                 firebase
                   .auth()
                   .signInWithCustomToken(response.data.customToken)
