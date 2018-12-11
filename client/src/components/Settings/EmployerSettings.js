@@ -849,6 +849,7 @@ class EmployerSettings extends Component {
                             description={'Monthly'}
                             amount={5}
                             {...this.props}
+                            toggleModal={this.props.toggleModal}
                           />
                         </div>
                       </Premium>
