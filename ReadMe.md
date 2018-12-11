@@ -216,7 +216,6 @@ The client/frontend of the project.
 
          **Files:** ComProfileGuide.js, DevProfileGuide.js, EditSettings.js, GettingStarted.js, Intro.js, Navigation.js, TutorialIntro.js, UsingMarkers.js
 
-
    - ### firebase
       The configuration file for the client-side firebase integration.
 
@@ -253,6 +252,51 @@ The client/frontend of the project.
 Contains the server/backend of the project.
 
 **Files:** index.js, package.json, server.js, serverConfig.js, ServerDocs.md, yarn.lock
+
+- ### auth
+   The autorization middleware that assigns a token and claim to new users.
+
+   **Files:** authMiddleware.js
+
+- ### companies
+   The endpoints used to retrieve and manipulate data associated with companies in the database.
+
+   **Files:** companiesRouters.js
+
+- ### constants
+   Constants used by the stripe routes to interact with the stripe API.
+
+   **Files:** frontend.js, stripe.js
+
+- ### firebase
+   The configuration files for the client-side firebase integration.
+
+   **Files:** .firebaserc, .gitignore, database.rules.json, firebase.js, firebase.json, serviceAccountKey.json, storage.rules
+
+    - ### functions
+       The Cloud Functions for firebase.
+
+       **Files:** firebase.js, index.js, package.json, serviceAccountKey.json, yarn.lock
+
+- ### markers
+   The endpoints and middleware used to retrieve and manipulate data associated with markers in the database.
+
+   **Files:** markersMiddleware.js, MarkersRouters.js
+
+- ### seekers
+   The endpoints used to retrieve and manipulate data associated with seekers, and their favorites, in the database.
+
+   **Files:** favoritesRoutes.js, seekersRouters.js
+
+- ### stripe-routes
+   The routes and server configuration that interact with the api.
+
+   **Files:** index.js, payment.js
+
+- ### users
+   The endpoints used to retrieve and manipulate data associated with all users in the database (Not currently used).
+
+   **Files:** userRouters.js
 
 ---
 
