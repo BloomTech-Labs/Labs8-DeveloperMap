@@ -7,7 +7,7 @@ export const Info = styled.div`
   max-width: 300px;
   width: 100%;
   padding: 5%;
-  .com-name{
+  .com-name {
     font-size: 1.6rem;
     margin-bottom: 30px;
   }
@@ -15,11 +15,10 @@ export const Info = styled.div`
     font-size: 1.4rem;
     margin-bottom: 10px;
   }
-  h4{
+  h4 {
     margin-bottom: 15px;
   }
 `;
-
 
 export const Styling = styled.div`
   display: flex;
@@ -45,4 +44,17 @@ export const PostContainer = styled.div`
   @media (max-width: 650px) {
     flex-direction: row;
   }
+`;
+
+export const ProfilePic = styled.img`
+  width: 50%;
+  border-radius: 50%;
+  margin-bottom: 20px;
+`;
+
+export const InfoContainer = styled.div`
+  border: 0.7px solid rgba(220, 220, 220, 0.6);
+  border-radius: 4px;
+  width: 100%;
+  padding: 2%;
 `;
