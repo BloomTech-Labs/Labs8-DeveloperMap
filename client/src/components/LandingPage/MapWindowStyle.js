@@ -23,7 +23,6 @@ export const MapWindow = styled.div`
       border-radius: 20px;
       border: none;
       padding: 10px 0 10px 14%;
-
       &:focus {
         outline: none;
       }
