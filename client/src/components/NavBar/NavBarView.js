@@ -4,7 +4,9 @@ import Avatar from '../../images/gear.png';
 import Logout from '../../images/logout1.png';
 import Plus from '../../images/plussign.png';
 import Question from '../../images/question.png';
-import { Nav, Icons, InButton } from './NavBarStyles';
+
+import { Nav, Icons, InButton, DropMenu } from './NavBarStyles';
+
 import { Link } from 'react-router-dom';
 
 import { DropMenu } from './NavBarStyles';
@@ -93,5 +95,6 @@ class NavBar extends React.Component {
     );
   }
 }
+
 
 export default NavBar;
