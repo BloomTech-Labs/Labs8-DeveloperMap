@@ -23,8 +23,8 @@
   - [Reasoning](#reasoning)
 - [Documentation](#documentation)
   - [Structure](#structure)
-    -[Index](#index-(alphabetical))
-    -[Contents](#contents)
+    - [Index](#index)
+    - [Contents](#contents)
   - [Models](#structure)
 
 
@@ -75,12 +75,37 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 ### Structure
 
-#### Index (Alphabetical)
+#### Index
+
+**(Alphabetical)**
+
 - Client
     - public
     - src
-    package.json
-    yarn.lock
+      - components
+       - Employer
+         - BillingModal
+         - SettingEmployerModal
+       - EmployerProfile
+       - LandingPage
+       - Loading
+       - NavBar
+       - NoUser
+       - Seeker
+       - SeekerProfile
+       - Settings
+       - SignIn
+       - SignUp
+         - Forms
+         - Types
+       - Stripe
+         - constants
+       - Tutorial
+      - firebase
+      - images
+       - Icons
+       - signup
+      - styles
 - Server
     - auth
     - companies
@@ -90,9 +115,6 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
     - seekers
     - stripe-routes
     - users
-    - index.js
-    - package.json
-    - yarn.lock
 
 #### Contents
 ##### Client
@@ -106,7 +128,7 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 
 The user model is broken up into two different objects that are labels companies and seekers. The companies object is created for companies registered through the app, and seekers are the job seekers that are registered through the app. All objects are created through firebase and are only accessible through admin priveledges.
 
-companies object properties (each company has a unique uId):
+companies object properties (each company has a unique uid):
 
 ```
 - companyName = val().isString()
@@ -130,7 +152,7 @@ seekers object properties (each seeker has a unique uId):
 - portfolio = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
 - twitter = val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)
 ```
-### Markers Model
+#### Markers Model
 
 The markers model contains the geoJSON properties needed to locate users on the map and pin or mark their coordinates. The nested properties object holds the metadata for each marker.
 
@@ -149,7 +171,7 @@ markers object properties (each marker has a unique uId):
 - type = val().isString()
 ```
 
-### Company Postings Model
+#### Company Postings Model
 
 The company posting are related to each company uId. 
 
@@ -163,4 +185,4 @@ posting objects are relative to a unique company id
 - location = val().isString()
 ```
 
-### Favorite Postings Model
+#### Favorite Postings Model
