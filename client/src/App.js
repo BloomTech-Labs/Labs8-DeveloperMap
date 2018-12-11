@@ -43,6 +43,18 @@ class App extends Component {
         },
       };
     });
+
+    setTimeout(() => {
+      this.setState(prevState => {
+        return {
+          modal: {
+            show: !prevState.modal.show,
+            header: '',
+            message: '',
+          },
+        };
+      });
+    }, 4000);
   };
 
   //// ----- Modal Control -----

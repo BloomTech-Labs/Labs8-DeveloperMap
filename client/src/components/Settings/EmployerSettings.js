@@ -71,7 +71,7 @@ class EmployerSettings extends Component {
   //Adds the job to list
   commitJob = () => {
     if (Object.keys(this.state.posts).length > 4) {
-      alert('At limit for job postings');
+      this.props.toggleModal('At limit for job postings', 'Job Posting Limit');
       this.props.history.push('/settings');
     } else {
       const companyName = this.state.companyName;
@@ -131,16 +131,16 @@ class EmployerSettings extends Component {
         user
           .updatePassword(newPassword)
           .then(() => {
-            alert('Password updated!');
+            this.props.toggleModal('Password updated!');
           })
           .catch(error => {
             console.log(error);
-            alert(error.message);
+            this.props.toggleModal(error.message);
           });
       })
       .catch(error => {
         console.log(error);
-        alert(error.message);
+        this.props.toggleModal(error.message);
       });
   };
 
@@ -152,16 +152,16 @@ class EmployerSettings extends Component {
         user
           .updateEmail(newEmail)
           .then(() => {
-            alert('Email updated!');
+            this.props.toggleModal('Email updated!');
           })
           .catch(error => {
             console.log(error);
-            alert(error.message);
+            this.props.toggleModal(error.message);
           });
       })
       .catch(error => {
         console.log(error);
-        alert(error.message);
+        this.props.toggleModal(error.message);
       });
   };
 
@@ -200,7 +200,7 @@ class EmployerSettings extends Component {
         if (currentPassword && newPassword && rePassword) {
           // Check to make sure that the newPassword matches the rePassword.
           if (newPassword !== rePassword) {
-            return alert(
+            return this.props.toggleModal(
               'Your new password does not match the reentered password'
             );
           }
@@ -284,23 +284,25 @@ class EmployerSettings extends Component {
               switch (error.code) {
                 case 'storage/unauthorized':
                   // User doesn't have permission to access the object
-                  alert('Unauthorized. Please contact technical support.');
+                  this.props.toggleModal(
+                    'Unauthorized. Please contact technical support.'
+                  );
                   break;
 
                 case 'storage/canceled':
                   // User canceled the upload
-                  alert('Upload cancelled');
+                  this.props.toggleModal('Upload cancelled');
                   break;
 
                 case 'storage/unknown':
                   // Unknown error occurred, inspect error.serverResponse
-                  alert(
+                  this.props.toggleModal(
                     'An unknown error occurred. Please contact technical support.'
                   );
                   break;
 
                 default:
-                  alert(
+                  this.props.toggleModal(
                     'An unknown error occurred. Please contact technical support.'
                   );
               }
@@ -367,23 +369,25 @@ class EmployerSettings extends Component {
               switch (error.code) {
                 case 'storage/unauthorized':
                   // User doesn't have permission to access the object
-                  alert('Unauthorized. Please contact technical support.');
+                  this.props.toggleModal(
+                    'Unauthorized. Please contact technical support.'
+                  );
                   break;
 
                 case 'storage/canceled':
                   // User canceled the upload
-                  alert('Upload cancelled');
+                  this.props.toggleModal('Upload cancelled');
                   break;
 
                 case 'storage/unknown':
                   // Unknown error occurred, inspect error.serverResponse
-                  alert(
+                  this.props.toggleModal(
                     'An unknown error occurred. Please contact technical support.'
                   );
                   break;
 
                 default:
-                  alert(
+                  this.props.toggleModal(
                     'An unknown error occurred. Please contact technical support.'
                   );
               }
@@ -497,7 +501,9 @@ class EmployerSettings extends Component {
                 })
                 .then(response => {
                   console.log(response);
-                  alert('Your information has been successfully updated!');
+                  this.props.toggleModal(
+                    'Your information has been successfully updated!'
+                  );
                 })
                 .catch(error => console.log(error));
             })
@@ -505,7 +511,7 @@ class EmployerSettings extends Component {
         })
         .catch(error => console.log(error));
     } else {
-      return alert('Unable to Make Changes');
+      return this.props.toggleModal('Unable to Make Changes');
     }
 
     // Reset Password Fields After Update
