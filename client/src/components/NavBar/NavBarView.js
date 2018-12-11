@@ -5,14 +5,15 @@ import Logout from '../../images/logout1.png';
 import Plus from '../../images/plussign.png';
 import Question from '../../images/question.png';
 import { Nav, Icons, InButton } from './NavBarStyles';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
+import { DropMenu } from './NavBarStyles';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMenu: false
+      showMenu: false,
     };
   }
   handleSignIn = () => {
@@ -30,13 +31,13 @@ class NavBar extends React.Component {
 
   addJobs = () => {
     this.props.history.push('/settings/job-listings');
-  }
+  };
 
   infoToggle = () => {
     this.setState({
-      showMenu: !this.state.showMenu
-    })
-  }
+      showMenu: !this.state.showMenu,
+    });
+  };
 
   render() {
     console.log(this.props.user);
@@ -44,15 +45,15 @@ class NavBar extends React.Component {
       <Nav>
         {this.props.user ? (
           <Icons>
-            {this.props.user.role === 'seeker' ?
-            <div className="heart" onClick={this.favorite}>
-              <img alt="Favorites Icon" src={Heart} title="Favorites" />
-            </div>
-            :
-            <div className="heart" onClick={this.addJobs}>
-              <img alt="Favorites Icon" src={Plus} title="Favorites" />
-            </div>
-          }
+            {this.props.user.role === 'seeker' ? (
+              <div className="heart" onClick={this.favorite}>
+                <img alt="Favorites Icon" src={Heart} title="Favorites" />
+              </div>
+            ) : (
+              <div className="heart" onClick={this.addJobs}>
+                <img alt="Favorites Icon" src={Plus} title="Favorites" />
+              </div>
+            )}
             <div className="avatar">
               <img
                 alt="Avatar Icon"
@@ -70,22 +71,17 @@ class NavBar extends React.Component {
               />
             </div>
             <div className="question">
-              <img 
-                src={Question} 
+              <img
+                src={Question}
                 alt="Info"
                 title="More Info"
                 onClick={this.infoToggle}
-                />
-                { this.state.showMenu
-              ? (
+              />
+              {this.state.showMenu ? (
                 <DropMenu>
-                  <Link to='/tutorial'>How it Works</Link>
+                  <Link to="/tutorial">How it Works</Link>
                 </DropMenu>
-              )
-              : (
-              null
-              )
-          }
+              ) : null}
             </div>
           </Icons>
         ) : (
@@ -97,22 +93,5 @@ class NavBar extends React.Component {
     );
   }
 }
-
-const DropMenu = styled.div`
-  position: absolute;
-  min-width: 160px;
-  background-color: rgba(109, 7, 26, 0.95);
-  z-index: 1;
-  padding: 12px 16px;
-  margin-top: 20px;
-  right: 1%;
-  height: 75px;
-  border: none;
-  border-radius: 20px;
-  a{
-    color: white;
-    text-decoration: none;
-  }
-`;
 
 export default NavBar;
