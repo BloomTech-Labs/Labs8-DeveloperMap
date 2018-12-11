@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import Heart from '../../images/hollow-heart.png';
 import FavHeart from '../../images/favorites-icon.png';
+import { Job } from './EmployerStyles';
 
 class JobPosting extends React.Component {
   constructor(props) {
@@ -59,25 +59,5 @@ class JobPosting extends React.Component {
     );
   }
 }
-
-const Job = styled.div`
-  box-shadow: 0 4px 2px -2px gray;
-  display: flex;
-  justify-content: space-between;
-  height: 130px;
-  max-width: 350px;
-  width: 100%;
-  border: 0.7px solid rgba(220, 220, 220, 0.6);
-  border-radius: 4px;
-  padding: 5%;
-  margin-bottom: 15px;
-  &:hover {
-    box-shadow: none;
-  }
-  a{
-    text-decoration: none;
-    color: rgba(109, 7, 26, .95);
-  }
-`;
 
 export default JobPosting;
