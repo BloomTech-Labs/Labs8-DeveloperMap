@@ -15,6 +15,7 @@ import {
   SignUp,
   NoUser,
   TutorialIntro,
+  AlertModal,
 } from './reducer';
 import { AppStyle } from './styles/AppStyle';
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -24,8 +25,26 @@ class App extends Component {
     super();
     this.state = {
       currentSignedInUser: null,
+      modal: {
+        show: false,
+        message: 'Hi',
+      },
     };
   }
+
+  toggleModal = message => {
+    if (message === '' || message === undefined) {
+      message = '';
+    }
+    this.setState(prevState => {
+      return {
+        modal: {
+          show: !prevState.modal.show,
+          message: message,
+        },
+      };
+    });
+  };
 
   //// ----- Modal Control -----
   // --- Close Modal If Click Is Not On Modal ---
@@ -57,12 +76,16 @@ class App extends Component {
     // --- Form Validation ---
     // Check to make sure that the password matches the confirm password
     if (password !== rePassword) {
-      return alert('Password does not match the confirm password.');
+      return (
+        <AlertModal message={'Password does not match the confirm password.'} />
+      );
     }
 
     // Check password length
     if (password.length <= 8) {
-      return alert('Password must be at least 8 characters long.');
+      return (
+        <AlertModal message={'Password must be at least 8 characters long.'} />
+      );
     }
 
     // --- Firebase Auth Method ---
@@ -233,16 +256,16 @@ class App extends Component {
     if (provider === 'github') {
       const provider = new firebase.auth.GithubAuthProvider();
       firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(response => this.getCurrentUserData(response))
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ errorCode, errorMessage });
-        alert(error);
-      })
-   }
+        .auth()
+        .signInWithPopup(provider)
+        .then(response => this.getCurrentUserData(response))
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error);
+        });
+    }
   };
 
   // --- Sign Out Method ---
@@ -330,6 +353,10 @@ class App extends Component {
               user={this.state.currentSignedInUser}
               signOut={this.signOutCurrentUser}
             />
+            <AlertModal
+              show={this.state.modal.show}
+              message={this.state.modal.message}
+            />
             <Route
               path="/"
               render={props => (
@@ -401,6 +428,7 @@ class App extends Component {
                           this.signUpNewUserWithEmailAndPassword
                         }
                         currentSignedInUser={this.state.currentSignedInUser}
+                        toggleModal={this.toggleModal}
                       />
                     )}
                   />
