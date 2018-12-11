@@ -21,6 +21,9 @@ export const SignModalMain = styled(ModalMain)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    h2 {
+      margin-bottom: 10px;
+    }
     h4{
       border-bottom: .5px solid lightgrey;
       color: rgb(184,15,10);
@@ -37,7 +40,7 @@ export const Label = styled.label`
   padding-bottom: 10px;
   position: absolute;
   z-index: 10;
-  top: 20px;
+  top: 22px;
   left: 17px;
   cursor: text;
   color: #999;
@@ -45,6 +48,7 @@ export const Label = styled.label`
   text-align: left;
   transition: transform .1s ease-out,-webkit-transform .1s ease-out;
   user-select: none;
+  font-size: 15px;
 `;
 
 export const Input = styled.input`

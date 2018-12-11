@@ -1,6 +1,6 @@
 import React from 'react';
 import Heart from '../../images/favorites-icon.png';
-import styled from 'styled-components';
+import { FavoriteCard } from './FavoriteStyles';
 
 function Favorite(props) {
   return (
@@ -24,15 +24,5 @@ function Favorite(props) {
     </FavoriteCard>
   );
 }
-
-const FavoriteCard = styled.div`
-  border: 1px solid black;
-  width: 300px;
-  margin: 2%;
-  padding: 3%;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 4px;
-`;
 
 export default Favorite;

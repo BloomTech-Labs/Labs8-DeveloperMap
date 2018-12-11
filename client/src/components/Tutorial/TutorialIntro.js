@@ -8,7 +8,8 @@ import DevProfileGuide from './DevProfileGuide';
 import ComProfileGuide from './ComProfileGuide';
 import EditSettings from './EditSettings';
 import { withRouter, Route, NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+
+import { Navigate } from './TutorialStyle';
 
 class TutorialIntro extends React.Component {
   render() {

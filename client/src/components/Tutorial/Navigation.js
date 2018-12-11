@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import nav from '../../images/navsearch.PNG';
 import pinch from '../../images/Pinch_zoom.png';
+
+import { TutorialStyle, Next } from './TutorialStyle';
 
 class Navigating extends React.Component {
   switchPage = () => {
@@ -9,7 +10,7 @@ class Navigating extends React.Component {
   };
   render() {
     return (
-      <NavGuide>
+      <TutorialStyle>
         <h1>Navigation</h1>
         <p>
           You can use the search bar at the top left of the map to enter a
@@ -23,36 +24,9 @@ class Navigating extends React.Component {
         </p>
         <img src={pinch} alt="" />
         <Next onClick={this.switchPage}>Next</Next>
-      </NavGuide>
+      </TutorialStyle>
     );
   }
 }
-
-const NavGuide = styled.div`
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  p {
-    margin: 2%;
-    line-height: 1.25;
-  }
-`;
-
-const Next = styled.button`
-  width: 100px;
-  border: none;
-  border-radius: 25px;
-  background-color: rgba(109, 7, 26, 0.95);
-  cursor: pointer;
-  outline: none;
-  height: 30px;
-  color: white;
-  box-shadow: 0 4px 2px -2px gray;
-  &:hover {
-    background-color: rgba(109, 7, 26, 0.75);
-  }
-`;
 
 export default Navigating;

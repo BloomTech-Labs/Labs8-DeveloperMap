@@ -36,123 +36,6 @@ class App extends Component {
   };
 
   //// ----- User Control Methods -----
-  /// ---- Sign Up Methods ----
-  signUpNewUserWithEmailAndPassword = (
-    e,
-    type,
-    email,
-    phone,
-    identifier1,
-    identifier2,
-    jobTitle,
-    street,
-    city,
-    state,
-    zipCode,
-    password,
-    rePassword
-  ) => {
-    e.preventDefault();
-
-    // --- Form Validation ---
-    // Check to make sure that the password matches the confirm password
-    if (password !== rePassword) {
-      return alert('Password does not match the confirm password.');
-    }
-
-    // Check password length
-    if (password.length <= 8) {
-      return alert('Password must be at least 8 characters long.');
-    }
-
-    // --- Firebase Auth Method ---
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(async response => {
-        // Deconstruct response body
-        const { uid, email } = response.user;
-        const token = await response.user.getIdToken(true);
-        const headers = { authorization: token };
-
-        // --- Add User to Database ---
-        // Construct Location Object
-        let location = {};
-        let accessToken =
-          'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-        let addressString = street.concat(' ', city, ' ', state, ' ', zipCode);
-        let mapboxGeocodingAPIURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${addressString}.json?access_token=${accessToken}`;
-
-        // Get Location Coordinates and Return Promise
-        axios
-          .get(mapboxGeocodingAPIURL)
-          .then(response => {
-            console.log(response.data.features[0].geometry.coordinates);
-            location = {
-              street: street,
-              city: city,
-              state: state,
-              zip: zipCode,
-              coordinates: response.data.features[0].geometry.coordinates,
-            };
-
-            // --- Determine User Type ---
-            let user = {
-              uid: uid,
-              email: email,
-              phoneNumber: phone,
-              location: location,
-            };
-
-            // Construct Object for Seeker Type Users
-            if (type === 'seekers') {
-              user = {
-                ...user,
-                firstName: identifier1,
-                lastName: identifier2,
-                jobTitle: jobTitle,
-              };
-
-              // Construct Object for Employer Type Users
-            } else if (type === 'companies') {
-              user = {
-                ...user,
-                companyName: identifier1,
-                companyWebsite: identifier2,
-              };
-            } else {
-              return console.log('Invalid user type!');
-            }
-
-            // Create User In Database
-            axios
-              .post(
-                `https://intense-stream-29923.herokuapp.com/api/database/${type}/addUser`,
-                { ...user },
-                { headers }
-              )
-              .then(response => {
-                console.log(response.data);
-                alert(response.data.message);
-              })
-              .catch(error => console.log(error));
-
-            // Add the Current User to State
-            this.setState({ currentSignedInUser: user });
-
-            // Close Modal
-            this.props.history.push('/');
-          })
-          .catch(error => console.log(error));
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ errorCode, errorMessage });
-        alert(error);
-      });
-  };
-
   /// ---- Sign In Methods ----
 
   // Gets User Data for Current Signed In User
@@ -212,7 +95,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          alert(error); //Header and error message, or error code, and alert email
         });
     }
 
@@ -226,23 +109,23 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          alert(error); //Header and error message, or error code, and alert email
         });
     }
 
     if (provider === 'github') {
       const provider = new firebase.auth.GithubAuthProvider();
       firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(response => this.getCurrentUserData(response))
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ errorCode, errorMessage });
-        alert(error);
-      })
-   }
+        .auth()
+        .signInWithPopup(provider)
+        .then(response => this.getCurrentUserData(response))
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({ errorCode, errorMessage });
+          alert(error); //Header and error message, or error code, and alert email
+        });
+    }
   };
 
   // --- Sign Out Method ---
@@ -313,8 +196,6 @@ class App extends Component {
     });
   }
 
-  // /employer/:employerId/settings
-
   render() {
     return (
       <Route
@@ -339,15 +220,11 @@ class App extends Component {
                 />
               )}
             />
-            
+
             <Route
-              exact 
+              exact
               path="/loading"
-              render={props => (
-                <Loading
-                  {...props}
-                />
-              )}
+              render={props => <Loading {...props} />}
             />
 
             <TransitionGroup>
@@ -407,9 +284,6 @@ class App extends Component {
                     render={props => (
                       <SignUp
                         {...props}
-                        signUpNewUserWithEmailAndPassword={
-                          this.signUpNewUserWithEmailAndPassword
-                        }
                         currentSignedInUser={this.state.currentSignedInUser}
                       />
                     )}

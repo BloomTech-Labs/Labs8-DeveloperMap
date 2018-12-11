@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import company from '../../images/markerlogo4.png';
 import seeker from '../../images/markerlogo.png';
+
+import { MarkerGuide, Next } from './TutorialStyle';
 
 class UsingMarkers extends React.Component {
   switchPage = () => {
@@ -34,36 +35,5 @@ class UsingMarkers extends React.Component {
     );
   }
 }
-
-const MarkerGuide = styled.div`
-  padding: 5%;
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  p {
-    margin: 2%;
-    line-height: 1.25;
-    img {
-      padding-top: 10px;
-    }
-  }
-`;
-
-const Next = styled.button`
-  width: 100px;
-  border: none;
-  border-radius: 25px;
-  background-color: rgba(109, 7, 26, 0.95);
-  cursor: pointer;
-  outline: none;
-  height: 30px;
-  color: white;
-  box-shadow: 0 4px 2px -2px gray;
-  &:hover {
-    background-color: rgba(109, 7, 26, 0.75);
-  }
-`;
 
 export default UsingMarkers;
