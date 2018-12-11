@@ -15,6 +15,7 @@ import {
   SignUp,
   NoUser,
   TutorialIntro,
+  Loading,
 } from './reducer';
 import { AppStyle } from './styles/AppStyle';
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -339,6 +340,17 @@ class App extends Component {
                 />
               )}
             />
+            
+            <Route
+              exact 
+              path="/loading"
+              render={props => (
+                <Loading
+                  {...props}
+                />
+              )}
+            />
+
             <TransitionGroup>
               <CSSTransition
                 key={location.key}

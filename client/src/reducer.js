@@ -13,6 +13,7 @@ import SeekerSignUp from './components/SignUp/Forms/SeekerSignUp';
 import EmployerSignUp from './components/SignUp/Forms/EmployerSignUp';
 import NoUser from './components/NoUser/NoUser';
 import TutorialIntro from './components/Tutorial/TutorialIntro';
+import Loading from './components/Loading/Loading';
 
 export {
   NavBar,
@@ -29,5 +30,6 @@ export {
   SeekerSignUp,
   EmployerSignUp,
   NoUser,
-  TutorialIntro
+  TutorialIntro,
+  Loading
 };
