@@ -68,6 +68,28 @@ class EmployerProfile extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    const { favoritedList, initialFavoritedList } = this.state;
+    firebase.auth().onAuthStateChanged(user => {
+      if (favoritedList !== initialFavoritedList) {
+        if (user) {
+          const { uid } = user;
+          axios
+            .put(
+              'https://intense-stream-29923.herokuapp.com/api/database/favorites',
+              {
+                favoritedList,
+                uid,
+              }
+            )
+            .then();
+        }
+      } else {
+        console.log('no change');
+      }
+    });
+  }
+
   render() {
     const {companyInfo, posts, favoritedList, initialFavoritedList} = this.state
     const {profilePicture, companyName, location, companyWebsite, phoneNumber, email} = this.state.companyInfo
