@@ -126,10 +126,33 @@ const allowSeekerUpdate = (req, res, next) => {
   }
 };
 
+const createProfilePicture = (req, res, next) => {
+  const { uid } = req.body;
+  firebase
+    .auth()
+    .getUser(uid)
+    .then(userRecord => {
+      if (userRecord) {
+        const { photoURL } = userRecord;
+        if (photoURL) {
+          req.body.profilePicture = photoURL;
+          next();
+        } else {
+          req.body.profilePicture =
+            'https://firebasestorage.googleapis.com/v0/b/labs8-developermap.appspot.com/o/defaultProfilePic%2Fdefaultpic.jpg?alt=media&token=95a1e71f-9e55-419b-a6f7-5f8dc933595d';
+          next();
+        }
+      } else {
+        res.json({ message: 'no user found' });
+      }
+    });
+};
+
 module.exports = {
   setSeekerClaims,
   verifySeekerToken,
   allowSeekerUpdate,
   verifyCompanyToken,
   setCompanyClaims,
+  createProfilePicture,
 };

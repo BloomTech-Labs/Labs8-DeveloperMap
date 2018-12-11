@@ -6,6 +6,7 @@ const { createMarkerObjectSeeker } = require('../markers/markersMiddleware.js');
 const {
   setSeekerClaims,
   verifySeekerToken,
+  createProfilePicture,
 } = require('../auth/authMiddleware.js');
 
 //----------------------------------------------------------------GETS
@@ -69,6 +70,7 @@ router.get('/', (req, res) => {
 router.post(
   '/addUser',
   setSeekerClaims,
+  createProfilePicture,
   createMarkerObjectSeeker,
   async (req, res) => {
     // Deconstruct Request Body
@@ -82,6 +84,7 @@ router.post(
       uid,
       customToken,
       markerData,
+      profilePicture,
     } = req.body;
 
     console.log(markerData);
@@ -116,7 +119,7 @@ router.post(
       portfolio: '',
       twitter: '',
       resume: '',
-      profilePicture: '',
+      profilePicture: profilePicture || '',
       relocation: false,
       remote: false,
     };
