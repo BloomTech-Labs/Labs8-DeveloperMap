@@ -21,6 +21,11 @@
   - [Frontend Built Using](#frontend-built-using)
   - [Backend Built Using](#backend-built-using)
   - [Reasoning](#reasoning)
+- [Documentation](#documentation)
+  - [Structure](#structure)
+    -[Index](#index-(alphabetical))
+    -[Contents](#contents)
+  - [Models](#structure)
 
 
 ### Frontend built using:
