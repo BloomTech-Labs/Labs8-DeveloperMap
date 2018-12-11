@@ -111,6 +111,7 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
     - companies
     - constants
     - firebase
+      - functions
     - markers
     - seekers
     - stripe-routes
@@ -156,7 +157,7 @@ seekers object properties (each seeker has a unique uId):
 
 The markers model contains the geoJSON properties needed to locate users on the map and pin or mark their coordinates. The nested properties object holds the metadata for each marker.
 
-markers object properties (each marker has a unique uId):
+markers object properties (each marker has a unique uid):
 
 ```
 - geometry {
@@ -173,7 +174,7 @@ markers object properties (each marker has a unique uId):
 
 #### Company Postings Model
 
-The company posting are related to each company uId. 
+The company posting are related to each company uid. 
 
 posting objects are relative to a unique company id
 
