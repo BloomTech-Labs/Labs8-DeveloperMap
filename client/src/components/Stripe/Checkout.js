@@ -11,11 +11,11 @@ const fromDollarToCent = amount => amount * 100; //Currency in the smallest unit
 
 
 const successPayment = data => {
-  alert('Payment Successful');
+  console.log('Payment Successful');
 };
 
 const errorPayment = data => {
-  alert('Payment Error');
+  console.log('Payment Error');
 };
 
 // const onToken = (amount, description) => token =>  // Creates the token for you, so you can send all the necessary information to backend

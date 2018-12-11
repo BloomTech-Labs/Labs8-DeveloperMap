@@ -76,6 +76,7 @@ class TutorialIntro extends React.Component {
   }
 }
 
+
 const Navigate = styled.div`
   display: flex;
   justify-content: space-between;
