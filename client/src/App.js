@@ -27,20 +27,19 @@ class App extends Component {
       currentSignedInUser: null,
       modal: {
         show: false,
-        message: 'Hi',
+        header: '',
+        message: '',
       },
     };
   }
 
-  toggleModal = message => {
-    if (message === '' || message === undefined) {
-      message = '';
-    }
+  toggleModal = (header = '', message = '') => {
     this.setState(prevState => {
       return {
         modal: {
           show: !prevState.modal.show,
-          message: message,
+          header,
+          message,
         },
       };
     });
@@ -353,10 +352,7 @@ class App extends Component {
               user={this.state.currentSignedInUser}
               signOut={this.signOutCurrentUser}
             />
-            <AlertModal
-              show={this.state.modal.show}
-              message={this.state.modal.message}
-            />
+            <AlertModal show={this.state.modal.show} modal={this.state.modal} />
             <Route
               path="/"
               render={props => (
@@ -427,6 +423,7 @@ class App extends Component {
                         signUpNewUserWithEmailAndPassword={
                           this.signUpNewUserWithEmailAndPassword
                         }
+                        toggleModal={this.toggleModal}
                         currentSignedInUser={this.state.currentSignedInUser}
                         toggleModal={this.toggleModal}
                       />

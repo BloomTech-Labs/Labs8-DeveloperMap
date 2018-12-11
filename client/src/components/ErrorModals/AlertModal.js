@@ -5,7 +5,8 @@ import styled from 'styled-components';
 const AlertModal = props => {
   return (
     <AlertContainer className={props.show ? 'display' : ''}>
-      <p>{props.message}</p>
+      <h3>{props.modal.header}</h3>
+      <p>{props.modal.message}</p>
     </AlertContainer>
   );
 };
@@ -13,16 +14,17 @@ const AlertModal = props => {
 export default AlertModal;
 
 const AlertContainer = styled(ModalMain)`
-  opacity: 0;
   position: fixed;
+  background: rgb(38, 37, 49);
+  color: rgb(255, 255, 255);
+  left: 37%;
+  top: -50px;
+  opacity: 0;
   max-height: 200px;
-  z-index: 5;
   height: 150px;
   width: 25%;
-  max-height: 200px;
-  z-index: 5;
-  left: 40%;
-  top: -50px;
+  z-index: 100;
+  padding: 3% 2%;
 
   transition: all 0.5s ease-in;
 
@@ -32,16 +34,16 @@ const AlertContainer = styled(ModalMain)`
     top: 0px;
   }
 
+  h3 {
+    margin-bottom: 15px;
+  }
+
   @media (max-width: 661px) {
     width: 25%;
   }
 
   @media (max-width: 801px) {
     width: 25%;
-  }
-
-  p {
-    margin-top: 60px;
   }
 
   @keyframes slide {
