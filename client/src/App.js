@@ -55,7 +55,7 @@ class App extends Component {
           },
         };
       });
-    }, 4000);
+    }, 3000);
   };
 
   //// ----- Modal Control -----
