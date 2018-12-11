@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import company from '../../images/markerlogo4.png';
 import jobs from '../../images/jobs.PNG';
 import fav from '../../images/favicon.PNG';
+
+import { TutorialStyle, Next } from './TutorialStyle';
 
 class ComProfileGuide extends React.Component {
   switchPage = () => {
@@ -10,7 +11,7 @@ class ComProfileGuide extends React.Component {
   };
   render() {
     return (
-      <ProfileGuide>
+      <TutorialStyle>
         <h1>Employer Profile</h1>
         <p>
           By clicking on a{' '}
@@ -29,39 +30,9 @@ class ComProfileGuide extends React.Component {
         </p>
         <img src={fav} alt="" className="fav" />
         <Next onClick={this.switchPage}>Next</Next>
-      </ProfileGuide>
+      </TutorialStyle>
     );
   }
 }
-
-const ProfileGuide = styled.div`
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  p {
-    margin: 2%;
-    line-height: 1.25;
-  }
-  .fav {
-    margin-bottom: 15px;
-  }
-`;
-
-const Next = styled.button`
-  width: 100px;
-  border: none;
-  border-radius: 25px;
-  background-color: rgba(109, 7, 26, 0.95);
-  cursor: pointer;
-  outline: none;
-  height: 30px;
-  color: white;
-  box-shadow: 0 4px 2px -2px gray;
-  &:hover {
-    background-color: rgba(109, 7, 26, 0.75);
-  }
-`;
 
 export default ComProfileGuide;
