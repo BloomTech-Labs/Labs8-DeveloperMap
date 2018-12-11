@@ -6,6 +6,7 @@ const {
 const {
   setCompanyClaims,
   verifyCompanyToken,
+  createProfilePicture,
 } = require('../auth/authMiddleware.js');
 const rootRef = firebase.database().ref();
 const router = express.Router();
@@ -130,6 +131,7 @@ router.get('/:uid', (req, res) => {
 router.post(
   '/addUser',
   setCompanyClaims,
+  createProfilePicture,
   createMarkerObjectCompany,
   (req, res) => {
     const {
@@ -141,6 +143,7 @@ router.post(
       uid,
       markerData,
       customToken,
+      profilePicture,
     } = req.body;
     const newData = {
       companyName,
@@ -148,7 +151,7 @@ router.post(
       email,
       location,
       phoneNumber,
-      profilePicture: '',
+      profilePicture: profilePicture || '',
       remote: false,
     };
     let updateObject = {};
