@@ -547,7 +547,7 @@ class SeekerSettings extends Component {
             {/* Contact Information Section */}
             <Route path="/settings/contact-information" render={(props) =>
               <ContactInfo>
-                <h3>Contact Info</h3>
+                <h3>Profile Information</h3>
                 <Label width="48%">
                   First Name
                   <Input

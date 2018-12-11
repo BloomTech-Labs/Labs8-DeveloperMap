@@ -10,7 +10,7 @@ export const SettingsModalMain = styled(ModalMain)`
   padding: 30px 5% 30px 5%;
   flex-direction: row;
   box-sizing: border-box;
-  border-radius: 2px;
+  border-radius: 20px;
   flex-wrap: wrap;
   h3 {
     width: 100%;

@@ -561,9 +561,15 @@ class EmployerSettings extends Component {
             <NavLink exact to="/settings">
               Profile
             </NavLink>
-            <NavLink to="/settings/security">Security</NavLink>
-            <NavLink to="/settings/location">Location</NavLink>
-            <NavLink to="/settings/job-listings">Listings</NavLink>
+            <NavLink to="/settings/security">
+              Security
+            </NavLink>
+            <NavLink to="/settings/location">
+              Location
+            </NavLink>
+            <NavLink to="/settings/job-listings">
+              Listings
+            </NavLink>
           </Navigation>
         </LeftColumn>
 
@@ -783,7 +789,7 @@ class EmployerSettings extends Component {
                       value="Open to Remote Bobs"
                       onChange={this.handleCheckboxes}
                     />{' '}
-                    <span>Open to Remote Jobs</span>
+                    <span>Open to Remote Employees</span>
                   </Label>
                 </div>
               </Location>
