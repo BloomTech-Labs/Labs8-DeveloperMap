@@ -33,7 +33,7 @@ class App extends Component {
     };
   }
 
-  toggleModal = (header = '', message = '') => {
+  toggleModal = (message = '', header = '') => {
     this.setState(prevState => {
       return {
         modal: {
@@ -167,7 +167,7 @@ class App extends Component {
               )
               .then(response => {
                 console.log(response.data);
-                alert(response.data.message);
+                this.toggleModal(response.data.message);
               })
               .catch(error => console.log(error));
 
@@ -183,7 +183,7 @@ class App extends Component {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log({ errorCode, errorMessage });
-        alert(error);
+        this.props.toggleModal(errorMessage, errorCode);
       });
   };
 
@@ -206,7 +206,9 @@ class App extends Component {
           userType = 'companies';
           role = 'company';
         } else {
-          alert("We're missing some information from you. Please Sign Up!");
+          this.props.toggleModal(
+            "We're missing some information from you. Please Sign Up!"
+          );
           return this.props.history.push('/signup');
         }
         axios
@@ -246,7 +248,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          this.props.toggleModal(errorMessage, errorCode);
         });
     }
 
@@ -260,7 +262,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          this.props.toggleModal(errorMessage, errorCode);
         });
     }
 
@@ -274,7 +276,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          this.props.toggleModal(errorMessage, errorCode);
         });
     }
   };
@@ -293,7 +295,7 @@ class App extends Component {
         this.props.history.push('/');
       })
       .catch(() => {
-        alert('Unable to Sign Out User');
+        this.props.toggleModal('Unable to Sign Out User');
       });
   };
 
@@ -405,6 +407,7 @@ class App extends Component {
                       this.state.currentSignedInUser && (
                         <Settings
                           {...props}
+                          toggleModal={this.toggleModal}
                           currentSignedInUser={this.state.currentSignedInUser}
                         />
                       )
