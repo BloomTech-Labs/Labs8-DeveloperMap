@@ -168,7 +168,7 @@ class App extends Component {
       .auth()
       .signOut()
       .then(() => {
-        alert('User Successfully Signed Out');
+        this.props.toggleModal('User Successfully Signed Out');
         this.setState({ currentSignedInUser: null });
 
         // Close Modal
