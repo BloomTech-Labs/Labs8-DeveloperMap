@@ -10,7 +10,7 @@ export const SettingsModalMain = styled(ModalMain)`
   padding: 30px 5% 30px 5%;
   flex-direction: row;
   box-sizing: border-box;
-  border-radius: 2px;
+  border-radius: 20px;
   flex-wrap: wrap;
   h3 {
     width: 100%;
@@ -100,7 +100,7 @@ export const TextArea = styled.textarea`
   min-width:100%;
   max-width:100%;
   height: 60px;
-  border-radius: 1px;
+  border-radius: 25px;
   border: 1px solid lightgrey;
   &:disabled {
     border-color: white;

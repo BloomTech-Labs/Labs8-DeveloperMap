@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import logo from '../../images/mainlogo.png';
 import planet from '../../images/planet.png';
+
+import { Next, IntroContainer } from './TutorialStyle';
 
 class Intro extends React.Component {
   switchPage = () => {
@@ -9,7 +10,7 @@ class Intro extends React.Component {
   };
   render() {
     return (
-      <IntoContainer>
+      <IntroContainer>
         <h1>
           Welcome to{' '}
           <span>
@@ -27,48 +28,9 @@ class Intro extends React.Component {
         </p>
         <img src={planet} alt="" style={{ width: '300px' }} />
         <Next onClick={this.switchPage}>Next</Next>
-      </IntoContainer>
+      </IntroContainer>
     );
   }
 }
-
-const IntoContainer = styled.div`
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  h1 {
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    img {
-      padding-top: 20px;
-    }
-  }
-  p {
-    line-height: 1.25;
-    max-width: 500px;
-    margin-bottom: 10px;
-  }
-  img {
-    margin-bottom: 20px;
-  }
-`;
-
-const Next = styled.button`
-  width: 100px;
-  border: none;
-  border-radius: 25px;
-  background-color: rgba(109, 7, 26, 0.95);
-  cursor: pointer;
-  outline: none;
-  height: 30px;
-  color: white;
-  box-shadow: 0 4px 2px -2px gray;
-  &:hover {
-    background-color: rgba(109, 7, 26, 0.75);
-  }
-`;
 
 export default Intro;

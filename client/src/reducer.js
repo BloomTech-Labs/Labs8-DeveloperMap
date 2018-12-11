@@ -14,6 +14,7 @@ import EmployerSignUp from './components/SignUp/Forms/EmployerSignUp';
 import NoUser from './components/ErrorModals/NoUser';
 import AlertModal from './components/ErrorModals/AlertModal';
 import TutorialIntro from './components/Tutorial/TutorialIntro';
+import Loading from './components/Loading/Loading';
 
 export {
   NavBar,
@@ -30,6 +31,7 @@ export {
   SeekerSignUp,
   EmployerSignUp,
   NoUser,
-  AlertModal,
   TutorialIntro,
+  Loading,
+  AlertModal,
 };
