@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import signin from '../../images/newsignin.PNG';
 import sorc from '../../images/sorc.PNG';
+
+import { StartContainer, Next } from './TutorialStyle';
 
 class GettingStarted extends React.Component {
   switchPage = () => {
@@ -34,34 +35,5 @@ class GettingStarted extends React.Component {
     );
   }
 }
-
-const StartContainer = styled.div`
-  padding: 5%;
-  max-width: 600px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  p {
-    line-height: 1.25;
-    margin: 2%;
-  }
-`;
-
-const Next = styled.button`
-  width: 100px;
-  border: none;
-  border-radius: 25px;
-  background-color: rgba(109, 7, 26, 0.95);
-  cursor: pointer;
-  outline: none;
-  height: 30px;
-  color: white;
-  box-shadow: 0 4px 2px -2px gray;
-  &:hover {
-    background-color: rgba(109, 7, 26, 0.75);
-  }
-`;
 
 export default GettingStarted;
