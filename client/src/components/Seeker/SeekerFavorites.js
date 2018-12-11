@@ -1,9 +1,10 @@
 import React from 'react';
 import firebase from '../../firebase/firebase';
 import Favorite from './Favorite';
-import styled from 'styled-components';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
 import axios from 'axios';
+
+import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
+import { Fav } from './FavoriteStyles';
 
 class SeekerFavorites extends React.Component {
   constructor(props) {
@@ -36,8 +37,11 @@ class SeekerFavorites extends React.Component {
   render() {
     return (
       <ModalContainer data-type="modal-container">
-        <ModalMain className="modal" style={{ maxWidth: '725px', padding: '1%', borderRadius: '25px' }}>
-        <h1 style={{ textAlign: 'center' }}>Favorite Jobs</h1>
+        <ModalMain
+          className="modal"
+          style={{ maxWidth: '725px', padding: '1%', borderRadius: '25px' }}
+        >
+          <h1 style={{ textAlign: 'center' }}>Favorite Jobs</h1>
           <Fav>
             {this.state.favorites.length < 1 && <h1>No Favorites</h1>}
             {this.state.favorites.map((favorite, i) => (
@@ -49,13 +53,5 @@ class SeekerFavorites extends React.Component {
     );
   }
 }
-
-const Fav = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 725px;
-  width: 100%;
-`;
 
 export default SeekerFavorites;
