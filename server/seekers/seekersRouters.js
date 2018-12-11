@@ -70,8 +70,8 @@ router.get('/', (req, res) => {
 router.post(
   '/addUser',
   setSeekerClaims,
-  createMarkerObjectSeeker,
   createProfilePicture,
+  createMarkerObjectSeeker,
   async (req, res) => {
     // Deconstruct Request Body
     const {
