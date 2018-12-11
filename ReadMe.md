@@ -118,14 +118,59 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
     - users
 
 ## Contents
-### Client
-Contains the client/frontend of the project. 
+### **Client**
+
+---
+
+The client/frontend of the project. 
+
 **Files:** .gitignore, package.json, README.md, yarn.lock
 
+- ### public
+   The HTML file containing the root element that MappaJob will be rendered to. 
 
-### Server
+   **Files:** favicon.png, index.html, manifest.json, mappa.ico
+
+- ### src
+   The components of MappaJob, additionally including all images, styles, firebase client configuration, root render files (App.js, index.js), and the component reducer.
+
+   **Files:** App.js, App.test.js, index.js, reducer.js, serviceWorker.js
+
+   - ### components
+      The folders holding each component file used in MappaJob, primarily organized by Modal.
+
+      **Files:** No immediate files.
+
+   - ### firebase
+      The configuration file for the client-side firebase integration.
+
+      **Files:** firebase.js
+
+   - ### images
+      The configuration file for the client-side firebase integration.
+
+      **Files:** avatar-icon.jpg, contact.PNG, edit.png,. favheart.png, favicon.PNG, favorites-icon.png, gear.png, gear.svg, hollow-heart.png, jobs.PNG, links.PNG, logout.png, logout1.png, mainlogo.png, Marker.png, markerlogo.png, markerlogo4.png, markerlogo9.png, markerPic.png, navsearch.PNG, newsignin.PNG, Pinch_zoom.png, planet.png, plusssign.png, question.png, sorc.PNG, styled.PNG, titleTab.png.
+
+   - ### styles
+      The global styles used throughout MappaJob.
+
+      **Files:** AppStyle.js, GlobalStyle.js, index.js, ModalGlobalStyle.js, SettingsStyle.js, SignIn_UpStyle.js
+
+---  
+  
+<br />
+  
+### **Server**
+
+---
+
 Contains the server/backend of the project.
+
 **Files:** index.js, package.json, server.js, serverConfig.js, ServerDocs.md, yarn.lock
+
+---
+
+<br />
 
 # Models
 
