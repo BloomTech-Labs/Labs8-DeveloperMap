@@ -80,42 +80,39 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
 **(Alphabetical)**
 
 - Client
-    - public
-    - src
-      - components
-       - Employer
-         - BillingModal
-         - SettingEmployerModal
-       - EmployerProfile
-       - LandingPage
-       - Loading
-       - NavBar
-       - NoUser
-       - Seeker
-       - SeekerProfile
-       - Settings
-       - SignIn
-       - SignUp
-         - Forms
-         - Types
-       - Stripe
-         - constants
-       - Tutorial
-      - firebase
-      - images
-       - Icons
-       - signup
-      - styles
-- Server
-    - auth
-    - companies
-    - constants
-    - firebase
-      - functions
-    - markers
-    - seekers
-    - stripe-routes
-    - users
+    - [public](#public)
+    - [src](#src)
+      - [components](#components)
+       - [EmployerProfile](#EmployerProfile)
+       - [LandingPage](#LandingPage)
+       - [Loading](#Loading)
+       - [NavBar](#NavBar)
+       - [NoUser](#NoUser)
+       - [Seeker](#Seeker)
+       - [SeekerProfile](#SeekerProfile)
+       - [Settings](#Settings)
+       - [SignIn](#SignIn)
+       - [SignUp](#SignUp)
+         - [Forms](#Forms)
+         - [Types](#Types)
+       - [Stripe](#Stripe)
+         - [constants](#constants)
+       - [Tutorial](#Tutorial)
+      - [firebase](#firebase)
+      - [images](#images)
+       - [Icons](#Icons)
+       - [signup](#signup)
+      - [styles](#styles)
+- [Server](#Server)
+    - [auth](#auth)
+    - [companies](#companies)
+    - [constants](#constants)
+    - [firebase](#firebase)
+      - [functions](#functions)
+    - [markers](#markers)
+    - [seekers](#seekers)
+    - [stripe-routes](#stripe-routes)
+    - [users](#users)
 
 ## Contents
 ### **Client**
@@ -140,11 +137,6 @@ The client/frontend of the project.
       The folders holding each component file used in MappaJob, primarily organized by Modal.
 
       **Files:** No immediate files.
-
-      - ### Employer
-         The folders holding the component files for the Employer Billings and Settings Modals. Currently not used.
-
-         **Files:** No immediate files.
 
       - ### EmployerProfile
          The component files and styles used in the employer profile modal which shows up after clicking on an employer marker on the map, and clicking 'Learn More'.
