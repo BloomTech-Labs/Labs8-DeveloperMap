@@ -4,7 +4,6 @@ import EmployerSettings from './components/Employer/SettingEmployerModal/Employe
 import EmployerProfile from './components/EmployerProfile/EmployerProfile';
 import LandingPage from './components/LandingPage/LandingPage';
 import SeekerFavorites from './components/Seeker/SeekerFavorites';
-import SeekerSettings from './components/Seeker/SeekerSettings';
 import Settings from './components/Settings/Settings';
 import SeekerProfile from './components/SeekerProfile/SeekerProfile';
 import SignIn from './components/SignIn/SignIn';
@@ -23,7 +22,6 @@ export {
   EmployerSettings,
   LandingPage,
   SeekerFavorites,
-  SeekerSettings,
   Settings,
   SeekerProfile,
   SignIn,
