@@ -12,6 +12,7 @@ class EmployerProfile extends React.Component {
     super(props);
     this.state = {
       loading: true,
+      companyInfo: {}
     };
   }
 
@@ -68,6 +69,7 @@ class EmployerProfile extends React.Component {
   }
 
   render() {
+    const {companyInfo, posts, favoritedList, initialFavoritedList} = this.state
     const {profilePicture, companyName, location, companyWebsite, phoneNumber, email} = this.state.companyInfo
     return (
       <ModalContainer data-type="modal-container">
@@ -94,7 +96,7 @@ class EmployerProfile extends React.Component {
                 <h4>{email}</h4>
               </InfoContainer>
             </Info>
-            <EmployerPostings {...this.props} />
+            <EmployerPostings {...this.props} posts={posts} favoritedList={favoritedList} initialFavoritedList={initialFavoritedList} />
           </Styling>
         </ModalMain>
       </ModalContainer>
