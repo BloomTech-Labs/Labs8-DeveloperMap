@@ -141,6 +141,82 @@ The client/frontend of the project.
 
       **Files:** No immediate files.
 
+      - ### Employer
+         The folders holding the component files for the Employer Billings and Settings Modals. Currently not used.
+
+         **Files:** No immediate files.
+
+      - ### EmployerProfile
+         The component files and styles used in the employer profile modal which shows up after clicking on an employer marker on the map, and clicking 'Learn More'.
+
+         **Files:** EmployerPostings.js, EmployerProfile.js, EmployerStyles.js, JobPostings.js
+
+      - ### LandingPage
+         The component files and styles used on the Landing Page of MappaJob, which displays the map, and the geocoder (search functionality).
+
+         **Files:** LandingPage.js, MapWindowStyle.js
+
+      - ### Loading
+         The component files, images, and styles used in the Loading modal.
+
+         **Files:** Loading.js, LoadingStyles.js, map-smol.png, map.PNG, SpinningGlobe.js
+
+      - ### NavBar
+         The component files and styles used in the Navigation Bar.
+
+         **Files:** NavBarStyles.js, NavBarView.js
+
+      - ### NoUser
+         The component files and styles for a component that will display if information is requested from a user that no longer exists in the database.
+
+         **Files:** NoUser.js, NoUserStyle.js
+
+      - ### Seeker
+         Primarily the component files and styles for the Seeker Favorites modal.
+
+         **Files:** Favorite.js, SeekerFavorites.js, SeekerSettings.js
+
+      - ### SeekerProfile
+         The component files and styles used in the job seeker profile modal which shows up after clicking on a job seeker marker on the map, and clicking 'Learn More'.
+
+         **Files:** ProfileModalStyle.js, SeekerProfile.js
+
+      - ### Settings
+         The Settings component, and folders holding the routes for Seeker Settings and Employer Settings.
+
+         **Files:** EmployerSettings.js, SeekerSettings.js, Settings.js
+
+      - ### SignIn
+         The component files and styles used in the Sign In modal.
+
+         **Files:** SignIn.js
+
+      - ### SignUp
+         The SignUp component, and folders holding the routes for the various forms and signup steps.
+
+         **Files:** SignUp.js
+
+          - ### Forms
+             The routes/components for Seeker Signup and Employer Signup.
+
+             **Files:** EmployerSignUp.js, SeekerSignUp.js
+    
+          - ### Types
+             The routes/components for the steps of the signup process wherein you choose your signup method (email or 3rd party) and identify whether you are a job seeker or employer.
+
+             **Files:** SignUpTypes.js, SignUpUserTypes.js
+
+      - ### Stripe
+         The configuration file for the client-side stripe integration.
+
+         **Files:** Checkout.js
+
+      - ### Tutorial
+         The tutorial component and the routes for the various parts of the tutorial.
+
+         **Files:** ComProfileGuide.js, DevProfileGuide.js, EditSettings.js, GettingStarted.js, Intro.js, Navigation.js, TutorialIntro.js, UsingMarkers.js
+
+
    - ### firebase
       The configuration file for the client-side firebase integration.
 
@@ -150,6 +226,16 @@ The client/frontend of the project.
       The configuration file for the client-side firebase integration.
 
       **Files:** avatar-icon.jpg, contact.PNG, edit.png,. favheart.png, favicon.PNG, favorites-icon.png, gear.png, gear.svg, hollow-heart.png, jobs.PNG, links.PNG, logout.png, logout1.png, mainlogo.png, Marker.png, markerlogo.png, markerlogo4.png, markerlogo9.png, markerPic.png, navsearch.PNG, newsignin.PNG, Pinch_zoom.png, planet.png, plusssign.png, question.png, sorc.PNG, styled.PNG, titleTab.png.
+
+      - ### Icons
+         Icon images
+
+         **Files:** icons8-computer-monitor.png, icons8-github.png, icons8-linkedin-filled.png, icons8-phone-26.png, icons8-resume.png, icons8-twitter-filled.png
+
+      - ### signup
+         3rd party authentication buttons
+
+         **Files:** btn_github_signin_light_normal_web@2x.png, btn_github_signin_light_pressed_web@2x.png, btn_google_signin_light_normal_web.png, btn_google_signin_light_normal_web@2x.png, btn_google_signin_light_pressed_web.png, btn_google_signin_light_pressed_web@2x.png
 
    - ### styles
       The global styles used throughout MappaJob.
