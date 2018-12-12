@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`landing page component should render without error 1`] = `
+<div
+  className="sc-htpNat gvWnkB"
+  data-type="modal-container"
+>
+  <div
+    className="modal sc-bxivhb hwAuZC"
+    style={
+      Object {
+        "borderRadius": "25px",
+        "maxWidth": "725px",
+        "padding": "1%",
+      }
+    }
+  >
+    <h1
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      Favorite Jobs
+    </h1>
+    <div
+      className="sc-bwzfXH fTAzcd"
+    >
+      <h1>
+        No Favorites
+      </h1>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`seeker favorite component should render without error 1`] = `
+<div
+  className="sc-htpNat gvWnkB"
+  data-type="modal-container"
+>
+  <div
+    className="modal sc-bxivhb hwAuZC"
+    style={
+      Object {
+        "borderRadius": "25px",
+        "maxWidth": "725px",
+        "padding": "1%",
+      }
+    }
+  >
+    <h1
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      Favorite Jobs
+    </h1>
+    <div
+      className="sc-bwzfXH fTAzcd"
+    >
+      <h1>
+        No Favorites
+      </h1>
+    </div>
+  </div>
+</div>
+`;
