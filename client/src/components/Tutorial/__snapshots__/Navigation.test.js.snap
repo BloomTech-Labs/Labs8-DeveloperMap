@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navigation Component renders correctly 1`] = `
+<styled.div>
+  <h1>
+    Navigation
+  </h1>
+  <p>
+    You can use the search bar at the top left of the map to enter a location. The map will pan to the location on the map.
+  </p>
+  <img
+    alt=""
+    src="navsearch.PNG"
+  />
+  <p>
+    By clicking and dragging the map you can also pan accross the map, if you are on mobile, you can zoom into a location by using two fingers and spreading them apart in any direction.
+  </p>
+  <img
+    alt=""
+    src="Pinch_zoom.png"
+  />
+  <styled.button
+    onClick={[Function]}
+  >
+    Next
+  </styled.button>
+</styled.div>
+`;
