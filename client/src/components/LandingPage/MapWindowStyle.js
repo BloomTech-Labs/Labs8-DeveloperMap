@@ -165,13 +165,13 @@ export const LogoImg = styled.img`
 `;
 
 export const PinKey = styled.img`
-  width: 45px;
+  width: 30px;
   height: 45px;
 `;
 
 export const KeyBox = styled.div`
-  width: 200px;
-  height: 125px;
+  width: 205px;
+  height: 135px;
   background-color: rgba(109, 7, 26, 0.95);
   position: absolute;
   right: 0;
@@ -183,30 +183,29 @@ export const KeyBox = styled.div`
   align-items: center;
   border-radius: 20px;
   z-index: 5;
+
+  .container {
+    padding: 6px 3%;
+    background-color: #fafafa;
+    border-radius: 10px;
+
+    @media (max-width: 550px) {
+      display: flex;
+      padding: 0 2%;
+    }
+  }
+
   .key {
     display: flex;
     align-items: center;
-    background-color: #fafafa;
-  }
-  .key1 {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  .key2 {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    padding: 2px 0;
   }
   h3 {
     font-size: 1.1rem;
     font-weight: lighter;
-    width: 80px;
+    width: 90px;
   }
-  a {
-    text-decoration: none;
-    color: white;
-    font-size: 0.9rem;
-    margin-top: 2px;
-  }
+
   @media (max-width: 550px) {
     bottom: 0;
     left: 0;
@@ -214,19 +213,7 @@ export const KeyBox = styled.div`
     width: 100%;
     flex-direction: row;
     height: 50px;
-    a {
-      display: none;
-    }
-    .key1 {
-      border-top-left-radius: 25px;
-      border-bottom-left-radius: 25px;
-      border-top-right-radius: 0;
-    }
-    .key2 {
-      border-top-right-radius: 25px;
-      border-bottom-right-radius: 25px;
-      border-bottom-left-radius: 0;
-    }
+    border-radius: 0;
   }
 `;
 

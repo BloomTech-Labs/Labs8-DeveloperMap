@@ -167,24 +167,6 @@ class LandingPage extends React.Component {
         />
       </Marker>
     );
-    // } else if (mark.properties.role === 'company') {
-    //   return (
-    //     <Marker
-    //       key={i}
-    //       latitude={mark.geometry.coordinates[1]}
-    //       longitude={mark.geometry.coordinates[0]}
-    //       // offsetTop={-40}
-    //       // offsetLeft={10}
-    //     >
-    //       <ShowMarker
-    //         src={CompanyPin}
-    //         alt="gold marker"
-    //         onClick={() => this.setState({ pin: mark })}
-    //         show={this.state.filter.company}
-    //       />
-    //     </Marker>
-    //   );
-    // }
   };
 
   // ==== Renders the popup to the map ====
@@ -268,31 +250,33 @@ class LandingPage extends React.Component {
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
-            <div className="key key1">
-              <PinKey src={SeekerPin} />
-              <h3>Job Seeker</h3>
-              <ToggleKnob htmlFor="seeker">
-                <input
-                  type="checkbox"
-                  name="seeker"
-                  id="seeker"
-                  checked={this.state.filter.seeker}
-                  onChange={this.markerShow}
-                />
-              </ToggleKnob>
-            </div>
-            <div className="key key2">
-              <PinKey src={CompanyPin} />
-              <h3>Employer</h3>
-              <ToggleKnob htmlFor="company">
-                <input
-                  type="checkbox"
-                  name="company"
-                  id="company"
-                  checked={this.state.filter.company}
-                  onChange={this.markerShow}
-                />
-              </ToggleKnob>
+            <div className="container">
+              <div className="key key1">
+                <PinKey src={SeekerPin} />
+                <h3>Job Seeker</h3>
+                <ToggleKnob htmlFor="seeker">
+                  <input
+                    type="checkbox"
+                    name="seeker"
+                    id="seeker"
+                    checked={this.state.filter.seeker}
+                    onChange={this.markerShow}
+                  />
+                </ToggleKnob>
+              </div>
+              <div className="key key2">
+                <PinKey src={CompanyPin} />
+                <h3>Employer</h3>
+                <ToggleKnob htmlFor="company">
+                  <input
+                    type="checkbox"
+                    name="company"
+                    id="company"
+                    checked={this.state.filter.company}
+                    onChange={this.markerShow}
+                  />
+                </ToggleKnob>
+              </div>
             </div>
           </KeyBox>
 
