@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intro Component renders correctly 1`] = `
+<Styled(styled.div)>
+  <h1>
+    Welcome to
+     
+    <span>
+      <img
+        alt=""
+        src="mainlogo.png"
+        style={
+          Object {
+            "width": "200px",
+          }
+        }
+      />
+    </span>
+  </h1>
+  <p>
+    MappaJob is the best way to find developer jobs in your area. Planning on relocating? Search for a city or town that you are interested and see how many companies and developers are currently in that area. You can favorite jobs that you like as a developer, and if your a company, you can click on any of the developers to see what they can offer your company! Either way, let MappaJob help make your experience as a developer or employer an easier one.
+  </p>
+  <img
+    alt=""
+    src="planet.png"
+    style={
+      Object {
+        "width": "300px",
+      }
+    }
+  />
+  <styled.button
+    onClick={[Function]}
+  >
+    Next
+  </styled.button>
+</Styled(styled.div)>
+`;

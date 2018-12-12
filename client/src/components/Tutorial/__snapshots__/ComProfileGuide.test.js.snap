@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`com profile guide Component renders correctly 1`] = `
+<styled.div>
+  <h1>
+    Employer Profile
+  </h1>
+  <p>
+    By clicking on a
+     
+    <span>
+      <img
+        alt=""
+        src="markerlogo4.png"
+        style={
+          Object {
+            "width": "50px",
+          }
+        }
+      />
+    </span>
+     
+    marker on the map, you will be brought to that companies profile. You will see some general contact information for that company, as well as any jobs they have posted. By clicking the heart affiliated with each job.
+  </p>
+  <img
+    alt=""
+    src="jobs.PNG"
+  />
+  <p>
+    To find jobs that have been favorited by you, click on the favorites icon on the Nav bar at the top of the screen.
+  </p>
+  <img
+    alt=""
+    className="fav"
+    src="favicon.PNG"
+  />
+  <styled.button
+    onClick={[Function]}
+  >
+    Next
+  </styled.button>
+</styled.div>
+`;

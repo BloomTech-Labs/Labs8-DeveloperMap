@@ -54,7 +54,6 @@ class SignUp extends React.Component {
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
           alert(error);
-<<<<<<< HEAD
         })
       }
 
@@ -80,11 +79,7 @@ class SignUp extends React.Component {
         })
       }
   }
-=======
-        });
-    }
-  };
->>>>>>> 105c239076c45eadee654c468036112a06eae76c
+
 
   /// ---- Add New User To Database ----
   signUpNewUser = (

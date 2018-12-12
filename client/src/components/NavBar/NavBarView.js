@@ -42,7 +42,7 @@ class NavBar extends React.Component {
   render() {
     // console.log(this.props.user);
     return (
-      <Nav>
+      <Nav className='nav'>
         {this.props.user ? (
           <Icons>
             {this.props.user.role === 'seeker' ? (
@@ -70,15 +70,16 @@ class NavBar extends React.Component {
                 title="Logout"
               />
             </div>
-            <div className="question">
+            <div className="question" onClick={this.infoToggle}>
               <img
+                className="question-icon"
                 src={Question}
                 alt="Info"
                 title="More Info"
                 onClick={this.infoToggle}
               />
               {this.state.showMenu ? (
-                <DropMenu>
+                <DropMenu className='drop-menu'>
                   <Link to="/tutorial">How it Works</Link>
                 </DropMenu>
               ) : null}
@@ -86,7 +87,7 @@ class NavBar extends React.Component {
           </Icons>
         ) : (
           <div>
-            <InButton onClick={this.handleSignIn}>Sign In ></InButton>
+            <InButton className='sign-in' onClick={this.handleSignIn}>Sign In ></InButton>
           </div>
         )}
       </Nav>
