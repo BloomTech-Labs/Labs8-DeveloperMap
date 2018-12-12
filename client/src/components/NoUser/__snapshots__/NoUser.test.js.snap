@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no user Component renders correctly 1`] = `
+<div
+  className="sc-bdVaJa cbxIaT"
+  data-type="modal-container"
+>
+  <div
+    className="modal sc-bwzfXH gLXQyA"
+  >
+    <h1
+      className="sc-htpNat bBFOFo"
+    >
+      This user is no longer with us.
+    </h1>
+  </div>
+</div>
+`;
