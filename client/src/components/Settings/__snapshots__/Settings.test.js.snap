@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`settings component should render without error 1`] = `
+<styled.div
+  data-type="modal-container"
+>
+  <Styled(styled.div)
+    className="modal"
+  >
+    <SeekerSettings
+      currentSignedInUser={
+        Object {
+          "role": "seeker",
+        }
+      }
+    />
+  </Styled(styled.div)>
+</styled.div>
+`;
