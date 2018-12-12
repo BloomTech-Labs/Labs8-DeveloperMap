@@ -78,10 +78,17 @@ export const MapWindow = styled.div`
 `;
 
 export const ShowMarker = styled.img`
-  display: ${props => (props.show ? 'block' : 'none')};
-  height: 45px;
-  width: 50px;
+  height: 35px;
+  width: 25px;
   cursor: pointer;
+
+  &.company {
+    display: ${props => (props.show.company ? 'block' : 'none')};
+  }
+
+  &.seeker {
+    display: ${props => (props.show.seeker ? 'block' : 'none')};
+  }
 `;
 
 export const CloseX = styled.p`

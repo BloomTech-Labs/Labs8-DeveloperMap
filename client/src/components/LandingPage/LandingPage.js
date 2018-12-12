@@ -16,9 +16,9 @@ import {
   ToggleKnob,
   PopupImg,
 } from './MapWindowStyle';
-import SeekerPin from '../../images/markerlogo.png';
+import SeekerPin from '../../images/SMarker.png';
 import MainLogo from '../../images/mainlogo.png';
-import CompanyPin from '../../images/markerlogo4.png';
+import CompanyPin from '../../images/EMarker.png';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
@@ -143,41 +143,48 @@ class LandingPage extends React.Component {
 
   // ==== Renders the markers to the map ====
   renderMarker = (mark, i) => {
-    if (mark.properties.role === 'seeker') {
-      return (
-        <Marker
-          key={i}
-          latitude={mark.geometry.coordinates[1]}
-          longitude={mark.geometry.coordinates[0]}
-          offsetTop={-40}
-          offsetLeft={-25}
-        >
-          <ShowMarker
-            src={SeekerPin}
-            alt="red marker"
-            onClick={() => this.setState({ pin: mark })}
-            show={this.state.filter.seeker}
-          />
-        </Marker>
-      );
-    } else if (mark.properties.role === 'company') {
-      return (
-        <Marker
-          key={i}
-          latitude={mark.geometry.coordinates[1]}
-          longitude={mark.geometry.coordinates[0]}
-          offsetTop={-40}
-          offsetLeft={-25}
-        >
-          <ShowMarker
-            src={CompanyPin}
-            alt="gold marker"
-            onClick={() => this.setState({ pin: mark })}
-            show={this.state.filter.company}
-          />
-        </Marker>
-      );
+    let { role } = mark.properties;
+    let pin;
+    if (role === 'seeker') {
+      pin = SeekerPin;
+    } else if (role === 'company') {
+      pin = CompanyPin;
     }
+    return (
+      <Marker
+        key={i}
+        latitude={mark.geometry.coordinates[1]}
+        longitude={mark.geometry.coordinates[0]}
+        offsetTop={-30}
+        offsetLeft={-12.5}
+      >
+        <ShowMarker
+          className={role}
+          src={pin}
+          alt="Marker"
+          onClick={() => this.setState({ pin: mark })}
+          show={this.state.filter}
+        />
+      </Marker>
+    );
+    // } else if (mark.properties.role === 'company') {
+    //   return (
+    //     <Marker
+    //       key={i}
+    //       latitude={mark.geometry.coordinates[1]}
+    //       longitude={mark.geometry.coordinates[0]}
+    //       // offsetTop={-40}
+    //       // offsetLeft={10}
+    //     >
+    //       <ShowMarker
+    //         src={CompanyPin}
+    //         alt="gold marker"
+    //         onClick={() => this.setState({ pin: mark })}
+    //         show={this.state.filter.company}
+    //       />
+    //     </Marker>
+    //   );
+    // }
   };
 
   // ==== Renders the popup to the map ====
@@ -205,7 +212,6 @@ class LandingPage extends React.Component {
       } else {
         console.log('Not a seeker or company');
       }
-
 
       return (
         pin && (
@@ -241,7 +247,6 @@ class LandingPage extends React.Component {
       );
     }
   };
-
 
   render() {
     return (
