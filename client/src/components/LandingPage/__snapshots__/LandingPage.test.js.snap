@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`landing page component should render without error 1`] = `
+<div
+  className="sc-bdVaJa sIavw"
+>
+  <div
+    style={
+      Object {
+        "cursor": "grab",
+        "height": 768,
+        "margin": "-1px",
+        "position": "absolute",
+        "width": 1024,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        className=""
+        style={
+          Object {
+            "height": "100%",
+            "overflow": "hidden",
+            "position": "absolute",
+            "visibility": "inherit",
+            "width": "100%",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
