@@ -29,7 +29,6 @@ class JobPosting extends React.Component {
       }
     }
     const { jobLink } = this.props.post;
-    console.log(this.props.favoritedList);
     return (
       <Job>
         <div>
