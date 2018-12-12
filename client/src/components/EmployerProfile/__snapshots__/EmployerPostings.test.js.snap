@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`employer postings component should render without error 1`] = `
+<div
+  className="sc-bxivhb lnIAlR"
+>
+  <div
+    className="sc-htpNat daVAfG"
+  >
+    <h1>
+      This company has no job postings.
+    </h1>
+  </div>
+</div>
+`;

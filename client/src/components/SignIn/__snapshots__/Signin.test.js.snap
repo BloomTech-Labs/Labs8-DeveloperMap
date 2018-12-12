@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`seeker profile component should render without error 1`] = `
+<div
+  className="sc-bdVaJa cbxIaT"
+  data-type="modal-container"
+>
+  <div
+    className="sc-bwzfXH modal sc-htpNat FdupV"
+    width="21%"
+  >
+    <h2>
+      Sign In
+    </h2>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="sc-htoDjs gaXcgg"
+      >
+        <input
+          className="sc-ifAKCX hEAxUp"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          required={true}
+          type="email"
+          value=""
+        />
+        <label
+          className="sc-bxivhb jhvOIQ"
+          htmlFor="email"
+        >
+          Email
+        </label>
+      </div>
+      <div
+        className="sc-htoDjs gaXcgg"
+      >
+        <input
+          className="sc-ifAKCX hEAxUp"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          required={true}
+          type="password"
+          value=""
+        />
+        <label
+          className="sc-bxivhb jhvOIQ"
+          htmlFor="password"
+        >
+          Password
+        </label>
+      </div>
+      <button
+        className="sc-gqjmRU kVfWaB"
+      >
+        Sign In
+      </button>
+      - or -
+      <button
+        className="sc-gqjmRU kVfWaB"
+        onClick={[Function]}
+      >
+        Register
+      </button>
+      <div
+        className="sc-VigVT fFMZAF"
+        onClick={[Function]}
+      />
+      <div
+        className="sc-jTzLTM euLUTA"
+        onClick={[Function]}
+      />
+    </form>
+  </div>
+</div>
+`;
+
+exports[`sign in component should render without error 1`] = `
+<div
+  className="sc-bdVaJa cbxIaT"
+  data-type="modal-container"
+>
+  <div
+    className="sc-bwzfXH modal sc-htpNat FdupV"
+    width="21%"
+  >
+    <h2>
+      Sign In
+    </h2>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="sc-htoDjs gaXcgg"
+      >
+        <input
+          className="sc-ifAKCX hEAxUp"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          required={true}
+          type="email"
+          value=""
+        />
+        <label
+          className="sc-bxivhb jhvOIQ"
+          htmlFor="email"
+        >
+          Email
+        </label>
+      </div>
+      <div
+        className="sc-htoDjs gaXcgg"
+      >
+        <input
+          className="sc-ifAKCX hEAxUp"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          required={true}
+          type="password"
+          value=""
+        />
+        <label
+          className="sc-bxivhb jhvOIQ"
+          htmlFor="password"
+        >
+          Password
+        </label>
+      </div>
+      <button
+        className="sc-gqjmRU kVfWaB"
+      >
+        Sign In
+      </button>
+      - or -
+      <button
+        className="sc-gqjmRU kVfWaB"
+        onClick={[Function]}
+      >
+        Register
+      </button>
+      <div
+        className="sc-VigVT fFMZAF"
+        onClick={[Function]}
+      />
+      <div
+        className="sc-jTzLTM euLUTA"
+        onClick={[Function]}
+      />
+    </form>
+  </div>
+</div>
+`;

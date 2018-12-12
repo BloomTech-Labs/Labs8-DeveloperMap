@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sign up component should render without error 1`] = `
+<styled.div
+  data-type="modal-container"
+>
+  <Styled(styled.div)
+    width="21%"
+  >
+    <Route
+      exact={true}
+      path="/signup"
+      render={[Function]}
+    />
+    <Route
+      exact={true}
+      path="/signup/method"
+      render={[Function]}
+    />
+    <Route
+      path="/signup/seeker"
+      render={[Function]}
+    />
+    <Route
+      path="/signup/employer"
+      render={[Function]}
+    />
+  </Styled(styled.div)>
+</styled.div>
+`;

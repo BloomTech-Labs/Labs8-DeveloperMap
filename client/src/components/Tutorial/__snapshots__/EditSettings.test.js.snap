@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit settings Component renders correctly 1`] = `
+<styled.div>
+  <h1>
+    Edit Settings
+  </h1>
+  <p>
+    To edit your profile settings and change your information, click on the cog in the top right of your screen.
+  </p>
+  <img
+    alt=""
+    src="favicon.PNG"
+  />
+  <p>
+    Then hit edit in the top right corner of the modal. Make sure you hit the save button before closing, or your new settings will not be saved.
+  </p>
+  <img
+    alt=""
+    src="edit.PNG"
+  />
+  <styled.button
+    onClick={[Function]}
+  >
+    Done
+  </styled.button>
+</styled.div>
+`;

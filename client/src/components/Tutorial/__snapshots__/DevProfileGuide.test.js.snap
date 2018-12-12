@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dev profile guide Component renders correctly 1`] = `
+<Styled(styled.div)>
+  <h1>
+    Job Seeker Profile
+  </h1>
+  <p>
+    By clicking on a
+     
+    <span>
+      <img
+        alt=""
+        src="markerlogo.png"
+        style={
+          Object {
+            "width": "50px",
+          }
+        }
+      />
+    </span>
+     
+    marker on the map, you will be brought to that job seekers profile. The icons on the right will bring you to various accounts for the user such as linkedIn or their portfolio page.
+  </p>
+  <img
+    alt=""
+    src="links.PNG"
+  />
+  <p>
+    At the bottom you will see their contact info if you are a verified company through MappaJob.
+  </p>
+  <img
+    alt=""
+    src="contact.PNG"
+  />
+  <styled.button
+    onClick={[Function]}
+  >
+    Next
+  </styled.button>
+</Styled(styled.div)>
+`;
