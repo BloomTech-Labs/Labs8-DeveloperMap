@@ -156,8 +156,8 @@ class LandingPage extends React.Component {
         key={i}
         latitude={mark.geometry.coordinates[1]}
         longitude={mark.geometry.coordinates[0]}
-        offsetTop={-30}
-        offsetLeft={-12.5}
+        offsetTop={-40}
+        offsetLeft={-15}
       >
         <ShowMarker
           className={role}
@@ -201,7 +201,8 @@ class LandingPage extends React.Component {
           <Popup
             latitude={geometry.coordinates[1]}
             longitude={geometry.coordinates[0]}
-            offsetTop={-20}
+            offsetTop={-30}
+            offsetLeft={-3}
             closeButton={false}
             closeOnClick={false}
           >
