@@ -200,7 +200,7 @@ class SignUp extends React.Component {
     // console.log('%cstate', 'color: blue', this.state);
     return (
       <ModalContainer data-type="modal-container">
-        <SignModalMain width="21%">
+        <SignModalMain width="100%">
           {/*'User Types' Component: User selects whether they are an employer or a seeker.*/}
           <Route
             exact

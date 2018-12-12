@@ -6,18 +6,17 @@ import githubAuthImageURL from '../images/signup/btn_github_signin_light_normal_
 import githubAuthHoverImageURL from '../images/signup/btn_github_signin_light_pressed_web@2x.png'
 
 export const SignModalMain = styled(ModalMain)`
-  width: ${props => props.width};
-  max-width: Calc(450px + 10%);
+  max-width: 350px;
   display: flex;
   align-items: center;
-  padding: 50px 5% 50px 5%;
+  padding: 50px 0 50px 0;
   flex-direction: column;
   top: 10%;
   box-sizing: border-box;
   border-radius: 20px;
   form{
     width: 100%;
-    max-width: 650px;
+    max-width: 191px;
     display: flex;
     flex-direction: column;
     align-items: center;

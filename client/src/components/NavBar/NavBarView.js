@@ -40,7 +40,7 @@ class NavBar extends React.Component {
   };
 
   render() {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     return (
       <Nav>
         {this.props.user ? (
