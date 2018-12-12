@@ -20,19 +20,19 @@ class SeekerFavorites extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         uid = user.uid;
+        firebase
+          .database()
+          .ref(`favoritePostings/${uid}`)
+          .on('value', snapshot => {
+            console.log(snapshot.val());
+            const favorties = Object.values(snapshot.val());
+            this.setState({
+              favorites: favorties || [],
+              loading: false,
+            });
+          });
       }
     });
-    axios
-      .get(
-        `https://intense-stream-29923.herokuapp.com/api/database/favorites/${uid}`
-        //`http://localhost:9000/api/database/favorites/${uid}`
-      )
-      .then(response => {
-        console.log(response.data);
-        response.data.forEach(job => console.log(job));
-        this.setState({ favorites: response.data, loading: false });
-      })
-      .catch(err => console.log(err));
   }
 
   render() {
