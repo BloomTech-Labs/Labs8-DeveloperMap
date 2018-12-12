@@ -9,7 +9,6 @@ import { Nav, Icons, InButton, DropMenu } from './NavBarStyles';
 
 import { Link } from 'react-router-dom';
 
-
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +40,7 @@ class NavBar extends React.Component {
   };
 
   render() {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     return (
       <Nav className='nav'>
         {this.props.user ? (

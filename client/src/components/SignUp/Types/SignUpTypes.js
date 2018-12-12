@@ -70,7 +70,7 @@ class SignUpTypes extends React.Component {
   // On Form Submit, Check User Type
   submitHandler = e => {
     e.preventDefault();
-
+    
     // --- Form Validation ---
     // Check to make sure that the passwords match and they are the correct length
     if (this.state.password.length <= 8) {
@@ -146,10 +146,14 @@ class SignUpTypes extends React.Component {
             />
             <Label htmlFor="rePassword">Re-Enter Password</Label>
           </AuthField>
+
           <Valid show={this.state.show}>{this.state.message}</Valid>
-          <Button>Sign Up</Button>- or -{/* Third Party Auth */}
-          <GoogleAuthButton onClick={e => this.googleHandler(e)} />
-          <GithubAuthButton onClick={e => this.githubHandler(e)} />
+          <Button type="submit">Sign Up</Button>
+          - or -
+          {/* Third Party Auth */}
+          <GoogleAuthButton type="button" onClick={e => this.googleHandler(e)} />
+          <GithubAuthButton type="button" onClick={e => this.githubHandler(e)} />
+
         </form>
       </section>
     );

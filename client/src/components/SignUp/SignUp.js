@@ -25,7 +25,13 @@ class SignUp extends React.Component {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          console.log('User Authorized');
+          if (this.state.userType === 'employer') {
+            this.props.history.push('/signup/employer');
+          } else if (this.state.userType === 'seeker') {
+            this.props.history.push('/signup/seeker');
+          } else {
+            this.props.history.push('/signup');
+          }
         })
         .catch(error => {
           const errorCode = error.code;
@@ -193,7 +199,7 @@ class SignUp extends React.Component {
     // console.log('%cstate', 'color: blue', this.state);
     return (
       <ModalContainer data-type="modal-container">
-        <SignModalMain width="21%">
+        <SignModalMain width="100%">
           {/*'User Types' Component: User selects whether they are an employer or a seeker.*/}
           <Route
             exact
