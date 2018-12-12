@@ -105,14 +105,20 @@ export const CloseX = styled.p`
 
 export const PopupInfo = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 200px;
-  padding: 12px 10px;
+  padding: 8px 10px;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   div {
     text-align: center;
-    padding-left: 2%;
 
     h4 {
       margin-bottom: 7px;
@@ -131,12 +137,12 @@ export const PopupInfo = styled.div`
         padding-left: 2px;
       }
     }
-
-    .link {
-      color: rgb(30, 144, 255);
-      cursor: pointer;
-    }
   }
+`;
+
+export const Link = styled.p`
+  color: rgb(30, 144, 255);
+  cursor: pointer;
 `;
 
 export const PopupImg = styled.div`

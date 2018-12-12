@@ -15,6 +15,7 @@ import {
   KeyBox,
   ToggleKnob,
   PopupImg,
+  Link,
 } from './MapWindowStyle';
 import SeekerPin from '../../images/SMarker.png';
 import MainLogo from '../../images/mainlogo.png';
@@ -206,23 +207,25 @@ class LandingPage extends React.Component {
           >
             <CloseX onClick={() => this.setState({ pin: null })}>&#215;</CloseX>
             <PopupInfo>
-              <PopupImg image={profilePicture} />
-              <div>
-                <h4>{fullName}</h4>
-                {jobTitle ? (
-                  <div className="jobTitle">
-                    <p>Job Title:</p> <p>{jobTitle}</p>
-                  </div>
-                ) : null}
-                <p
-                  className="link"
-                  onClick={() => {
-                    this.props.history.push(`/${role}/${properties.uid}`);
-                  }}
-                >
-                  Learn more
-                </p>
+              <div className="container">
+                <PopupImg image={profilePicture} />
+                <div>
+                  <h4>{fullName}</h4>
+                  {jobTitle ? (
+                    <div className="jobTitle">
+                      <p>Job Title:</p> <p>{jobTitle}</p>
+                    </div>
+                  ) : null}
+                </div>
               </div>
+              <Link
+                className="link"
+                onClick={() => {
+                  this.props.history.push(`/${role}/${properties.uid}`);
+                }}
+              >
+                Learn more
+              </Link>
             </PopupInfo>
           </Popup>
         )
