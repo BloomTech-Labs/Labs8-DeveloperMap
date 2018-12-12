@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import NavBar from './NavBarView';
+import LandingPage from './LandingPage';
 
-describe(`Nav Bar Component`, () => {
+describe(`Landing Page Component`, () => {
     it('renders correctly', () => {
-        const tree = renderer.create(<NavBar />).toJSON();
+        const tree = renderer.create(<LandingPage />).toJSON();
         expect(tree).toMatchSnapshot();
       });
 })
