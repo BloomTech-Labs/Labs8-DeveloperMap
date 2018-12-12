@@ -77,15 +77,4 @@ class TutorialIntro extends React.Component {
   }
 }
 
-
-const Navigate = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 3%;
-  a {
-    text-decoration: none;
-    color: rgba(109, 7, 26, 0.95);
-  }
-`;
-
 export default withRouter(TutorialIntro);

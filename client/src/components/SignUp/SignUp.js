@@ -25,7 +25,13 @@ class SignUp extends React.Component {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          console.log('User Authorized');
+          if (this.state.userType === 'employer') {
+            this.props.history.push('/signup/employer');
+          } else if (this.state.userType === 'seeker') {
+            this.props.history.push('/signup/seeker');
+          } else {
+            this.props.history.push('/signup');
+          }
         })
         .catch(error => {
           const errorCode = error.code;

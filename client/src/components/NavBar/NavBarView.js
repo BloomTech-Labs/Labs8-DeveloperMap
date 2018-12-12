@@ -9,8 +9,6 @@ import { Nav, Icons, InButton, DropMenu } from './NavBarStyles';
 
 import { Link } from 'react-router-dom';
 
-import { DropMenu } from './NavBarStyles';
-
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
