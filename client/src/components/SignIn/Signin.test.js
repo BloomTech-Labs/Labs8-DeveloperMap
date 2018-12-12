@@ -24,7 +24,7 @@ jest.mock('../../firebase/firebase', () => {
   return firebase;
 });
 
-describe(`seeker profile component`, () => {
+describe(`sign in component`, () => {
   it(`should render without error`, () => {
     const props = {
       match: {
