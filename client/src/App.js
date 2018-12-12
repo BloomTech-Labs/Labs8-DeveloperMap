@@ -15,6 +15,7 @@ import {
   NoUser,
   TutorialIntro,
   Loading,
+  AlertModal,
 } from './reducer';
 import { AppStyle } from './styles/AppStyle';
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -24,8 +25,37 @@ class App extends Component {
     super();
     this.state = {
       currentSignedInUser: null,
+      modal: {
+        show: false,
+        header: '',
+        message: '',
+      },
     };
   }
+
+  toggleModal = (header = '', message = '') => {
+    this.setState(prevState => {
+      return {
+        modal: {
+          show: !prevState.modal.show,
+          header,
+          message,
+        },
+      };
+    });
+
+    setTimeout(() => {
+      this.setState(prevState => {
+        return {
+          modal: {
+            show: !prevState.modal.show,
+            header: '',
+            message: '',
+          },
+        };
+      });
+    }, 3000);
+  };
 
   //// ----- Modal Control -----
   // --- Close Modal If Click Is Not On Modal ---
@@ -55,7 +85,9 @@ class App extends Component {
           userType = 'companies';
           role = 'company';
         } else {
-          alert("We're missing some information from you. Please Sign Up!");
+          this.toggleModal(
+            "We're missing some information from you. Please Sign Up!"
+          );
           return this.props.history.push('/signup');
         }
         axios
@@ -95,7 +127,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error); //Header and error message, or error code, and alert email
+          this.toggleModal(errorCode, errorMessage);
         });
     }
 
@@ -109,7 +141,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error); //Header and error message, or error code, and alert email
+          this.toggleModal(errorCode, errorMessage);
         });
     }
 
@@ -123,7 +155,7 @@ class App extends Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error); //Header and error message, or error code, and alert email
+          this.toggleModal(errorCode, errorMessage);
         });
     }
   };
@@ -135,14 +167,14 @@ class App extends Component {
       .auth()
       .signOut()
       .then(() => {
-        alert('User Successfully Signed Out');
+        this.toggleModal('User Successfully Signed Out');
         this.setState({ currentSignedInUser: null });
 
         // Close Modal
         this.props.history.push('/');
       })
       .catch(() => {
-        alert('Unable to Sign Out User');
+        this.toggleModal('Unable to Sign Out User');
       });
   };
 
@@ -211,6 +243,7 @@ class App extends Component {
               user={this.state.currentSignedInUser}
               signOut={this.signOutCurrentUser}
             />
+            <AlertModal show={this.state.modal.show} modal={this.state.modal} />
             <Route
               path="/"
               render={props => (
@@ -258,6 +291,7 @@ class App extends Component {
                       this.state.currentSignedInUser && (
                         <Settings
                           {...props}
+                          toggleModal={this.toggleModal}
                           currentSignedInUser={this.state.currentSignedInUser}
                         />
                       )
@@ -285,6 +319,7 @@ class App extends Component {
                       <SignUp
                         {...props}
                         currentSignedInUser={this.state.currentSignedInUser}
+                        toggleModal={this.toggleModal}
                       />
                     )}
                   />

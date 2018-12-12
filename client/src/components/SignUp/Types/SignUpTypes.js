@@ -6,7 +6,8 @@ import {
   Button,
   AuthField,
   GoogleAuthButton,
-  GithubAuthButton
+  GithubAuthButton,
+  Valid,
 } from '../../../styles/SignIn_UpStyle';
 
 class SignUpTypes extends React.Component {
@@ -14,6 +15,8 @@ class SignUpTypes extends React.Component {
     email: '',
     password: '',
     rePassword: '',
+    show: false,
+    message: '',
   };
 
   // Form Input Control
@@ -31,14 +34,14 @@ class SignUpTypes extends React.Component {
   // Redirect the user to choose their user type again, if their type is not user or seeker.
   userRedirect = () => {
     if (firebase.auth().currentUser) {
-      console.log(firebase.auth().currentUser)
+      console.log(firebase.auth().currentUser);
       if (this.props.userType === 'employer') {
         this.props.history.push('/signup/employer');
       } else if (this.props.userType === 'seeker') {
         this.props.history.push('/signup/seeker');
       } else {
         this.props.history.push('/signup/method');
-    }
+      }
     } else {
       return;
     }
@@ -69,14 +72,21 @@ class SignUpTypes extends React.Component {
     e.preventDefault();
     
     // --- Form Validation ---
-    // Check to make sure that the password matches the confirm password
-    if (this.state.password !== this.state.rePassword) {
-      return alert('Password does not match the confirm password.');
-    }
-
-    // Check password length
+    // Check to make sure that the passwords match and they are the correct length
     if (this.state.password.length <= 8) {
-      return alert('Password must be at least 8 characters long.');
+      this.setState({
+        show: true,
+        message: 'Passwords must be at least 8 characters long.',
+      });
+    } else if (this.state.password !== this.state.rePassword) {
+      this.setState({
+        show: true,
+        message: 'Passwords do not match, confirm password.',
+      });
+    } else {
+      {
+        this.setState({ show: false, message: '' });
+      }
     }
 
     // Authorize User with Firebase OAuth2 Method
@@ -136,11 +146,14 @@ class SignUpTypes extends React.Component {
             />
             <Label htmlFor="rePassword">Re-Enter Password</Label>
           </AuthField>
+
+          <Valid show={this.state.show}>{this.state.message}</Valid>
           <Button type="submit">Sign Up</Button>
           - or -
           {/* Third Party Auth */}
           <GoogleAuthButton type="button" onClick={e => this.googleHandler(e)} />
           <GithubAuthButton type="button" onClick={e => this.githubHandler(e)} />
+
         </form>
       </section>
     );

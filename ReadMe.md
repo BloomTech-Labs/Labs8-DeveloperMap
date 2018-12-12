@@ -87,7 +87,7 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
        - [LandingPage](#LandingPage)
        - [Loading](#Loading)
        - [NavBar](#NavBar)
-       - [NoUser](#NoUser)
+       - [ErrorModals](#ErrorModals)
        - [Seeker](#Seeker)
        - [SeekerProfile](#SeekerProfile)
        - [Settings](#Settings)
@@ -158,10 +158,10 @@ The client/frontend of the project.
 
          **Files:** NavBarStyles.js, NavBarView.js
 
-      - ### NoUser
+      - ### ErrorModals
          The component files and styles for a component that will display if information is requested from a user that no longer exists in the database.
 
-         **Files:** NoUser.js, NoUserStyle.js
+         **Files:** NoUser.js, NoUserStyle.js, AlertModal.js, AlertStyle.js
 
       - ### Seeker
          Primarily the component files and styles for the Seeker Favorites modal.
