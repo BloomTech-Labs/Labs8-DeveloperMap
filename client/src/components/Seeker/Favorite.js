@@ -4,9 +4,7 @@ import styled from 'styled-components';
 
 function Favorite(props) {
   return (
-    <FavoriteCard
-      onClick={() => window.location.replace(props.favorite.companyUrl)}
-    >
+    <FavoriteCard onClick={() => props.history.push(props.companyUrl)}>
       <div>
         <h2>{props.favorite.companyName}</h2>
         <h3>{props.favorite.date}</h3>

@@ -50,7 +50,12 @@ class SeekerFavorites extends React.Component {
               <Fav>
                 {this.state.favorites.length < 1 && <h1>No Favorites</h1>}
                 {this.state.favorites.map((favorite, i) => (
-                  <Favorite key={i} {...this.props} favorite={favorite} />
+                  <Favorite
+                    key={i}
+                    {...this.props}
+                    favorite={favorite}
+                    companyUrl={`/employer/${favorite.companyUid}`}
+                  />
                 ))}
               </Fav>
             </ModalMain>
