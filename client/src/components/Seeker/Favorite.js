@@ -1,12 +1,10 @@
 import React from 'react';
 import Heart from '../../images/favorites-icon.png';
-import { FavoriteCard } from './FavoriteStyles';
+import styled from 'styled-components';
 
 function Favorite(props) {
   return (
-    <FavoriteCard
-      onClick={() => window.location.replace(props.favorite.companyUrl)}
-    >
+    <FavoriteCard onClick={() => props.history.push(props.companyUrl)}>
       <div>
         <h2>{props.favorite.companyName}</h2>
         <h3>{props.favorite.date}</h3>
@@ -24,5 +22,15 @@ function Favorite(props) {
     </FavoriteCard>
   );
 }
+
+const FavoriteCard = styled.div`
+  border: 1px solid black;
+  width: 300px;
+  margin: 2%;
+  padding: 3%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 4px;
+`;
 
 export default Favorite;
