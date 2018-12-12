@@ -23,5 +23,19 @@ describe(`job posting component`, () => {
             <JobPosting {...props}/>
           ).toJSON();
           expect(tree).toMatchSnapshot();
+    });
+
+    it(`should not break with no favorited list`, () => {
+        const props = {
+            favoritedList: [],
+            post: {
+                jobId: "uid2",
+                jobLink: 'indeed.com'
+            }
+        }
+        const tree = renderer.create(
+            <JobPosting {...props}/>
+          ).toJSON();
+        expect(tree).toMatchSnapshot();
     })
 })

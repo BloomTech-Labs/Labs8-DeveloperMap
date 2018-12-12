@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`job posting component should not break with no favorited list 1`] = `
+<div
+  className="sc-bZQynM bRNLMT"
+>
+  <div>
+    <h2 />
+    <h3 />
+    <h4>
+      <a
+        href="https://indeed.com"
+      >
+        indeed.com
+      </a>
+    </h4>
+    <h4 />
+  </div>
+  <div>
+    <img
+      alt="hollow heart"
+      id="uid2"
+      onClick={[Function]}
+      src="hollow-heart.png"
+      style={
+        Object {
+          "width": "50px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
 exports[`job posting component should render without error 1`] = `
 <div
   className="sc-bZQynM bRNLMT"
