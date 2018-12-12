@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ModalMain } from './ModalGlobalStyle.js';
-import googleAuthImageURL from '../images/signup/btn_google_signin_light_normal_web.png'
-import googleAuthHoverImageURL from '../images/signup/btn_google_signin_light_pressed_web.png'
-import githubAuthImageURL from '../images/signup/btn_github_signin_light_normal_web@2x.png'
-import githubAuthHoverImageURL from '../images/signup/btn_github_signin_light_pressed_web@2x.png'
+import googleAuthImageURL from '../images/signup/btn_google_signin_light_normal_web.png';
+import googleAuthHoverImageURL from '../images/signup/btn_google_signin_light_pressed_web.png';
+import githubAuthImageURL from '../images/signup/btn_github_signin_light_normal_web@2x.png';
+import githubAuthHoverImageURL from '../images/signup/btn_github_signin_light_pressed_web@2x.png';
 
 export const SignModalMain = styled(ModalMain)`
   width: ${props => props.width};
@@ -15,7 +15,7 @@ export const SignModalMain = styled(ModalMain)`
   top: 10%;
   box-sizing: border-box;
   border-radius: 20px;
-  form{
+  form {
     width: 100%;
     max-width: 650px;
     display: flex;
@@ -24,14 +24,14 @@ export const SignModalMain = styled(ModalMain)`
     h2 {
       margin-bottom: 10px;
     }
-    h4{
-      border-bottom: .5px solid lightgrey;
-      color: rgb(184,15,10);
+    h4 {
+      border-bottom: 0.5px solid lightgrey;
+      color: rgb(184, 15, 10);
       padding-bottom: 3px;
     }
-  .form-switch {
-    width: 75px;
-  }
+    .form-switch {
+      width: 75px;
+    }
   }
 `;
 
@@ -46,7 +46,7 @@ export const Label = styled.label`
   color: #999;
   width: 100%;
   text-align: left;
-  transition: transform .1s ease-out,-webkit-transform .1s ease-out;
+  transition: transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
   user-select: none;
   font-size: 15px;
 `;
@@ -72,7 +72,7 @@ export const Input = styled.input`
   }
 
   &.active + label {
-    transform: scale(.7) translateY(-15px) translateX(-49px);
+    transform: scale(0.7) translateY(-15px) translateX(-49px);
   }
 `;
 
@@ -91,7 +91,7 @@ export const FullName = styled.div`
     width: 49%;
   }
 
-  input[type=text] {
+  input[type='text'] {
     width: 100%;
   }
 `;
@@ -100,7 +100,8 @@ export const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  input[type=text], input[type=email] {
+  input[type='text'],
+  input[type='email'] {
     width: 100%;
   }
 
@@ -115,13 +116,13 @@ export const AuthField = styled.div`
 `;
 
 export const TypesContainer = styled.section`
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h2 {
     margin-bottom: 20px;
   }
-`; 
+`;
 
 export const Location = styled.div`
   display: flex;
@@ -137,20 +138,20 @@ export const Password = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  input[type=password] {
+  input[type='password'] {
     height: 30px;
     width: 200px;
     border-radius: 2px;
-    border: .5px solid lightgrey;
+    border: 0.5px solid lightgrey;
     padding-left: 5px;
     margin-bottom: 15px;
-}
+  }
 `;
 
 export const Button = styled.button`
-  width: ${props => props.width ? props.width : '100%'};
+  width: ${props => (props.width ? props.width : '100%')};
   height: 40px;
-  background-color: rgb(184,15,10);
+  background-color: rgb(184, 15, 10);
   color: white;
   border: none;
   border-radius: 25px;
@@ -159,7 +160,7 @@ export const Button = styled.button`
   outline: none;
   cursor: pointer;
   &:hover {
-    background-color: rgba(184,15,10,.8);
+    background-color: rgba(184, 15, 10, 0.8);
   }
 `;
 
@@ -189,4 +190,10 @@ export const GithubAuthButton = styled.div`
     background-image: url("${githubAuthHoverImageURL}");
     background-size: cover;
   }
+`;
+
+export const Valid = styled.p`
+  display: ${props => (props.show ? 'block' : 'none')};
+  color: red;
+  font-size: 0.9rem;
 `;

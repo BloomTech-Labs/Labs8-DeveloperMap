@@ -31,7 +31,7 @@ class SignUp extends React.Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          this.props.toggleModal('Email Already in Use', errorMessage);
         });
     }
 
@@ -53,33 +53,32 @@ class SignUp extends React.Component {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log({ errorCode, errorMessage });
-          alert(error);
+          this.props.toggleModal({ errorCode, errorMessage });
+        });
+    }
 
-        })
-      }
-
-      if (provider === 'github') {
-        const provider = new firebase.auth.GithubAuthProvider();
-        firebase
+    if (provider === 'github') {
+      const provider = new firebase.auth.GithubAuthProvider();
+      firebase
         .auth()
         .signInWithPopup(provider)
         .then(() => {
           if (this.state.userType === 'employer') {
-            this.props.history.push('/signup/employer')
+            this.props.history.push('/signup/employer');
           } else if (this.state.userType === 'seeker') {
-            this.props.history.push('/signup/seeker')
+            this.props.history.push('/signup/seeker');
           } else {
-            this.props.history.push('/signup')
+            this.props.history.push('/signup');
           }
         })
         .catch(error => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log({ errorCode, errorMessage });
-          alert(error);
-        })
-     }
-  }
+          console.log({ errorMessage, errorCode });
+          this.props.toggleModal({ errorCode, errorMessage });
+        });
+    }
+  };
 
   /// ---- Add New User To Database ----
   signUpNewUser = (
@@ -155,7 +154,7 @@ class SignUp extends React.Component {
                 { headers }
               )
               .then(response => {
-                alert('Your Account Has Been Created');
+                this.props.toggleModal('Your Account Has Been Created');
                 firebase
                   .auth()
                   .signInWithCustomToken(response.data.customToken)
@@ -167,7 +166,7 @@ class SignUp extends React.Component {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log({ errorCode, errorMessage });
-                    alert(error);
+                    this.props.toggleModal(errorCode, errorMessage);
                   });
               })
               .catch(error => console.log(error));
@@ -182,7 +181,7 @@ class SignUp extends React.Component {
     this.setState({ userType: type });
     this.props.history.push({
       pathname: '/signup/method',
-      state: {...this.state, userType: type },
+      state: { ...this.state, userType: type },
     });
   };
 

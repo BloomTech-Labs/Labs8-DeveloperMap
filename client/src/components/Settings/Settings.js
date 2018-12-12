@@ -13,12 +13,18 @@ class Settings extends React.Component {
       <ModalContainer data-type="modal-container">
         <SettingsModalMain className="modal">
           {this.props.currentSignedInUser.role === 'seeker' ? (
-            <SeekerSettings {...this.props} />
+            <SeekerSettings
+              {...this.props}
+              toggleModal={this.props.toggleModal}
+            />
           ) : (
             ''
           )}
           {this.props.currentSignedInUser.role === 'company' ? (
-            <EmployerSettings {...this.props} />
+            <EmployerSettings
+              {...this.props}
+              toggleModal={this.props.toggleModal}
+            />
           ) : (
             ''
           )}
