@@ -78,10 +78,17 @@ export const MapWindow = styled.div`
 `;
 
 export const ShowMarker = styled.img`
-  display: ${props => (props.show ? 'block' : 'none')};
-  height: 45px;
-  width: 50px;
+  height: 35px;
+  width: 25px;
   cursor: pointer;
+
+  &.company {
+    display: ${props => (props.show.company ? 'block' : 'none')};
+  }
+
+  &.seeker {
+    display: ${props => (props.show.seeker ? 'block' : 'none')};
+  }
 `;
 
 export const CloseX = styled.p`
@@ -98,14 +105,20 @@ export const CloseX = styled.p`
 
 export const PopupInfo = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 200px;
-  padding: 12px 10px;
+  padding: 8px 10px;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   div {
     text-align: center;
-    padding-left: 2%;
 
     h4 {
       margin-bottom: 7px;
@@ -124,12 +137,12 @@ export const PopupInfo = styled.div`
         padding-left: 2px;
       }
     }
-
-    .link {
-      color: rgb(30, 144, 255);
-      cursor: pointer;
-    }
   }
+`;
+
+export const Link = styled.p`
+  color: rgb(30, 144, 255);
+  cursor: pointer;
 `;
 
 export const PopupImg = styled.div`
@@ -158,13 +171,13 @@ export const LogoImg = styled.img`
 `;
 
 export const PinKey = styled.img`
-  width: 45px;
+  width: 30px;
   height: 45px;
 `;
 
 export const KeyBox = styled.div`
-  width: 200px;
-  height: 125px;
+  width: 205px;
+  height: 135px;
   background-color: rgba(109, 7, 26, 0.95);
   position: absolute;
   right: 0;
@@ -176,30 +189,29 @@ export const KeyBox = styled.div`
   align-items: center;
   border-radius: 20px;
   z-index: 5;
+
+  .container {
+    padding: 6px 3%;
+    background-color: #fafafa;
+    border-radius: 10px;
+
+    @media (max-width: 550px) {
+      display: flex;
+      padding: 0 2%;
+    }
+  }
+
   .key {
     display: flex;
     align-items: center;
-    background-color: #fafafa;
-  }
-  .key1 {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  .key2 {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    padding: 2px 0;
   }
   h3 {
     font-size: 1.1rem;
     font-weight: lighter;
-    width: 80px;
+    width: 90px;
   }
-  a {
-    text-decoration: none;
-    color: white;
-    font-size: 0.9rem;
-    margin-top: 2px;
-  }
+
   @media (max-width: 550px) {
     bottom: 0;
     left: 0;
@@ -207,19 +219,7 @@ export const KeyBox = styled.div`
     width: 100%;
     flex-direction: row;
     height: 50px;
-    a {
-      display: none;
-    }
-    .key1 {
-      border-top-left-radius: 25px;
-      border-bottom-left-radius: 25px;
-      border-top-right-radius: 0;
-    }
-    .key2 {
-      border-top-right-radius: 25px;
-      border-bottom-right-radius: 25px;
-      border-bottom-left-radius: 0;
-    }
+    border-radius: 0;
   }
 `;
 

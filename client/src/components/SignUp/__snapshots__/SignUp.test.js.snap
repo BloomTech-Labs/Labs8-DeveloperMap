@@ -5,7 +5,7 @@ exports[`sign up component should render without error 1`] = `
   data-type="modal-container"
 >
   <Styled(styled.div)
-    width="21%"
+    width="100%"
   >
     <Route
       exact={true}
