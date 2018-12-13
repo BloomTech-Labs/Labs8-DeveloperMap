@@ -90,6 +90,8 @@ class EmployerProfile extends React.Component {
             this.setState({
               posts,
               companyInfo,
+              favoritedList: [],
+              initialFavoritedList: [],
               loading: false,
             });
           });
