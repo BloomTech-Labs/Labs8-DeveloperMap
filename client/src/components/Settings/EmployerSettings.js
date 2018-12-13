@@ -69,10 +69,11 @@ class EmployerSettings extends Component {
     this.props.history.push('/settings/add-job');
   };
   //Adds the job to list
-  commitJob = () => {
-    if (Object.keys(this.state.posts).length > 4) {
+  commitJob = e => {
+    e.preventDefault();
+    if (this.state.posts && Object.keys(this.state.posts).length > 4) {
       this.props.toggleModal('At limit for job postings', 'Job Posting Limit');
-      this.props.history.push('/settings');
+      this.props.history.push('/settings/job-listings');
     } else {
       const companyName = this.state.companyName;
       const date = moment().format('MM/DD/YYYY');
@@ -90,7 +91,7 @@ class EmployerSettings extends Component {
         .then(() => {
           console.log('job posted');
         });
-      this.props.history.push('/settings');
+      this.props.history.push('/settings/job-listings');
     }
   };
 
@@ -541,12 +542,11 @@ class EmployerSettings extends Component {
     } else {
       this.props.history.push('/signin');
     }
-    rootRef
-      .child(`companyPostings/${employerId}`)
-      .once('value')
-      .then(posts => {
-        this.setState({ posts: posts.val() });
+    rootRef.child(`companyPostings/${employerId}`).on('value', posts => {
+      this.setState({
+        posts: posts.val(),
       });
+    });
   };
 
   render() {
