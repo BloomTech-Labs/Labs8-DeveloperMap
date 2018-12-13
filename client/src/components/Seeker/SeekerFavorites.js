@@ -25,9 +25,9 @@ class SeekerFavorites extends React.Component {
           .ref(`favoritePostings/${uid}`)
           .on('value', snapshot => {
             console.log(snapshot.val());
-            const favorties = Object.values(snapshot.val());
+            const favorties = Object.values(snapshot.val() || {});
             this.setState({
-              favorites: favorties || [],
+              favorites: favorties,
               loading: false,
             });
           });
