@@ -16,6 +16,7 @@ import {
   TutorialIntro,
   Loading,
   AlertModal,
+  AlertModalSignout
 } from './reducer';
 import { AppStyle } from './styles/AppStyle';
 import { GlobalStyle } from './styles/GlobalStyle';
@@ -30,6 +31,7 @@ class App extends Component {
         header: '',
         message: '',
       },
+      signout: false
     };
   }
 
@@ -56,6 +58,25 @@ class App extends Component {
       });
     }, 3000);
   };
+
+  toggleSignOut = () => {
+    this.setState(prevState => {
+      return{
+        signout: !prevState.signout
+      }
+      
+    });
+
+  }
+
+  closeAlert = () => {
+    this.setState(prevState => {
+      return{
+        signout: !prevState.signout
+      }
+    })
+  }
+
 
   //// ----- Modal Control -----
   // --- Close Modal If Click Is Not On Modal ---
@@ -168,8 +189,8 @@ class App extends Component {
       .signOut()
       .then(() => {
         this.toggleModal('User Successfully Signed Out');
-        this.setState({ currentSignedInUser: null });
-
+        this.setState({ currentSignedInUser: null, signout: false });
+        
         // Close Modal
         this.props.history.push('/');
       })
@@ -241,9 +262,10 @@ class App extends Component {
             <NavBar
               {...this.props}
               user={this.state.currentSignedInUser}
-              signOut={this.signOutCurrentUser}
+              signOut={this.toggleSignOut}
             />
             <AlertModal show={this.state.modal.show} modal={this.state.modal} />
+            <AlertModalSignout signout={this.state.signout} signOutCurrentUser={this.signOutCurrentUser} closeAlert={this.closeAlert}/>
             <Route
               path="/"
               render={props => (

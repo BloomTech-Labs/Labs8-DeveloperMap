@@ -12,6 +12,7 @@ import NoUser from './components/ErrorModals/NoUser';
 import AlertModal from './components/ErrorModals/AlertModal';
 import TutorialIntro from './components/Tutorial/TutorialIntro';
 import Loading from './components/Loading/Loading';
+import AlertModalSignout from './components/ErrorModals/AlertModalSignout';
 
 export {
   NavBar,
@@ -28,4 +29,5 @@ export {
   TutorialIntro,
   Loading,
   AlertModal,
+  AlertModalSignout
 };
