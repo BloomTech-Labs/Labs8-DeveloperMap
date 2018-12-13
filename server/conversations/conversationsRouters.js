@@ -22,7 +22,7 @@ router.post(
       date
     } = req.body;
 
-    cid = [uid, pid].sort().join('');
+    cid = [uid, pid].sort().join('_');
 
     // Check for Missing Required Information
     if (!pid || !uid || !message || !name || !participant || !date) {
