@@ -14,15 +14,15 @@ router.post(
 
     // Deconstruct Request Body
     const {
-      uid, // User ID
-      pid, // Participant ID
+      uid, // User ID (Sender)
+      pid, // Participant ID (Receiver)
       message,
       name,
       participant,
       date
     } = req.body;
 
-    cid = [uid, pid].sort().join('_');
+    cid = [uid, pid].sort().join('_'); // Conversation ID - Combination of Sender's and Receiver's UIDs.
 
     // Check for Missing Required Information
     if (!pid || !uid || !message || !name || !participant || !date) {
@@ -36,7 +36,7 @@ router.post(
       name,
     }
 
-    // Construct Object to Add to User's Conversation Lookup
+    // Construct Object to Add to User's Conversation Lookup (Sender)
     let newUserLookup = {
       lastMessage: newMessage,
       participant: {
@@ -45,7 +45,7 @@ router.post(
       }
     }
 
-    // Construct Object to Add to Participant's Conversation Lookup
+    // Construct Object to Add to Participant's Conversation Lookup (Receiver)
     let newParticipantLookup = {
       lastMessage: newMessage,
       participant: {
@@ -59,8 +59,8 @@ router.post(
 
     // Set Up New Message to be Added to Conversations and Conversation Lookup
     updateObject[`conversations/${cid}/${messageKey}`] = newMessage;
-    updateObject[`conversationLookup/${uid}/${cid}`] = newUserLookup;
-    updateObject[`conversationLookup/${pid}/${cid}`] = newParticipantLookup;
+    updateObject[`conversationLookup/${uid}/${cid}`] = newUserLookup; // Lookup for Sender
+    updateObject[`conversationLookup/${pid}/${cid}`] = newParticipantLookup; // Lookup for Receiver
     
 
     // Update database with the new object
