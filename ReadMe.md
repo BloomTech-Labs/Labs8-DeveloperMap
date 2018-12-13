@@ -107,6 +107,7 @@ Deployed [here](https://intense-stream-29923.herokuapp.com/api/database/seekers)
     - [auth](#auth)
     - [companies](#companies)
     - [constants](#constants)
+    - [conversations](#conversations)
     - [firebase](#firebase)
       - [functions](#functions)
     - [markers](#markers)
@@ -259,6 +260,11 @@ Contains the server/backend of the project.
    Constants used by the stripe routes to interact with the stripe API.
 
    **Files:** frontend.js, stripe.js
+
+- ### conversations
+   The endpoints used to retrieve and manipulate data associated with conversations in the database.
+
+   **Files:** conversationsRouters.js
 
 - ### firebase
    The configuration files for the client-side firebase integration.
