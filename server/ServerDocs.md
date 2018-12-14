@@ -1,41 +1,12 @@
 ## BackEnd Documentation
 
-- A server that will deliver users for seekers and companies:
+# Table of Contents
 
-  - [Companies](https://intense-stream-29923.herokuapp.com/api/database/companies)
-  - [Seekers](https://intense-stream-29923.herokuapp.com/api/database/seekers)
+-[Endpoints](#endpoints)
+  - [Companies](#companies)
+  - [Seekers](#seekers)
+  - [Markers](#markers)
 
-- Basic format of the users:
-
-```js
-companies: {
-  id: {
-    companyName: 'company name.';
-    companyWebsite: 'companywebsite.com';
-    email: 'company_email@email.com';
-    location: 'Los Angeles,CA';
-    phoneNumber: '555-555-5555';
-  }
-}
-```
-
-```js
-seekers: {
-  id: {
-    bio: 'lorem15';
-    email: 'example@email.com';
-    firstName: 'Test';
-    github: 'github.com';
-    jobTitle: 'FSW';
-    lastName: 'Testington';
-    linkedIn: 'linkedIn.com';
-    location: 'remote';
-    phoneNumber: '555-555-5555';
-    portfolio: 'portfolio.com';
-    twitter: 'twitter.com';
-  }
-}
-```
 
 # Authentication is found inside the client in the file App.js
 
@@ -60,6 +31,40 @@ seekers: {
 # Endpoints
 
 ## Seekers
+
+- Basic format of seeker:
+
+```js
+seekers: {
+  uid: {
+    bio: 'lorem15',
+    email: 'example@email.com',
+    firstName: 'Test',
+    github: 'github.com',
+    jobTitle: 'FSW',
+    lastName: 'Testington',
+    linkedIn: 'linkedIn.com',
+    location: {
+                city: 'Big Bear Lake',
+                coordinates: {
+                  0: -116,
+                  1: 34
+                },
+                state: 'CA',
+                street: '42200 Moonridge Rd',
+                zip: '92315'
+              },
+    phoneNumber: '555-555-5555',
+    portfolio: 'portfolio.com',
+    profilePicture: 'profileUrl',
+    relocation: false,
+    remote: false,
+    resume: '',
+    twitter: 'twitter.com',
+  }
+}
+```
+
 
 ### Root Endpoint
 - https://intense-stream-29923.herokuapp.com/api/database/seekers
@@ -108,7 +113,32 @@ seekers: {
  - Does not delete from auth server
 
 
- ## Companies 
+## Companies 
+ 
+- Basic format of companies:
+
+```js
+companies: {
+  uid: {
+    companyName: 'company name.',
+    companyWebsite: 'companywebsite.com',
+    email: 'company_email@email.com',
+    location: {
+      city: 'Grand Rapids',
+      coordinates: {
+        0: -85.67,
+        1: 42.96
+      },
+      state: 'MI',
+      street: '1820 Bee Street',
+      zip: '49503'
+    }
+    phoneNumber: '555-555-5555';
+    profilePicture: 'profileUrl',
+    remote: false
+  }
+}
+```
 
 ### GET 
 
@@ -141,3 +171,81 @@ seekers: {
 - https://intense-stream-29923.herokuapp.com/api/database/companies/jobsListed
   - Takes in an object with the following keys companyName, date, jobLink, jobTitle, location
   - Responds with { message: 'Job added' }
+  
+## Markers
+
+- Basic format of Markers:
+```
+uid: {
+  geometry: {
+    coordinates: {
+      0: -86.747359,
+      1: 33.453917
+    },
+  },
+  properties: {
+    jobTitle: 'Detective',
+    profilePicture: 'profileUrl',
+    role: 'seeker',
+    title: {
+      firstName: 'Detective',
+      lastName: 'Pikachu'
+    },
+    uid: '8Ad6ABu77wNyVE89UrTWtDWsiFl2'
+  }
+}
+```
+
+### GET
+  - https://intense-stream-29923.herokuapp.com/api/markers
+    -Gets all the markers in the database
+    - Responds with the array of marker data
+
+### POST and PUT
+  - POST and PUT both are done by the MarkerMiddleware
+  - The MarkerMiddleware is used inside the company and seekers POST and PUT, so it update with the user
+
+Marker Middleware for Company:
+
+```
+const createMarkerObjectCompany = async (req, res, next) => {
+  const { uid } = req.body;
+  let { companyName, profilePicture, location } = req.body;
+
+  if (!companyName) {
+    companyName = await rootRef
+      .child(`companies/${uid}/companyName`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+  }
+
+  if (!profilePicture) {
+    profilePicture = await rootRef
+      .child(`companies/${uid}/profilePicture`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+  }
+
+  if (!location) {
+    location = await rootRef
+      .child(`companies/${uid}/location`)
+      .once('value')
+      .then(snapshot => snapshot.val());
+  }
+
+  const markerData = {
+    geometry: {
+      // Convert Coordinates to Numbers
+      coordinates: location.coordinates.map(coord => Number(coord)),
+    },
+    properties: {
+      title: { companyName },
+      uid,
+      profilePicture,
+      role: 'company',
+    },
+  };
+  req.body.markerData = markerData;
+  next();
+};
+```

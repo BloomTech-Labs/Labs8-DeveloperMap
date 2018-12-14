@@ -15,10 +15,11 @@ import {
   KeyBox,
   ToggleKnob,
   PopupImg,
+  Link,
 } from './MapWindowStyle';
-import SeekerPin from '../../images/markerlogo.png';
+import SeekerPin from '../../images/SMarker.png';
 import MainLogo from '../../images/mainlogo.png';
-import CompanyPin from '../../images/markerlogo4.png';
+import CompanyPin from '../../images/EMarker.png';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
@@ -143,41 +144,30 @@ class LandingPage extends React.Component {
 
   // ==== Renders the markers to the map ====
   renderMarker = (mark, i) => {
-    if (mark.properties.role === 'seeker') {
-      return (
-        <Marker
-          key={i}
-          latitude={mark.geometry.coordinates[1]}
-          longitude={mark.geometry.coordinates[0]}
-          offsetTop={-40}
-          offsetLeft={-25}
-        >
-          <ShowMarker
-            src={SeekerPin}
-            alt="red marker"
-            onClick={() => this.setState({ pin: mark })}
-            show={this.state.filter.seeker}
-          />
-        </Marker>
-      );
-    } else if (mark.properties.role === 'company') {
-      return (
-        <Marker
-          key={i}
-          latitude={mark.geometry.coordinates[1]}
-          longitude={mark.geometry.coordinates[0]}
-          offsetTop={-40}
-          offsetLeft={-25}
-        >
-          <ShowMarker
-            src={CompanyPin}
-            alt="gold marker"
-            onClick={() => this.setState({ pin: mark })}
-            show={this.state.filter.company}
-          />
-        </Marker>
-      );
+    let { role } = mark.properties;
+    let pin;
+    if (role === 'seeker') {
+      pin = SeekerPin;
+    } else if (role === 'company') {
+      pin = CompanyPin;
     }
+    return (
+      <Marker
+        key={i}
+        latitude={mark.geometry.coordinates[1]}
+        longitude={mark.geometry.coordinates[0]}
+        offsetTop={-40}
+        offsetLeft={-15}
+      >
+        <ShowMarker
+          className={role}
+          src={pin}
+          alt="Marker"
+          onClick={() => this.setState({ pin: mark })}
+          show={this.state.filter}
+        />
+      </Marker>
+    );
   };
 
   // ==== Renders the popup to the map ====
@@ -206,42 +196,43 @@ class LandingPage extends React.Component {
         console.log('Not a seeker or company');
       }
 
-
       return (
         pin && (
           <Popup
             latitude={geometry.coordinates[1]}
             longitude={geometry.coordinates[0]}
-            offsetTop={-20}
+            offsetTop={-30}
+            offsetLeft={-3}
             closeButton={false}
             closeOnClick={false}
           >
             <CloseX onClick={() => this.setState({ pin: null })}>&#215;</CloseX>
             <PopupInfo>
-              <PopupImg image={profilePicture} />
-              <div>
-                <h4>{fullName}</h4>
-                {jobTitle ? (
-                  <div className="jobTitle">
-                    <p>Job Title:</p> <p>{jobTitle}</p>
-                  </div>
-                ) : null}
-                <p
-                  className="link"
-                  onClick={() => {
-                    this.props.history.push(`/${role}/${properties.uid}`);
-                  }}
-                >
-                  Learn more
-                </p>
+              <div className="container">
+                <PopupImg image={profilePicture} />
+                <div>
+                  <h4>{fullName}</h4>
+                  {jobTitle ? (
+                    <div className="jobTitle">
+                      <p>Job Title:</p> <p>{jobTitle}</p>
+                    </div>
+                  ) : null}
+                </div>
               </div>
+              <Link
+                className="link"
+                onClick={() => {
+                  this.props.history.push(`/${role}/${properties.uid}`);
+                }}
+              >
+                Learn more
+              </Link>
             </PopupInfo>
           </Popup>
         )
       );
     }
   };
-
 
   render() {
     return (
@@ -263,31 +254,33 @@ class LandingPage extends React.Component {
           />
           <LogoImg alt="logo" src={MainLogo} />
           <KeyBox>
-            <div className="key key1">
-              <PinKey src={SeekerPin} />
-              <h3>Job Seeker</h3>
-              <ToggleKnob htmlFor="seeker">
-                <input
-                  type="checkbox"
-                  name="seeker"
-                  id="seeker"
-                  checked={this.state.filter.seeker}
-                  onChange={this.markerShow}
-                />
-              </ToggleKnob>
-            </div>
-            <div className="key key2">
-              <PinKey src={CompanyPin} />
-              <h3>Employer</h3>
-              <ToggleKnob htmlFor="company">
-                <input
-                  type="checkbox"
-                  name="company"
-                  id="company"
-                  checked={this.state.filter.company}
-                  onChange={this.markerShow}
-                />
-              </ToggleKnob>
+            <div className="container">
+              <div className="key key1">
+                <PinKey src={SeekerPin} />
+                <h3>Job Seeker</h3>
+                <ToggleKnob htmlFor="seeker">
+                  <input
+                    type="checkbox"
+                    name="seeker"
+                    id="seeker"
+                    checked={this.state.filter.seeker}
+                    onChange={this.markerShow}
+                  />
+                </ToggleKnob>
+              </div>
+              <div className="key key2">
+                <PinKey src={CompanyPin} />
+                <h3>Employer</h3>
+                <ToggleKnob htmlFor="company">
+                  <input
+                    type="checkbox"
+                    name="company"
+                    id="company"
+                    checked={this.state.filter.company}
+                    onChange={this.markerShow}
+                  />
+                </ToggleKnob>
+              </div>
             </div>
           </KeyBox>
 

@@ -159,14 +159,14 @@ class SignUp extends React.Component {
                 { ...user },
                 { headers }
               )
-              .then(response => {
+              .then(async response => {
                 this.props.toggleModal('Your Account Has Been Created');
+                await firebase.auth().signOut();
                 firebase
                   .auth()
                   .signInWithCustomToken(response.data.customToken)
                   .then(() => {
                     this.props.history.push('/');
-                    return window.location.reload();
                   })
                   .catch(error => {
                     const errorCode = error.code;
