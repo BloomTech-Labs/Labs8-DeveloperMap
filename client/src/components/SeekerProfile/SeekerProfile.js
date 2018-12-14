@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
+import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
 import {
   Info,
   ProfileStyle,

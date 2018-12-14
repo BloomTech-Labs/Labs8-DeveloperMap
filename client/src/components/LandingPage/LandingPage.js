@@ -3,7 +3,6 @@ import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
-import { NavLink } from 'react-router-dom';
 
 import {
   MapWindow,

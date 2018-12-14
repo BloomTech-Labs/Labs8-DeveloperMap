@@ -3,7 +3,6 @@ import firebase from '../../firebase/firebase';
 import Favorite from './Favorite';
 import styled from 'styled-components';
 import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
-import axios from 'axios';
 import { Loading } from '../../reducer';
 
 class SeekerFavorites extends React.Component {

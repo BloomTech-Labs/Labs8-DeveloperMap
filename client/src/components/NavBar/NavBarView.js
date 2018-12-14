@@ -22,7 +22,7 @@ class NavBar extends React.Component {
 
   favorite = () => {
     const { uid } = this.props.user;
-    this.props.history.push(`/favorites/${this.props.user.uid}`);
+    this.props.history.push(`/favorites/${uid}`);
   };
 
   profilePop = () => {
@@ -42,7 +42,7 @@ class NavBar extends React.Component {
   render() {
     // console.log(this.props.user);
     return (
-      <Nav className='nav'>
+      <Nav className="nav">
         {this.props.user ? (
           <Icons>
             {this.props.user.role === 'seeker' ? (
@@ -79,7 +79,7 @@ class NavBar extends React.Component {
                 onClick={this.infoToggle}
               />
               {this.state.showMenu ? (
-                <DropMenu className='drop-menu'>
+                <DropMenu className="drop-menu">
                   <Link to="/tutorial">How it Works</Link>
                 </DropMenu>
               ) : null}
@@ -87,13 +87,14 @@ class NavBar extends React.Component {
           </Icons>
         ) : (
           <div>
-            <InButton className='sign-in' onClick={this.handleSignIn}>Sign In ></InButton>
+            <InButton className="sign-in" onClick={this.handleSignIn}>
+              Sign In >
+            </InButton>
           </div>
         )}
       </Nav>
     );
   }
 }
-
 
 export default NavBar;
