@@ -363,4 +363,6 @@ posting objects are relative to a unique company id
 - location = val().isString()
 ```
 
-### Favorite Postings Model
+# Testing
+
+For testing in the frontend we have used Jest and Enzyme. Every component has a test suite set up in its own directory and is suffixed with test.js. If changes are made to any one component, please make sure to update the snapshot through your preferred CLI. To do this, run `yarn test` followed by `u`.
