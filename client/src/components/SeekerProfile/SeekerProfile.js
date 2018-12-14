@@ -164,16 +164,22 @@ class SeekerProfile extends React.Component {
                   </OpenStyle>
                 </OpenContainer>
                 {this.props.currentSignedInUser ? (
-                  <Info>
-                    <div className="info">
-                      <img src={emailPic} alt="paper plane" />
-                      <p>{this.state.email}</p>
-                    </div>
-                    <div className="info">
-                      <img src={phonePic} alt="phone number" />
-                      <p>{this.state.phoneNumber}</p>
-                    </div>
-                  </Info>
+                  this.props.currentSignedInUser.role === 'company' ? (
+                    <Info>
+                      <div className="info">
+                        <img src={emailPic} alt="paper plane" />
+                        <p>{this.state.email}</p>
+                      </div>
+                      <div className="info">
+                        <img src={phonePic} alt="phone number" />
+                        <p>{this.state.phoneNumber}</p>
+                      </div>
+                    </Info>
+                  ) : (
+                    <SignEmployer>
+                      <p onClick={this.signUpEmployer}>Sign Up Employer</p>
+                    </SignEmployer>
+                  )
                 ) : (
                   <SignEmployer>
                     <p onClick={this.signUpEmployer}>Sign Up Employer</p>
