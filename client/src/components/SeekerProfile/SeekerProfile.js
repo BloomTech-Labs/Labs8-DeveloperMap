@@ -152,14 +152,22 @@ class SeekerProfile extends React.Component {
                   )}
                 </MainContent>
                 <OpenContainer>
-                  <OpenStyle>
-                    <img src={remotePic} alt="Email" />
-                    <span>Open to remote work</span>
-                  </OpenStyle>
-                  <OpenStyle>
-                    <img src={paperPlane} alt="Email" />
-                    <span>Open to relocation</span>
-                  </OpenStyle>
+                  {this.state.remote ? (
+                    <OpenStyle>
+                      <img src={remotePic} alt="Email" />
+                      <span>Open to remote work</span>
+                    </OpenStyle>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.relocation ? (
+                    <OpenStyle>
+                      <img src={paperPlane} alt="Email" />
+                      <span>Open to relocation</span>
+                    </OpenStyle>
+                  ) : (
+                    ''
+                  )}
                 </OpenContainer>
                 {this.props.currentSignedInUser ? (
                   this.props.currentSignedInUser.role === 'company' ? (
@@ -174,13 +182,15 @@ class SeekerProfile extends React.Component {
                       </div>
                     </Info>
                   ) : (
-                    <SignEmployer>
-                      <p onClick={this.signUpEmployer}>Sign Up Employer</p>
+                    <SignEmployer onClick={this.signUpEmployer}>
+                      <p>Want more info?</p>
+                      <p>Sign Up Employer</p>
                     </SignEmployer>
                   )
                 ) : (
-                  <SignEmployer>
-                    <p onClick={this.signUpEmployer}>Sign Up Employer</p>
+                  <SignEmployer onClick={this.signUpEmployer}>
+                    <p>Want more info?</p>
+                    <p>Sign Up Employer</p>
                   </SignEmployer>
                 )}
               </ProfileStyle>

@@ -125,10 +125,12 @@ export const SignEmployer = styled.div`
   background-color: rgb(37, 36, 48);
   color: rgb(255, 255, 255);
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
   p {
     font-size: 1.3rem;
     cursor: pointer;
-    padding-top: 17px;
   }
 `;
