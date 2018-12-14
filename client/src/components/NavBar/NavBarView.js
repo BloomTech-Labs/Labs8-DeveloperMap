@@ -88,7 +88,7 @@ class NavBar extends React.Component {
         ) : (
           <div>
             <InButton className="sign-in" onClick={this.handleSignIn}>
-              Sign In >
+              Sign In
             </InButton>
           </div>
         )}

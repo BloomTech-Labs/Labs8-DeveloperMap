@@ -61,35 +61,45 @@ export const Icons = styled.div`
 export const InButton = styled.button`
   width: 75px;
   height: 35px;
-  background-color: rgb(199, 144, 6);
-  color: white;
+  background-color: rgb(224, 160, 1);
+  color: rgb(35, 34, 48);
+  font-weight: bold;
   border-radius: 20px;
-  border: none;
+  border: 3px solid rgb(167, 121, 6);
   margin-right: 10px;
   box-shadow: 0 4px 2px -2px rgba(15, 15, 15, 0.2);
   cursor: pointer;
+
   &:hover {
-    background-color: rgba(199, 144, 6, 0.8);
+    background-color: rgb(245, 178, 12);
+    box-shadow: 0px 5px 6px 0px rgba(15, 15, 15, 0.5);
+    border: none;
   }
+
+  &:active {
+    background-color: rgb(224, 160, 1);
+    border: 3px solid rgb(167, 121, 6);
+    box-shadow: 0 4px 2px -2px rgba(15, 15, 15, 0.2);
+  }
+
   &:focus {
     outline: 0;
   }
 `;
 
-
 export const DropMenu = styled.div`
-position: absolute;
-min-width: 160px;
-background-color: rgba(109, 7, 26, 0.95);
-z-index: 1;
-padding: 12px 16px;
-margin-top: 20px;
-right: 1%;
-height: 75px;
-border: none;
-border-radius: 20px;
-a{
-  color: white;
-  text-decoration: none;
-}
+  position: absolute;
+  min-width: 160px;
+  background-color: rgba(109, 7, 26, 0.95);
+  z-index: 1;
+  padding: 12px 16px;
+  margin-top: 20px;
+  right: 1%;
+  height: 75px;
+  border: none;
+  border-radius: 20px;
+  a {
+    color: white;
+    text-decoration: none;
+  }
 `;

@@ -153,10 +153,8 @@ class SeekerProfile extends React.Component {
                 </MainContent>
                 <OpenContainer>
                   <OpenStyle>
-                    <OpenStyle>
-                      <img src={remotePic} alt="Email" />
-                      <span>Open to remote work</span>
-                    </OpenStyle>
+                    <img src={remotePic} alt="Email" />
+                    <span>Open to remote work</span>
                   </OpenStyle>
                   <OpenStyle>
                     <img src={paperPlane} alt="Email" />
