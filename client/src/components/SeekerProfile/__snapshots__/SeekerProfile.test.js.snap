@@ -2,129 +2,20 @@
 
 exports[`seeker profile component should render without error 1`] = `
 <div
-  className="sc-bdVaJa cbxIaT"
-  data-type="modal-container"
+  className="sc-bdVaJa sc-gZMcBi TOyQc"
 >
   <div
-    className="sc-bwzfXH modal sc-htpNat ktjkpN"
+    className="sc-bwzfXH sc-gqjmRU jhvYVd"
   >
     <div
-      className="sc-bxivhb etvENw"
+      className="sc-VigVT cEbdlG"
     >
       <div
-        className="sc-ifAKCX cGGGyP"
-      >
-        <a
-          href=""
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="LinkedIn"
-            className="none"
-            src="icons8-linkedin-filled.png"
-          />
-        </a>
-        <a
-          href=""
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="Github"
-            className="none"
-            src="icons8-github.png"
-          />
-        </a>
-        <a
-          href=""
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="Computer"
-            className="none"
-            src="icons8-computer-monitor.png"
-          />
-        </a>
-        <a
-          href=""
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="Twitter"
-            className="none"
-            src="icons8-twitter-filled.png"
-          />
-        </a>
-        <a
-          href=""
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="Resume"
-            className="none"
-            src="icons8-resume.png"
-          />
-        </a>
-      </div>
-      <div
-        alt="default"
-        className="sc-EHOje jfKyTZ"
+        className="globe-filter"
       />
       <div
-        className="sc-bZQynM dtTWN"
-      >
-        <h1>
-           
-        </h1>
-        <h3>
-          , 
-        </h3>
-        <span />
-      </div>
-      <div
-        className="options"
-      >
-        <label
-          className="sc-gzVnrw lmEPjX"
-        >
-          <input
-            checked={false}
-            disabled={true}
-            type="checkbox"
-          />
-          <span
-            className="slider round"
-          />
-          <span>
-            Open to remote work
-          </span>
-        </label>
-        <label
-          className="sc-gzVnrw lmEPjX"
-        >
-          <input
-            checked={false}
-            disabled={true}
-            type="checkbox"
-          />
-          <span>
-            Open to relocation
-          </span>
-        </label>
-      </div>
-      <div
-        className="sc-dnqmqq joHUlk"
-      >
-        <p
-          onClick={[Function]}
-        >
-          Sign Up Employer
-        </p>
-      </div>
+        className="globe-spinning"
+      />
     </div>
   </div>
 </div>

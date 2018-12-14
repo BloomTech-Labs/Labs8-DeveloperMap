@@ -2,72 +2,20 @@
 
 exports[`employer profile component should render without error 1`] = `
 <div
-  className="sc-bdVaJa cbxIaT"
-  data-type="modal-container"
+  className="sc-bdVaJa sc-dnqmqq bWtbPz"
 >
   <div
-    className="modal sc-bwzfXH gLXQyA"
-    style={
-      Object {
-        "borderRadius": "20px",
-        "maxWidth": "750px",
-      }
-    }
+    className="sc-bwzfXH sc-iwsKbI GjyAO"
   >
     <div
-      className="sc-bxivhb cfEVHl"
+      className="sc-gZMcBi kPhLgs"
     >
       <div
-        className="sc-htpNat gyKXVW"
-      >
-        <img
-          alt="default"
-          className="sc-bZQynM lhdakn"
-          src="avatar-icon.jpg"
-        />
-        <h2
-          className="com-name"
-        >
-          
-        </h2>
-        <div
-          className="sc-gzVnrw dXVvPV"
-        >
-          <h3>
-            Location:
-          </h3>
-          <h4 />
-          <h3>
-            Website:
-          </h3>
-          <h4>
-            
-          </h4>
-          <h3>
-            Phone
-          </h3>
-          <h4>
-            
-          </h4>
-          <h3>
-            Email:
-          </h3>
-          <h4>
-            
-          </h4>
-        </div>
-      </div>
+        className="globe-filter"
+      />
       <div
-        className="sc-EHOje dnIAUa"
-      >
-        <div
-          className="sc-ifAKCX kqqTha"
-        >
-          <h1>
-            This company has no job postings.
-          </h1>
-        </div>
-      </div>
+        className="globe-spinning"
+      />
     </div>
   </div>
 </div>
