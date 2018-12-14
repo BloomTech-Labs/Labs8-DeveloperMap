@@ -66,4 +66,27 @@ export const AlertContainer = styled(ModalMain)`
       animation-timing-function: ease-out;
     }
   }
+
+  .out-buttons{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 2% 10%;
+    justify-content: space-between;
+    button {
+      width: 70px;
+      height: 30px;
+      background-color: rgb(184, 15, 10);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      margin: 10px 0 10px 0;
+      box-shadow: 0 4px 2px -2px gray;
+      outline: none;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(184, 15, 10, 0.8);
+      }
+    }
+  }
 `;
