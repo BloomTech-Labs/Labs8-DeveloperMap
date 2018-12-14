@@ -80,15 +80,15 @@ export const MainContent = styled.div`
   }
 `;
 
-// Controls the checkboxes
-export const CheckLabel = styled.label`
-  display: block;
-  padding: 8px;
-  font-size: 1.3rem;
+export const OpenContainer = styled.div``;
 
-  input {
-    height: 13px;
-  }
+// Controls the checkboxes
+export const OpenStyle = styled.div`
+  margin: 15px 0;
+  font-weight: bold;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
 `;
 
 // Controls the info box
