@@ -141,4 +141,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font-family: 'Roboto', 'Helvetica';
   }
+
+  input:focus {
+    outline: none;
+  }
 `;
