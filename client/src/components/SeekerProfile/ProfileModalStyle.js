@@ -89,6 +89,11 @@ export const OpenStyle = styled.div`
   font-size: 1.3rem;
   display: flex;
   align-items: center;
+
+  span {
+    padding-left: 0.5%;
+    white-space: nowrap;
+  }
 `;
 
 // Controls the info box
