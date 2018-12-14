@@ -1,9 +1,5 @@
 import React from 'react';
-import firebase from '../../firebase/firebase';
 import JobPosting from './JobPosting';
-import FavHeart from '../../images/favorites-icon.png';
-import Heart from '../../images/hollow-heart.png';
-import axios from 'axios';
 
 import { Posts, PostContainer } from './EmployerStyles';
 

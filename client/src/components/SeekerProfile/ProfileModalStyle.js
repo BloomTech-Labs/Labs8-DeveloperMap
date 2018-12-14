@@ -80,14 +80,19 @@ export const MainContent = styled.div`
   }
 `;
 
-// Controls the checkboxes
-export const CheckLabel = styled.label`
-  display: block;
-  padding: 8px;
-  font-size: 1.3rem;
+export const OpenContainer = styled.div``;
 
-  input {
-    height: 13px;
+// Controls the checkboxes
+export const OpenStyle = styled.div`
+  margin: 15px 0;
+  font-weight: bold;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+
+  span {
+    padding-left: 0.5%;
+    white-space: nowrap;
   }
 `;
 
@@ -120,10 +125,12 @@ export const SignEmployer = styled.div`
   background-color: rgb(37, 36, 48);
   color: rgb(255, 255, 255);
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
   p {
     font-size: 1.3rem;
     cursor: pointer;
-    padding-top: 17px;
   }
 `;

@@ -10,8 +10,6 @@ import FavHeart from '../../images/favorites-icon.png';
 import Heart from '../../images/hollow-heart.png';
 import Loading from '../Loading/Loading';
 
-const rootRef = firebase.database().ref();
-
 class EmployerProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -122,12 +120,7 @@ class EmployerProfile extends React.Component {
   }
 
   render() {
-    const {
-      companyInfo,
-      posts,
-      favoritedList,
-      initialFavoritedList,
-    } = this.state;
+    const { posts, favoritedList, initialFavoritedList } = this.state;
     const {
       profilePicture,
       companyName,

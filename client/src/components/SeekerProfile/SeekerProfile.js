@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle.js';
+import { ModalContainer } from '../../styles/ModalGlobalStyle.js';
 import {
   Info,
   ProfileStyle,
-  CheckLabel,
+  OpenStyle,
   ProfilePic,
   Icons,
   MainContent,
   SignEmployer,
   ProfileModalStyle,
+  OpenContainer,
 } from './ProfileModalStyle.js';
 
 // Images for the Profile Modal
@@ -20,7 +21,9 @@ import linkedinPic from '../../images/Icons/icons8-linkedin-filled.png';
 import resumePic from '../../images/Icons/icons8-resume.png';
 import twitterPic from '../../images/Icons/icons8-twitter-filled.png';
 import paperPlane from '../../images/Icons/icons8-paper-plane-26.png';
+import emailPic from '../../images/Icons/icons8-secured-letter-26.png';
 import phonePic from '../../images/Icons/icons8-phone-26.png';
+import remotePic from '../../images/Icons/icons8-online-filled-24.png';
 import Loading from '../Loading/Loading.js';
 
 class SeekerProfile extends React.Component {
@@ -148,39 +151,46 @@ class SeekerProfile extends React.Component {
                     <span />
                   )}
                 </MainContent>
-                <div className="options">
-                  <CheckLabel>
-                    <input
-                      type="checkbox"
-                      disabled={true}
-                      checked={this.state.remote}
-                    />
-                    <span className="slider round" />
-                    <span>Open to remote work</span>
-                  </CheckLabel>
-                  <CheckLabel>
-                    <input
-                      type="checkbox"
-                      disabled={true}
-                      checked={this.state.relocation}
-                    />
-                    <span>Open to relocation</span>
-                  </CheckLabel>
-                </div>
+                <OpenContainer>
+                  {this.state.remote ? (
+                    <OpenStyle>
+                      <img src={remotePic} alt="Email" />
+                      <span>Open to remote work</span>
+                    </OpenStyle>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.relocation ? (
+                    <OpenStyle>
+                      <img src={paperPlane} alt="Email" />
+                      <span>Open to relocation</span>
+                    </OpenStyle>
+                  ) : (
+                    ''
+                  )}
+                </OpenContainer>
                 {this.props.currentSignedInUser ? (
-                  <Info>
-                    <div className="info">
-                      <img src={paperPlane} alt="paper plane" />
-                      <p>{this.state.email}</p>
-                    </div>
-                    <div className="info">
-                      <img src={phonePic} alt="phone number" />
-                      <p>{this.state.phoneNumber}</p>
-                    </div>
-                  </Info>
+                  this.props.currentSignedInUser.role === 'company' ? (
+                    <Info>
+                      <div className="info">
+                        <img src={emailPic} alt="paper plane" />
+                        <p>{this.state.email}</p>
+                      </div>
+                      <div className="info">
+                        <img src={phonePic} alt="phone number" />
+                        <p>{this.state.phoneNumber}</p>
+                      </div>
+                    </Info>
+                  ) : (
+                    <SignEmployer onClick={this.signUpEmployer}>
+                      <p>Want more info?</p>
+                      <p>Sign Up Employer</p>
+                    </SignEmployer>
+                  )
                 ) : (
-                  <SignEmployer>
-                    <p onClick={this.signUpEmployer}>Sign Up Employer</p>
+                  <SignEmployer onClick={this.signUpEmployer}>
+                    <p>Want more info?</p>
+                    <p>Sign Up Employer</p>
                   </SignEmployer>
                 )}
               </ProfileStyle>

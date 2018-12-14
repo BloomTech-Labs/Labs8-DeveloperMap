@@ -10,7 +10,6 @@ import {
   ProfileInfo,
   Location,
   Input,
-  TextArea,
   CheckBox,
   Navigation,
   Security,

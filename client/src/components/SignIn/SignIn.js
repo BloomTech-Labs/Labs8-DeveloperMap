@@ -55,7 +55,7 @@ class SignIn extends React.Component {
 
   render() {
     // console.log('%cstate', 'color: blue', this.state)
-    const { location, firstName, jobTitle, email } = this.state;
+    // const { location, firstName, jobTitle, email } = this.state;
 
     return (
       <ModalContainer data-type="modal-container">
@@ -78,7 +78,6 @@ class SignIn extends React.Component {
         )} */}
 
         {!this.state.userSignin && (
-
           <SignModalMain width="21%" className="modal">
             <h2>
               {this.props.currentSignedInUser
@@ -97,21 +96,17 @@ class SignIn extends React.Component {
                 this.props.history.push('/');
               }}
             >
-            <AuthField>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.changeHandler}
-                required
-              />
-              <Label htmlFor="email">
-                Email
-              </Label>
-            </AuthField>
-
-
+              <AuthField>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.changeHandler}
+                  required
+                />
+                <Label htmlFor="email">Email</Label>
+              </AuthField>
               <AuthField>
                 <Input
                   id="password"
@@ -121,25 +116,37 @@ class SignIn extends React.Component {
                   onChange={this.changeHandler}
                   required
                 />
-                <Label htmlFor="password">
-                  Password
-                </Label>
+                <Label htmlFor="password">Password</Label>
               </AuthField>
-              <Button>Sign In</Button>
-              - or -
-              <Button onClick={e => {e.preventDefault(); this.props.history.push('/signup')}}>Register</Button>
-              <GoogleAuthButton onClick={e => this.props.signInUser(
-                  e,
-                  this.state.email,
-                  this.state.password,
-                  'google'
-                )}/>
-              <GithubAuthButton onClick={e => this.props.signInUser(
-                  e,
-                  this.state.email,
-                  this.state.password,
-                  'github'
-                )}/>
+              <Button>Sign In</Button>- or -
+              <Button
+                onClick={e => {
+                  e.preventDefault();
+                  this.props.history.push('/signup');
+                }}
+              >
+                Register
+              </Button>
+              <GoogleAuthButton
+                onClick={e =>
+                  this.props.signInUser(
+                    e,
+                    this.state.email,
+                    this.state.password,
+                    'google'
+                  )
+                }
+              />
+              <GithubAuthButton
+                onClick={e =>
+                  this.props.signInUser(
+                    e,
+                    this.state.email,
+                    this.state.password,
+                    'github'
+                  )
+                }
+              />
             </form>
           </SignModalMain>
         )}

@@ -2,34 +2,20 @@
 
 exports[`favorite component should render without error 1`] = `
 <div
-  className="sc-htpNat gvWnkB"
-  data-type="modal-container"
+  className="sc-bwzfXH sc-jTzLTM BYepu"
 >
   <div
-    className="modal sc-bxivhb hwAuZC"
-    style={
-      Object {
-        "borderRadius": "25px",
-        "maxWidth": "725px",
-        "padding": "1%",
-      }
-    }
+    className="sc-htpNat sc-fjdhpX dpOBgu"
   >
-    <h1
-      style={
-        Object {
-          "textAlign": "center",
-        }
-      }
-    >
-      Favorite Jobs
-    </h1>
     <div
-      className="sc-bwzfXH fTAzcd"
+      className="sc-jzJRlG fRCTff"
     >
-      <h1>
-        No Favorites
-      </h1>
+      <div
+        className="globe-filter"
+      />
+      <div
+        className="globe-spinning"
+      />
     </div>
   </div>
 </div>

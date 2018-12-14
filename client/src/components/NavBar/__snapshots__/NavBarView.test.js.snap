@@ -6,10 +6,10 @@ exports[`Nav Bar Component renders correctly 1`] = `
 >
   <div>
     <button
-      className="sign-in sc-htpNat dJuGll"
+      className="sign-in sc-htpNat cAlqeK"
       onClick={[Function]}
     >
-      Sign In &gt;
+      Sign In
     </button>
   </div>
 </div>
