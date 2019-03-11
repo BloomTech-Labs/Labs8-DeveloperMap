@@ -24,7 +24,7 @@ import paperPlane from '../../images/Icons/icons8-paper-plane-26.png';
 import emailPic from '../../images/Icons/icons8-secured-letter-26.png';
 import phonePic from '../../images/Icons/icons8-phone-26.png';
 import remotePic from '../../images/Icons/icons8-online-filled-24.png';
-import Loading from '../Loading/Loading.js';
+import LoadingModalProf from '../Loading/LoadingModalProf.js';
 
 class SeekerProfile extends React.Component {
   constructor(props) {
@@ -69,11 +69,11 @@ class SeekerProfile extends React.Component {
   render() {
     return (
       <>
-        {this.state.loading ? (
-          <Loading />
-        ) : (
-          <ModalContainer data-type="modal-container">
-            <ProfileModalStyle className="modal">
+        <ModalContainer data-type="modal-container">
+          <ProfileModalStyle className="modal">
+            {this.state.loading ? (
+              <LoadingModalProf />
+            ) : (
               <ProfileStyle>
                 <Icons>
                   <a
@@ -194,9 +194,9 @@ class SeekerProfile extends React.Component {
                   </SignEmployer>
                 )}
               </ProfileStyle>
-            </ProfileModalStyle>
-          </ModalContainer>
-        )}
+            )}
+          </ProfileModalStyle>
+        </ModalContainer>
       </>
     );
   }
