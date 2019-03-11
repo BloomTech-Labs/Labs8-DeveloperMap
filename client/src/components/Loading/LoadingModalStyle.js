@@ -1,25 +1,8 @@
-import React from 'react';
-
 import styled from 'styled-components';
-import { ModalMain, ModalContainer } from '../../styles/ModalGlobalStyle';
+import SeekerLoad from './SeekerLoad';
 
-const LoadingModalProf = () => {
-  return (
-    <Timeline className="timeline-item">
-      <div className="image-container animate" />
-      <div className="name-container animate" />
-      <div className="location-container animate" />
-      <div className="info-container animate" />
-    </Timeline>
-  );
-};
-
-export default LoadingModalProf;
-
-const Timeline = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const Timeline = styled.div`
+  padding: 10px 0;
 
   .animate {
     animation-duration: 1s;
@@ -43,6 +26,12 @@ const Timeline = styled.div`
       background-position: 468px 0;
     }
   }
+`;
+
+export const SeekerLoadStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .image-container {
     width: 250px;
@@ -61,5 +50,6 @@ const Timeline = styled.div`
     height: 105px;
     width: 50%;
     border-radius: 20px;
+    margin: 10px 0 20px 0;
   }
 `;
