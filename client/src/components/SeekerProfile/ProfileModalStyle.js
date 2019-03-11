@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ModalMain } from '../../styles/ModalGlobalStyle';
 
 export const ProfileModalStyle = styled(ModalMain)`
-  width: 55%;
+  width: 70%;
 `;
 
 // Controls the content in the modal
@@ -48,16 +48,13 @@ export const MainContent = styled.div`
   text-align: center;
   width: 50%;
 
-  h1 {
-    padding: 5px 0;
+  h1,
+  p {
+    margin: 10px 0;
   }
 
   span {
     font-weight: bold;
-  }
-
-  p {
-    padding: 5px 0;
   }
 
   .bio {
@@ -86,7 +83,7 @@ export const OpenContainer = styled.div``;
 export const OpenStyle = styled.div`
   margin: 15px 0;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
 
