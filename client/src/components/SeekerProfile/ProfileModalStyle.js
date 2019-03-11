@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { ModalMain } from '../../styles/ModalGlobalStyle';
 
 export const ProfileModalStyle = styled(ModalMain)`
-  width: 50%;
+  width: 75%;
+  max-width: 750px;
 `;
 
 // Controls the content in the modal
