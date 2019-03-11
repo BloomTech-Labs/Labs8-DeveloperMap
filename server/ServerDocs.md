@@ -26,7 +26,7 @@
 
 ## To Sign Out Users
 
-- Ends the local token, firebase token still persists
+- Ends the local token, firebase token still persists.
 
 # Endpoints
 
