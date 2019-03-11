@@ -79,57 +79,42 @@ class SeekerProfile extends React.Component {
                   <a
                     href={this.state.linkedIn}
                     rel="noopener noreferrer"
+                    className={this.state.linkedIn ? null : 'none'}
                     target="_blank"
                   >
-                    <img
-                      className={this.state.linkedIn ? null : 'none'}
-                      src={linkedinPic}
-                      alt="LinkedIn"
-                    />
+                    <img src={linkedinPic} alt="LinkedIn" />
                   </a>
                   <a
                     href={this.state.github}
                     rel="noopener noreferrer"
                     target="_blank"
+                    className={this.state.github ? null : 'none'}
                   >
-                    <img
-                      className={this.state.github ? null : 'none'}
-                      src={githubPic}
-                      alt="Github"
-                    />
+                    <img src={githubPic} alt="Github" />
                   </a>
                   <a
                     href={this.state.portfolio}
                     rel="noopener noreferrer"
                     target="_blank"
+                    className={this.state.portfolio ? null : 'none'}
                   >
-                    <img
-                      className={this.state.portfolio ? null : 'none'}
-                      src={computerPic}
-                      alt="Computer"
-                    />
+                    <img src={computerPic} alt="Computer" />
                   </a>
                   <a
                     href={this.state.twitter}
                     rel="noopener noreferrer"
                     target="_blank"
+                    className={this.state.twitter ? null : 'none'}
                   >
-                    <img
-                      className={this.state.twitter ? null : 'none'}
-                      src={twitterPic}
-                      alt="Twitter"
-                    />
+                    <img src={twitterPic} alt="Twitter" />
                   </a>
                   <a
                     href={this.state.resume}
                     rel="noopener noreferrer"
                     target="_blank"
+                    className={this.state.resume ? null : 'none'}
                   >
-                    <img
-                      className={this.state.resume ? null : 'none'}
-                      src={resumePic}
-                      alt="Resume"
-                    />
+                    <img src={resumePic} alt="Resume" />
                   </a>
                 </Icons>
                 {this.state.profilePicture ? (
@@ -151,7 +136,7 @@ class SeekerProfile extends React.Component {
                     <span />
                   )}
                 </MainContent>
-                <OpenContainer>
+                <div>
                   {this.state.remote ? (
                     <OpenStyle>
                       <img src={remotePic} alt="Email" />
@@ -168,7 +153,7 @@ class SeekerProfile extends React.Component {
                   ) : (
                     ''
                   )}
-                </OpenContainer>
+                </div>
                 {this.props.currentSignedInUser ? (
                   this.props.currentSignedInUser.role === 'company' ? (
                     <Info>
