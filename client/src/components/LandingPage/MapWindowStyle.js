@@ -78,7 +78,7 @@ export const MapWindow = styled.div`
 
   .mapboxgl-popup-anchor-bottom {
     .mapboxgl-popup-tip {
-      border-top-color: rgba(109, 7, 26, 0.95);
+      border-top-color: rgb(35, 34, 48);
     }
   }
 `;
@@ -153,7 +153,7 @@ export const Link = styled.div`
   color: white;
   cursor: pointer;
   width: 100%;
-  background: rgba(109, 7, 26, 0.95);
+  background: rgb(35, 34, 48);
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
   padding: 5px 0px;
