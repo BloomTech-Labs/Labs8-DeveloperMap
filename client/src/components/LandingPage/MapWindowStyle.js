@@ -105,7 +105,7 @@ export const CloseX = styled.p`
   font-size: 19px;
   cursor: pointer;
   background-color: rgb(37, 36, 48);
-  color: white;
+  color: rgb(255,255,255);
   border-radius: 50%;
   padding: 3px 6px;
 `;
