@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import SeekerLoad from './SeekerLoad';
 
 export const Timeline = styled.div`
   padding: 10px 0;
@@ -51,5 +50,42 @@ export const SeekerLoadStyle = styled.div`
     width: 50%;
     border-radius: 20px;
     margin: 10px 0 20px 0;
+  }
+`;
+
+export const CompanyLoadStyle = styled.div`
+  display: flex;
+  justify-content: space-around;
+
+  .left-side {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+  }
+
+  .image-container {
+    height: 34%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  .name-container {
+    height: 30px;
+  }
+
+  .info-container {
+    width: 100%;
+    height: 260px;
+  }
+
+  .job-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
+  }
+
+  .jobs-container {
+    height: 110px;
+    margin: 10px 0;
   }
 `;
