@@ -75,12 +75,19 @@ export const MapWindow = styled.div`
     padding: 0;
     border-radius: 20px;
   }
+
+  .mapboxgl-popup-anchor-bottom {
+    .mapboxgl-popup-tip {
+      border-top-color: rgb(35, 34, 48);
+    }
+  }
 `;
 
 export const ShowMarker = styled.img`
   height: 35px;
   width: 25px;
   cursor: pointer;
+  
 
   &.company {
     display: ${props => (props.show.company ? 'block' : 'none')};
@@ -98,7 +105,7 @@ export const CloseX = styled.p`
   font-size: 19px;
   cursor: pointer;
   background-color: rgb(37, 36, 48);
-  color: white;
+  color: rgb(255,255,255);
   border-radius: 50%;
   padding: 3px 6px;
 `;
@@ -109,12 +116,14 @@ export const PopupInfo = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 200px;
-  padding: 8px 10px;
+  padding: 8px 0px 0px 0px;
 
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 8px 6px;
+
   }
 
   div {
@@ -140,9 +149,14 @@ export const PopupInfo = styled.div`
   }
 `;
 
-export const Link = styled.p`
-  color: rgb(30, 144, 255);
+export const Link = styled.div`
+  color: white;
   cursor: pointer;
+  width: 100%;
+  background: rgb(35, 34, 48);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 5px 0px;
 `;
 
 export const PopupImg = styled.div`
@@ -154,6 +168,7 @@ export const PopupImg = styled.div`
   background-repeat: no-repeat;
   border-radius: 50%;
   background-position: top;
+  margin-right: 5px;
 `;
 
 export const LogoImg = styled.img`
