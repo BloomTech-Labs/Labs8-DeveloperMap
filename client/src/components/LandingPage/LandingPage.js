@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import MapGL, { Marker, Popup } from 'react-map-gl';
+import MapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
 
@@ -106,6 +106,17 @@ class LandingPage extends React.Component {
     });
   };
 
+  goToViewport = (longitude, latitude) => {
+    console.log('hi');
+    this.handleViewportChange({
+      latitude,
+      longitude,
+      zoom: 11,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 1750,
+    });
+  };
+
   // ==== Gets the markers from the server ====
   getMarkers = () => {
     axios
@@ -164,7 +175,13 @@ class LandingPage extends React.Component {
           className={role}
           src={pin}
           alt="Marker"
-          onClick={() => this.setState({ pin: mark })}
+          onClick={() => {
+            this.goToViewport(
+              mark.geometry.coordinates[0],
+              mark.geometry.coordinates[1]
+            );
+            this.setState({ pin: mark });
+          }}
           show={this.state.filter}
         />
       </Marker>

@@ -2,13 +2,12 @@ import React from 'react';
 import firebase from '../../firebase/firebase';
 import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
 import profile from '../../images/avatar-icon.jpg';
-import { Info, Styling } from './EmployerStyles';
-import styled from 'styled-components';
+import { Info, Styling, ProfilePic, InfoContainer } from './EmployerStyles';
 import axios from 'axios';
 import EmployerPostings from './EmployerPostings';
 import FavHeart from '../../images/favorites-icon.png';
 import Heart from '../../images/hollow-heart.png';
-import Loading from '../Loading/Loading';
+import LoadingModal from '../Loading/LoadingModal';
 
 class EmployerProfile extends React.Component {
   constructor(props) {
@@ -131,14 +130,14 @@ class EmployerProfile extends React.Component {
     } = this.state.companyInfo;
     return (
       <>
-        {this.state.loading ? (
-          <Loading />
-        ) : (
-          <ModalContainer data-type="modal-container">
-            <ModalMain
-              style={{ maxWidth: '750px', borderRadius: '20px' }}
-              className="modal"
-            >
+        <ModalContainer data-type="modal-container">
+          <ModalMain
+            style={{ maxWidth: '750px', borderRadius: '20px' }}
+            className="modal"
+          >
+            {this.state.loading ? (
+              <LoadingModal />
+            ) : (
               <Styling>
                 <Info>
                   {profilePicture ? (
@@ -166,25 +165,12 @@ class EmployerProfile extends React.Component {
                   initialFavoritedList={initialFavoritedList}
                 />
               </Styling>
-            </ModalMain>
-          </ModalContainer>
-        )}
+            )}
+          </ModalMain>
+        </ModalContainer>
       </>
     );
   }
 }
-
-export const ProfilePic = styled.img`
-  width: 50%;
-  border-radius: 50%;
-  margin-bottom: 20px;
-`;
-
-const InfoContainer = styled.div`
-  border: 0.7px solid rgba(220, 220, 220, 0.6);
-  border-radius: 4px;
-  width: 100%;
-  padding: 2%;
-`;
 
 export default EmployerProfile;
