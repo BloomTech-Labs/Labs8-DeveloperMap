@@ -4,7 +4,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 
-
 import {
   MapWindow,
   ShowMarker,
@@ -24,7 +23,6 @@ import CompanyPin from '../../images/EMarker.png';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoibG5kdWJvc2UiLCJhIjoiY2pvNmF1ZnowMGo3MDNrbmw4ZTVmb2txMyJ9.UpxjYyEOBnCJjw_qE_N8Kw';
-
 
 class LandingPage extends React.Component {
   state = {
@@ -177,10 +175,6 @@ class LandingPage extends React.Component {
           src={pin}
           alt="Marker"
           onClick={() => {
-            this.goToViewport(
-              mark.geometry.coordinates[0],
-              mark.geometry.coordinates[1]
-            );
             this.setState({ pin: mark });
           }}
           show={this.state.filter}
