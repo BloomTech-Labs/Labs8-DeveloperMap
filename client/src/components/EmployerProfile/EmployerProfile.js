@@ -1,8 +1,14 @@
 import React from 'react';
 import firebase from '../../firebase/firebase';
-import { ModalContainer, ModalMain } from '../../styles/ModalGlobalStyle';
+import { ModalContainer } from '../../styles/ModalGlobalStyle';
 import profile from '../../images/avatar-icon.jpg';
-import { Info, Styling, ProfilePic, InfoContainer } from './EmployerStyles';
+import {
+  Info,
+  Styling,
+  ProfilePic,
+  InfoContainer,
+  EmployerModalMain,
+} from './EmployerStyles';
 import axios from 'axios';
 import EmployerPostings from './EmployerPostings';
 import FavHeart from '../../images/favorites-icon.png';
@@ -131,10 +137,7 @@ class EmployerProfile extends React.Component {
     return (
       <>
         <ModalContainer data-type="modal-container">
-          <ModalMain
-            style={{ maxWidth: '750px', borderRadius: '20px' }}
-            className="modal"
-          >
+          <EmployerModalMain className="modal">
             {this.state.loading ? (
               <LoadingModal />
             ) : (
@@ -166,7 +169,7 @@ class EmployerProfile extends React.Component {
                 />
               </Styling>
             )}
-          </ModalMain>
+          </EmployerModalMain>
         </ModalContainer>
       </>
     );

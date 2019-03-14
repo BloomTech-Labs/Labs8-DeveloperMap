@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+import { ModalMain } from '../../styles/ModalGlobalStyle';
+
+export const EmployerModalMain = styled(ModalMain)`
+  max-width: 750px;
+  overflow-y: auto;
+
+  @media (max-width: 801px) {
+    height: 98%;
+  }
+`;
+
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,11 +35,11 @@ export const Styling = styled.div`
   display: flex;
   padding: 5%;
   justify-content: space-between;
-  max-width: 750px;
   width: 100%;
-  @media (max-width: 650px) {
+  @media (max-width: 801px) {
     flex-wrap: wrap;
-    padding-top: 500px;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -76,5 +87,9 @@ export const Job = styled.div`
   a {
     text-decoration: none;
     color: rgba(109, 7, 26, 0.95);
+  }
+
+  @media (max-width: 801px) {
+    max-width: none;
   }
 `;
