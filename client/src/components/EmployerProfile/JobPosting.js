@@ -31,7 +31,7 @@ class JobPosting extends React.Component {
     const { jobLink } = this.props.post;
     return (
       <Job>
-        <div>
+        <div className="job-div">
           <h2>{this.props.post.companyName}</h2>
           <h3>{this.props.post.date}</h3>
           <h4>

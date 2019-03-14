@@ -57,16 +57,30 @@ export const CompanyLoadStyle = styled.div`
   display: flex;
   justify-content: space-around;
 
+  @media (max-width: 801px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .left-side {
     display: flex;
     flex-direction: column;
     width: 30%;
+    @media (max-width: 801px) {
+      width: 45%;
+    }
   }
 
   .image-container {
     height: 34%;
     border-radius: 50%;
     margin-bottom: 20px;
+
+    @media (max-width: 801px) {
+      height: 150px;
+      width: 150px;
+      margin: 50px auto 0 auto;
+    }
   }
   .name-container {
     height: 30px;
@@ -82,6 +96,10 @@ export const CompanyLoadStyle = styled.div`
     flex-direction: column;
     justify-content: space-between;
     width: 40%;
+
+    @media (max-width: 801px) {
+      width: 60%;
+    }
   }
 
   .jobs-container {

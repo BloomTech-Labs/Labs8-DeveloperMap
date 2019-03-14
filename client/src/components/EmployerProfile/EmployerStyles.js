@@ -18,6 +18,7 @@ export const Info = styled.div`
   max-width: 300px;
   width: 100%;
   padding: 5%;
+
   .com-name {
     font-size: 1.6rem;
     margin-bottom: 30px;
@@ -68,6 +69,7 @@ export const InfoContainer = styled.div`
   border-radius: 4px;
   width: 100%;
   padding: 2%;
+  overflow-x: hidden;
 `;
 
 export const Job = styled.div`
@@ -84,6 +86,11 @@ export const Job = styled.div`
   &:hover {
     box-shadow: none;
   }
+
+  .job-div {
+    width: 60%;
+  }
+
   a {
     text-decoration: none;
     color: rgba(109, 7, 26, 0.95);
