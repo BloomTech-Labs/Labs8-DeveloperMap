@@ -107,7 +107,11 @@ export const CloseX = styled.p`
   background-color: rgb(37, 36, 48);
   color: rgb(255,255,255);
   border-radius: 50%;
-  padding: 3px 6px;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const PopupInfo = styled.div`
@@ -115,7 +119,7 @@ export const PopupInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 200px;
+  max-width: 210px;
   padding: 8px 0px 0px 0px;
 
   .container {
@@ -274,4 +278,9 @@ export const ToggleKnob = styled.label`
   input[type='checkbox']:checked {
     left: -5px;
   }
+`;
+
+
+export const PopContent = styled.div`
+  width: 128px;
 `;

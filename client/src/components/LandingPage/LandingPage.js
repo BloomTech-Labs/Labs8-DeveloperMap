@@ -16,6 +16,7 @@ import {
   ToggleKnob,
   PopupImg,
   Link,
+  PopContent,
 } from './MapWindowStyle';
 import SeekerPin from '../../images/SMarker.png';
 import MainLogo from '../../images/mainlogo.png';
@@ -228,14 +229,14 @@ class LandingPage extends React.Component {
             <PopupInfo>
               <div className="container">
                 <PopupImg image={profilePicture} />
-                <div>
+                <PopContent>
                   <h4>{fullName}</h4>
                   {jobTitle ? (
                     <div className="jobTitle">
                       <p>Job Title:</p> <p>{jobTitle}</p>
                     </div>
                   ) : null}
-                </div>
+                </PopContent>
               </div>
               <Link
                 className="link"
