@@ -52,7 +52,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   display: block;
-  width: 100%;
+  width: 200px;
   font-size: 16px;
   margin-top: 10px;
   background-color: #fafafa;
@@ -148,7 +148,7 @@ export const Password = styled.div`
 `;
 
 export const Button = styled.button`
-  width: ${props => (props.width ? props.width : '100%')};
+  width: ${props => (props.width ? props.width : '200px')};
   height: 40px;
   background-color: rgb(184, 15, 10);
   color: white;
